@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -41,6 +42,9 @@ public class MailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
+
+    @Autowired
+    private MailProperties mailProperties;
 
     @Autowired
     private MailCaseRepository mailCaseRepository;
@@ -161,7 +165,7 @@ public class MailService {
         MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
         try {
             message.setTo(new InternetAddress(toEmail, toName, "UTF-8"));
-            message.setFrom("admin@javaops.ru", "Java Online Projects");
+            message.setFrom(mailProperties.getUsername(), "Java Online Projects");
         } catch (UnsupportedEncodingException e) { // dummy
         }
         message.setSubject(subject);
