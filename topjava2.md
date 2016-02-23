@@ -243,3 +243,6 @@ http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-featur
 
 
 org.springframework.web.servlet.DispatcherServlet.getHandler #1115
+
+## stormpath
+https://devcenter.heroku.com/articles/stormpath
