@@ -1,6 +1,6 @@
 package ru.javaops.config.exception;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
+import com.google.common.base.Throwables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
@@ -25,6 +25,6 @@ public class ExceptionInfoHandler {
     @Order(Ordered.LOWEST_PRECEDENCE)
     public ErrorInfo handleError(HttpServletRequest req, Exception e) {
         log.error("Exception at request " + req.getRequestURI());
-        return new ErrorInfo(req.getRequestURL(), ExceptionUtils.getRootCause(e));
+        return new ErrorInfo(req.getRequestURL(), Throwables.getRootCause(e));
     }
 }

@@ -1,6 +1,6 @@
 package ru.javaops.config.exception;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
+import com.google.common.base.Throwables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
@@ -35,9 +35,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Throwable.class)
     @Order(Ordered.LOWEST_PRECEDENCE)
-    ModelAndView defaultHandler(HttpServletRequest req, Exception e) throws Exception {
+    ModelAndView defaultHandler(HttpServletRequest req, Throwable e) throws Exception {
         log.error("Exception at request " + req.getRequestURL(), e);
-        return processException(ExceptionUtils.getRootCause(e).getMessage());
+        return processException(Throwables.getRootCause(e).getMessage());
     }
 
     private ModelAndView processException(String msg) {
