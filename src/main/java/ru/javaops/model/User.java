@@ -179,6 +179,18 @@ public class User extends BaseEntity {
         this.skype = skype;
     }
 
+    public String getGmail() {
+        return gmail;
+    }
+
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public String getSkype() {
+        return skype;
+    }
+
     @Override
     public String toString() {
         return "User (" +

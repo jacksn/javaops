@@ -27,6 +27,8 @@ import javax.validation.Valid;
 import javax.validation.ValidationException;
 import java.util.Date;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * GKislin
  */
@@ -85,6 +87,7 @@ public class SubscriptionController {
     public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key, @RequestParam("project") String project) {
         ProjectProps projectProps = groupService.getProjectProps(project);
         User u = userService.findByEmailAndGroupId(email, projectProps.currentGroup.getId());
+        checkNotNull(u, "Пользователь %s не найден в проекте %s", email, project);
         return new ModelAndView("participation", ImmutableMap.of("user", u, "project", projectProps.project, "key", key));
     }
 
