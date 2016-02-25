@@ -14,11 +14,12 @@ import ru.javaops.config.AppProperties;
 import ru.javaops.model.User;
 import ru.javaops.model.UserGroup;
 import ru.javaops.service.GroupService;
-import ru.javaops.service.GroupService.ProjectGroups;
+import ru.javaops.service.GroupService.ProjectProps;
 import ru.javaops.service.MailService;
 import ru.javaops.service.SubscriptionService;
 import ru.javaops.service.UserService;
 import ru.javaops.to.UserTo;
+import ru.javaops.to.UserToExt;
 import ru.javaops.util.Util;
 
 import javax.mail.MessagingException;
@@ -50,20 +51,15 @@ public class SubscriptionController {
 
     @RequestMapping(value = "/activate", method = RequestMethod.GET)
     public ModelAndView activate(@RequestParam("email") String email, @RequestParam("activate") boolean activate, @RequestParam("key") String key) {
-        if (subscriptionService.isActivationKeyMatch(email, key)) {
-            User u = userService.findExistedByEmail(email);
-            if (u != null) {
-                if (u.isActive() != activate) {
-                    u.setActive(activate);
-                    u.setActivatedDate(new Date());
-                    userService.save(u);
-                    return new ModelAndView("activation",
-                            ImmutableMap.of("activate", activate,
-                                    "subscriptionUrl", subscriptionService.getSubscriptionUrl(email, key, !activate)));
-                }
-            }
+        User u = userService.findExistedByEmail(email);
+        if (u.isActive() != activate) {
+            u.setActive(activate);
+            u.setActivatedDate(new Date());
+            userService.save(u);
         }
-        throw new IllegalArgumentException();
+        return new ModelAndView("activation",
+                ImmutableMap.of("activate", activate,
+                        "subscriptionUrl", subscriptionService.getSubscriptionUrl(email, key, !activate)));
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -74,15 +70,30 @@ public class SubscriptionController {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
-        return register(template, appProperties.getTestEmail(), channel, "http://javawebinar.ru/confirm.html", "http://javawebinar.ru/error.html", userTo, result, groupService.getProjectGroups(project));
+        return register(template, appProperties.getTestEmail(), channel, "http://javawebinar.ru/confirm.html", "http://javawebinar.ru/error.html", userTo, groupService.getProjectProps(project));
     }
 
     private ModelAndView register(String template, String confirmEmail, String channel, String successUrl, String failUrl,
-                                  UserTo userTo, BindingResult result,
-                                  ProjectGroups projectGroups) throws MessagingException {
+                                  UserTo userTo, ProjectProps projectProps) throws MessagingException {
 
-        UserGroup userGroup = groupService.registerAtProject(userTo, projectGroups, channel);
-        String mailResult = mailService.sendRegistration(template, projectGroups.project, userGroup, confirmEmail);
+        UserGroup userGroup = groupService.registerAtProject(userTo, projectProps, channel);
+        String mailResult = mailService.sendRegistration(template, projectProps.project, userGroup, confirmEmail);
         return new ModelAndView("redirectToUrl", "redirectUrl", MailService.isOk(mailResult) ? successUrl : failUrl);
+    }
+
+    @RequestMapping(value = "/participate", method = RequestMethod.GET)
+    public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key, @RequestParam("project") String project) {
+        ProjectProps projectProps = groupService.getProjectProps(project);
+        User u = userService.findByEmailAndGroupId(email, projectProps.currentGroup.getId());
+        return new ModelAndView("participation", ImmutableMap.of("user", u, "project", projectProps.project, "key", key));
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ModelAndView save(@RequestParam("key") String key, @Valid UserToExt userToExt, BindingResult result) {
+        if (result.hasErrors()) {
+            throw new ValidationException(Util.getErrorMessage(result));
+        }
+        userService.update(userToExt);
+        return new ModelAndView("message", "message", "Спасибо за регистрацию.");
     }
 }

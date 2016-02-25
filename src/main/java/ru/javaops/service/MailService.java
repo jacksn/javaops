@@ -135,7 +135,7 @@ public class MailService {
         checkNotNull(user, "User must not be null");
         String activationKey = subscriptionService.generateActivationKey(user.getEmail());
         String subscriptionUrl = subscriptionService.getSubscriptionUrl(user.getEmail(), activationKey, false);
-        return sendToUserWithParams(template, user, ImmutableMap.of("user", user, "subscriptionUrl", subscriptionUrl));
+        return sendToUserWithParams(template, user, ImmutableMap.of("user", user, "subscriptionUrl", subscriptionUrl, "activationKey", activationKey));
     }
 
     public String sendToUserWithParams(String template, User user, final Map<String, ?> params) {

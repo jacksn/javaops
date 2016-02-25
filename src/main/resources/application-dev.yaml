@@ -25,7 +25,11 @@ app:
   activation-secret-salt: test
   cache-seconds: 1
   host-url: http://localhost:8080
-  vk-token: token
+  integration:
+    vk-token: token
+    stamplay:
+       appid: appid
+       webhookid: webhookid
 
 spring:
   mail.host: smtp.yandex.ru

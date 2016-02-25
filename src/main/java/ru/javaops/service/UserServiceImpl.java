@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.javaops.LoggedUser;
 import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
+import ru.javaops.to.UserToExt;
+import ru.javaops.util.UserUtil;
 
 import java.util.Collection;
 import java.util.Set;
@@ -74,5 +76,17 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     @Override
     public void save(User u) {
         userRepository.save(u);
+    }
+
+    public User findByEmailAndGroupId(String email, int groupId) {
+        return userRepository.findByEmailAndGroupId(email, groupId);
+    }
+
+    @Override
+    @Transactional
+    public void update(UserToExt userTo) {
+        User user = userRepository.findOne(userTo.getId());
+        UserUtil.updateFromToExt(user, userTo);
+        userRepository.save(user);
     }
 }

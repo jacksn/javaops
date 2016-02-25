@@ -192,6 +192,9 @@ http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#unescaped-text
 Inlining
 http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#inlining
 
+Href
+http://www.thymeleaf.org/doc/articles/standardurlsyntax.html
+
 ### Using multiple template resolvers
 http://blog.kaczmarzyk.net/2015/01/04/loading-view-templates-from-database-with-thymeleaf/
 http://stackoverflow.com/questions/26609226/using-multiple-template-resolvers-with-spring-3-2-and-thymeleaf-2-1-3-for-emails
@@ -246,3 +249,7 @@ org.springframework.web.servlet.DispatcherServlet.getHandler #1115
 
 ## stormpath
 https://devcenter.heroku.com/articles/stormpath
+
+## encoding
+http://stackoverflow.com/questions/24054648/how-to-config-characterencodingfilter-in-springboot
+

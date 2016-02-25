@@ -35,12 +35,6 @@ public class AppProperties {
     @NotNull
     private String hostUrl;
 
-    /**
-     * VK token
-     */
-    @NotNull
-    private String vkToken;
-
     public String getActivationSecretSalt() {
         return activationSecretSalt;
     }
@@ -71,13 +65,5 @@ public class AppProperties {
 
     public String getHostUrl() {
         return hostUrl;
-    }
-
-    public String getVkToken() {
-        return vkToken;
-    }
-
-    public void setVkToken(String vkToken) {
-        this.vkToken = vkToken;
     }
 }

@@ -8,11 +8,11 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class UserTo {
     @NotEmpty(message = "Поле email не может быть пустым")
-    String email;
+    private String email;
 
-    String nameSurname;
-    String location;
-    String infoSource;
+    private String nameSurname;
+    private String location;
+    private String infoSource;
 
     public String getEmail() {
         return email;

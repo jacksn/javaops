@@ -1,0 +1,17 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Регистрационные данные для доступа к материалам проекта 'Java Enterprise (Topajava).'</title>
+</head>
+<!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+Для доступа к материалам проекта нужен твой Gmail аккаунт.<br/>
+Заполни пожалуйста пустые поля <a th:href="@{http://javaops.ru/participate(email=${user.email}, key=${activationKey}, project='topjava')}">регистрационной
+    формы</a>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>

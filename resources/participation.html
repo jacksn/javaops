@@ -1,0 +1,84 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="project" type="ru.javaops.model.Project"*/-->
+<!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
+<head th:include="fragments::headTag('Java Online Projects')">
+    <meta charset="UTF-8"/>
+    <title th:text="|Регистрация на ${project.getDescription()}|">Регистрация на проект Java Enterprise
+        (Topjava)</title>
+    <link rel="stylesheet" href="static/bootstrap-3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="shortcut icon" href="static/img/java_cup.ico"/>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header">
+    <div class="container">
+        <a href="/" class="navbar-brand">Java Online Projects</a>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="jumbotron">
+    <div class="container">
+        <br/>
+        <h2 th:text="|Регистрация на ${project.getDescription()}|">Регистрация на проект Java Enterprise</h2>
+        <br/>
+        <form class="form-horizontal" method="post" action="save">
+            <div class="form-group ">
+                <label class="control-label col-xs-3">Имя Фамилия</label>
+                <div class="col-xs-8">
+                    <input name="nameSurname" th:value="${user.fullName}"/>
+                </div>
+            </div>
+
+            <div class="form-group ">
+                <label class="control-label col-xs-3">e-mail</label>
+                <div class="col-xs-8">
+                    <input name="email" th:value="${user.email}" readonly="readonly"/>
+                </div>
+            </div>
+
+            <div class="form-group ">
+                <label class="control-label col-xs-3">g-mail (для авторизации GoogleDrive)</label>
+                <div class="col-xs-8">
+                    <input name="gmail" th:value="${user.gmail}"/>
+                </div>
+            </div>
+
+            <div class="form-group ">
+                <label class="control-label col-xs-3">Skype</label>
+                <div class="col-xs-8">
+                    <input name="skype" th:value="${user.skype}"/>
+                </div>
+            </div>
+
+            <div class="form-group ">
+                <label class="control-label col-xs-3">Город</label>
+                <div class="col-xs-8">
+                    <input name="location" th:value="${user.location}"/>
+                </div>
+            </div>
+
+            <div class="form-group ">
+                <label class="control-label col-xs-3">Обо мне. Опыт с
+                    Java</label>
+                <div class="col-xs-8">
+                    <textarea name="aboutMe" rows="5" cols="50" th:utext="${user.aboutMe}"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-offset-3 col-xs-10">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </div>
+
+            <input type="hidden" name="id" th:value="${user.id}"/>
+            <!--/*@thymesVar id="key" type="java.lang.String"*/-->
+            <input type="hidden" name="key" th:value="${key}"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

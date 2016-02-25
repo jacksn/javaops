@@ -18,8 +18,8 @@ public class MailServiceTest extends ApplicationAbstractTest {
 
     @Test
     public void testGetContent() throws Exception {
-        String content = mailService.getContent("basejava_register_ad",
-                ImmutableMap.of("user", UserTestData.USER, "template", "topjava_register", "participation", "REGISTRATION", "result", "OK"));
+        String content = mailService.getContent("topjva_fill_form",
+                ImmutableMap.of("user", UserTestData.USER, "template", "topjava_register", "participation", "REGISTRATION", "result", "OK", "activationKey", "activationKey"));
         System.out.println("\n+++++");
         System.out.println(Util.getTitle(content));
         System.out.println("+++++");
