@@ -8,7 +8,7 @@ import org.springframework.core.io.Resource;
  *         Date: 04-Aug-15.
  */
 public class MarkdownUtil {
-    private final ThreadLocal<PegDownProcessor> PROCESSOR = new ThreadLocal<PegDownProcessor>() {
+    private final static ThreadLocal<PegDownProcessor> PROCESSOR = new ThreadLocal<PegDownProcessor>() {
 
         @Override
         protected PegDownProcessor initialValue() {
@@ -16,7 +16,7 @@ public class MarkdownUtil {
         }
     };
 
-    String toHtml(Resource resource) {
+    public static String toHtml(Resource resource) {
         return PROCESSOR.get().markdownToHtml(Util.toString(resource));
     }
 }
