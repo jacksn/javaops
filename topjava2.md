@@ -1,16 +1,3 @@
-Запуск: mvn spring-boot:run
-
-Коннект к базе (только 1 коннект возможен):
-
-- профиль prod
-
-   - приложение не работает jdbc:h2:file:~/db/javaops
-   - приложение работает:   jdbc:h2:tcp://localhost:9092/~/db/javaops
-
-- профиль dev
-   - jdbc:h2:tcp://localhost:9092/mem:javaops
-
------------------------------------------------------
 ## Spring Boot generate/run
 -  <a href="http://blog.jetbrains.com/idea/2015/04/webinar-recording-spring-boot-and-intellij-idea-14-1">Spring Boot and Intellij IDEA 14</a>
 -  https://github.com/snicoll-demos/spring-boot-intellij-idea-webinar
