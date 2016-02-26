@@ -53,6 +53,7 @@ public class SubscriptionController {
 
     @RequestMapping(value = "/activate", method = RequestMethod.GET)
     public ModelAndView activate(@RequestParam("email") String email, @RequestParam("activate") boolean activate, @RequestParam("key") String key) {
+        email = email.toLowerCase();
         User u = userService.findExistedByEmail(email);
         if (u.isActive() != activate) {
             u.setActive(activate);
@@ -85,6 +86,7 @@ public class SubscriptionController {
 
     @RequestMapping(value = "/participate", method = RequestMethod.GET)
     public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key, @RequestParam("project") String project) {
+        email = email.toLowerCase();
         ProjectProps projectProps = groupService.getProjectProps(project);
         User u = userService.findByEmailAndGroupId(email, projectProps.currentGroup.getId());
         checkNotNull(u, "Пользователь %s не найден в проекте %s", email, project);

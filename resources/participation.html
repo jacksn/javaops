@@ -27,44 +27,44 @@
         <form class="form-horizontal" method="post" action="save">
             <div class="form-group ">
                 <label class="control-label col-xs-3">Имя Фамилия</label>
-                <div class="col-xs-8">
-                    <input name="nameSurname" th:value="${user.fullName}"/>
+                <div class="col-xs-4">
+                    <input class="form-control" name="nameSurname" th:value="${user.fullName}"/>
                 </div>
             </div>
 
             <div class="form-group ">
                 <label class="control-label col-xs-3">e-mail</label>
-                <div class="col-xs-8">
-                    <input name="email" th:value="${user.email}" readonly="readonly"/>
+                <div class="col-xs-4">
+                    <input class="form-control" name="email" th:value="${user.email}" readonly="readonly"/>
                 </div>
             </div>
 
             <div class="form-group ">
                 <label class="control-label col-xs-3">g-mail (для авторизации GoogleDrive)</label>
-                <div class="col-xs-8">
-                    <input name="gmail" th:value="${user.gmail}"/>
+                <div class="col-xs-4">
+                    <input class="form-control" name="gmail" th:value="${user.gmail}"/>
                 </div>
             </div>
 
             <div class="form-group ">
                 <label class="control-label col-xs-3">Skype</label>
-                <div class="col-xs-8">
-                    <input name="skype" th:value="${user.skype}"/>
+                <div class="col-xs-4">
+                    <input class="form-control" name="skype" th:value="${user.skype}"/>
                 </div>
             </div>
 
             <div class="form-group ">
                 <label class="control-label col-xs-3">Город</label>
-                <div class="col-xs-8">
-                    <input name="location" th:value="${user.location}"/>
+                <div class="col-xs-4">
+                    <input class="form-control" name="location" th:value="${user.location}"/>
                 </div>
             </div>
 
             <div class="form-group ">
                 <label class="control-label col-xs-3">Обо мне. Опыт с
                     Java</label>
-                <div class="col-xs-8">
-                    <textarea name="aboutMe" rows="5" cols="50" th:utext="${user.aboutMe}"></textarea>
+                <div class="col-xs-4">
+                    <textarea class="form-control " name="aboutMe" rows="5" th:utext="${user.aboutMe}"></textarea>
                 </div>
             </div>
 
