@@ -69,26 +69,26 @@ public class GroupService {
     public UserGroup registerAtProject(UserTo userTo, ProjectProps projectProps, String channel) {
         log.info("add{} to project {}", userTo, projectProps.project);
         User user = userService.findByEmail(userTo.getEmail());
-        ParticipationType participationType;
+        RegisterType registerType;
 
         if (user != null) {
             UserUtil.updateFromTo(user, userTo);
             Set<Group> groups = findByUserId(user.getId());
-            participationType = groups.stream()
+            registerType = groups.stream()
                     .filter(g -> projectProps.project.equals(g.getProject()) && g.getType() == GroupType.FINISHED)
-                    .findFirst().isPresent() ? ParticipationType.REPEAT : ParticipationType.REGISTERED;
+                    .findFirst().isPresent() ? RegisterType.REPEAT : RegisterType.REGISTERED;
 
             if (groups.stream().filter(g -> g.equals(projectProps.registeredGroup) || g.equals(projectProps.currentGroup)).findFirst().isPresent()) {
                 // Already registered
-                return new UserGroup(user, projectProps.registeredGroup, participationType, channel);
+                return new UserGroup(user, projectProps.registeredGroup, registerType, channel);
             }
         } else {
             user = UserUtil.createFromTo(userTo);
-            participationType = ParticipationType.FIRST_REGISTERED;
+            registerType = RegisterType.FIRST_REGISTERED;
         }
         userService.save(user);
-        Group group = (participationType == ParticipationType.REPEAT) ? projectProps.currentGroup : projectProps.registeredGroup;
-        UserGroup userGroup = new UserGroup(user, group, participationType, channel);
+        Group group = (registerType == RegisterType.REPEAT) ? projectProps.currentGroup : projectProps.registeredGroup;
+        UserGroup userGroup = new UserGroup(user, group, registerType, channel);
         return userGroupRepository.save(userGroup);
     }
 
@@ -97,7 +97,7 @@ public class GroupService {
         if (ug == null) {
             ug = userGroupRepository.findByUserIdAndGroupId(u.getId(), targetGroup.getId());
             if (ug == null) {
-                ug = new UserGroup(u, targetGroup, ParticipationType.REGISTERED, "email");
+                ug = new UserGroup(u, targetGroup, RegisterType.REGISTERED, "email");
             }
         } else {
             ug.setGroup(targetGroup);
@@ -106,11 +106,12 @@ public class GroupService {
     }
 
     @Transactional
-    public UserGroup pay(String email, String projectName, Payment payment) {
-        log.info("Pay from {} for {}: {}", email, payment);
+    public UserGroup pay(String email, String projectName, Payment payment, ParticipationType participationType) {
+        log.info("Pay from {} for {}: {}", email, projectName, payment);
         User u = userService.findExistedByEmail(email);
         ProjectProps projectProps = getProjectProps(projectName);
         UserGroup ug = moveOrCreate(u, projectProps.registeredGroup, projectProps.currentGroup);
+        ug.setParticipationType(participationType);
         paymentRepository.save(payment);
         ug.setPayment(payment);
         userGroupRepository.save(ug);

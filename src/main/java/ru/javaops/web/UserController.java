@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.javaops.model.Currency;
+import ru.javaops.model.ParticipationType;
 import ru.javaops.model.Payment;
 import ru.javaops.model.User;
 import ru.javaops.service.GroupService;
@@ -43,7 +45,7 @@ public class UserController {
 
     @RequestMapping(value = "/pay", method = POST)
     public void pay(@Param("project") String project, @Param("email") String email,
-                    @Param("sum") int sum, @Param("currency") Currency currency, @Param("comment") String comment) {
-        groupService.pay(email.toLowerCase(), project, new Payment(sum, currency, comment));
+                    @Param("sum") int sum, @Param("currency") Currency currency, @Param("comment") String comment, @RequestParam(value = "type", required = false) ParticipationType participationType) {
+        groupService.pay(email.toLowerCase(), project, new Payment(sum, currency, comment), participationType);
     }
 }

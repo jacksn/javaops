@@ -174,7 +174,7 @@ public class MailService {
     }
 
     public String sendRegistration(String template, Project project, UserGroup userGroup, String confirmEmail) throws MessagingException {
-        if (userGroup.getType() == ParticipationType.REPEAT) {
+        if (userGroup.getRegisterType() == RegisterType.REPEAT) {
             template = project.getName() + "_repeat";
         } else if (template == null) {
             template = project.getName() + "_register";

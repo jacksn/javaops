@@ -16,10 +16,10 @@ public class UserGroup extends BaseEntity {
     public UserGroup() {
     }
 
-    public UserGroup(User user, Group group, ParticipationType type, String channel) {
+    public UserGroup(User user, Group group, RegisterType type, String channel) {
         this.user = user;
         this.group = group;
-        this.type = type;
+        this.registerType = type;
         this.channel = channel;
     }
 
@@ -34,8 +34,12 @@ public class UserGroup extends BaseEntity {
     private Group group;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type")
-    private ParticipationType type;
+    @Column(name = "register_type")
+    private RegisterType registerType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "participation_type", nullable = true)
+    private ParticipationType participationType;
 
     @Column(name = "channel")
     private String channel;
@@ -56,8 +60,8 @@ public class UserGroup extends BaseEntity {
         this.group = group;
     }
 
-    public ParticipationType getType() {
-        return type;
+    public RegisterType getRegisterType() {
+        return registerType;
     }
 
     public Group getGroup() {
@@ -66,5 +70,9 @@ public class UserGroup extends BaseEntity {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public void setParticipationType(ParticipationType participationType) {
+        this.participationType = participationType;
     }
 }
