@@ -3,11 +3,11 @@
 <!--/*@thymesVar id="userGroup" type="ru.javaops.model.UserGroup"*/-->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title th:text="|Registration ${userGroup.user.email}: ${template}, ${userGroup.type}, ${userGroup.channel}, ${result}|"></title>
+    <title th:text="|Registration ${userGroup.user.email}: ${template}, ${userGroup.registerType}, ${userGroup.channel}, ${result}|"></title>
 </head>
 <p th:text="|${userGroup.user.toString()} was added to group ${userGroup.group.name}|">
 </p>
-<p th:text="|Participation: ${userGroup.type}, channel: ${userGroup.channel}|">
+<p th:text="|Participation: ${userGroup.registerType}, channel: ${userGroup.channel}|">
 </p>
 <p th:text="|Template ${template} sending by email with result: ${result}|">
 </p>
