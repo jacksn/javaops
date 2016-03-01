@@ -240,3 +240,25 @@ https://devcenter.heroku.com/articles/stormpath
 ## encoding
 http://stackoverflow.com/questions/24054648/how-to-config-characterencodingfilter-in-springboot
 
+## UI:
+<a herf="https://www.toptal.com/front-end/javascript-front-ends-in-java-with-gwt">GWT Toolkit</a>
+
+
+https://ru.wikipedia.org/wiki/Веб-компоненты
+
+https://github.com/vaadin/gwt-polymer-elements
+
+Веб-компоненты
+http://frontender.info/shadowdom/
+
+Building a modern GWT app using Polymer Elements
+http://www.gwtproject.org/doc/latest/polymer-tutorial/introduction.html
+
+http://stackoverflow.com/questions/28564438/spring-boot-gwt-embedded-configuraiton
+https://github.com/Ekito/spring-boot-gwt
+https://github.com/feedm3/spring-boot-gwt
+
+Создаем приложение с помощью Spring и GWT.
+http://alextretyakov.blogspot.ru/2011/10/4.html
+
+http://www.springbyexample.org/static/1.1/html/simple-gwt-spring-webapp.html

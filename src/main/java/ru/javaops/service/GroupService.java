@@ -95,7 +95,10 @@ public class GroupService {
     public UserGroup moveOrCreate(User u, Group sourceGroup, Group targetGroup) {
         UserGroup ug = userGroupRepository.findByUserIdAndGroupId(u.getId(), sourceGroup.getId());
         if (ug == null) {
-            ug = new UserGroup(u, targetGroup, ParticipationType.REGISTERED, "email");
+            ug = userGroupRepository.findByUserIdAndGroupId(u.getId(), targetGroup.getId());
+            if (ug == null) {
+                ug = new UserGroup(u, targetGroup, ParticipationType.REGISTERED, "email");
+            }
         } else {
             ug.setGroup(targetGroup);
         }

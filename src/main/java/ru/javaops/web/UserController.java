@@ -44,6 +44,6 @@ public class UserController {
     @RequestMapping(value = "/pay", method = POST)
     public void pay(@Param("project") String project, @Param("email") String email,
                     @Param("sum") int sum, @Param("currency") Currency currency, @Param("comment") String comment) {
-        groupService.pay(email, project, new Payment(sum, currency, comment));
+        groupService.pay(email.toLowerCase(), project, new Payment(sum, currency, comment));
     }
 }
