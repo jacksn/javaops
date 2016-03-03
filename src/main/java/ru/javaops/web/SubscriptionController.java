@@ -53,7 +53,6 @@ public class SubscriptionController {
 
     @RequestMapping(value = "/activate", method = RequestMethod.GET)
     public ModelAndView activate(@RequestParam("email") String email, @RequestParam("activate") boolean activate, @RequestParam("key") String key) {
-        email = email.toLowerCase();
         User u = userService.findExistedByEmail(email);
         if (u.isActive() != activate) {
             u.setActive(activate);

@@ -19,7 +19,6 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import ru.javaops.config.AppProperties;
 import ru.javaops.model.*;
 import ru.javaops.repository.MailCaseRepository;
-import ru.javaops.repository.UserRepository;
 import ru.javaops.util.Util;
 
 import javax.mail.MessagingException;
@@ -28,6 +27,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -50,7 +50,7 @@ public class MailService {
     private MailCaseRepository mailCaseRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private SubscriptionService subscriptionService;
@@ -66,8 +66,8 @@ public class MailService {
         return OK.equals(result);
     }
 
-    public GroupResult sendToProjectByGroupType(String template, String projectName, GroupType type) {
-        return sendToUserList(template, userRepository.findByProjectAndGroupType(projectName, type));
+    public GroupResult sendToEmailList(String template, Collection<String> emails) {
+        return sendToUserList(template, emails.stream().map(userService::findExistedByEmail).collect(Collectors.toSet()));
     }
 
     public GroupResult sendToUserList(String template, Collection<User> users) {
@@ -105,7 +105,7 @@ public class MailService {
     }
 
     private User getTestUser() {
-        return userRepository.findByEmail(appProperties.getTestEmail());
+        return userService.findByEmail(appProperties.getTestEmail());
     }
 
     private void cancelAll(Map<Future<String>, String> resultMap) {
@@ -128,7 +128,7 @@ public class MailService {
     public String sendToUser(String template, String email) {
         checkNotNull(template, "Template must not be null");
         checkNotNull(email, "email  must not be null");
-        return sendToUser(template, userRepository.findByEmail(email.toLowerCase()));
+        return sendToUser(template, userService.findByEmail(email));
     }
 
     public String sendToUser(String template, User user) {
@@ -187,7 +187,7 @@ public class MailService {
     }
 
     public static class GroupResultBuilder {
-        private List<String> success = new ArrayList<>();
+        private int success = 0;
         private List<MailResult> failed = new ArrayList<>();
         private String failedCause = null;
 
@@ -203,7 +203,7 @@ public class MailService {
             try {
                 final String result = future.get();
                 if (isOk(result)) {
-                    success.add(email);
+                    success++;
                 } else {
                     failed.add(new MailResult(email, result));
                 }
@@ -214,7 +214,7 @@ public class MailService {
                 failed.add(new MailResult(email, e.toString()));
                 LOG.error("Sending to " + email + " failed with " + e.getMessage());
             }
-            return (failed.size() < success.size() || failed.size() < 3) && failedCause == null;
+            return (failed.size() < success || failed.size() < 3) && failedCause == null;
         }
     }
 
@@ -239,19 +239,19 @@ public class MailService {
     }
 
     public static class GroupResult {
-        final List<String> success;
+        final int success;
         final List<MailResult> failed;
         final String failedCause;
 
-        public GroupResult(@JsonProperty("success") List<String> success, @JsonProperty("failed") List<MailResult> failed, @JsonProperty("failedCause") String failedCause) {
-            this.success = ImmutableList.copyOf(success);
+        public GroupResult(@JsonProperty("success") int success, @JsonProperty("failed") List<MailResult> failed, @JsonProperty("failedCause") String failedCause) {
+            this.success = success;
             this.failed = ImmutableList.copyOf(failed);
             this.failedCause = failedCause;
         }
 
         @Override
         public String toString() {
-            return "Success: " + success.toString() + '\n' +
+            return "Success: " + success + '\n' +
                     "Failed: " + failed.toString() + '\n' +
                     (failedCause == null ? "" : "Failed cause" + failedCause);
         }

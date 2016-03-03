@@ -1,5 +1,6 @@
 package ru.javaops.web;
 
+import com.google.common.base.Splitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -8,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.javaops.model.GroupType;
 import ru.javaops.model.User;
 import ru.javaops.service.GroupService;
 import ru.javaops.service.MailService;
@@ -31,21 +31,21 @@ public class MailController {
     @Autowired
     private GroupService groupService;
 
-    @RequestMapping(value = "/to-user", method = POST)
-    public ResponseEntity<String> sendToUser(@Param("template") String template, @Param("email") String email) {
-        String result = mailService.sendToUser(template, email);
-        return new ResponseEntity<>(result, MailService.isOk(result) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
     @RequestMapping(value = "/test", method = POST)
     public ResponseEntity<String> sendToUser(@Param("template") String template) {
         String result = mailService.sendTest(template);
         return new ResponseEntity<>(result, MailService.isOk(result) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @RequestMapping(value = "/to-project", method = POST)
-    public ResponseEntity<MailService.GroupResult> sendToProjectByGroupType(@Param("template") String template, @Param("project") String project, @Param("groupType") String groupType) {
-        MailService.GroupResult groupResult = mailService.sendToProjectByGroupType(template, project, GroupType.valueOf(groupType.toUpperCase()));
+    @RequestMapping(value = "/to-user", method = POST)
+    public ResponseEntity<String> sendToUser(@Param("template") String template, @Param("email") String email) {
+        String result = mailService.sendToUser(template, email);
+        return new ResponseEntity<>(result, MailService.isOk(result) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @RequestMapping(value = "/to-users", method = POST)
+    public ResponseEntity<MailService.GroupResult> sendToProjectByGroupType(@Param("template") String template, @Param("emails") String emails) {
+        MailService.GroupResult groupResult = mailService.sendToEmailList(template, Splitter.on(',').trimResults().omitEmptyStrings().splitToList(emails));
         return new ResponseEntity<>(groupResult, groupResult.isOk() ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

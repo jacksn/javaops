@@ -18,8 +18,7 @@ public class JacksonTest extends ApplicationAbstractTest {
 
     @Test
     public void testGetResult() throws Exception {
-        MailService.GroupResult res = new MailService.GroupResult(ImmutableList.of("a@ya.ru", "b@ya.ru"),
-                ImmutableList.of(new MailService.MailResult("c@ya.ru", "fail_c"), new MailService.MailResult("d@ya.ru", "fail_d")), null);
+        MailService.GroupResult res = new MailService.GroupResult(2, ImmutableList.of(new MailService.MailResult("c@ya.ru", "fail_c"), new MailService.MailResult("d@ya.ru", "fail_d")), null);
         System.out.println(res);
         String str = objectMapper.writeValueAsString(res);
         System.out.println(str);
