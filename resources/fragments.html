@@ -4,6 +4,7 @@
     <title th:text="${title}"></title>
     <link rel="stylesheet" href="/static/bootstrap-3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/static/bootstrap-3.3.6/css/docs.min.css"/>
+    <link rel="stylesheet" href="static/plugins/bootstrap.footnotes.css"/>
     <link rel="stylesheet" href="/css/style.css"/>
     <link rel="shortcut icon" href="/static/img/java_cup.ico"/>
 </head>
@@ -21,5 +22,14 @@
 <th:block th:fragment="footer">
     <script src="/static/jquery-1.12.0.min.js"></script>
     <script src="/static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script src="/static/plugins/bootstrap.footnotes.js"></script>
 </th:block>
+
+<th:block th:fragment="footnotes">
+    <link rel="stylesheet" href="../static/plugins/bootstrap.footnotes.css"/>
+    <script src="/static/plugins/bootstrap-tooltip.js"></script>
+    <script src="/static/plugins/bootstrap-popover.js"></script>
+    <script src="/static/plugins/bootstrap.footnotes.js"></script>
+</th:block>
+
 </html>

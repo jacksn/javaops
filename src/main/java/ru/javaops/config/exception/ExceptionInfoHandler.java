@@ -24,7 +24,7 @@ public class ExceptionInfoHandler {
     @ResponseBody
     @Order(Ordered.LOWEST_PRECEDENCE)
     public ErrorInfo handleError(HttpServletRequest req, Exception e) {
-        log.error("Exception at request " + req.getRequestURI());
+        log.error("Exception at request " + req.getRequestURI(), e);
         return new ErrorInfo(req.getRequestURL(), Throwables.getRootCause(e));
     }
 }

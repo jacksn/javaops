@@ -127,7 +127,7 @@ public class MailService {
 
     public String sendToUser(String template, String email) {
         checkNotNull(template, "Template must not be null");
-        checkNotNull(email, "email  must not be null");
+        checkNotNull(email, "Email must not be null");
         return sendToUser(template, userService.findByEmail(email));
     }
 
