@@ -33,7 +33,7 @@ public class ThymeleafConfiguration implements SchedulingConfigurer {
     public TemplateResolver appTemplateResolver() {
         log.debug("Configuring Email template");
         return new FileTemplateResolver() {{
-            setPrefix("./resources/");
+            setPrefix("./resources/view/");
             setSuffix(".html");
             setTemplateMode("HTML5");
             setCharacterEncoding("UTF-8");
