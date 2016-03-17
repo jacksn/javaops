@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Второе занятие проекта Java Enterprise (Topjava)</title>
+</head>
+<body>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!
+</p>
+Готово второе достаточно сложное занятие нашего проекта "<a href="https://github.com/JavaWebinar/topjava06/blob/doc/doc/lesson02.md">Каркас приложения, добавление Spring</a>".<br/>
+    <p>
+        Перед началом урока код в ветке master вашего проекта должна быть в том же состоянии, что и <a
+            href="https://github.com/JavaWebinar/topjava06/commits/master">в моей ветка master</a>.<br/>
+        В случае проблем с накаткой патчей в вашу смотрите в Git
+        Wiki "<a href="https://github.com/JavaOPs/topjava/wiki/Git">Patch не накатывается (предлагает merge)</a>".
+    </p>
+    <p>
+        Домашнее задание (у кого есть проверка) желательно присылать до вечера 15.03.<br/>
+        Удачи в освоении материалов и выполнении этого важного задания!
+    </p>
+    <p th:include="mailFragments::footer(${subscriptionUrl})">
+    </p>
+</body>
+</html>

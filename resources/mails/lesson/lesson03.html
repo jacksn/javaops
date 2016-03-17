@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Второе занятие проекта Java Enterprise (Topjava)</title>
+</head>
+<body>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!
+</p>
+Третье занятие нашего проекта: <a href="https://github.com/JavaWebinar/topjava06/blob/doc/doc/lesson03.md">тестирование, JUnit и начинаем работать с DB</a>.<br/>
+Если с SQL и RDBMS не работали- прочтите основы по ссылкам.
+<p>
+        Перед началом урока код в ветке master вашего проекта должна быть в том же состоянии, что и <a href="https://github.com/JavaWebinar/topjava06/commits/master">в моей ветка master</a>.<br/>
+        Обсуждение урока и ДЗ в <a href="https://topjava06.slack.com/messages/lesson03/">slack #lesson03</a>
+    </p>
+    <p>
+        Домашнее задание (у кого есть проверка) желательно присылать до вечера 24.03.<br/>
+        Удачи в освоении материалов и выполнении этого важного задания!
+    </p>
+    <p th:include="mailFragments::footer(${subscriptionUrl})">
+    </p>
+</body>
+</html>
