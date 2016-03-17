@@ -1,0 +1,97 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::headTag('Ошибка')">
+    <!-- ============================================================================ -->
+    <!-- This <head> is only used for static prototyping purposes (natural templates) -->
+    <!-- and is therefore entirely optional, as this markup fragment will be included  -->
+    <!-- from "fragments.html" at runtime.                                            -->
+    <!-- ============================================================================ -->
+    <meta charset="UTF-8"/>
+    <title>Истории</title>
+    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/docs.min.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header">
+    <div class="container">
+        <a href="/" class="navbar-brand">Java Online Projects</a>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container indent-body">
+    <img src="../static/img/portrait/LevH.png" align="left" style="margin:0 30px 30px 0;">
+    <p>
+        Добрый день.
+    </p>
+    <p>
+        По просьбе коллеги, решил написать свою историю трудоустройства программистом.
+    </p>
+    <h3>Обучение</h3>
+    <p>
+        До того как стать программистом,
+        я работал проектировщиком сетей связи. Но решил стать программистом, т.к. идея автоматизации разных процессов
+        мне показалось очень заманчивой. Сначала решил изучать C++, скачал пару задачников по С++. И увидел ссылку на
+        сервис JavaRush, на тот момент сервис содержал всего 15 уровней и не требовал денег за его использование. Я
+        прошел пару уровней и решил изучать Java, этот язык показался мне более читабельным и лаконичным. Когда я дошел
+        до 15 уровня, остальные еще разрабатывались, но я решил купить подписку в надежде, что это хоть как то поможет и
+        развитию сервиса. Я выполнял задания с Javarush, изучал HTML, CSS, Javascript и jQuery на codecademy. Позже, при поиске разных
+        курсов, я наткнулся на школу разработки в Digital Design. Я подал заявку.
+    </p>
+    <h3>Digital Design</h3>
+    <p>
+        Первую часть курса школы включала в себя изучение Java Core. Вторая часть предполагала - реальный проект (что-то
+        наподобие TopJava, но большую часть изучали сами, по примерам и туториалам). С Core проблем не было, но вот
+        переварить все, что включал "реальный проект" стало не просто. Стек технологий требовал много времени на
+        изучение jQuery и jQuery Plugins, Spring, Hibernate, Jetty, еще предстояло разобраться с svn и maven.
+        Предполагалась разработка приложения, позволяющего упростить управление проектами для менеджеров, учитывать
+        уровень загрузки членов команды на разных проектах и т.д. В итоге получился мало-функциональный макет. Но три
+        человека, включая меня, все-таки успешно закончили школу разработки.
+    </p>
+    <p>
+        Следующим этапом стала стажировка. Там приходилось работать за еду в прямом смысле - оплачивали только обед. Я
+        начал делать свой собственный проект. Решил разработать каталог-партнёрку, на нем планировалось даже немного
+        подзаработать. Так я начал делать свой проект с таким же стеком, что и школе разработки. В это же время начал
+        ходить по собеседованиям. Кстати, одним из плюсов моего резюме оказался собственный проект, который
+        разворачивался на Amazon EC2.
+    </p>
+    <p>
+        Проект я доделать не успел т.к. посетив 4-5 собеседований, я получил два предложения. Общее время, потраченное
+        на подготовку и трудоустройство, составляло 4-5 месяцев. Три из них я по 8 часов в день ходил на стажировку.
+    </p>
+    <h3>TopJava</h3>
+        <p>
+        После полутора лет коммерческой разработки и использования фреймворков компании, решил обновить свои знания по
+        OpenSource технологиям. Проект TopJava для этого подошел идеально. Я узнал новые возможности Java 8, поработал
+        со основными модулями Srping'а , использовал Hibernate и eCache. Для UI использовал Bootstrap и jQuery plugins.
+        Вобщем прошел весь путь от создания скелета приложения и его реализации до его финального деплоя в heroku. Думаю, этот проект - одна из причин, по которой я успешно сменю
+        работу. Но это тема для другой истории.:)
+    </p>
+    <p>
+        Главное верить в свои силы:) .
+    </p>
+    <hr>
+    Лев Хачересьянц, 16/03/2016
+    <hr>
+    <a href="../story.html">К списку историй</a>
+</div>
+<br/>
+</body>
+<th:block th:replace="fragments::footer">
+    <script src="../static/jquery-1.12.0.min.js"></script>
+    <script src="../static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+</th:block>
+<th:block th:replace="fragments::footnotes">
+    <link rel="stylesheet" href="../static/plugins/bootstrap.footnotes.css"/>
+    <script src="../static/plugins/bootstrap-tooltip.js"></script>
+    <script src="../static/plugins/bootstrap-popover.js"></script>
+    <script src="../static/plugins/bootstrap.footnotes.js"></script>
+    <script>$(function () {
+        $.footnotes();
+    });</script>
+</th:block>
+</html>
