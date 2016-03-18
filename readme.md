@@ -1,5 +1,7 @@
 ## Разработка сайта для Java проектов http://javaops.ru
 
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/300abd4332374403bec8fac9499b1127)](https://www.codacy.com/app/gkislin/javaops)
+
 ### Стек:
 - Spring Boot
 - H2
