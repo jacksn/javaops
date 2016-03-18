@@ -40,7 +40,7 @@ public class UserController {
     @RequestMapping(value = "/group", method = POST)
     public Collection<User> getGroup(@Param("group") String group) {
 //      TODO make json projection
-        return userService.getGroup(group);
+        return userService.findByGroupName(group);
     }
 
     @RequestMapping(value = "/pay", method = POST)

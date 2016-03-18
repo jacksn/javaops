@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
 import ru.javaops.service.GroupService;
 import ru.javaops.service.MailService;
@@ -51,9 +52,10 @@ public class MailController {
 
     @RequestMapping(value = "/to-groups", method = POST)
     public ResponseEntity<MailService.GroupResult> sendToGroup(@Param("template") String template, @Param("includes") String includes,
-                                                               @RequestParam(value = "excludes", required = false) String excludes) {
+                                                               @RequestParam(value = "excludes", required = false) String excludes,
+                                                               @RequestParam(value = "reg-type", required = false) RegisterType registerType) {
 
-        Set<User> users = groupService.filterUserByGroupNames(includes, excludes);
+        Set<User> users = groupService.filterUserByGroupNames(includes, excludes, registerType);
         MailService.GroupResult groupResult = mailService.sendToUserList(template, users);
         return new ResponseEntity<>(groupResult, groupResult.isOk() ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
     }

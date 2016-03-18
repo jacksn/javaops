@@ -8,12 +8,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javaops.LoggedUser;
+import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
 import ru.javaops.to.UserToExt;
 import ru.javaops.util.UserUtil;
 
-import java.util.Collection;
 import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -55,10 +55,6 @@ public class UserServiceImpl implements UserService, org.springframework.securit
         }
     }
 
-    public Collection<User> getGroup(String groupName) {
-        return userRepository.findByGroupName(groupName);
-    }
-
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email.toLowerCase());
@@ -71,6 +67,11 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     @Override
     public Set<User> findByGroupName(String groupName) {
         return userRepository.findByGroupName(groupName);
+    }
+
+    @Override
+    public Set<User> findByGroupNameAndRegisterType(String groupName, RegisterType registerType) {
+        return userRepository.findByGroupNameAndRegisterType(groupName, registerType);
     }
 
     @Override

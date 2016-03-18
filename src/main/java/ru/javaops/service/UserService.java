@@ -1,9 +1,9 @@
 package ru.javaops.service;
 
+import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
 import ru.javaops.to.UserToExt;
 
-import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -14,13 +14,13 @@ public interface UserService {
 
     void deleteByEmail(String email);
 
-    Collection<User> getGroup(String groupName);
-
     User findExistedByEmail(String email);
 
     User findByEmail(String email);
 
     Set<User> findByGroupName(String email);
+
+    Set<User> findByGroupNameAndRegisterType(String groupName, RegisterType registerType);
 
     User findByEmailAndGroupId(String email, int groupId);
 

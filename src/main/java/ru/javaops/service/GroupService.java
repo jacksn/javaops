@@ -133,22 +133,26 @@ public class GroupService {
         return group.get();
     }
 
-    public Set<User> filterUserByGroupNames(String includes, String excludes) {
+    public Set<User> filterUserByGroupNames(String includes, String excludes, RegisterType registerType) {
         final List<Group> groups = getAll();
-        Set<User> includeUsers = filterUserByGroupNames(groups, includes);
+        Set<User> includeUsers = filterUserByGroupNames(groups, includes, registerType);
         if (StringUtils.isNoneEmpty(excludes)) {
-            Set<User> excludeUsers = filterUserByGroupNames(groups, excludes);
+            Set<User> excludeUsers = filterUserByGroupNames(groups, excludes, null);
             includeUsers.removeAll(excludeUsers);
         }
         return includeUsers;
     }
 
-    private Set<User> filterUserByGroupNames(List<Group> groups, String groupNames) {
+    private Set<User> filterUserByGroupNames(List<Group> groups, String groupNames, RegisterType registerType) {
         List<Predicate<String>> predicates = getMatcher(groupNames);
 
         // filter users by predicates
         return groups.stream().filter(group -> predicates.stream().anyMatch(p -> p.test(group.getName())))
-                .flatMap(group -> userService.findByGroupName(group.getName()).stream())
+                .flatMap(group ->
+                        (registerType == null ?
+                                userService.findByGroupName(group.getName()) :
+                                userService.findByGroupNameAndRegisterType(group.getName(), registerType)
+                        ).stream())
                 .collect(Collectors.toSet());
     }
 
