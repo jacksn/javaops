@@ -14,16 +14,6 @@ import java.util.Date;
 @Entity
 @Table(name = "mail_case")
 public class MailCase extends BaseEntity {
-    protected MailCase() {
-    }
-
-    public MailCase(User user, String template, String result) {
-        this.user = user;
-        this.template = template;
-        this.result = result;
-        this.datetime = new Date();
-    }
-
     @Column(name = "datetime", columnDefinition = "TIMESTAMP DEFAULT NOW()", nullable = false)
     @NotNull
     private Date datetime;
@@ -41,4 +31,30 @@ public class MailCase extends BaseEntity {
     @Column(name = "result", nullable = false)
     @NotNull
     private String result;
+
+    protected MailCase() {
+    }
+
+    public MailCase(User user, String template, String result) {
+        this.user = user;
+        this.template = template;
+        this.result = result;
+        this.datetime = new Date();
+    }
+
+    public Date getDatetime() {
+        return datetime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getTemplate() {
+        return template;
+    }
+
+    public String getResult() {
+        return result;
+    }
 }

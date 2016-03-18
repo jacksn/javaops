@@ -22,20 +22,20 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoHandlerFoundException.class)
     @Order(Ordered.LOWEST_PRECEDENCE - 1)
-    ModelAndView noHandlerFoundHandler() throws Exception {
+    public ModelAndView noHandlerFoundHandler() throws Exception {
         return processException("Неверный запрос");
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     @Order(Ordered.LOWEST_PRECEDENCE - 1)
-    ModelAndView illegalArgumentHandler(HttpServletRequest req, Exception e) throws Exception {
+    public ModelAndView illegalArgumentHandler(HttpServletRequest req, Exception e) throws Exception {
         log.error("Illegal params in request" + req.getRequestURL(), e);
         return processException(e.getMessage() == null ? "Неверные параметры запроса" : e.getMessage());
     }
 
     @ExceptionHandler(Throwable.class)
     @Order(Ordered.LOWEST_PRECEDENCE)
-    ModelAndView defaultHandler(HttpServletRequest req, Throwable e) throws Exception {
+    public ModelAndView defaultHandler(HttpServletRequest req, Throwable e) throws Exception {
         log.error("Exception at request " + req.getRequestURL(), e);
         return processException(Throwables.getRootCause(e).getMessage());
     }

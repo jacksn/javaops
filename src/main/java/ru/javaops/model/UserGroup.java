@@ -13,16 +13,6 @@ import javax.persistence.*;
 @Table(name = "user_group", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "group_id"}, name = "user_group_unique_idx")})
 public class UserGroup extends BaseEntity {
 
-    public UserGroup() {
-    }
-
-    public UserGroup(User user, Group group, RegisterType type, String channel) {
-        this.user = user;
-        this.group = group;
-        this.registerType = type;
-        this.channel = channel;
-    }
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -47,6 +37,16 @@ public class UserGroup extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Payment payment;
+
+    public UserGroup() {
+    }
+
+    public UserGroup(User user, Group group, RegisterType type, String channel) {
+        this.user = user;
+        this.group = group;
+        this.registerType = type;
+        this.channel = channel;
+    }
 
     public String getChannel() {
         return channel;
@@ -74,5 +74,13 @@ public class UserGroup extends BaseEntity {
 
     public void setParticipationType(ParticipationType participationType) {
         this.participationType = participationType;
+    }
+
+    public ParticipationType getParticipationType() {
+        return participationType;
+    }
+
+    public Payment getPayment() {
+        return payment;
     }
 }

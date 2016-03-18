@@ -191,6 +191,30 @@ public class User extends BaseEntity {
         return skype;
     }
 
+    public String getWebsite() {
+        return website;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public String getGithub() {
+        return github;
+    }
+
+    public String getVk() {
+        return vk;
+    }
+
+    public Date getRegisteredDate() {
+        return registeredDate;
+    }
+
+    public Date getActivatedDate() {
+        return activatedDate;
+    }
+
     @Override
     public String toString() {
         return "User (" +

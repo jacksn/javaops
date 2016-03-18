@@ -239,9 +239,9 @@ public class MailService {
     }
 
     public static class GroupResult {
-        final int success;
-        final List<MailResult> failed;
-        final String failedCause;
+        private final int success;
+        private final List<MailResult> failed;
+        private final String failedCause;
 
         public GroupResult(@JsonProperty("success") int success, @JsonProperty("failed") List<MailResult> failed, @JsonProperty("failedCause") String failedCause) {
             this.success = success;

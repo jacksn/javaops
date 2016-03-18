@@ -10,15 +10,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "payment")
 public class Payment extends BaseEntity {
-    public Payment() {
-    }
-
-    public Payment(int sum, Currency currency, String comment) {
-        this.sum = sum;
-        this.currency = currency;
-        this.comment = comment;
-    }
-
     @Column(name = "date")
     private LocalDate date = LocalDate.now();
 
@@ -35,5 +26,14 @@ public class Payment extends BaseEntity {
     @Override
     public String toString() {
         return "Payment(" + sum + currency + ':' + comment + ')';
+    }
+
+    public Payment() {
+    }
+
+    public Payment(int sum, Currency currency, String comment) {
+        this.sum = sum;
+        this.currency = currency;
+        this.comment = comment;
     }
 }

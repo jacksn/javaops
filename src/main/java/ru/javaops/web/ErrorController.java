@@ -38,7 +38,7 @@ public class ErrorController implements org.springframework.boot.autoconfigure.w
     }
 
     @RequestMapping(ERROR_PATH)
-    String error(HttpServletRequest request, Model model) {
+    public String error(HttpServletRequest request, Model model) {
         Map<String, Object> errorMap = errorAttributes.getErrorAttributes(new ServletRequestAttributes(request), false);
         model.addAllAttributes(errorMap);
         return "exception";
