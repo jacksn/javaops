@@ -41,6 +41,14 @@ public class Group extends NamedEntity {
         return type;
     }
 
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
     @Override
     public String toString() {
         return "Group{" +

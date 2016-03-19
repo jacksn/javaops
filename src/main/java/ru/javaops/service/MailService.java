@@ -199,7 +199,7 @@ public class MailService {
             return new GroupResult(success, failed, cause);
         }
 
-        boolean accept(String email, Future<String> future) {
+        private boolean accept(String email, Future<String> future) {
             try {
                 final String result = future.get();
                 if (isOk(result)) {
@@ -224,8 +224,8 @@ public class MailService {
     }
 
     public static class MailResult {
-        final String email;
-        final String result;
+        private final String email;
+        private final String result;
 
         public MailResult(@JsonProperty("email") String email, @JsonProperty("result") String result) {
             this.email = email;

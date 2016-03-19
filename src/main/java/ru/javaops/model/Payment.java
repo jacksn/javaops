@@ -36,4 +36,20 @@ public class Payment extends BaseEntity {
         this.currency = currency;
         this.comment = comment;
     }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public String getComment() {
+        return comment;
+    }
 }
