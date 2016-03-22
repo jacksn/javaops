@@ -11,6 +11,7 @@ import ru.javaops.model.ParticipationType;
 import ru.javaops.model.Payment;
 import ru.javaops.model.User;
 import ru.javaops.service.GroupService;
+import ru.javaops.service.MailService;
 import ru.javaops.service.UserService;
 
 import java.util.Collection;
@@ -30,6 +31,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private MailService mailService;
+
+    @Autowired
     private GroupService groupService;
 
     @RequestMapping(method = DELETE)
@@ -44,8 +48,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/pay", method = POST)
-    public void pay(@Param("project") String project, @Param("email") String email,
-                    @Param("sum") int sum, @Param("currency") Currency currency, @Param("comment") String comment, @RequestParam(value = "type", required = false) ParticipationType participationType) {
+    public String pay(@Param("project") String project, @Param("email") String email,
+                      @Param("sum") int sum, @Param("currency") Currency currency, @Param("comment") String comment,
+                      @RequestParam(value = "type", required = false) ParticipationType participationType,
+                      @RequestParam(value = "template", required = false) String template) {
         groupService.pay(email.toLowerCase(), project, new Payment(sum, currency, comment), participationType);
+        return (template == null) ? "Paid" : mailService.sendToUser(template, email);
     }
 }
