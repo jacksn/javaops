@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Четвертое занятие проекта TopJava Enterprise</title>
+</head>
+<body>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!
+</p>
+<p>
+Четвертое занятие нашего проекта: <a href="https://github.com/JavaWebinar/topjava06/blob/doc/doc/lesson03.md">популирование данных через Spring, JPA/ Hibernate, HSQLDB</a>.
+</p>
+<b>Из за бага вставки в HSQLDB исправил в последнем патче версию hsqldb с 2.3.3 на 2.3.2. Если патч уже накатили, можете только у себя поправить.</b>
+Материалов по JPA огромное количество. Чтобы не утонуть- не надо пытаться освоить все сразу. Пока достаточно того, что нужно для выполнения HW04.
+<p>
+        Перед началом урока код в ветке master вашего проекта должна быть в том же состоянии, что и <a href="https://github.com/JavaWebinar/topjava06/commits/master">в моей ветка master</a>.<br/>
+        Обсуждение урока и ДЗ в <a href="https://topjava06.slack.com/messages/lesson04/">slack #lesson04</a>
+    </p>
+    <p>
+        Домашнее задание (у кого есть проверка) желательно присылать до вечера 29.03.<br/>
+        Удачи в освоении материалов и выполнении этого важного задания!
+    </p>
+    <p th:include="mailFragments::footer(${subscriptionUrl})">
+    </p>
+</body>
+</html>
