@@ -1,0 +1,68 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::headTag('Ошибка')">
+    <!-- ============================================================================ -->
+    <!-- This <head> is only used for static prototyping purposes (natural templates) -->
+    <!-- and is therefore entirely optional, as this markup fragment will be included  -->
+    <!-- from "fragments.html" at runtime.                                            -->
+    <!-- ============================================================================ -->
+    <meta charset="UTF-8"/>
+    <title>Истории</title>
+    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/docs.min.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header">
+    <div class="container">
+        <a href="/" class="navbar-brand">Java Online Projects</a>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container indent-body">
+    <h3>Как я стал Java-разработчиком</h3>
+    <p>
+    После окончания технического университета в течение около 10-ти лет я работал разработчиком электронной аппаратуры.
+    Сначала я разрабатывал схемы и печатные платы, писал программы для микроконтроллеров на Ассемблере и Си.
+    Потом на работе потребовалось создавать простейшие дескоптные приложения на С++ и С#, я стал изучать эти языки и писать такие приложения.
+    Далее я заинтересовался веб-приложениями, открыл для себя язык Java и начал изучать его по книгам и статьям из интернета.
+    Изучая Java я осознал, что технологий на этой платформе очень много и мне как новичку было непросто разобраться, что изучать сначала, а что потом, и я решил, что без курсов мне не обойтись.
+    </p>
+    <p>
+        Нашел в интернете очный курс для начинающих Java-разработчиков и записался на него.
+        Преподавал на курсе Григорий Кислин. Мне очень понравилось, как Григорий подает материал. На его курсе было максимальное количество практики, мы создавали и в итоге создали настоящее, актуальное веб-приложение.
+        Каждый урок был записан на видео, которое я потом пересматривал, а некоторые фрагменты не по одному разу.
+        После окончания этого курса Григорий предложил пройти обучение на еще одном его курсе TopJava в формате вебинара и я, конечно, согласился.
+        Этот курс Григорий проводил в похожем формате и после окончания этого курса я получил легко масштабируемое приложение enterprise-уровня.
+    </p>
+    <p>
+        Далее так сложилось, что на моей работе потребовалось создать небольшое веб-приложение.
+        Знаний и навыков, приобретенных на этих двух курсах мне хватило, чтобы я создал такое приложение.
+        После этого я разместил свое резюме на нескольких сайтах, и через некоторое время мне предложили работу в крупной компании.
+        Я сходил на собеседование, успешно его прошел, устроился работать и на данный момент работаю в этой компании уже более полугода.
+    </p>
+    <hr>
+    Максим, 28/03/2016
+    <hr>
+    <a href="../story.html">К списку историй</a>
+</div>
+<br/>
+</body>
+<th:block th:replace="fragments::footer">
+    <script src="../static/jquery-1.12.0.min.js"></script>
+    <script src="../static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+</th:block>
+<th:block th:replace="fragments::footnotes">
+    <link rel="stylesheet" href="../static/plugins/bootstrap.footnotes.css"/>
+    <script src="../static/plugins/bootstrap-tooltip.js"></script>
+    <script src="../static/plugins/bootstrap-popover.js"></script>
+    <script src="../static/plugins/bootstrap.footnotes.js"></script>
+    <script>$(function () {
+        $.footnotes();
+    });</script>
+</th:block>
+</html>
