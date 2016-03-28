@@ -1,0 +1,39 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Завтра (29.03) - начало вебинаров 'Практика Java. Разработка Web приложения'.</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+<p>
+    Напоминаю, что завтра, 29.03 в 20.00 Москвы (GMT+3) стартуют вебинары проекта <a
+        href="http://javawebinar.ru/basejava/">'Практика Java. Разработка Web приложения'</a>. Для участия в вебинарах протестируйте <a
+        href="https://meet71553053.adobeconnect.com/common/help/ru/support/meeting_test.htm">Adobe Connect meeting</a>.
+</p>
+<h3>Напомню, что нужно сделать до вебинара во вторник:</h3>
+<ul>
+    <li>Посмотреть видео <a href="https://github.com/JavaOPs/webapp">вступительного занятия</a><br/>
+        (добавилось видео "Литература" и "Обзор языка Java") .</li>
+    <li>Поставить ПО: <a href="http://javawebinar.ru/#/soft">(Java 8, IDEA Ultimate)</a>.</li>
+    <li>Склонировать к себе локально <a href="https://github.com/JavaWebinar/webapp">проект</a>:<br/>
+        <code>git clone https://github.com/JavaWebinar/webapp.git</code></li>
+    <li>Открыть его в IDEA и запустить main().</li>
+    <li>Сделать аккаунт и репозиторий на <a href="https://github.com">GitHub</a>. На первом занятии мы зальем туда твою
+        копию проекта.
+    </li>
+</ul>
+<p>
+    Стоимость участия: 6900 руб. без проверки домашних заданий и 15900 руб. с проверкой.<br/>
+    <b>Добавляйтесь в skype: grigory.kislin</b>, после этого можно <a href="http://javawebinar.ru/payment.html">оплачивать курс</a>. <br/>
+    В USD можно оплачивать <a href="http://www.finmarket.ru/currency/USD/">по текущему курсу</a>.
+</p>
+
+Добавляйся в группу VK: <b><a href="https://vk.com/javawebinar">Практика Java (Web/ Enterprise)</a></b><br/>
+Всего наилучшего и до встречи на проекте!<br/>
+<p><a href='http://javawebinar.ru/#faq'>Ответы на вопросы.</a></p>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
