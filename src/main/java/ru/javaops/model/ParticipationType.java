@@ -5,5 +5,6 @@ package ru.javaops.model;
  * 02.09.2015.
  */
 public enum ParticipationType {
-    HW_REVIEW
+    HW_REVIEW,
+    HELPER
 }

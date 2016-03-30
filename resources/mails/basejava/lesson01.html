@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Первое занятие проекта "Java. Разработка Web приложения"</title>
+</head>
+<body>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!
+</p>
+Выложил начало <a href="https://github.com/JavaWebinar/webapp/blob/master/doc/Lesson01.md">первого занятия</a>.<br/>
+<p>
+После того, как сделаете свою модель, объязательно проверьте ее по всем пунктам в описании HW01.<br/>
+Внизу есть инструменты рисования.
+</p>
+Напомню, что ревью модели принимаю от всех участников, код классов - только от участников с проверкой ДЗ.<br/>
+Присылать HW желательно до завтрашнего вечера.<br/>
+<p>
+    Оставшееся видео постараюсь выложить сегодня. И завтра-послезавтра определюсь с инструментом для вебинаров.
+</p>
+<p th:include="mailFragments::lessonFooter">
+</p>
+</body>
+</html>
