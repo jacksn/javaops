@@ -1,0 +1,19 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Java Online Projects на LinkedIn</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+Рад сообщить, что Java Online Projects появился как <a href="https://www.linkedin.com/company/java-online-projects">компания на linkedIn</a>.
+<p>
+    Т.е теперь в своем резюме на <a href="https://www.linkedin.com/">linkedIn</a> можно занести опыт работы с указанием компании: набирай в имени компании Java Online... и она появится в списке.<br/>
+    Пример, как можно <a href="https://github.com/JavaOPs/topjava/blob/master/cv.md#Позиционирование-проекта-topjava"> позиционировать в резюме проект Topjava.</a>
+</p>
+Также напомню, что когда у тебя появится возможность <a href="http://javaops.ru/story.html">поделиться своим опытом и успехом</a>, буду рад разместить твою историю.
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
