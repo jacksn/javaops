@@ -1,0 +1,15 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Второе занятие проекта "Java. Разработка Web приложения"</title>
+</head>
+<body>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!
+</p>
+Оформил материал <a href="https://github.com/JavaWebinar/webapp/blob/master/doc/Lesson01.md">второго занятия</a>.<br/>
+Присылать HW желательно до вечера понедельника.<br/>
+<p th:include="mailFragments::lessonFooter">
+</p>
+</body>
+</html>
