@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::headTag('Техно Диасофт')">
+    <!-- ============================================================================ -->
+    <!-- This <head> is only used for static prototyping purposes (natural templates) -->
+    <!-- and is therefore entirely optional, as this markup fragment will be included  -->
+    <!-- from "fragments.html" at runtime.                                            -->
+    <!-- ============================================================================ -->
+    <meta charset="UTF-8"/>
+    <title>Истории</title>
+    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/blog.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header">
+    <div class="container">
+        <a href="/" class="navbar-brand">Java Online Projects</a>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container pad">
+    <h2>Требования</h2>
+    <p>
+        <b>Обязательно:</b> Core Java (5, 6), JSP, Axis, SOAP, JSP, Oracle RDBMS
+    </p>
+    <p>
+        <b>Желательно</b>: Struts 1, JavaScript, JMS, Hibernate, J2EE
+    </p>
+    <p>
+        <b>Желательно опыт работы с</b>: IBM WebSphere Application Server или другими промышленными СП, IBM WebSphere MQ
+    </p>
+    <p>
+        <b>Среда разработки</b>: IntelliJ IDEA
+    </p>
+    <p>
+        <b>Инфраструктура разработки</b>: Git, Ant
+    </p>
+    <p>
+        Понимание принципов создания многопоточных приложений. Умение читать и понимать модели: ER-диаграммы, ООМ.
+        Уверенное знание и практика работы как разработчика с СУБД Oracle. Навыки проектирования БД приветствуются.
+    </p>
+    <p>
+        Опыт разработки высоконагруженных веб приложений в многозвенной архитектуре, работающих в режиме 24х7.
+        Желательно опыт разработки банковских приложений.
+    </p>
+</div>
+</body>
+</html>

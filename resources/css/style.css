@@ -1,7 +1,10 @@
 .box {
-    padding: 50px;
     text-align: center;
     vertical-align: middle;
+}
+
+.pad, .box {
+    padding: 70px;
 }
 
 .indent-body { padding-top: 70px; }

@@ -1,5 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments::headTag('Ошибка')">
+<head th:replace="fragments::headTag('Истории')">
     <!-- ============================================================================ -->
     <!-- This <head> is only used for static prototyping purposes (natural templates) -->
     <!-- and is therefore entirely optional, as this markup fragment will be included  -->
@@ -8,7 +8,7 @@
     <meta charset="UTF-8"/>
     <title>Истории</title>
     <link rel="stylesheet" href="static/bootstrap-3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="static/bootstrap-3.3.6/css/docs.min.css"/>
+    <link rel="stylesheet" href="static/bootstrap-3.3.6/css/blog.css"/>
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="shortcut icon" href="static/img/java_cup.ico"/>
 </head>
@@ -22,64 +22,62 @@
         </div>
     </div>
 </div>
-<div class="jumbotron">
-    <div class="container">
-        <br/>
-        <h2>Наши истории</h2>
-        <div class="bs-callout bs-callout-info">
-            <h4><a href="story/story6.html">Как я стал Java-разработчиком.</a></h4>
-            Максим, 28/03/2016
-        </div>
-        <div class="bs-callout bs-callout-info">
-            <h4><a href="story/story5.html">Главное - верить в свои силы.</a></h4>
-            Лев Хачересьянц, 16/03/2016
-        </div>
-        <div class="bs-callout bs-callout-info">
-            <h4><a href="story/story4.html">Жизнь — как вождение велосипеда. Чтобы сохранить равновесие, ты должен двигаться.</a></h4>
-            Кислин Григорий, 16/03/2016
-        </div>
-        <div class="bs-callout bs-callout-info">
-            <h4><a href="story/story3.html">История успеха длиной в год</a></h4>
-            AlexandrRS, 09/03/2016
-        </div>
-        <div class="bs-callout bs-callout-info">
-            <h4><a href="story/story2.html">Разработка ПО – это тяжелый, но благодарный труд</a></h4>
-            Григорий Н., 08/03/2016
-        </div>
-        <div class="bs-callout bs-callout-info">
-            <h4><a href="story/story1.html">Каждое утро я просыпался с мыслью: "Как мне написать приложение?"</a></h4>
-            Иван Виноградов, 04/03/2016
-        </div>
-        <div class="bs-callout bs-callout-info">
-            Ждем истории по окончанию испытательных сроков: Тимур, Андрей, Дмитрий, Евгений, Алексей, Азер, ...
-        </div>
-    </div>
+<div class="container pad blog-post">
+    <h2 class="blog-post-title">Наши истории</h2>
+    <hr/>
+    <h3><a href="story/story6.html">Как я стал Java-разработчиком.</a></h3>
+    <p class="blog-post-meta">Максим, 28/03/2016</p>
+
+    <h3><a href="story/story5.html">Главное - верить в свои силы.</a></h3>
+    <p class="blog-post-meta">Лев Хачересьянц, 16/03/2016</p>
+
+    <h3><a href="story/story4.html">Жизнь — как вождение велосипеда. Чтобы сохранить равновесие, ты должен
+        двигаться.</a></h3>
+    <p class="blog-post-meta">Кислин Григорий, 16/03/2016</p>
+
+    <h3><a href="story/story3.html">История успеха длиной в год</a></h3>
+    <p class="blog-post-meta">AlexandrRS, 09/03/2016</p>
+
+    <h3><a href="story/story2.html">Разработка ПО – это тяжелый, но благодарный труд</a></h3>
+    <p class="blog-post-meta">Григорий Н., 08/03/2016</p>
+
+    <h3><a href="story/story1.html">Каждое утро я просыпался с мыслью: "Как мне написать приложение?"</a></h3>
+    <p class="blog-post-meta">Иван Виноградов, 04/03/2016</p>
+    <hr/>
+    Ждем истории по окончанию испытательных сроков: Тимур, Андрей, Дмитрий, Евгений, Алексей, Азер, ...
 </div>
 </body>
 <script th:inline="javascript">
     (function (d, w, c) {
-        (w[c] = w[c] || []).push(function() {
+        (w[c] = w[c] || []).push(function () {
             try {
                 w.yaCounter36112350 = new Ya.Metrika({
-                    id:36112350,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true
+                    id: 36112350,
+                    clickmap: true,
+                    trackLinks: true,
+                    accurateTrackBounce: true
                 });
-            } catch(e) { }
+            } catch (e) {
+            }
         });
 
         var n = d.getElementsByTagName("script")[0],
                 s = d.createElement("script"),
-                f = function () { n.parentNode.insertBefore(s, n); };
+                f = function () {
+                    n.parentNode.insertBefore(s, n);
+                };
         s.type = "text/javascript";
         s.async = true;
         s.src = "https://mc.yandex.ru/metrika/watch.js";
 
         if (w.opera == "[object Opera]") {
             d.addEventListener("DOMContentLoaded", f, false);
-        } else { f(); }
+        } else {
+            f();
+        }
     })(document, window, "yandex_metrika_callbacks");
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/36112350" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/36112350" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript>
 </html>

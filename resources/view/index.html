@@ -8,7 +8,7 @@
     <meta charset="UTF-8"/>
     <title>Java Online Projects</title>
     <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/docs.min.css"/>
+    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/blog.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
     <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
 </head>
@@ -19,120 +19,122 @@
             Projects?</a>
         <div class="collapse navbar-collapse">
             <form class="navbar-form navbar-right">
-                <a href="mailto:admin@javaops.ru" class="btn btn-link">Email</a>
                 <a href="skype: grigory.kislin" class="btn btn-link">skype: grigory.kislin</a>
+                <a href="mailto:admin@javaops.ru" class="btn btn-link"><img src="/static/img/email.png"></a>
+                <a href="https://vk.com/javawebinar" class="btn btn-link" target="_blank"><img src="/static/img/vk.gif"></a>
             </form>
         </div>
     </div>
 </div>
-<div class="jumbotron">
-    <div class="container">
-        <div id="why" class="panel-collapse collapse">
-            <ul class="list-group" style="margin-bottom: 0;">
-                <li class="list-group-item">
-                    <h3 class="list-group-item-info">Максимальный охват</h3>
-                    <p class="list-group-item-text">Самые важные и необходимые Java разработчику темы, API,
-                        фреймворки, инструменты в одном
-                        курсе.</p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-info">Насыщенное и структурированное изложение как дополнение к
-                        проекту</h3>
-                    <p class="list-group-item-text">Изложение материала "без воды" нацелено на практическое
-                        использование и дополняется материалом для самостоятельной проработки.
-                        Темы идут не по отдельности (в воздухе) на отстраненных примерах, а последовательно,
-                        в
-                        связке, как дополнения к
-                        созданию единого работающего приложения.<br/>
-                        <b>Усвоение и понимание материала увеличивается в разы.</b></p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-info">Последовательная возрастание сложности с нуля</h3>
-                    <p class="list-group-item-text">Сложность проекта возрастает постепенно, с кода "Hello Topjava" в
-                        main() вступительного задания до финальной версии. Слон съедается по кусочкам..</p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-info">Совместная разработка</h3>
-                    <p class="list-group-item-text">Участники на протяжении всего курса работают с кодом
-                        проекта.
-                        Выполнение домашних заданий
-                        закрепляет полученные знания.<br/> <b>В результате проект становится "Вашим"</b>.</p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-info">Общение, поддержка группы и преподавателя</h3>
-                    <p class="list-group-item-text">По любым вопросам: git, трудоустройство, зарплаты
-                        программиста,
-                        java консультации, архитектура, новости IT и пр.</p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-info">Доступность и структурированность материалов</h3>
-                    <p class="list-group-item-text">Все видео доступно для просмотра онлайн и скачивания (в
-                        случае
-                        вебинаров- сразу после занятия). Записи разбиты по темам и
-                        тщательно отредактированы. Большое количество подобранных ресурсов для углубления в
-                        детали.</p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-info">Оптимальное подобранное время</h3>
-                    <p class="list-group-item-text">Занятия проходят раз в неделю, время необходимое для
-                        проработки
-                        пройденных тем и выполнения домашнего задания</p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-info">Ревью Вашего кода.</h3>
-                    <p class="list-group-item-text">Вы увидите именно свои ошибки в стиле, структурах
-                        данных,
-                        алгоритмах, кодировании. <br/><b>Опыт равноценен нескольким годам работы
-                            разработчиком
-                            java.</b></p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-info">Помощь в составлении резюме и с трудоустройством.</h3>
-                    <p class="list-group-item-text">Читайте <a href="story.html">наши истории (делимся опытом и
-                        успехом)</a>. В группе skype выпускников происходит активное общение на все темы IT, обсуждение
-                        вступительных заданий, вакансии, цены на рынке труда, события, помощь, интересные видео и пр.
-                        Ваши формы соискателя я рассылаю всем знакомым HR.
-                    </p>
-                </li>
-                <li class="list-group-item">
-                    <h3 class="list-group-item-info">После проекта topjava в твоем резюме появится раздел в опыте
-                        работы:</h3>
-                    <h3>Участие в разработке Spring/JPA Enterprise приложения c авторизацией и правами доступа на основе
-                        ролей на стеке: Maven/ Spring MVC/ Security/ REST(Jackson)/ Java 8 Stream API</h3>
-                    <ul>
-                        <li>реализация сохранения в базы Postgres и HSQLDB на основе Spring JBDC, JPA(Hibernate) и
-                            Spring-Data-JPA
-                        </li>
-                        <li>реализация и тестирование REST и AJAX контроллеров</li>
-                        <li>реализация клиента на Bootstrap (css/js), datatables, jQuery + plugins.</li>
-                        <li>твоя доработка проекта</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="bs-callout bs-callout-info">
-            <a href="/story.html"><h3>Наши истории (делимся опытом и успехом)</h3></a>
-        </div>
-        <div class="bs-callout bs-callout-info">
-            <h3><a href="https://github.com/JavaOPs/topjava/blob/master/README.md">Top Java Enterprise:<br/>наиболее
-                востребованные технологии /инструменты /фреймворки Java Enterprise.</a></h3>
-            <h3><b>Старт 26.05.2016 (по четвергам с конца мая).</b></h3>
-            <p>Maven, Spring, Security, JPA(Hibernate), REST(Jackson), Bootstrap, jQuery + plugins<br/>
-                Разработка <strong>полнофункционального Spring / JPA приложения c авторизацией и правами доступа на
-                    основе
-                    ролей</strong></p>
-        </div>
-        <div class="bs-callout bs-callout-info">
-            <h3><a href="http://javawebinar.ru/basejava">Практика Java. Разработка Web приложения:<br/>
-                Интенсив: 10 занятий 2 раза в неделю.</a></h3>
-            <h3><b>Старт 25.03.2016 по вторникам и пятницам с 20.00 (GMT+3, Москва).</b></h3>
-            <p>Объектная модель, коллекции, система ввода-вывода, работа с файлами, сериализация, работа с XML, JSON,
-                SQL, персистентность в базу данных (PostgreSQL), сервлеты, JSP/JSTL, веб-контейнер Tomcat, HTML,
-                модульные тесты JUnit, java.util.Logging, система контроля версий Git.</p>
-        </div>
+<div class="container pad">
+    <div id="why" class="panel-collapse collapse">
+        <ul class="list-group" style="margin-bottom: 0;">
+            <li class="list-group-item">
+                <h3 class="list-group-item-info">Максимальный охват</h3>
+                <p class="list-group-item-text">Самые важные и необходимые Java разработчику темы, API,
+                    фреймворки, инструменты в одном
+                    курсе.</p>
+            </li>
+            <li class="list-group-item">
+                <h3 class="list-group-item-info">Насыщенное и структурированное изложение как дополнение к
+                    проекту</h3>
+                <p class="list-group-item-text">Изложение материала "без воды" нацелено на практическое
+                    использование и дополняется материалом для самостоятельной проработки.
+                    Темы идут не по отдельности (в воздухе) на отстраненных примерах, а последовательно,
+                    в
+                    связке, как дополнения к
+                    созданию единого работающего приложения.<br/>
+                    <b>Усвоение и понимание материала увеличивается в разы.</b></p>
+            </li>
+            <li class="list-group-item">
+                <h3 class="list-group-item-info">Последовательная возрастание сложности с нуля</h3>
+                <p class="list-group-item-text">Сложность проекта возрастает постепенно, с кода "Hello Topjava" в
+                    main() вступительного задания до финальной версии. Слон съедается по кусочкам..</p>
+            </li>
+            <li class="list-group-item">
+                <h3 class="list-group-item-info">Совместная разработка</h3>
+                <p class="list-group-item-text">Участники на протяжении всего курса работают с кодом
+                    проекта.
+                    Выполнение домашних заданий
+                    закрепляет полученные знания.<br/> <b>В результате проект становится "Вашим"</b>.</p>
+            </li>
+            <li class="list-group-item">
+                <h3 class="list-group-item-info">Общение, поддержка группы и преподавателя</h3>
+                <p class="list-group-item-text">По любым вопросам: git, трудоустройство, зарплаты
+                    программиста,
+                    java консультации, архитектура, новости IT и пр.</p>
+            </li>
+            <li class="list-group-item">
+                <h3 class="list-group-item-info">Доступность и структурированность материалов</h3>
+                <p class="list-group-item-text">Все видео доступно для просмотра онлайн и скачивания (в
+                    случае
+                    вебинаров- сразу после занятия). Записи разбиты по темам и
+                    тщательно отредактированы. Большое количество подобранных ресурсов для углубления в
+                    детали.</p>
+            </li>
+            <li class="list-group-item">
+                <h3 class="list-group-item-info">Оптимальное подобранное время</h3>
+                <p class="list-group-item-text">Занятия проходят раз в неделю, время необходимое для
+                    проработки
+                    пройденных тем и выполнения домашнего задания</p>
+            </li>
+            <li class="list-group-item">
+                <h3 class="list-group-item-info">Ревью Вашего кода.</h3>
+                <p class="list-group-item-text">Вы увидите именно свои ошибки в стиле, структурах
+                    данных,
+                    алгоритмах, кодировании. <br/><b>Опыт равноценен нескольким годам работы
+                        разработчиком
+                        java.</b></p>
+            </li>
+            <li class="list-group-item">
+                <h3 class="list-group-item-info">Помощь в составлении резюме и с трудоустройством.</h3>
+                <p class="list-group-item-text">Читайте <a href="story.html">наши истории (делимся опытом и
+                    успехом)</a>. В группе skype выпускников происходит активное общение на все темы IT, обсуждение
+                    вступительных заданий, вакансии, цены на рынке труда, события, помощь, интересные видео и пр.
+                    Ваши формы соискателя я рассылаю всем знакомым HR.
+                </p>
+            </li>
+            <li class="list-group-item">
+                <h3 class="list-group-item-info">После проекта topjava в твоем резюме появится раздел в опыте
+                    работы:</h3>
+                <h3>Участие в разработке Spring/JPA Enterprise приложения c авторизацией и правами доступа на основе
+                    ролей на стеке: Maven/ Spring MVC/ Security/ REST(Jackson)/ Java 8 Stream API</h3>
+                <ul>
+                    <li>реализация сохранения в базы Postgres и HSQLDB на основе Spring JBDC, JPA(Hibernate) и
+                        Spring-Data-JPA
+                    </li>
+                    <li>реализация и тестирование REST и AJAX контроллеров</li>
+                    <li>реализация клиента на Bootstrap (css/js), datatables, jQuery + plugins.</li>
+                    <li>твоя доработка проекта</li>
+                </ul>
+            </li>
+        </ul>
     </div>
-</div>
-<div class="container">
+    <div class="blog-post">
+        <h2><a href="/story.html">Наши истории (делимся опытом и успехом)</a></h2>
+        <hr/>
+        <h2>Техническое собеседование Java разработчик</h2>
+        <h3><a href="/vacation/technodiasoft.html">Тестовое интервью</a></h3>
+        <p>Core Java 8, OOP, JMM/Concurrency, Servlet/JSP, JPA, Spring MVC, REST,  SQL, Maven</p>
+        <h3><a href="/vacation/technodiasoft.html">Техно Диасофт для СберТех</a></h3>
+        <p>Core Java (5, 6), Concurrency, JSP, Axis, SOAP, JSP, Oracle, Struts 1, JavaScript, JMS, Hibernate, J2EE, Git,
+            Ant</p>
+        <hr/>
+        <h2>Стажировка на Java Web и Java Enterprise</h2>
+        <h3><a href="https://github.com/JavaOPs/topjava/blob/master/README.md">Top Java Enterprise:<br/>наиболее
+            востребованные технологии /инструменты /фреймворки Java Enterprise.</a></h3>
+        <h4><b>Старт 26.05.2016 (по четвергам с конца мая).</b></h4>
+        <p>Maven, Spring, Security, JPA(Hibernate), REST(Jackson), Bootstrap, jQuery + plugins<br/>
+            Разработка <strong>полнофункционального Spring / JPA приложения c авторизацией и правами доступа на
+                основе
+                ролей</strong></p>
+        <h3><a href="http://javawebinar.ru/basejava">Практика Java. Разработка Web приложения:<br/>
+            Интенсив: 10 занятий 2 раза в неделю.</a></h3>
+        <h4><b>Старт 29.03.2016 по вторникам и пятницам с 20.00 (GMT+3, Москва).</b></h4>
+        <p>Объектная модель, коллекции, система ввода-вывода, работа с файлами, сериализация, работа с XML, JSON,
+            SQL, персистентность в базу данных (PostgreSQL), сервлеты, JSP/JSTL, веб-контейнер Tomcat, HTML,
+            модульные тесты JUnit, java.util.Logging, система контроля версий Git.</p>
+    </div>
     <img src="/static/img/javaops.png" class="img-responsive center-block"/>
 </div>
 </body>
