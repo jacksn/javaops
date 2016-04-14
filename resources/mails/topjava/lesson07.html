@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Седьмое занятие проекта TopJava Enterprise</title>
+</head>
+<body>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!
+</p>
+<p>
+Выложил <a href="https://github.com/JavaWebinar/topjava06/blob/doc/doc/lesson07.md">седьмое занятие нашего проекта</a>.<br/>
+REST контроллеры и тестирование контроллеров.
+</p>
+<p>
+        Перед накаткой патча 0 код в ветке master твоего проекта должен быть в том же состоянии, что и <a href="https://github.com/JavaWebinar/topjava06/commits/master">ветка master нашего проекта</a>.<br/>
+        Обсуждение урока и ДЗ в <a href="https://topjava06.slack.com/messages/lesson07/">slack #lesson07</a>
+    </p>
+    <p>
+        Домашнее задание (у кого есть проверка) желательно присылать до вечера 19.04<br/>
+    </p>
+<p th:include="mailFragments::lessonFooter">
+</p>
+</body>
+</html>
