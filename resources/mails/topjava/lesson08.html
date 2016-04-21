@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Восьмое занятие проекта TopJava Enterprise</title>
+</head>
+<body>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!
+</p>
+<p>
+Выложил <a href="https://github.com/JavaWebinar/topjava06/blob/doc/doc/lesson08.md">восьмое занятие нашего проекта</a>.<br/>
+ CSS (Bootstrap), JavaScript (jQuery + plugins), AJAX, добавление к REST контроллерам базовой авторизации.
+</p>
+<p>
+        Перед накаткой патчей код в ветке master твоего проекта должен быть в том же состоянии, что и <a href="https://github.com/JavaWebinar/topjava06/commits/master">ветка master нашего проекта</a>.
+        Обсуждение урока и HW8 в Slack <a href="https://topjava06.slack.com/messages/lesson08/">#lesson08</a>
+    </p>
+    <p>
+        Домашнее задание (у кого есть проверка) желательно присылать до вечера 26.04<br/>
+    </p>
+<p th:include="mailFragments::lessonFooter">
+</p>
+</body>
+</html>
