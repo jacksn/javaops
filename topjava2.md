@@ -90,6 +90,7 @@ namei -om /home/ec2-user/javaops/static/index.html
 
 <a href="https://kb.iu.edu/d/afnz">How do I run a Unix process in the background?</a>
 
+- <a href="https://shreevatsa.wordpress.com/2008/03/30/zshbash-startup-files-loading-order-bashrc-zshrc-etc/">Startup scripts</a>
 
 ## External properties
 http://www.javabeat.net/spring-boot-external-configurations/
