@@ -31,7 +31,7 @@ public class ThymeleafConfiguration implements SchedulingConfigurer {
     @Bean
     @Description("App template resolver")
     public TemplateResolver appTemplateResolver() {
-        log.debug("Configuring Email template");
+        log.debug("Configuring App template");
         return new FileTemplateResolver() {{
             setPrefix("./resources/view/");
             setSuffix(".html");
@@ -44,7 +44,7 @@ public class ThymeleafConfiguration implements SchedulingConfigurer {
     @Bean
     @Description("Email template resolver serving HTML 5 emails")
     public TemplateResolver emailTemplateResolver() {
-        log.debug("Configuring App template");
+        log.debug("Configuring Email template");
         return new FileTemplateResolver() {{
             setPrefix("./resources/mails/");
             setSuffix(".html");
