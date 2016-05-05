@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Десятое занятие проекта TopJava Enterprise</title>
+</head>
+<body>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!
+</p>
+<p>
+Выложил <a href="https://github.com/JavaWebinar/topjava06/blob/doc/doc/lesson10.md">десятое занятие нашего проекта</a>.<br/>
+На заключительное занятие остается fix, выбор локали и деплой в heroku.
+</p>
+<p>
+        Перед накаткой патчей код в ветке master твоего проекта должен быть в том же состоянии, что и <a href="https://github.com/JavaWebinar/topjava06/commits/master">ветка master нашего проекта</a>.
+        Обсуждение урока и HW10 в Slack <a href="https://topjava06.slack.com/messages/lesson10/">#lesson10</a>
+    </p>
+    <p>
+        Домашнее задание (у кого есть проверка) желательно присылать до вечера 11.05 (меня не будет с 07.05 по 10.05)<br/>
+    </p>
+<p th:include="mailFragments::lessonFooter">
+</p>
+</body>
+</html>
