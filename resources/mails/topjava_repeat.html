@@ -1,0 +1,31 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Регистрация на проект 'Java Enterprise (Topjava)'</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+Буду рад снова видеть тебя на проекте <a href="https://github.com/JavaOPs/topjava">Java Enterprise (Topjava)</a>.
+<ul>Напомню основные ссылки:
+<li><a href="https://github.com/JavaOPs/topjava/blob/master/description.md">Описание проекта</a>.</li>
+<li><a href="https://github.com/JavaOPs/topjava/wiki">Wiki по проекту</a>.</li>
+<li><a href="https://github.com/JavaWebinar/topjava07">Репозиторий проекта</a>.</li>
+</ul>
+<b style="font-size: larger">Старт 26.05</b> (выдача прав доступа к материалам, установка ПО, группа skype и slack, подробная форма регистрации, учебный ключик к IDEA).
+После этого будет еще неделя для выполнения домашнего задания вступительного занятия.
+<p>
+    Для участия необходимо <b>послать мне сообщение в skype: <i>grigory.kislin</i> с пометкой <i>topjava</i></b>.<br/>
+    Повторное участие без проверки домашнего задания бесплатное, с проверкой доплата 8200 руб. <br/>
+    <a href="http://javawebinar.ru/payment.html">Варианты оплаты</a>.<br/>
+</p>
+    В конце вводного занятия есть ресурсы для лучшего усвоения всех тем проекта.
+<p>
+    Добавляйся в группу VK: <b><a href="https://vk.com/javawebinar">Практика Java (Web/ Enterprise)</a></b><br/>
+До встречи на проекте!<br/>
+</p>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
