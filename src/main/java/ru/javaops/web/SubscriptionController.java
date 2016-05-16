@@ -97,6 +97,6 @@ public class SubscriptionController {
         }
         userService.update(userToExt);
         integrationService.asyncSendSlackInvitation(userToExt.getEmail());
-        return new ModelAndView("message", "message", "Спасибо за регистрацию.<br/>Проверьте почту: вам должно прийти приглашение в Slack.");
+        return new ModelAndView("message", "message", "Спасибо за регистрацию.<br/>Проверь почту: должно прийти приглашение в Slack.");
     }
 }
