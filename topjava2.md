@@ -263,3 +263,9 @@ https://github.com/feedm3/spring-boot-gwt
 http://alextretyakov.blogspot.ru/2011/10/4.html
 
 http://www.springbyexample.org/static/1.1/html/simple-gwt-spring-webapp.html
+
+## Slack
+https://api.slack.com/web
+https://api.slack.com/docs/oauth-test-tokens
+http://stackoverflow.com/questions/30955818/slack-api-team-invitation
+https://spring.io/blog/2009/03/27/rest-in-spring-3-resttemplate

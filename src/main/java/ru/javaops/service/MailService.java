@@ -17,7 +17,8 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import ru.javaops.config.AppProperties;
-import ru.javaops.model.*;
+import ru.javaops.model.MailCase;
+import ru.javaops.model.User;
 import ru.javaops.repository.MailCaseRepository;
 import ru.javaops.util.Util;
 
@@ -171,19 +172,6 @@ public class MailService {
         message.setSubject(subject);
         message.setText(content, isHtml);
         javaMailSender.send(mimeMessage);
-    }
-
-    public String sendRegistration(String template, Project project, UserGroup userGroup, String confirmEmail) throws MessagingException {
-        if (userGroup.getRegisterType() == RegisterType.REPEAT) {
-            template = project.getName() + "_repeat";
-        } else if (template == null) {
-            template = project.getName() + "_register";
-        }
-        String result = sendToUser(template, userGroup.getUser());
-        String content = getContent("confirm",
-                ImmutableMap.of("template", template, "result", result, "userGroup", userGroup));
-        send(confirmEmail, null, Util.getTitle(content), content, true, null);
-        return result;
     }
 
     public static class GroupResultBuilder {

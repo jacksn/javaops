@@ -18,7 +18,7 @@ public class IntegrationProperties {
     private String vkToken;
 
     @NotNull
-    private StamplayProps stamplay;
+    private String slackToken;
 
     public String getVkToken() {
         return vkToken;
@@ -28,32 +28,11 @@ public class IntegrationProperties {
         this.vkToken = vkToken;
     }
 
-    public StamplayProps getStamplay() {
-        return stamplay;
+    public String getSlackToken() {
+        return slackToken;
     }
 
-    public void setStamplay(StamplayProps stamplay) {
-        this.stamplay = stamplay;
-    }
-
-    public static class StamplayProps {
-        private String appId;
-        private String apiKey;
-
-        public String getAppId() {
-            return appId;
-        }
-
-        public void setAppId(String appId) {
-            this.appId = appId;
-        }
-
-        public String getApiKey() {
-            return apiKey;
-        }
-
-        public void setApiKey(String apiKey) {
-            this.apiKey = apiKey;
-        }
+    public void setSlackToken(String slackToken) {
+        this.slackToken = slackToken;
     }
 }

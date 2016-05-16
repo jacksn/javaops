@@ -26,10 +26,8 @@ app:
   cache-seconds: 1
   host-url: http://localhost:8080
   integration:
-    vk-token: token
-    stamplay:
-       appid: appid
-       webhookid: webhookid
+    vk-token: vk-token
+    slack-token: slack-token
 
 spring:
   mail.host: smtp.yandex.ru

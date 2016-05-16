@@ -1,8 +1,6 @@
 package ru.javaops.web;
 
 import com.google.common.collect.ImmutableMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -10,14 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ru.javaops.config.AppProperties;
+import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
 import ru.javaops.model.UserGroup;
-import ru.javaops.service.GroupService;
+import ru.javaops.service.*;
 import ru.javaops.service.GroupService.ProjectProps;
-import ru.javaops.service.MailService;
-import ru.javaops.service.SubscriptionService;
-import ru.javaops.service.UserService;
 import ru.javaops.to.UserTo;
 import ru.javaops.to.UserToExt;
 import ru.javaops.util.Util;
@@ -34,10 +29,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 @Controller
 public class SubscriptionController {
-    private static final Logger LOG = LoggerFactory.getLogger(SubscriptionController.class);
 
     @Autowired
-    private AppProperties appProperties;
+    private IntegrationService integrationService;
 
     @Autowired
     private SubscriptionService subscriptionService;
@@ -66,20 +60,24 @@ public class SubscriptionController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView registerByProject(@RequestParam("project") String project,
-                                          @RequestParam(value = "template", required = false) String template,
                                           @RequestParam("channel") String channel,
                                           @Valid UserTo userTo, BindingResult result) throws MessagingException {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
-        return register(template, appProperties.getTestEmail(), channel, "http://javawebinar.ru/confirm.html", "http://javawebinar.ru/error.html", userTo, groupService.getProjectProps(project));
+        return register(channel, "http://javawebinar.ru/confirm.html", "http://javawebinar.ru/error.html", userTo, groupService.getProjectProps(project));
     }
 
-    private ModelAndView register(String template, String confirmEmail, String channel, String successUrl, String failUrl,
+    private ModelAndView register(String channel, String successUrl, String failUrl,
                                   UserTo userTo, ProjectProps projectProps) throws MessagingException {
 
         UserGroup userGroup = groupService.registerAtProject(userTo, projectProps, channel);
-        String mailResult = mailService.sendRegistration(template, projectProps.project, userGroup, confirmEmail);
+        String projectName = projectProps.project.getName();
+        String template = projectName + (userGroup.getRegisterType() == RegisterType.REPEAT ? "_repeat" : "_register");
+        String mailResult = mailService.sendToUser(template, userGroup.getUser());
+        if (MailService.isOk(mailResult) && userGroup.getRegisterType() == RegisterType.REPEAT){
+            integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail());
+        }
         return new ModelAndView("redirectToUrl", "redirectUrl", MailService.isOk(mailResult) ? successUrl : failUrl);
     }
 
@@ -98,6 +96,7 @@ public class SubscriptionController {
             throw new ValidationException(Util.getErrorMessage(result));
         }
         userService.update(userToExt);
-        return new ModelAndView("message", "message", "Спасибо за регистрацию.");
+        integrationService.asyncSendSlackInvitation(userToExt.getEmail());
+        return new ModelAndView("message", "message", "Спасибо за регистрацию.<br/>Проверьте почту: вам должно прийти приглашение в Slack.");
     }
 }
