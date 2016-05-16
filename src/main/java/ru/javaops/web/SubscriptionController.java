@@ -75,7 +75,7 @@ public class SubscriptionController {
         String projectName = projectProps.project.getName();
         String template = projectName + (userGroup.getRegisterType() == RegisterType.REPEAT ? "_repeat" : "_register");
         String mailResult = mailService.sendToUser(template, userGroup.getUser());
-        if (MailService.isOk(mailResult) && userGroup.getRegisterType() == RegisterType.REPEAT){
+        if (MailService.isOk(mailResult) && userGroup.getRegisterType() == RegisterType.REPEAT) {
             integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail());
         }
         return new ModelAndView("redirectToUrl", "redirectUrl", MailService.isOk(mailResult) ? successUrl : failUrl);
@@ -97,6 +97,6 @@ public class SubscriptionController {
         }
         userService.update(userToExt);
         integrationService.asyncSendSlackInvitation(userToExt.getEmail());
-        return new ModelAndView("message", "message", "Спасибо за регистрацию.<br/>Проверь почту: должно прийти приглашение в Slack.");
+        return new ModelAndView("registration");
     }
 }
