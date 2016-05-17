@@ -1,0 +1,56 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Окончание проекта 'Java Enterprise (TopJava)'</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+<h3>Несколько комментариев к <a href="https://github.com/JavaWebinar/topjava06/blob/doc/doc/lesson_final.md">заключительному занятию
+    проекта</a><br/></h3>
+<ul>
+    <li>Я сделал код для деплоя в Heroku в ветке мастер, из за чего некоторые тесты пересатли проходить.<br/>
+        Добавил в ДЗ: <code>найти этот код и проверить что без него все работает.</code>
+    </li>
+    <li>
+        На heroku приложение не отрабатывает <code>ExceptionInfoHandler</code> по аннотации
+        <code>@RestController</code> (нотификация ошибок).<br/> У меня предположение, что это связано с обновлением java на heroku,
+        появилось еще с прошлого проекта. Как воркараунд сделал <a href="https://github.com/JavaWebinar/topjava06/tree/heroku">ветку heroku</a>, в которой
+        <a href="https://github.com/JavaWebinar/topjava06/commit/bccd84d5a0d21dcaa5a4869edd944e60eeff1d73">откатил обработку ошибок </a> к варианту урока 10 с дефолтными методами интерфейса. <br/> При такой реализации все работает, обновил
+        <a href="http://topjava.herokuapp.com/">демо</a> из этой ветки (необходим Ctrl+F5 для сброса кэша).
+    </li>
+</ul>
+<p>Шли мне на ревью свое резюме. <br/>
+    <a href="https://github.com/JavaWebinar/topjava06/blob/doc/doc/graduation.md">Выпускные задания</a> от участников с проверкой принимаю на ревью до 02.06
+    (если проверки нет то возможно оплатить отдельно).
+</p>
+<p>
+<h3>Продублирую важные ссылки в конце проекта:</h3>
+<ul>
+    <li>
+        Вам всегда доступны <a href="https://drive.google.com/folderview?id=0B9Ye2auQ_NsFflp6ZHBLSFI2OGVEZ2NQU0pzZkx4SnFmOWlzX0lzcDFjSi1SRk5OdzBYYkU">все
+            материалы проекта</a> и их обновления. По ходу topjava7 материалы в обновленном виде будут перемещаться в папку <a href="https://drive.google.com/folderview?id=0B9Ye2auQ_NsFT2JsYVlTWFBwUkU&tid=0B9Ye2auQ_NsFflp6ZHBLSFI2OGVEZ2NQU0pzZkx4SnFmOWlzX0lzcDFjSi1SRk5OdzBYYkU">Topjava7</a></li>
+    <li><a href="https://join.skype.com/dToijYHZNcuc">Группа для общения в skype</a> (перед добавлением- залогинтесь в аккаунт). <br/>Вопросы по java, трудоустройство, зарплаты, вакансии, события, ...</li>
+    <li><a href="http://goo.gl/forms/PtFcPqEV5n">Опрос для всех участников проекта</a></li>
+</ul>
+<p style="font-size: larger">
+    Ваша скидка на другие проекты будет 700 руб. без проверки домашнего задания и 1500 руб. с проверкой. <br/>
+    О всех новостях буду делать рассылку и публиковать в группах vk и skype.<br/><br/>
+    Если материал был для тебя сложный, возможно повторное участие на topjava07: без проверки ДЗ бесплатно, с проверкой доплата 7500 руб.
+    (<a href="http://javawebinar.ru/payment.html">варианты оплаты</a>, <a href="http://www.finmarket.ru/currency/USD/">курс рубля</a>).<br/>
+
+    <a href="https://github.com/JavaWebinar/topjava07">Проект topjava7 и расписание занятий</a>.
+    Для регистраии на проект достаточно получить ссылку на <a href="http://javawebinar.ru/topjava?getentrance&ch=repeat">вступительное занятие</a>, должно прийти
+    письмо "Повторное участие" и приглашение в группу slack topjava7. Старт topjava07 будет 26.05, приглашай знакомых, желающих стать java разработчиками или повысить свою квалификацию.
+</p>
+<h4>Добавляйся в группу VK: <a href="https://vk.com/javawebinar">практика Java (Web/ Enterprise)</a>,
+публикую там самое, на мой взгляд, интересное из мира IT и Java.</h4>
+<h3>Важно: если проект понравился, напишите пожалуйста в VK <a href="https://vk.com/topic-74381644_30447246"> отзыв о проекте</a>.</h3>
+<p>
+    Спасибо за участие и, надеюсь, до новой встречи!
+</p>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
