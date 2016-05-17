@@ -13,6 +13,7 @@ import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
 import ru.javaops.service.GroupService;
 import ru.javaops.service.MailService;
+import ru.javaops.service.MailService.GroupResult;
 
 import java.util.Set;
 
@@ -45,18 +46,28 @@ public class MailController {
     }
 
     @RequestMapping(value = "/to-users", method = POST)
-    public ResponseEntity<MailService.GroupResult> sendToProjectByGroupType(@Param("template") String template, @Param("emails") String emails) {
-        MailService.GroupResult groupResult = mailService.sendToEmailList(template, Splitter.on(',').trimResults().omitEmptyStrings().splitToList(emails));
-        return new ResponseEntity<>(groupResult, groupResult.isOk() ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<GroupResult> sendToProjectByGroupType(@Param("template") String template, @Param("emails") String emails) {
+        GroupResult groupResult = mailService.sendToEmailList(template, Splitter.on(',').trimResults().omitEmptyStrings().splitToList(emails));
+        return getGroupResultResponseEntity(groupResult);
     }
 
     @RequestMapping(value = "/to-groups", method = POST)
-    public ResponseEntity<MailService.GroupResult> sendToGroup(@Param("template") String template, @Param("includes") String includes,
-                                                               @RequestParam(value = "excludes", required = false) String excludes,
-                                                               @RequestParam(value = "reg-type", required = false) RegisterType registerType) {
+    public ResponseEntity<GroupResult> sendToGroup(@Param("template") String template, @Param("includes") String includes,
+                                                   @RequestParam(value = "excludes", required = false) String excludes,
+                                                   @RequestParam(value = "reg-type", required = false) RegisterType registerType) {
 
         Set<User> users = groupService.filterUserByGroupNames(includes, excludes, registerType);
-        MailService.GroupResult groupResult = mailService.sendToUserList(template, users);
+        GroupResult groupResult = mailService.sendToUserList(template, users);
+        return getGroupResultResponseEntity(groupResult);
+    }
+
+    @RequestMapping(value = "/resend", method = POST)
+    public ResponseEntity<GroupResult> resend(@Param("template") String template) {
+        GroupResult groupResult = mailService.resendTodayFailed(template);
+        return getGroupResultResponseEntity(groupResult);
+    }
+
+    private ResponseEntity<GroupResult> getGroupResultResponseEntity(GroupResult groupResult) {
         return new ResponseEntity<>(groupResult, groupResult.isOk() ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

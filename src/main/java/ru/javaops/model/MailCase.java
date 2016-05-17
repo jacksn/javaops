@@ -18,7 +18,7 @@ public class MailCase extends BaseEntity {
     @NotNull
     private Date datetime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)

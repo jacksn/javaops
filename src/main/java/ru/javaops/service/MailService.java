@@ -71,7 +71,7 @@ public class MailService {
         return sendToUserList(template, emails.stream().map(userService::findExistedByEmail).collect(Collectors.toSet()));
     }
 
-    public GroupResult sendToUserList(String template, Collection<User> users) {
+    public GroupResult sendToUserList(String template, Set<User> users) {
         checkNotNull(template, "template must not be null");
         checkNotNull(users, "users must not be null");
         users.add(getTestUser());
@@ -172,6 +172,11 @@ public class MailService {
         message.setSubject(subject);
         message.setText(content, isHtml);
         javaMailSender.send(mimeMessage);
+    }
+
+    public GroupResult resendTodayFailed(String template) {
+        List<MailCase> todayFailed = mailCaseRepository.getTodayFailed();
+        return sendToUserList(template, todayFailed.stream().map(MailCase::getUser).collect(Collectors.toSet()));
     }
 
     public static class GroupResultBuilder {
