@@ -207,7 +207,7 @@ public class MailService {
                 failed.add(new MailResult(email, e.toString()));
                 LOG.error("Sending to " + email + " failed with " + e.getMessage());
             }
-            return (failed.size() < success || failed.size() < 3) && failedCause == null;
+            return (failed.size() < 6) && failedCause == null;
         }
     }
 
