@@ -3,6 +3,7 @@ package ru.javaops.web;
 import com.google.common.base.Splitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,8 @@ import ru.javaops.service.GroupService;
 import ru.javaops.service.MailService;
 import ru.javaops.service.MailService.GroupResult;
 
+import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Set;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -54,9 +57,14 @@ public class MailController {
     @RequestMapping(value = "/to-groups", method = POST)
     public ResponseEntity<GroupResult> sendToGroup(@Param("template") String template, @Param("includes") String includes,
                                                    @RequestParam(value = "excludes", required = false) String excludes,
-                                                   @RequestParam(value = "reg-type", required = false) RegisterType registerType) {
+                                                   @RequestParam(value = "reg-type", required = false) RegisterType registerType,
+                                                   @RequestParam(value = "startRegisteredDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startRegisteredDate,
+                                                   @RequestParam(value = "endRegisteredDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endRegisteredDate) {
 
-        Set<User> users = groupService.filterUserByGroupNames(includes, excludes, registerType);
+        Set<User> users = groupService.filterUserByGroupNames(includes, excludes, registerType, startRegisteredDate, endRegisteredDate);
+        if (users.isEmpty()) {
+            return getGroupResultResponseEntity(new GroupResult(0, Collections.emptyList(), null));
+        }
         GroupResult groupResult = mailService.sendToUserList(template, users);
         return getGroupResultResponseEntity(groupResult);
     }

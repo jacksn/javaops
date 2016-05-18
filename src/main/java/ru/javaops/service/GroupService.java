@@ -14,8 +14,10 @@ import ru.javaops.repository.GroupRepository;
 import ru.javaops.repository.PaymentRepository;
 import ru.javaops.repository.UserGroupRepository;
 import ru.javaops.to.UserTo;
+import ru.javaops.util.TimeUtil;
 import ru.javaops.util.UserUtil;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -133,18 +135,20 @@ public class GroupService {
         return group.get();
     }
 
-    public Set<User> filterUserByGroupNames(String includes, String excludes, RegisterType registerType) {
+    public Set<User> filterUserByGroupNames(String includes, String excludes, RegisterType registerType, LocalDate startRegisteredDate, LocalDate endRegisteredDate) {
         final List<Group> groups = getAll();
-        Set<User> includeUsers = filterUserByGroupNames(groups, includes, registerType);
+        Set<User> includeUsers = filterUserByGroupNames(groups, includes, registerType, startRegisteredDate, endRegisteredDate);
         if (StringUtils.isNoneEmpty(excludes)) {
-            Set<User> excludeUsers = filterUserByGroupNames(groups, excludes, null);
+            Set<User> excludeUsers = filterUserByGroupNames(groups, excludes, null, startRegisteredDate, endRegisteredDate);
             includeUsers.removeAll(excludeUsers);
         }
         return includeUsers;
     }
 
-    private Set<User> filterUserByGroupNames(List<Group> groups, String groupNames, RegisterType registerType) {
+    private Set<User> filterUserByGroupNames(List<Group> groups, String groupNames, RegisterType registerType, LocalDate startRegisteredDate, LocalDate endRegisteredDate) {
         List<Predicate<String>> predicates = getMatcher(groupNames);
+        Date startDate = TimeUtil.toDate(startRegisteredDate);
+        Date endDate = TimeUtil.toDate(endRegisteredDate);
 
         // filter users by predicates
         return groups.stream().filter(group -> predicates.stream().anyMatch(p -> p.test(group.getName())))
@@ -153,6 +157,8 @@ public class GroupService {
                                 userService.findByGroupName(group.getName()) :
                                 userService.findByGroupNameAndRegisterType(group.getName(), registerType)
                         ).stream())
+                .filter(u -> startDate == null || u.getRegisteredDate().compareTo(startDate) >= 0)
+                .filter(u -> endDate == null || u.getRegisteredDate().compareTo(endDate) <= 0)
                 .collect(Collectors.toSet());
     }
 
