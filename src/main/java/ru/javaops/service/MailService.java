@@ -72,8 +72,8 @@ public class MailService {
     }
 
     public GroupResult sendToUserList(String template, Set<User> users) {
-        checkNotNull(template, "template must not be null");
-        checkNotNull(users, "users must not be null");
+        checkNotNull(template, " template must not be null");
+        checkNotNull(users, " users must not be null");
         users.add(getTestUser());
         CompletionService<String> completionService = new ExecutorCompletionService<>(mailExecutor);
         Map<Future<String>, String> resultMap = new HashMap<>();
