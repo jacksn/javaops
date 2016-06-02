@@ -4,9 +4,10 @@
 <head th:replace="fragments::headTag('Регистрация')">
     <meta charset="UTF-8"/>
     <title>Регистрация</title>
-    <link rel="stylesheet" href="/static/bootstrap-3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/style.css"/>
-    <link rel="shortcut icon" href="/static/img/java_cup.ico"/>
+    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
+    <link rel="stylesheet" href="../static/plugins/bootstrap-combobox.css"/>
 </head>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header">
@@ -21,9 +22,9 @@
 <div class="jumbotron">
     <div class="container">
         <br/>
-        <h2 th:text="|Регистрация на ${project.getDescription()}|">Регистрация на проект Java Enterprise</h2>
+        <h2 th:text="|Регистрация на ${project.description}|">Регистрация на проект Java Enterprise</h2>
         <br/>
-        <form class="form-horizontal" method="post" action="save">
+        <form class="form-horizontal" method="post" action="save" id="registerForm">
             <div class="form-group ">
                 <label class="control-label col-xs-3">Имя Фамилия</label>
                 <div class="col-xs-4">
@@ -32,14 +33,14 @@
             </div>
 
             <div class="form-group ">
-                <label class="control-label col-xs-3">e-mail</label>
+                <label class="control-label col-xs-3">Email</label>
                 <div class="col-xs-4">
                     <input class="form-control" name="email" th:value="${user.email}" readonly="readonly"/>
                 </div>
             </div>
 
             <div class="form-group ">
-                <label class="control-label col-xs-3">g-mail (для авторизации GoogleDrive)</label>
+                <label class="control-label col-xs-3">Google mail (для авторизации GoogleDrive)</label>
                 <div class="col-xs-4">
                     <input class="form-control" name="gmail" th:value="${user.gmail}"/>
                 </div>
@@ -52,16 +53,41 @@
                 </div>
             </div>
 
-            <div class="form-group ">
+            <div class="form-group">
                 <label class="control-label col-xs-3">Город</label>
-                <div class="col-xs-4">
-                    <input class="form-control" name="location" th:value="${user.location}"/>
+                <div class="col-xs-4 selectContainer">
+                    <select class="form-control" name="location" th:value="${user.location}">
+                        <option value="">Выберите (или введите) город</option>
+                        <option value="Москва">Москва</option>
+                        <option value="Санкт-Петербург">Санкт-Петербург</option>
+                        <option value="Киев">Киев</option>
+                        <option value="Минск">Минск</option>
+                        <option value="Харьков">Харьков</option>
+                        <option value="Новосибирск">Новосибирск</option>
+                        <option value="Одесса">Одесса</option>
+                        <option value="Уфа">Уфа</option>
+                        <option value="Запорожье">Запорожье</option>
+                        <option value="Львов">Львов</option>
+                        <option value="Днепропетровск">Днепропетровск</option>
+                        <option value="Челябинск">Челябинск</option>
+                        <option value="Краснодар">Краснодар</option>
+                        <option value="Нижний Новгород">Нижний Новгород</option>
+                        <option value="Тюмень">Тюмень</option>
+                        <option value="Гродно">Гродно</option>
+                        <option value="Самара">Самара</option>
+                    </select>
                 </div>
             </div>
 
             <div class="form-group ">
-                <label class="control-label col-xs-3">Обо мне. Опыт с
-                    Java</label>
+                <div class="checkbox col-xs-offset-3 col-xs-10">
+                    <label class="control-label"><input checked="checked" type="checkbox" name="statsAgree"/>Согласен на размещением своих данных в закрытой статистике группы
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group ">
+                <label class="control-label col-xs-3">Обо мне. Опыт с Java</label>
                 <div class="col-xs-4">
                     <textarea class="form-control " name="aboutMe" rows="5" th:utext="${user.aboutMe}"></textarea>
                 </div>
@@ -74,10 +100,21 @@
             </div>
 
             <input type="hidden" name="id" th:value="${user.id}"/>
+            <input type="hidden" name="project" th:value="${project.name}"/>
             <!--/*@thymesVar id="key" type="java.lang.String"*/-->
             <input type="hidden" name="key" th:value="${key}"/>
         </form>
     </div>
 </div>
 </body>
+<script src="../static/jquery-1.12.0.min.js"></script>
+<script src="../static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+<script src="../static/plugins/bootstrap-combobox.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function () {
+        $('#registerForm').find('[name="location"]').combobox().end();
+    });
+    /*]]>*/
+</script>
 </html>

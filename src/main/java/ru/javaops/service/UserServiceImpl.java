@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     }
 
     public User findByEmailAndGroupId(String email, int groupId) {
-        return userRepository.findByEmailAndGroupId(email, groupId);
+        return userRepository.findByEmailAndGroupId(email.toLowerCase(), groupId);
     }
 
     @Override

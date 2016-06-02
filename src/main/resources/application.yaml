@@ -17,7 +17,7 @@ spring:
       default-page-size: 100
 
 spring.cache:
-    cache-names: group, groups
+    cache-names: group, groups, project, projects
     guava.spec: maximumSize=100, expireAfterAccess=300s
 
 logging:

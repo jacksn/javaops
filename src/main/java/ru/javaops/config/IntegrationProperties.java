@@ -3,6 +3,7 @@ package ru.javaops.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.validation.constraints.NotNull;
+import java.util.Map;
 
 /**
  * GKislin
@@ -18,7 +19,7 @@ public class IntegrationProperties {
     private String vkToken;
 
     @NotNull
-    private String slackToken;
+    private Map<String, String> slackTokens;
 
     public String getVkToken() {
         return vkToken;
@@ -28,11 +29,15 @@ public class IntegrationProperties {
         this.vkToken = vkToken;
     }
 
-    public String getSlackToken() {
-        return slackToken;
+    public Map<String, String> getSlackTokens() {
+        return slackTokens;
     }
 
-    public void setSlackToken(String slackToken) {
-        this.slackToken = slackToken;
+    public void setSlackTokens(Map<String, String> slackTokens) {
+        this.slackTokens = slackTokens;
+    }
+
+    public String getSlackToken(String teamName) {
+        return slackTokens.get(teamName);
     }
 }

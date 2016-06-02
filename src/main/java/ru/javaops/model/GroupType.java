@@ -9,5 +9,5 @@ public enum GroupType {
     REGISTERED,
     FINISHED,
     CURRENT,
-    AD
+    SOURCE
 }

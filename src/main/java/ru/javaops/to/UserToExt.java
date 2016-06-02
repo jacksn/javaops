@@ -19,12 +19,14 @@ public class UserToExt extends UserTo {
 
     private String aboutMe;
 
+    private boolean statsAgree;
+
     public String getGmail() {
         return gmail;
     }
 
     public void setGmail(String gmail) {
-        this.gmail = gmail;
+        this.gmail = gmail.toLowerCase();
     }
 
     public Integer getId() {
@@ -49,5 +51,13 @@ public class UserToExt extends UserTo {
 
     public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
+    }
+
+    public boolean isStatsAgree() {
+        return statsAgree;
+    }
+
+    public void setStatsAgree(boolean statsAgree) {
+        this.statsAgree = statsAgree;
     }
 }

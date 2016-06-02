@@ -35,7 +35,7 @@ public class UserTo {
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        this.location = location == null ? null : location.trim().toLowerCase();
     }
 
     public String getInfoSource() {

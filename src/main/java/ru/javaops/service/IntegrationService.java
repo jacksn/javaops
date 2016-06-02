@@ -15,10 +15,10 @@ public class IntegrationService {
     @Autowired
     private IntegrationProperties integrationProperties;
 
-    public void asyncSendSlackInvitation(String email) {
+    public void asyncSendSlackInvitation(String email, String project) {
         new AsyncRestTemplate().exchange(
-                "https://slack.com/api/users.admin.invite?token={token}&email={email}&channels=#entrance_lesson,#git,#idea,#interview_job",
-                HttpMethod.GET, null, String.class, integrationProperties.getSlackToken(), email).addCallback(
+                "https://slack.com/api/users.admin.invite?token={token}&email={email}",
+                HttpMethod.GET, null, String.class, integrationProperties.getSlackToken(project), email).addCallback(
                 res -> LOG.info("Slack invitation result: " + res.getStatusCode() + ": " + res.getBody()),
                 ex -> LOG.error("Slack invitation result", ex)
         );

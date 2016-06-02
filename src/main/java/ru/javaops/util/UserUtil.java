@@ -20,6 +20,7 @@ public class UserUtil {
         assignNotEmpty(userToExt.getAboutMe(), user::setAboutMe);
         assignNotEmpty(userToExt.getSkype(), user::setSkype);
         assignNotEmpty(userToExt.getGmail(), user::setGmail);
+        user.setStatsAgree(userToExt.isStatsAgree());
     }
 
     public static void updateFromTo(User user, UserTo userTo) {

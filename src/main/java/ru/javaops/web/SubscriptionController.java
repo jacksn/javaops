@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ru.javaops.model.RegisterType;
-import ru.javaops.model.User;
-import ru.javaops.model.UserGroup;
+import ru.javaops.model.*;
 import ru.javaops.service.*;
 import ru.javaops.service.GroupService.ProjectProps;
 import ru.javaops.to.UserTo;
@@ -21,6 +19,8 @@ import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
 import java.util.Date;
+import java.util.Optional;
+import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -44,6 +44,10 @@ public class SubscriptionController {
 
     @Autowired
     private GroupService groupService;
+
+    @Autowired
+    private ProjectService projectService;
+
 
     @RequestMapping(value = "/activate", method = RequestMethod.GET)
     public ModelAndView activate(@RequestParam("email") String email, @RequestParam("activate") boolean activate, @RequestParam("key") String key) {
@@ -76,27 +80,38 @@ public class SubscriptionController {
         String template = projectName + (userGroup.getRegisterType() == RegisterType.REPEAT ? "_repeat" : "_register");
         String mailResult = mailService.sendToUser(template, userGroup.getUser());
         if (MailService.isOk(mailResult) && userGroup.getRegisterType() == RegisterType.REPEAT) {
-            integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail());
+            integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail(), projectName);
         }
         return new ModelAndView("redirectToUrl", "redirectUrl", MailService.isOk(mailResult) ? successUrl : failUrl);
     }
 
     @RequestMapping(value = "/participate", method = RequestMethod.GET)
-    public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key, @RequestParam("project") String project) {
-        email = email.toLowerCase();
-        ProjectProps projectProps = groupService.getProjectProps(project);
-        User u = userService.findByEmailAndGroupId(email, projectProps.currentGroup.getId());
-        checkNotNull(u, "Пользователь %s не найден в проекте %s", email, project);
-        return new ModelAndView("participation", ImmutableMap.of("user", u, "project", projectProps.project, "key", key));
+    public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key, @RequestParam("project") String projectName) {
+        User u;
+        Project project = projectService.findByName(projectName);
+        if (projectName.equals("javaops")) {
+            u = userService.findByEmail(email);
+            checkNotNull(u, "Пользователь %s не найден в проекте %s", email, projectName);
+            Set<Group> groups = groupService.findByUserId(u.getId());
+            Optional<Group> group = groups.stream().filter(g -> g.getType() == GroupType.FINISHED || g.getType() == GroupType.CURRENT).findAny();
+            if (!group.isPresent()) {
+                throw new IllegalStateException("Регистрация только для участников Java Online Projects");
+            }
+        } else {
+            ProjectProps projectProps = groupService.getProjectProps(projectName);
+            u = userService.findByEmailAndGroupId(email, projectProps.currentGroup.getId());
+            checkNotNull(u, "Пользователь %s не найден в проекте %s", email, projectName);
+        }
+        return new ModelAndView("participation", ImmutableMap.of("user", u, "project", project, "key", key));
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView save(@RequestParam("key") String key, @Valid UserToExt userToExt, BindingResult result) {
+    public ModelAndView save(@RequestParam("key") String key, @RequestParam("project") String project, @Valid UserToExt userToExt, BindingResult result) {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
         userService.update(userToExt);
-        integrationService.asyncSendSlackInvitation(userToExt.getEmail());
-        return new ModelAndView("registration");
+        integrationService.asyncSendSlackInvitation(userToExt.getEmail(), project);
+        return new ModelAndView("registration_" + project);
     }
 }

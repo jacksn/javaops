@@ -51,6 +51,9 @@ public class User extends BaseEntity {
     @Column(name = "about_me", length = 5000)
     private String aboutMe;
 
+    @Column(name = "stats_agree")
+    private boolean statsAgree;
+
     @Size(max = 100)
     private String website;
 
@@ -213,6 +216,14 @@ public class User extends BaseEntity {
 
     public Date getActivatedDate() {
         return activatedDate;
+    }
+
+    public boolean isStatsAgree() {
+        return statsAgree;
+    }
+
+    public void setStatsAgree(boolean statsAgree) {
+        this.statsAgree = statsAgree;
     }
 
     @Override
