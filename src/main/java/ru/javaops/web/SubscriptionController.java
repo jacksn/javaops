@@ -111,7 +111,7 @@ public class SubscriptionController {
             throw new ValidationException(Util.getErrorMessage(result));
         }
         userService.update(userToExt);
-        integrationService.asyncSendSlackInvitation(userToExt.getEmail(), project);
-        return new ModelAndView("registration_" + project);
+        IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(userToExt.getEmail(), project);
+        return new ModelAndView("registration_" + project, ImmutableMap.of("response", response));
     }
 }
