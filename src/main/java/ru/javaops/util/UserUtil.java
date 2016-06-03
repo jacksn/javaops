@@ -4,6 +4,8 @@ import ru.javaops.model.User;
 import ru.javaops.to.UserTo;
 import ru.javaops.to.UserToExt;
 
+import java.util.regex.Pattern;
+
 import static ru.javaops.util.Util.assignNotEmpty;
 
 /**
@@ -11,8 +13,10 @@ import static ru.javaops.util.Util.assignNotEmpty;
  * 16.02.2016
  */
 public class UserUtil {
+    static final Pattern GMAIL_EXP = Pattern.compile("\\@gmail\\.");
+
     public static User createFromTo(UserTo userTo) {
-        return new User(userTo.getEmail(), userTo.getNameSurname(), userTo.getLocation(), userTo.getInfoSource());
+        return tryFillGmail(new User(userTo.getEmail(), userTo.getNameSurname(), userTo.getLocation(), userTo.getInfoSource()));
     }
 
     public static void updateFromToExt(User user, UserToExt userToExt) {
@@ -29,5 +33,13 @@ public class UserUtil {
         assignNotEmpty(userTo.getInfoSource(), user::setInfoSource);
         assignNotEmpty(userTo.getEmail(), user::setEmail);
         user.setActive(true);
+        tryFillGmail(user);
+    }
+
+    private static User tryFillGmail(User user) {
+        if (GMAIL_EXP.matcher(user.getEmail()).find()) {
+            user.setGmail(user.getEmail());
+        }
+        return user;
     }
 }
