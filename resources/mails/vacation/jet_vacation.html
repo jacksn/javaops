@@ -1,0 +1,35 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Вакансия Java-разработчик (на полгода, Москва, обучение продукту в Чехии 18.07.2016 – 19.08.2016)</title>
+</head>
+<!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+<p>
+    Есть неплохая вакансия в Москве до конца года: (на чешский проект, компания Jet Infosystem).<br/>
+    Вилка- 100_000 - 170_000 руб. брутто.
+</p>
+<p>
+    Обучение продукту в Чехии (18.07.2016 – 19.08.2016), потом до конца года работа в Москве на територии заказчика.<br/>
+    Обучение бесплатно, проезд-проживание компенсируются по факту.<br/>
+    К 18.07.2016 нужно иметь загран паспорт и визу.
+</p>
+<ul>Требования:
+    <li>Отличное знание Java core, опыт разработки от 1 года</li>
+    <li>Уверенное знание SQL (Oracle), опыт создания сложных запросов</li>
+    <li>Опыт использования Spring (3.0.x), application containers (Tomcat, Jetty)</li>
+    <li>Опыт разработки WebServices (Apache CXF, REST …)</li>
+    <li>Опыт использования Log4j</li>
+    <li>Опыт разработки JUnit, Unitils, Mockito тестов, знание методики TDD</li>
+    <li>Опыт создания скриптов на Ant/Maven</li>
+    <li>Опыт использования JPA (EclipseLink) (опционально)</li>
+    <li>Опыт использования Vaadin (опционально)</li>
+</ul>
+Если интересно, пришли плз. ссылку на резюме (ответ на письмо или по скайпу grigory.kislin).
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>

@@ -90,4 +90,9 @@ public class UserServiceImpl implements UserService, org.springframework.securit
         UserUtil.updateFromToExt(user, userTo);
         userRepository.save(user);
     }
+
+    @Override
+    public Set<User> findByLocation(String location) {
+        return userRepository.findByLocation(location.toLowerCase());
+    }
 }

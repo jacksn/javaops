@@ -15,6 +15,7 @@ import ru.javaops.model.User;
 import ru.javaops.service.GroupService;
 import ru.javaops.service.MailService;
 import ru.javaops.service.MailService.GroupResult;
+import ru.javaops.service.UserService;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -36,6 +37,9 @@ public class MailController {
     @Autowired
     private GroupService groupService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(value = "/test", method = POST)
     public ResponseEntity<String> sendToUser(@Param("template") String template) {
         String result = mailService.sendTest(template);
@@ -48,8 +52,13 @@ public class MailController {
         return new ResponseEntity<>(result, MailService.isOk(result) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @RequestMapping(value = "/by-location", method = POST)
+    public ResponseEntity<GroupResult> sendToUsersByLocation(@Param("template") String template, @Param("location") String location) {
+        return sendToGroup(template, userService.findByLocation(location));
+    }
+
     @RequestMapping(value = "/to-users", method = POST)
-    public ResponseEntity<GroupResult> sendToProjectByGroupType(@Param("template") String template, @Param("emails") String emails) {
+    public ResponseEntity<GroupResult> sendToUsers(@Param("template") String template, @Param("emails") String emails) {
         GroupResult groupResult = mailService.sendToEmailList(template, Splitter.on(',').trimResults().omitEmptyStrings().splitToList(emails));
         return getGroupResultResponseEntity(groupResult);
     }
@@ -60,18 +69,20 @@ public class MailController {
                                                    @RequestParam(value = "reg-type", required = false) RegisterType registerType,
                                                    @RequestParam(value = "startRegisteredDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startRegisteredDate,
                                                    @RequestParam(value = "endRegisteredDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endRegisteredDate) {
-
-        Set<User> users = groupService.filterUserByGroupNames(includes, excludes, registerType, startRegisteredDate, endRegisteredDate);
-        if (users.isEmpty()) {
-            return getGroupResultResponseEntity(new GroupResult(0, Collections.emptyList(), null));
-        }
-        GroupResult groupResult = mailService.sendToUserList(template, users);
-        return getGroupResultResponseEntity(groupResult);
+        return sendToGroup(template, groupService.filterUserByGroupNames(includes, excludes, registerType, startRegisteredDate, endRegisteredDate));
     }
 
     @RequestMapping(value = "/resend", method = POST)
     public ResponseEntity<GroupResult> resend(@Param("template") String template) {
         GroupResult groupResult = mailService.resendTodayFailed(template);
+        return getGroupResultResponseEntity(groupResult);
+    }
+
+    private ResponseEntity<GroupResult> sendToGroup(String template, Set<User> users) {
+        if (users.isEmpty()) {
+            return getGroupResultResponseEntity(new GroupResult(0, Collections.emptyList(), null));
+        }
+        GroupResult groupResult = mailService.sendToUserList(template, users);
         return getGroupResultResponseEntity(groupResult);
     }
 
