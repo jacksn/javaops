@@ -29,4 +29,6 @@ public interface UserService {
     void update(UserToExt userTo);
 
     Set<User> findByLocation(String location);
+
+    Set<User> findAgreeStatsUsers();
 }
