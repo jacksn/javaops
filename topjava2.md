@@ -5,6 +5,8 @@
 -  <a href="https://github.com/spring-projects/spring-boot">spring-projects/spring-boot</a>
 -  <a href="http://spring.io/guides/tutorials/bookmarks/">Building REST services with Spring</a>
 
+spring-boot-starter-actuator: https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html
+
 2. Profiles.
 3. Add H2. WebServer/TcpServer
 4. Model User/Role. Repository UserRepository.
