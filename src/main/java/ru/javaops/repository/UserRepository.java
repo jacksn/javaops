@@ -28,4 +28,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("SELECT u FROM User u WHERE LOWER(u.location) LIKE CONCAT('%', :location, '%')")
     Set<User> findByLocation(@Param("location") String location);
+
+    @Query("SELECT u FROM User u WHERE u.statsAgree=TRUE")
+    Set<User> findAgreeStatsUsers();
 }
