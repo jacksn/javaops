@@ -1,0 +1,20 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Статистика выпускников "Java Online Projects".</title>
+</head>
+<!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+Сайт <a href="http://javaops.ru/">Java Online Projects</a> продолжает развиваться, в том числе силами выпускников:)<br/>
+Доработка от Александра (с моей коррекцией): <a th:href="@{http://javaops.ru/users(email=${user.email}, key=${activationKey}, project='javaops')}">статистика участников</a>.<br/>
+Следующая доработка: авторизация на сайт через github. Общение по доработкам в <a href="https://javaops.slack.com/messages/javaops_ru/">канале Slack javaops_ru</a>.
+<p>
+    Напомню, что следующий курс topjava стартует 01.09. Повторное участие бесплатное.
+</p>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
