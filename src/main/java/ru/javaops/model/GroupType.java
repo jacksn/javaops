@@ -8,6 +8,5 @@ public enum GroupType {
     TEST,
     REGISTERED,
     FINISHED,
-    CURRENT,
-    SOURCE
+    CURRENT
 }

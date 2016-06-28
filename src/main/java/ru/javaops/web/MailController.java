@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.javaops.model.GroupType;
 import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
 import ru.javaops.service.GroupService;
@@ -67,9 +68,10 @@ public class MailController {
     public ResponseEntity<GroupResult> sendToGroup(@Param("template") String template, @Param("includes") String includes,
                                                    @RequestParam(value = "excludes", required = false) String excludes,
                                                    @RequestParam(value = "reg-type", required = false) RegisterType registerType,
+                                                   @RequestParam(value = "group-types", required = false) GroupType[] groupTypes,
                                                    @RequestParam(value = "startRegisteredDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startRegisteredDate,
                                                    @RequestParam(value = "endRegisteredDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endRegisteredDate) {
-        return sendToGroup(template, groupService.filterUserByGroupNames(includes, excludes, registerType, startRegisteredDate, endRegisteredDate));
+        return sendToGroup(template, groupService.filterUserByGroupNames(includes, excludes, registerType, groupTypes, startRegisteredDate, endRegisteredDate));
     }
 
     @RequestMapping(value = "/resend", method = POST)

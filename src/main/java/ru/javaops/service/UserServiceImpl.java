@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javaops.LoggedUser;
+import ru.javaops.model.GroupType;
 import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
@@ -68,6 +69,11 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     @Override
     public Set<User> findByGroupName(String groupName) {
         return userRepository.findByGroupName(groupName);
+    }
+
+    @Override
+    public Set<User> findByGroupTypes(GroupType[] groupTypes) {
+        return userRepository.findByGroupType(groupTypes);
     }
 
     @Override

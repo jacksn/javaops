@@ -135,9 +135,12 @@ public class GroupService {
         return group.get();
     }
 
-    public Set<User> filterUserByGroupNames(String includes, String excludes, RegisterType registerType, LocalDate startRegisteredDate, LocalDate endRegisteredDate) {
+    public Set<User> filterUserByGroupNames(String includes, String excludes, RegisterType registerType, GroupType[] groupTypes, LocalDate startRegisteredDate, LocalDate endRegisteredDate) {
         final List<Group> groups = getAll();
-        Set<User> includeUsers = filterUserByGroupNames(groups, includes, registerType, startRegisteredDate, endRegisteredDate);
+        final Set<User> includeUsers = (groupTypes == null || groupTypes.length == 0) ?
+                filterUserByGroupNames(groups, includes, registerType, startRegisteredDate, endRegisteredDate) :
+                userService.findByGroupTypes(groupTypes);
+
         if (StringUtils.isNoneEmpty(excludes)) {
             Set<User> excludeUsers = filterUserByGroupNames(groups, excludes, null, startRegisteredDate, endRegisteredDate);
             includeUsers.removeAll(excludeUsers);

@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import ru.javaops.model.GroupType;
 import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
 import ru.javaops.to.UserStat;
@@ -19,6 +20,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT DISTINCT(ug.user) FROM UserGroup ug " +
             " WHERE ug.group.name=:groupName AND ug.user.active=TRUE")
     Set<User> findByGroupName(@Param("groupName") String groupName);
+
+    @Query("SELECT DISTINCT(ug.user) FROM UserGroup ug " +
+            " WHERE ug.group.type IN (:groupTypes) AND ug.user.active=TRUE")
+    Set<User> findByGroupType(@Param("groupTypes") GroupType[] groupTypes);
 
     @Query("SELECT DISTINCT(ug.user) FROM UserGroup ug " +
             " WHERE ug.registerType=:registerType AND ug.group.name=:groupName AND ug.user.active=TRUE")
