@@ -1,5 +1,6 @@
 package ru.javaops.util;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.junit.Test;
 
 import static org.apache.commons.lang3.StringUtils.capitalize;
@@ -15,6 +16,7 @@ public class PasswordUtilTest {
     @Test
     public void test() throws Exception {
         System.out.println(substringBefore(capitalize("григорий Кислин"), " "));
+        System.out.println(WordUtils.capitalize("Санкт,петербург", ' ', '-', '.',','));
     }
 
     @Test

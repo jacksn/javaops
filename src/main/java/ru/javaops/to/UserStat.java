@@ -17,7 +17,7 @@ public class UserStat {
     public UserStat(String fullName, String email, String location, String aboutMe, String skype) {
         this.fullName = WordUtils.capitalize(fullName);
         this.email = email;
-        this.location = WordUtils.capitalize(location, ' ', '-', '.');
+        this.location = WordUtils.capitalize(location, ' ', '-', '.', '/', ',');
         this.aboutMe = StringUtils.replace(aboutMe, "\n", "<br/>");
         this.skype = skype;
     }
