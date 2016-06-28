@@ -9,7 +9,7 @@
 <p th:replace="mailFragments::header(${user})">
     Здравствуй firstName!<br/>
 </p>
-Сайт <a href="http://javaops.ru/">Java Online Projects</a> продолжает развиваться, в том числе силами выпускников:)<br/>
+Сайт <a href="http://javaops.ru/">Java Online Projects</a> продолжает развиваться, в том числе вашими силами.<br/>
 Доработка от Александра (с моей коррекцией): <a th:href="@{http://javaops.ru/users(email=${user.email}, key=${activationKey}, project='javaops')}">статистика участников</a>.<br/>
 Следующая доработка: авторизация на сайт через github. Общение по доработкам в <a href="https://javaops.slack.com/messages/javaops_ru/">канале Slack javaops_ru</a>.
 <p>
