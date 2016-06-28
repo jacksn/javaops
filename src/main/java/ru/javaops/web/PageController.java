@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ru.javaops.model.User;
 import ru.javaops.service.UserService;
+import ru.javaops.to.UserStat;
 
 import java.util.Set;
 
@@ -20,7 +20,7 @@ public class PageController {
 
     @RequestMapping(value = "/users", method = GET)
     public ModelAndView usersInfo(@RequestParam("key") String key, @RequestParam("email") String email) {
-        Set<User> userSet = userService.findAllForStats();
+        Set<UserStat> userSet = userService.findAllForStats();
         return (userSet.stream().filter(u -> u.getEmail().equals(email)).findAny().isPresent()) ?
                 new ModelAndView("userList", "users", userSet) :
                 new ModelAndView("statsForbidden");

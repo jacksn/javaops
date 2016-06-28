@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="project" type="ru.javaops.model.Project"*/-->
-<!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
+<!--/*@thymesVar id="user" type="ru.javaops.to.UserStat"*/-->
 <head th:include="fragments::headTag('Java Online Projects')">
     <meta charset="UTF-8"/>
     <title>Java Online Projects</title>
@@ -20,7 +20,6 @@
 </div>
 <div class="jumbotron">
     <div class="container box">
-        <h2>User list</h2>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -35,7 +34,7 @@
                 <tr th:each="user: ${users}">
                     <td th:text="${user.fullName}"></td>
                     <td th:text="${user.location}"></td>
-                    <td th:text="${user.aboutMe}"></td>
+                    <td th:utext="${user.aboutMe}"></td>
                     <td th:text="${user.skype}"></td>
                 </tr>
                 </tbody>

@@ -11,6 +11,7 @@ import ru.javaops.LoggedUser;
 import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
+import ru.javaops.to.UserStat;
 import ru.javaops.to.UserToExt;
 import ru.javaops.util.UserUtil;
 
@@ -96,7 +97,7 @@ public class UserServiceImpl implements UserService, org.springframework.securit
         return userRepository.findByLocation(location.toLowerCase());
     }
 
-    public Set<User> findAllForStats() {
+    public Set<UserStat> findAllForStats() {
         return userRepository.findAllForStats();
     }
 }

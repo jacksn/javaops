@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
+import ru.javaops.to.UserStat;
 
 import java.util.Set;
 
@@ -29,6 +30,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT u FROM User u WHERE LOWER(u.location) LIKE CONCAT('%', :location, '%')")
     Set<User> findByLocation(@Param("location") String location);
 
-    @Query("SELECT u FROM User u WHERE u.statsAgree=TRUE ORDER BY u.location")
-    Set<User> findAllForStats();
+    @Query("SELECT new ru.javaops.to.UserStat(u.fullName, u.email, u.location, u.aboutMe, u.skype) FROM User u WHERE u.statsAgree=TRUE ORDER BY u.location")
+    Set<UserStat> findAllForStats();
 }
