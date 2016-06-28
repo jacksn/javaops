@@ -25,28 +25,18 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>№</th>
-                    <th>ФИО</th>
-                    <th>Регион</th>
+                    <th>Имя</th>
+                    <th>Город</th>
                     <th>Обо мне</th>
-                    <th>website</th>
-                    <th>Компания</th>
                     <th>skype</th>
-                    <th>github</th>
-                    <th>vk</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user,iterationStatus : ${users}">
-                    <td th:text="${iterationStatus.index}"></td>
+                <tr th:each="user: ${users}">
                     <td th:text="${user.fullName}"></td>
                     <td th:text="${user.location}"></td>
                     <td th:text="${user.aboutMe}"></td>
-                    <td th:text="${user.website}"></td>
-                    <td th:text="${user.company}"></td>
                     <td th:text="${user.skype}"></td>
-                    <td th:text="${user.github}"></td>
-                    <td th:text="${user.vk}"></td>
                 </tr>
                 </tbody>
             </table>

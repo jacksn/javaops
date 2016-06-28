@@ -41,8 +41,6 @@ public class GlobalExceptionHandler {
     }
 
     private ModelAndView processException(String msg) {
-        ModelAndView mav = new ModelAndView("exception");
-        mav.addObject("message", msg);
-        return mav;
+        return new ModelAndView("exception", "message", msg);
     }
 }

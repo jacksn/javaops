@@ -30,5 +30,5 @@ public interface UserService {
 
     Set<User> findByLocation(String location);
 
-    Set<User> findAgreeStatsUsers();
+    Set<User> findAllForStats();
 }

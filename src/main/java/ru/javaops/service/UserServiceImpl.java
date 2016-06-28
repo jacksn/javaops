@@ -96,5 +96,7 @@ public class UserServiceImpl implements UserService, org.springframework.securit
         return userRepository.findByLocation(location.toLowerCase());
     }
 
-    public Set<User> findAgreeStatsUsers() { return userRepository.findAgreeStatsUsers(); }
+    public Set<User> findAllForStats() {
+        return userRepository.findAllForStats();
+    }
 }

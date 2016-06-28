@@ -3,6 +3,7 @@ package ru.javaops.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.javaops.model.User;
 import ru.javaops.service.UserService;
@@ -17,9 +18,11 @@ public class PageController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/user_list", method = GET)
-    public ModelAndView usersInfo() {
-        Set<User> userSet = userService.findAgreeStatsUsers();
-        return new ModelAndView("user_list", "users", userSet);
+    @RequestMapping(value = "/users", method = GET)
+    public ModelAndView usersInfo(@RequestParam("key") String key, @RequestParam("email") String email) {
+        Set<User> userSet = userService.findAllForStats();
+        return (userSet.stream().filter(u -> u.getEmail().equals(email)).findAny().isPresent()) ?
+                new ModelAndView("userList", "users", userSet) :
+                new ModelAndView("statsForbidden");
     }
 }
