@@ -27,7 +27,8 @@ app:
   host-url: http://localhost:8080
   integration:
     vk-token: vk-token
-    slack-token: slack-token
+    slack-tokens.topjava: dummy-slack-token-topjava
+    slack-tokens.javaops: dummy-slack-token-javaops
 
 spring:
   mail.host: smtp.yandex.ru
