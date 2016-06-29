@@ -6,7 +6,10 @@
 - Spring Boot
 - H2
 - Thymeleaf
-- Рассмаривается на кандидат в UI: https://vaadin.com/elements
+- Рассмаривается на кандидаты в UI: 
+  - https://vaadin.com/elements
+  - https://www.sencha.com/products/gxt
+  - <a href="https://angular.io">Angular 2</a>
 
 ### Сделано:
 - REST API
