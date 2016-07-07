@@ -120,6 +120,7 @@ additional-spring-configuration-metadata.json
 
 ## OAuth2
 https://github.com/spring-cloud-samples/authserver
+http://oauthbible.com/
 
 ## Execution and Scheduling
 <a href="http://stackoverflow.com/questions/4912228/when-should-i-use-a-completionservice-over-an-executorservice">CompletionService over an ExecutorService</a>

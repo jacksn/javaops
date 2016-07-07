@@ -1,0 +1,13 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Ранняя цена на проект 'Java Enterprise (Topjava)'. Старт 01.09</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+<h3>Рад сообщить, при оплате до 01.08 действует льготная цена на проект <a href="http://javawebinar.ru/topjava">Java Enterprise (Topjava)</a>:</h3>
+<div th:include="topjava_info::topjava_info"></div>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
