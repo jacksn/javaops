@@ -1,0 +1,37 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Участие в проекте 'Многопоточность. Веб сервисы.'</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+<p>
+    Рад сообщить, что 25.07 в 20.00 (GMT+3, Москва/Киев) будет бесплатный вебинар: <br/>вступительное занятие по
+    обновленному проекту
+    <a href="http://javawebinar.ru/masterjava">Многопоточность. Веб сервисы</a><br/>
+    <i>разработка полнофункционального многомодульного Maven проекта с использованием веб-сервисов (SOAP, JAX-WS), REST
+        (JAX-RS) и JMX.</i><br/>
+</p>
+Для участия необходимо <a href="http://javawebinar.ru/masterjava">зарегистрироваться</a> и пройти <a href="https://github.com/JavaOPs/masterjava">материалы
+    вступительного задания</a>. <br/>
+Выполнить <a href="https://github.com/JavaOPs/masterjava#Вступительное-задание">вступительное задание</a> желательно, но
+не объязательно.
+Проект стартует во второй половине августа, разбирать задание будем на первом уроке.
+<hr/>
+Предварительная стоимость участия:
+<ul>
+    <li>без проверок домашних заданий: 8600 руб.</li>
+    <li>с проверками заданий: 16500 руб.</li>
+    <li>стоимость для участников Topjava: 7900 руб. и 15000 руб.</li>
+    <li>бесплатное повторное участие в формате рассылки материалов</li>
+</ul>
+
+<p>
+    До встречи на вебинаре вступительного занятия!
+</p>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>

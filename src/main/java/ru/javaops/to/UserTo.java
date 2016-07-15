@@ -13,6 +13,7 @@ public class UserTo {
     private String nameSurname;
     private String location;
     private String infoSource;
+    private String phone;
 
     public String getEmail() {
         return email;
@@ -44,6 +45,14 @@ public class UserTo {
 
     public void setInfoSource(String infoSource) {
         this.infoSource = infoSource;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override

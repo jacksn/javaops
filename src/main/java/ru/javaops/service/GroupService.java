@@ -14,16 +14,20 @@ import ru.javaops.repository.GroupRepository;
 import ru.javaops.repository.PaymentRepository;
 import ru.javaops.repository.UserGroupRepository;
 import ru.javaops.to.UserTo;
+import ru.javaops.util.ProjectUtil;
+import ru.javaops.util.ProjectUtil.ProjectProps;
 import ru.javaops.util.TimeUtil;
 import ru.javaops.util.UserUtil;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
 
 /**
  * GKislin
@@ -94,6 +98,27 @@ public class GroupService {
         return userGroupRepository.save(userGroup);
     }
 
+    public UserGroup registerAtGroup(UserTo userTo, String groupName) {
+        log.info("add{} to group {}", userTo, groupName);
+        Group group = findByName(groupName);
+        User user = userService.findByEmail(userTo.getEmail());
+        RegisterType registerType;
+        if (user == null) {
+            user = UserUtil.createFromTo(userTo);
+            userService.save(user);
+            registerType = RegisterType.FIRST_REGISTERED;
+        } else {
+            UserGroup ug = userGroupRepository.findByUserIdAndGroupId(user.getId(), group.getId());
+            if (ug != null) {
+                return new UserGroup(user, group, RegisterType.REPEAT, null);
+            }
+            registerType = RegisterType.REGISTERED;
+        }
+        UserGroup userGroup = new UserGroup(user, group, registerType, null);
+        userGroupRepository.save(userGroup);
+        return userGroup;
+    }
+
     public UserGroup moveOrCreate(User u, Group sourceGroup, Group targetGroup) {
         UserGroup ug = userGroupRepository.findByUserIdAndGroupId(u.getId(), sourceGroup.getId());
         if (ug == null) {
@@ -121,18 +146,7 @@ public class GroupService {
     }
 
     public ProjectProps getProjectProps(String projectName) {
-        Collection<Group> groups = getAll();
-        return new ProjectProps(
-                getGroupByProjectAndType(groups, projectName, GroupType.REGISTERED),
-                getGroupByProjectAndType(groups, projectName, GroupType.CURRENT));
-    }
-
-    private static Group getGroupByProjectAndType(Collection<Group> groups, String projectName, GroupType type) {
-        Optional<Group> group = groups.stream()
-                .filter(g -> g.getProject() != null && g.getProject().getName().equals(projectName) && (g.getType() == type))
-                .findFirst();
-        checkState(group.isPresent(), "В проекте %s отсутствуют группы c типом %s", projectName, type);
-        return group.get();
+        return ProjectUtil.getProjectProps(projectName, getAll());
     }
 
     public Set<User> filterUserByGroupNames(String includes, String excludes, RegisterType registerType, GroupType[] groupTypes, LocalDate startRegisteredDate, LocalDate endRegisteredDate) {
@@ -182,15 +196,4 @@ public class GroupService {
                 ).collect(Collectors.toList());
     }
 
-    public static class ProjectProps {
-        public final Group registeredGroup;
-        public final Group currentGroup;
-        public final Project project;
-
-        public ProjectProps(Group registeredGroup, Group currentGroup) {
-            this.registeredGroup = registeredGroup;
-            this.currentGroup = currentGroup;
-            this.project = registeredGroup.getProject();
-        }
-    }
 }

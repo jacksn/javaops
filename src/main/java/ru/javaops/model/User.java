@@ -43,6 +43,9 @@ public class User extends BaseEntity {
     @Size(max = 50)
     private String location;
 
+    @Size(max = 50)
+    private String phone;
+
     @Size(max = 100)
     @Column(name = "info_source", length = 100)
     private String infoSource;
@@ -90,16 +93,17 @@ public class User extends BaseEntity {
     public User() {
     }
 
-    public User(String email, String nameSurname, String location, String infoSource) {
-        this(null, email, nameSurname, location, infoSource);
+    public User(String email, String nameSurname, String location, String infoSource, String phone) {
+        this(null, email, nameSurname, location, infoSource, phone);
     }
 
-    public User(Integer id, String email, String fullName, String location, String infoSource) {
+    public User(Integer id, String email, String fullName, String location, String infoSource, String phone) {
         super(id);
         this.email = email;
         this.fullName = fullName;
         this.location = location;
         this.infoSource = infoSource;
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -224,6 +228,10 @@ public class User extends BaseEntity {
 
     public void setStatsAgree(boolean statsAgree) {
         this.statsAgree = statsAgree;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     @Override

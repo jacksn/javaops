@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.javaops.model.*;
 import ru.javaops.service.*;
-import ru.javaops.service.GroupService.ProjectProps;
 import ru.javaops.to.UserTo;
 import ru.javaops.to.UserToExt;
+import ru.javaops.util.ProjectUtil.ProjectProps;
 import ru.javaops.util.Util;
 
 import javax.mail.MessagingException;
@@ -62,6 +62,20 @@ public class SubscriptionController {
                         "subscriptionUrl", subscriptionService.getSubscriptionUrl(email, key, !activate)));
     }
 
+    @RequestMapping(value = "/register-group", method = RequestMethod.POST)
+    public ModelAndView registerInGroup(@RequestParam("group") String group,
+                                        @RequestParam("confirmMail") String confirmMail,
+                                        @RequestParam("callback") String callback,
+                                        @RequestParam("template") String template,
+                                        @Valid UserTo userTo, BindingResult result) throws MessagingException {
+        if (result.hasErrors()) {
+            throw new ValidationException(Util.getErrorMessage(result));
+        }
+        UserGroup userGroup = groupService.registerAtGroup(userTo, group);
+        mailService.sendWithTemplateAsync(confirmMail, "confirm", ImmutableMap.of("userGroup", userGroup));
+        return sendAndRedirect(callback, "http://javawebinar.ru/error.html", userGroup.getUser(), template);
+    }
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView registerByProject(@RequestParam("project") String project,
                                           @RequestParam("channel") String channel,
@@ -69,19 +83,19 @@ public class SubscriptionController {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
-        return register(channel, "http://javawebinar.ru/confirm.html", "http://javawebinar.ru/error.html", userTo, groupService.getProjectProps(project));
-    }
 
-    private ModelAndView register(String channel, String successUrl, String failUrl,
-                                  UserTo userTo, ProjectProps projectProps) throws MessagingException {
-
+        ProjectProps projectProps = groupService.getProjectProps(project);
         UserGroup userGroup = groupService.registerAtProject(userTo, projectProps, channel);
         String projectName = projectProps.project.getName();
-        String template = projectName + (userGroup.getRegisterType() == RegisterType.REPEAT ? "_repeat" : "_register");
-        String mailResult = mailService.sendToUser(template, userGroup.getUser());
-        if (MailService.isOk(mailResult) && userGroup.getRegisterType() == RegisterType.REPEAT) {
+        if (userGroup.getRegisterType() == RegisterType.REPEAT) {
             integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail(), projectName);
         }
+        String template = projectName + (userGroup.getRegisterType() == RegisterType.REPEAT ? "_repeat" : "_register");
+        return sendAndRedirect("http://javawebinar.ru/confirm.html", "http://javawebinar.ru/error.html", userGroup.getUser(), template);
+    }
+
+    private ModelAndView sendAndRedirect(String successUrl, String failUrl, User user, String template) throws MessagingException {
+        String mailResult = mailService.sendToUser(template, user);
         return new ModelAndView("redirectToUrl", "redirectUrl", MailService.isOk(mailResult) ? successUrl : failUrl);
     }
 

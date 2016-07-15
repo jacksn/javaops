@@ -118,8 +118,8 @@ public class MailService {
     }
 
     @Async("mailExecutor")
-    public Future<String> sendToUserAsync(String template, String email) {
-        return new AsyncResult<>(sendToUser(template, email));
+    public Future<String> sendWithTemplateAsync(String email, String template, final Map<String, ?> params) {
+        return new AsyncResult<>(sendWithTemplate(email, null, template, params));
     }
 
     public String sendTest(String template) {
@@ -136,23 +136,24 @@ public class MailService {
         checkNotNull(user, "User must not be null");
         String activationKey = subscriptionService.generateActivationKey(user.getEmail());
         String subscriptionUrl = subscriptionService.getSubscriptionUrl(user.getEmail(), activationKey, false);
-        return sendToUserWithParams(template, user, ImmutableMap.of("user", user, "subscriptionUrl", subscriptionUrl, "activationKey", activationKey));
+        String result = sendWithTemplate(user.getEmail(), user.getFullName(), template,
+                ImmutableMap.of("user", user, "subscriptionUrl", subscriptionUrl, "activationKey", activationKey));
+        mailCaseRepository.save(new MailCase(user, template, result));
+        return result;
     }
 
-    public String sendToUserWithParams(String template, User user, final Map<String, ?> params) {
-        checkNotNull(user, "User must not be null");
-        LOG.debug("Sending {} email to '{}'", template, user.getEmail());
+    public String sendWithTemplate(String toEmail, String toName, String template, final Map<String, ?> params) {
+        LOG.debug("Sending {} email to '{}'", template, toEmail);
         String content = getContent(template, params);
         final String subject = Util.getTitle(content);
         String result;
         try {
-            send(user.getEmail(), user.getFirstName(), subject, content, true, (String) params.get("subscriptionUrl"));
+            send(toEmail, toName, subject, content, true, (String) params.get("subscriptionUrl"));
             result = OK;
         } catch (MessagingException | MailException e) {
             result = e.getMessage();
-            LOG.error("Sending to {} failed: \n{}", user.getEmail(), result);
+            LOG.error("Sending to {} failed: \n{}", toEmail, result);
         }
-        mailCaseRepository.save(new MailCase(user, template, result));
         return result;
     }
 
