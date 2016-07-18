@@ -22,10 +22,9 @@
     <div class="container box">
         <h2>Спасибо за регистрацию!</h2>
         <!--/*@thymesVar id="response" type="ru.javaops.service.IntegrationService.SlackResponse"*/-->
-        <h4 th:text="${response.ok} ? 'На почту должно прийти приглашение в группу Slack.' : 'Ответ от Slack: '+ ${response.error}">
+        <h4 th:text="${response.ok} ? 'Проверьте почту, туда должно прийти приглашение в группу Slack.' : 'Ответ от Slack: '+ ${response.error}">
             На почту должно прийти приглашение в группу Slack.
         </h4>
-        <h4>Если доступа к Google Drive еще нет, пришли мне в skype свой gmail.</h4>
     </div>
 </div>
 </body>
