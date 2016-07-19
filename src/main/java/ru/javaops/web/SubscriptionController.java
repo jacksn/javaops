@@ -64,16 +64,28 @@ public class SubscriptionController {
 
     @RequestMapping(value = "/register-group", method = RequestMethod.POST)
     public ModelAndView registerInGroup(@RequestParam("group") String group,
-                                        @RequestParam("confirmMail") String confirmMail,
-                                        @RequestParam("callback") String callback,
+                                        @RequestParam(value = "confirmMail", required = false) String confirmMail,
+                                        @RequestParam(value = "callback", required = false) String callback,
+                                        @RequestParam("channel") String channel,
                                         @RequestParam("template") String template,
                                         @Valid UserTo userTo, BindingResult result) throws MessagingException {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
-        UserGroup userGroup = groupService.registerAtGroup(userTo, group);
-        mailService.sendWithTemplateAsync(confirmMail, "confirm", ImmutableMap.of("userGroup", userGroup));
-        return sendAndRedirect(callback, "http://javawebinar.ru/error.html", userGroup.getUser(), template);
+        UserGroup userGroup = groupService.registerAtGroup(userTo, group, channel);
+        String mailResult = mailService.sendToUser(template, userGroup.getUser());
+        ImmutableMap<String, ?> params = ImmutableMap.of("userGroup", userGroup, "result", mailResult);
+
+        final ModelAndView mv;
+        if (callback != null) {
+            mv = getRedirectView(mailResult, callback, "http://javawebinar.ru/error.html");
+        } else {
+            mv = new ModelAndView("confirm", params);
+        }
+        if (confirmMail != null) {
+            mailService.sendWithTemplateAsync(confirmMail, "confirm", params);
+        }
+        return mv;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -91,11 +103,11 @@ public class SubscriptionController {
             integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail(), projectName);
         }
         String template = projectName + (userGroup.getRegisterType() == RegisterType.REPEAT ? "_repeat" : "_register");
-        return sendAndRedirect("http://javawebinar.ru/confirm.html", "http://javawebinar.ru/error.html", userGroup.getUser(), template);
+        String mailResult = mailService.sendToUser(template, userGroup.getUser());
+        return getRedirectView(mailResult, "http://javawebinar.ru/confirm.html", "http://javawebinar.ru/error.html");
     }
 
-    private ModelAndView sendAndRedirect(String successUrl, String failUrl, User user, String template) throws MessagingException {
-        String mailResult = mailService.sendToUser(template, user);
+    private ModelAndView getRedirectView(String mailResult, String successUrl, String failUrl) throws MessagingException {
         return new ModelAndView("redirectToUrl", "redirectUrl", MailService.isOk(mailResult) ? successUrl : failUrl);
     }
 

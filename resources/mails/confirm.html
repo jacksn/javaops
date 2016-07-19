@@ -1,6 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="userGroup" type="ru.javaops.model.UserGroup"*/-->
+<!--/*@thymesVar id="result" type="java.lang.String"*/-->
 <th:block th:object="${userGroup.user}">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -17,6 +18,8 @@
     <p th:text="|Почта: *{email}|">
     </p>
     <p>Телефон: <span th:text="*{phone}?: 'нет'">123-456</span>
+    </p>
+    <p th:text="|Результат отправки: ${result}|">
     </p>
 </th:block>
 </html>

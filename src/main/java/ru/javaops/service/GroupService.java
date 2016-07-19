@@ -98,7 +98,7 @@ public class GroupService {
         return userGroupRepository.save(userGroup);
     }
 
-    public UserGroup registerAtGroup(UserTo userTo, String groupName) {
+    public UserGroup registerAtGroup(UserTo userTo, String groupName, String channel) {
         log.info("add{} to group {}", userTo, groupName);
         Group group = findByName(groupName);
         User user = userService.findByEmail(userTo.getEmail());
@@ -110,11 +110,12 @@ public class GroupService {
         } else {
             UserGroup ug = userGroupRepository.findByUserIdAndGroupId(user.getId(), group.getId());
             if (ug != null) {
-                return new UserGroup(user, group, RegisterType.REPEAT, null);
+                ug.setRegisterType(RegisterType.REPEAT);
+                return ug;
             }
             registerType = RegisterType.REGISTERED;
         }
-        UserGroup userGroup = new UserGroup(user, group, registerType, null);
+        UserGroup userGroup = new UserGroup(user, group, registerType, channel);
         userGroupRepository.save(userGroup);
         return userGroup;
     }

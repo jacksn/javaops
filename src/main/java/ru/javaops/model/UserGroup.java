@@ -76,6 +76,10 @@ public class UserGroup extends BaseEntity {
         this.participationType = participationType;
     }
 
+    public void setRegisterType(RegisterType registerType) {
+        this.registerType = registerType;
+    }
+
     public ParticipationType getParticipationType() {
         return participationType;
     }
