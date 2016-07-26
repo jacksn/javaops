@@ -1,0 +1,30 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Вступительное занятие проекта 'Многопоточность. Веб сервисы.'</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+<p>
+    Напомню, что <b>СЕГОДНЯ, 26.07 в 20.00</b> (GMT+3, Москва/Киев) будет бесплатный вебинар: <br/>вступительное занятие
+    по обновленному проекту
+    <a href="http://javawebinar.ru/masterjava">Многопоточность. Веб сервисы</a>.<br/>
+    <i>разработка полнофункционального многомодульного Maven проекта с использованием веб-сервисов (SOAP, JAX-WS), REST
+        (JAX-RS) и JMX.</i><br/>
+    Проект стартует во второй половине августа.
+
+</p>
+<p>
+    Встречу проведем на платформе Google Hangouts:<br/>
+    <a href="https://plus.google.com/events/ci60q9a1tvdaa0nurauu9kvqi94">Определится с участием</a><br/>
+    <a href="http://www.youtube.com/watch?v=Kit-UPCL_9Y">Видео на YouTube</a>
+</p>
+<p>
+    До встречи на вебинаре!
+</p>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
