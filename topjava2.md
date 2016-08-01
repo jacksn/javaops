@@ -5,6 +5,10 @@
 -  <a href="https://github.com/spring-projects/spring-boot">spring-projects/spring-boot</a>
 -  <a href="http://spring.io/guides/tutorials/bookmarks/">Building REST services with Spring</a>
 
+- https://springframework.guru/spring-boot-web-application-part-1-spring-initializr/
+- https://springframework.guru/spring-boot-web-application-part-2-using-thymeleaf/
+- https://springframework.guru/using-logback-spring-boot/
+
 spring-boot-starter-actuator: https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html
 
 2. Profiles.
