@@ -68,7 +68,7 @@ public class SubscriptionController {
                                         @RequestParam(value = "callback", required = false) String callback,
                                         @RequestParam("channel") String channel,
                                         @RequestParam("template") String template,
-                                        @Valid UserTo userTo, BindingResult result) throws MessagingException {
+                                        @Valid UserTo userTo, BindingResult result) {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
@@ -91,7 +91,7 @@ public class SubscriptionController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView registerByProject(@RequestParam("project") String project,
                                           @RequestParam("channel") String channel,
-                                          @Valid UserTo userTo, BindingResult result) throws MessagingException {
+                                          @Valid UserTo userTo, BindingResult result) {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
@@ -107,8 +107,22 @@ public class SubscriptionController {
         return getRedirectView(mailResult, "http://javawebinar.ru/confirm.html", "http://javawebinar.ru/error.html");
     }
 
-    private ModelAndView getRedirectView(String mailResult, String successUrl, String failUrl) throws MessagingException {
+    private ModelAndView getRedirectView(String mailResult, String successUrl, String failUrl) {
         return new ModelAndView("redirectToUrl", "redirectUrl", MailService.isOk(mailResult) ? successUrl : failUrl);
+    }
+
+    @RequestMapping(value = "/repeat", method = RequestMethod.GET)
+    public ModelAndView repeat(@RequestParam("email") String email, @RequestParam("project") String projectName) throws MessagingException {
+        ProjectProps projectProps = groupService.getProjectProps(projectName);
+        User user = userService.findByEmailAndProjectId(email, projectProps.project.getId());
+        checkNotNull(user, "Пользователь %s не найден в проекте %s", email, projectName);
+        if (userService.findByEmailAndGroupId(email, projectProps.currentGroup.getId()) != null) {
+            return new ModelAndView("already_registered");
+        }
+        mailService.sendToUser(projectName + "_repeat", user);
+        IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, projectName);
+        groupService.save(user, projectProps.currentGroup, RegisterType.REPEAT, "mail");
+        return new ModelAndView("registration_" + projectName, ImmutableMap.of("response", response));
     }
 
     @RequestMapping(value = "/participate", method = RequestMethod.GET)

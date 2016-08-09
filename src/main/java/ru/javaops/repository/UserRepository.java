@@ -29,6 +29,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             " WHERE ug.registerType=:registerType AND ug.group.name=:groupName AND ug.user.active=TRUE")
     Set<User> findByGroupNameAndRegisterType(@Param("groupName") String groupName, @Param("registerType") RegisterType registerType);
 
+    @Query("SELECT ug.user FROM UserGroup ug WHERE ug.user.email=:email AND ug.group.project.id=:projectId")
+    User findByEmailAndProjectId(@Param("email") String email, @Param("projectId") int projectId);
+
     @Query("SELECT ug.user FROM UserGroup ug WHERE ug.user.email=:email AND ug.group.id=:groupId")
     User findByEmailAndGroupId(@Param("email") String email, @Param("groupId") int groupId);
 

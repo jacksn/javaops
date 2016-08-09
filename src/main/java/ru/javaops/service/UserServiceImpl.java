@@ -90,6 +90,10 @@ public class UserServiceImpl implements UserService, org.springframework.securit
         return userRepository.findByEmailAndGroupId(email.toLowerCase(), groupId);
     }
 
+    public User findByEmailAndProjectId(String email, int projectId) {
+        return userRepository.findByEmailAndProjectId(email.toLowerCase(), projectId);
+    }
+
     @Override
     @Transactional
     public void update(UserToExt userTo) {

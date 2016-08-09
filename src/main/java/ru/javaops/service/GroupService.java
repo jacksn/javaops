@@ -94,8 +94,11 @@ public class GroupService {
         }
         userService.save(user);
         Group group = (registerType == RegisterType.REPEAT) ? projectProps.currentGroup : projectProps.registeredGroup;
-        UserGroup userGroup = new UserGroup(user, group, registerType, channel);
-        return userGroupRepository.save(userGroup);
+        return save(user, group, registerType, channel);
+    }
+
+    public UserGroup save(User user, Group group, RegisterType registerType, String channel) {
+        return userGroupRepository.save(new UserGroup(user, group, registerType, channel));
     }
 
     public UserGroup registerAtGroup(UserTo userTo, String groupName, String channel) {
@@ -115,9 +118,7 @@ public class GroupService {
             }
             registerType = RegisterType.REGISTERED;
         }
-        UserGroup userGroup = new UserGroup(user, group, registerType, channel);
-        userGroupRepository.save(userGroup);
-        return userGroup;
+        return save(user, group, registerType, channel);
     }
 
     public UserGroup moveOrCreate(User u, Group sourceGroup, Group targetGroup) {
