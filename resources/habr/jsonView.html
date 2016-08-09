@@ -1,0 +1,124 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Spring/Jackson + @JsonView: фильтруем JSON.</title>
+</head>
+Здравствуйте!<br/>
+Недавно в проекте Spring столкнулся с задачей катомизации сериализации объекта User в JSON в зависимости от контроллера.
+Для REST API контроллера нужно было возвращать хешированный пароль (поле user.password), а для контроллера отображения на UI- нет.
+Можно решить задачу в "лоб", сделав нестолько TO (<a href="https://ru.wikipedia.org/wiki/DTO">Data Transfer
+    Object</a>), но в Spring 4.2+/Jackson 2.6 появилась возможность использовать
+<a href="https://spring.io/blog/2014/12/02/latest-jackson-integration-improvements-in-spring#json-views">Jackson’s
+    Serialization Views</a>.
+Однако с статье есть подвох и для невнимательных читателей вьюхи работают не так, как он ожидает.
+В результате мне пришлось немного покапаться в реализации Jackson чтобы понять, как все это работает. Коротко об этом "under cut".
+
+<h3>MapperFeature.DEFAULT_VIEW_INCLUSION</h3>
+
+В статье есть небольшое упоминание "In Spring MVC default configuration, MapperFeature.DEFAULT_VIEW_INCLUSION is set to false."
+Это означает что по умолчанию поля, непомеченные аннотацией <code>@JsonView</code> исключаются.
+Но если посмотреть в код <code>MapperFeature</code> то увидим:
+<code lang="java">
+<pre>
+    ...
+    * Default value is enabled, meaning that non-annotated
+    * properties are included in all views if there is no
+    * {@link com.fasterxml.jackson.annotation.JsonView} annotation.
+    *
+    * Feature is enabled by default.
+    */
+    DEFAULT_VIEW_INCLUSION(true),
+</pre>
+</code>
+Т.е все с точностью до наоборот- все что непомечено включается. И если пометить только нужные для UI поля User:
+<code lang="java">
+<pre>
+public class User
+    ...
+
+    @JsonView(View.UI.class)
+    protected String email;
+
+    @JsonView(View.UI.class)
+    protected boolean enabled = true;
+
+    protected String password;
+</pre>
+</code>
+и вызвать метод контроллера
+<code lang="java">
+<pre>
+@JsonView(View.UI.class)
+@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+public User get(@PathVariable("id") int id) {
+   return ...;
+}
+</pre>
+</code>
+то в результат войдут как помеченные поля User (email, enabled, ..), так и все остальные (password).
+
+<h3>FilteredBeanPropertyWriter</h3>
+Т.к. хочется исключить из контроллера UI только одно поле password, логично будет пометить только его.
+Смотрим в код: если запрос контроллера и поля его результата аннотированы @JsonView, Jackson сериализует через
+<code>FilteredBeanPropertyWriter.serializeAsField</code>. Для <code>jackson-databind-2.8.0</code>:
+<code lang="java">
+    <pre>
+    final Class<?> activeView = prov.getActiveView();
+    if (activeView != null) {
+        int i = 0, len = _views.length;
+        for (; i < len; ++i) {
+           if (_views[i].isAssignableFrom(activeView)) break;
+        }
+        // not included, bail out:
+        if (i == len) {
+            _delegate.serializeAsOmittedField(bean, jgen, prov);
+            return;
+        }
+    }
+    _delegate.serializeAsField(bean, jgen, prov);
+</pre>
+</code>
+Те. если view, которым помечено поле объекта совпадает или является суперклассом от view метода контроллера,
+поле сериализуется. Иначе оно пропускается (<code>serializeAsOmittedField</code>).
+<h3>Решение</h3>
+В итоге:
+<ul>
+    <li>создаем по одному View для каждого контекста сериализации</li>
+    <code lang="java">
+<pre>
+public class View {
+    public static class REST {}
+    public static class UI {}
+}
+</pre>
+    </code>
+    <li>помечаем в User исключаемые в UI поля тем View, в котором они должны присутствовать (REST)</li>
+    <code lang="java">
+<pre>
+public class User
+    ...
+
+    protected String email;
+
+    protected boolean enabled = true;
+
+    @JsonView(View.REST.class)
+    protected String password;
+</pre>
+    </code>
+    <li>аннотируем метод контроллера UI соответствующим контекстом</li>
+    <code lang="java">
+<pre>
+@JsonView(View.UI.class)
+@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+public User get(@PathVariable("id") int id) {
+   return ...;
+}
+</pre>
+    </code>
+    Теперь поле password в результат не попадет. В контроллере REST можно обойтись без @JsonView, тк. туда включаются
+    все поля User.<br/>
+    Спасибо за внимание!
+    <p>
+        Надеюсь @JsonView сделают Ваши Spring приложения более красивыми и компактными.
+    </p>
+</ul>
