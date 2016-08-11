@@ -120,9 +120,14 @@ public class SubscriptionController {
             return new ModelAndView("already_registered");
         }
         mailService.sendToUser(projectName + "_repeat", user);
-        IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, projectName);
         groupService.save(user, projectProps.currentGroup, RegisterType.REPEAT, "mail");
-        return new ModelAndView("registration_" + projectName, ImmutableMap.of("response", response));
+        return sendSlackInvitation(email, projectName);
+    }
+
+    private ModelAndView sendSlackInvitation(String email, String projectName) {
+        IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, projectName);
+        return new ModelAndView("registration_" + projectName,
+                ImmutableMap.of("response", response, "email", email, "activationKey", subscriptionService.generateActivationKey(email)));
     }
 
     @RequestMapping(value = "/participate", method = RequestMethod.GET)
@@ -151,7 +156,6 @@ public class SubscriptionController {
             throw new ValidationException(Util.getErrorMessage(result));
         }
         userService.update(userToExt);
-        IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(userToExt.getEmail(), project);
-        return new ModelAndView("registration_" + project, ImmutableMap.of("response", response));
+        return sendSlackInvitation(userToExt.getEmail(), project);
     }
 }

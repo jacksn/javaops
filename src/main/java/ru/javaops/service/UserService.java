@@ -32,7 +32,7 @@ public interface UserService {
 
     void save(User u);
 
-    void update(UserToExt userTo);
+    User update(UserToExt userTo);
 
     Set<User> findByLocation(String location);
 

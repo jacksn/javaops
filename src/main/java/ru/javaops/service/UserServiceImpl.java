@@ -96,10 +96,11 @@ public class UserServiceImpl implements UserService, org.springframework.securit
 
     @Override
     @Transactional
-    public void update(UserToExt userTo) {
+    public User update(UserToExt userTo) {
         User user = userRepository.findOne(userTo.getId());
         UserUtil.updateFromToExt(user, userTo);
         userRepository.save(user);
+        return user;
     }
 
     @Override
