@@ -1,0 +1,83 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Окончание проекта 'Java Enterprise (TopJava)'</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+Выложил <a href="https://github.com/JavaWebinar/topjava07/blob/doc/doc/lesson11.md">заключительное занятие
+    нашего проекта</a>.
+<ul>
+    <li>
+        Если ты решил сделать доработку проекта, отдай мне свой код на ревью. Я включу ссылку на твой репозиторий в
+        список сделанных доработок для доступа к ним всех участников Topjava.<br/><br/>
+    </li>
+    <li><a href="https://github.com/JavaWebinar/topjava07/blob/doc/doc/graduation.md#graduation-project">Выпускной
+        проект</a> от участников с проверкой ДЗ желательно сдать на ревью до 01.09
+        (напомню, что лишние профили в коде и в <code>pom.xml</code> нужно удалить).<br/><br/>
+    </li>
+    <li>Повторное участие в проекте без проверки домашних заданий бесплатное. <br/>
+        <b><a href="">Зарегиструйся</a></b> и тебе
+        придет ссылка на группу Slack <b>topjava8</b> (там уже есть новые участники с JavaRush).
+        Здесь есть <a href="">расписание topjava08</a>. Приглашай знакомых, желающих стать java разработчиками или
+        повысить свою квалификацию. Со ссылкой на тебя даю скидку 5%.<br/><br/>
+    </li>
+    <li>Группа Slack <b>topjava7</b> к 01.09 будет удалена. Приглашаю в Slack <b>Java Online Projects</b> (кто еще не
+        вступил), где мы все общаемся на любые темы IT (помощь с Java, отзывы о работах, обсуждение тестовых заданий,
+        вакансии, цены на рынке труда, IT события, интересные видео по теме и пр.)
+        По каждой теме сделан свой канал. Проверь свои <a
+                th:href="@{http://javaops.ru/participate(email=${user.email}, key=${activationKey}, project='javaops')}">контактные
+            данные</a>.
+        Галочка 'размещение своих данных в закрытой статистике группы' говорит о том, что участники проектов смогут
+        увидеть твой город и skype в списке, а ты сможешь найти там разработчиков из своего города.
+        После сохранения формы на почту должно прийти приглашение в группу Slack и откроется ссылка на список
+        участников, отсортированный по городам.<br/><br/>
+    </li>
+    <li>
+        <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFflp6ZHBLSFI2OGVEZ2NQU0pzZkx4SnFmOWlzX0lzcDFjSi1SRk5OdzBYYkU">">Все материалы проекта</a> останутся вам доступны (в течении topjava08 они будут постепенно переезжать в подпапку topjava08). Репозиторий
+        <b>topjava07</b> до 01.09 будет заархивирован и положен в Google Drive вместе с уроками в формате markdown.
+        Для просмотра в Chrome файлов md я пользуюсь <a
+            href="https://chrome.google.com/webstore/detail/markdown-preview/jmchmkecamhbiokiopfpnfgbidieafmd?utm_source=chrome-app-launcher-info-dialog">плагином
+        Markdown Preview</a> (нужно в его параметрах разрешить открывать файл по ссылкам) или можно использовать плагин
+        IDEA <b>Markdown support</b>.<br/><br/>
+    </li>
+    <li>
+        В конце августа-начале сентября я планирую запустить курс <a href="">Многопоточность. Веб сервисы.</a><br/>
+        Посмотрите бесплатное <a
+            href="https://github.com/JavaOPs/masterjava/blob/master/README.md#Первое-занятие-многопоточность">первое
+        занятие: многопоточность</a>,
+        это важная для разработчика тема, ее часто спрашивают на собеседованиях.<br/><br/>
+        Предварительная стоимость участия:
+        <ul>
+            <li>без проверок домашних заданий: 8600 руб.</li>
+            <li>с проверками заданий: 16500 руб.</li>
+            <li>стоимость для участников Topjava: 7900 руб. и 15000 руб.</li>
+            <li>бесплатное повторное участие в формате рассылки материалов</li>
+        </ul>
+        <br/><b>Дата старта и программа проекта будут уточняться и рассылаться всем зарегистрированным участникам.</b><br/><br/>
+        У вас также будут скидки на другие проекты (планируется topjava2 на Spring-Boot).<br/>
+        О всех новостях буду делать рассылку и публиковать в группе VK <a href="https://vk.com/javawebinar">практика Java (Web/ Enterprise)</a>.<br/><br/>
+    </li>
+    <li>
+    Наконец, если вы рассматриваете предложения о работе, занесите свои данные и ссылку на резюме <a href="https://github.com/JavaOPs/topjava/blob/master/cv.md#В-течении-проекта-заполните-форму-соискателя-Разработчик-java">в форму соискателя</a>
+    Я ее рассылаю всем знакомым HR.<br/>
+    А после прохождения испытательного срока не забудте поделиться <a href="http://javaops.ru/story.html">своей историей успеха</a>.
+        <br/><br/>
+    </li>
+    <li>
+        Можно еще участвовать в разработке <a href="http://javaops.ru">сайта Java Online Projects</a> (<a href="https://github.com/gkislin/javaops">репозиторий в GitHub</a>, <a href="https://javaops.slack.com/archives/javaops_ru">канал в Slack</a>), но тут пока почти никакой от меня поддержки, кроме выставления заданий.
+        Есть еще мысли сделать что то вроде фрилансовой конторы, но это планы после курса topjava2.
+    </li>
+</ul>
+<h3>Большая просьба <a href="http://goo.gl/forms/PtFcPqEV5n">ответить на 6 вопросов по проекту</a>.<br/>
+Важно: если проект понравился, напиши пожалуйста в VK <a href="https://vk.com/topic-74381644_30447246"> отзыв о
+    проекте</a>.</h3>
+<p>
+    Спасибо за участие и, надеюсь, до новой встречи!
+</p>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
