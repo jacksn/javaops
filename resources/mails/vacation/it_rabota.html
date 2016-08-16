@@ -1,0 +1,19 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Сотрудничество с IT Rabota</title>
+</head>
+<!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
+<p th:replace="mailFragments::header(${user})">
+    Здравствуйте!<br/>
+</p>
+<p>
+В рамках сотрудничества <a href="http://javaops.ru/">Java Online Projects</a> и <a href="http://itrabota.com/">IT Rabota</a>
+ответьте пожалуйста, удалось ли Вам устроится по их программе трудоустройства. Если нет - почему?<br/>
+Буду очень признателен за ответ, заранее спасибо.
+</p>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
