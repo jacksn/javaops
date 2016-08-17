@@ -1,0 +1,22 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Дополнение к последнему уроку проекта 'Java Enterprise (TopJava)'</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+<p>
+    Сделал <a href="https://github.com/JavaWebinar/topjava07/blob/doc/doc/lesson11.md#Обновления">несколько обновлений к 11
+    уроку</a>: фикс для Сафари, правка тестов и локализация в JavaScript.
+</p>
+<ul>
+    <li>Напомню про <a href="http://goo.gl/forms/PtFcPqEV5n">опрос по проекту</a> (кто еще не ответил, там всего 6 вопросов)</li>
+    <li>Буду очень признателен за <a href="https://vk.com/topic-74381644_30447246">отзыв в VK</a></li>
+    <li>Ссылка на регистрацию в <a th:href="@{http://javaops.ru/participate(email=${user.email}, key=${activationKey}, project='javaops')}">группе выпускников в Slack</a></li>
+</ul>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
