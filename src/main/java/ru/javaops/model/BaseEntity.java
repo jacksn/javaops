@@ -24,6 +24,7 @@ public class BaseEntity extends AbstractPersistable<Integer> implements Identifi
     }
 
     @JsonIgnore
+    @Override
     public boolean isNew() {
         return super.isNew();
     }

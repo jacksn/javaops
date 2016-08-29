@@ -64,6 +64,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
         registry.addInterceptor(activationKeyInterceptor());
     }
 
+    @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
     }
