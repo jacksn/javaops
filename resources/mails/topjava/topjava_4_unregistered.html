@@ -15,7 +15,8 @@
 <a href="http://vk.com/topic-74381644_30447246" target="_blank">Отзывы по проекту</a><br/>
 <a href="http://topjava.herokuapp.com/" target="_blank">Демо разрабатываемого приложения</a>
 </h3>
-<p>На <b style="font-size: larger"><a th:href="@{http://javawebinar.ru/topjava(getentrance='', ch='${user.infoSource}')}"
+<p>На <b style="font-size: larger"><!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
+<a th:href="@{http://javawebinar.ru/topjava(getentrance='', ch=${user.infoSource})}"
         href="#">бесплатном вступительном занятии</a></b>
     подробно
     разбирается работа с проектом в системе управления версиями Git. На занятиях мы последовательно разрабатываем
