@@ -15,15 +15,6 @@ public class GroupServiceTest extends ApplicationAbstractTest {
     private GroupService groupService;
 
     @Test
-    public void testFindByName() throws Exception {
-        groupService.findByName("test");
-        groupService.findByName("test");
-        groupService.findByName("test");
-        thrown.expect(NullPointerException.class);
-        groupService.findByName("dummy");
-    }
-
-    @Test
     public void testFindByUser() throws Exception {
         System.out.println(groupService.findByUserId(UserTestData.USER_ID));
     }
