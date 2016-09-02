@@ -2,14 +2,12 @@ package ru.javaops.service;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import ru.javaops.ApplicationAbstractTest;
 
 /**
  * GKislin
  * 25.02.2016
  */
-@ActiveProfiles("prod")
 public class SubscriptionServiceTest extends ApplicationAbstractTest {
 
     public static final String EMAIL = "gkislin@yandex.ru";
