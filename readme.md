@@ -1,6 +1,10 @@
+https://api.travis-ci.org/gkislin/javaops.svg?branch=master
+
 ## Разработка сайта для Java проектов http://javaops.ru
 
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/300abd4332374403bec8fac9499b1127)](https://www.codacy.com/app/gkislin/javaops)
+[![Build Status](https://travis-ci.org/gkislin/javaops.svg?branch=master)](https://travis-ci.org/gkislin/javaops)
+[![Dependency Status](https://dependencyci.com/github/gkislin/javaops/badge)](https://dependencyci.com/github/gkislin/javaops)
 
 ### Стек:
 - Spring Boot
