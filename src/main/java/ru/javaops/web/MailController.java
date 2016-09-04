@@ -1,6 +1,8 @@
 package ru.javaops.web;
 
 import com.google.common.base.Splitter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,6 +33,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @RequestMapping(value = "/api/mail", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MailController {
+    private static final Logger LOG = LoggerFactory.getLogger(MailController.class);
 
     @Autowired
     private MailService mailService;
@@ -89,6 +92,7 @@ public class MailController {
     }
 
     private ResponseEntity<GroupResult> getGroupResultResponseEntity(GroupResult groupResult) {
+        LOG.info(groupResult.toString());
         return new ResponseEntity<>(groupResult, groupResult.isOk() ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

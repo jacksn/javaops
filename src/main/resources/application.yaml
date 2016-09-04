@@ -1,5 +1,5 @@
 app:
-   test-email: javawebinar@yandex.ru
+   email: admin@javaops.ru
 
 mail.async:
    corePoolSize: 8

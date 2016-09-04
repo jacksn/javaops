@@ -15,7 +15,7 @@ public class AppProperties {
      * Test email
      */
     @NotNull
-    private String testEmail;
+    private String email;
 
     /**
      * Interval for update templates
@@ -51,12 +51,12 @@ public class AppProperties {
         this.hostUrl = hostUrl;
     }
 
-    public String getTestEmail() {
-        return testEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTestEmail(String testEmail) {
-        this.testEmail = testEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getCacheSeconds() {

@@ -74,7 +74,7 @@ public class MailService {
     public GroupResult sendToUserList(String template, Set<User> users) {
         checkNotNull(template, " template must not be null");
         checkNotNull(users, " users must not be null");
-        users.add(getTestUser());
+        users.add(getAppUser());
         CompletionService<String> completionService = new ExecutorCompletionService<>(mailExecutor);
         Map<Future<String>, String> resultMap = new HashMap<>();
         users.forEach(
@@ -105,8 +105,8 @@ public class MailService {
         return groupResultBuilder.buildOK();
     }
 
-    private User getTestUser() {
-        return userService.findByEmail(appProperties.getTestEmail());
+    private User getAppUser() {
+        return userService.findByEmail(appProperties.getEmail());
     }
 
     private void cancelAll(Map<Future<String>, String> resultMap) {
@@ -123,7 +123,7 @@ public class MailService {
     }
 
     public String sendTest(String template) {
-        return sendToUser(template, getTestUser());
+        return sendToUser(template, getAppUser());
     }
 
     public String sendToUser(String template, String email) {
@@ -167,7 +167,7 @@ public class MailService {
         MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
         try {
             message.setTo(new InternetAddress(toEmail, toName, "UTF-8"));
-            message.setFrom(mailProperties.getUsername(), "Java Online Projects");
+            message.setFrom(appProperties.getEmail(), "Java Online Projects");
         } catch (UnsupportedEncodingException e) { // dummy
         }
         message.setSubject(subject);
