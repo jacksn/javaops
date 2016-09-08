@@ -6,23 +6,16 @@ engines:
     enabled: true
     config:
       languages:
-      - ruby
+      - java
       - javascript
-      - python
-      - php
   eslint:
     enabled: true
   fixme:
     enabled: true
 ratings:
   paths:
-  - "**.css"
-  - "**.inc"
   - "**.js"
-  - "**.jsx"
-  - "**.module"
-  - "**.php"
-  - "**.py"
-  - "**.rb"
+  - "**.java"
 exclude_paths:
 - config/
+- resources/static/
