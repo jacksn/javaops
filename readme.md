@@ -5,6 +5,7 @@ https://api.travis-ci.org/gkislin/javaops.svg?branch=master
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/300abd4332374403bec8fac9499b1127)](https://www.codacy.com/app/gkislin/javaops)
 [![Build Status](https://travis-ci.org/gkislin/javaops.svg?branch=master)](https://travis-ci.org/gkislin/javaops)
 [![Dependency Status](https://dependencyci.com/github/gkislin/javaops/badge)](https://dependencyci.com/github/gkislin/javaops)
+[![codebeat badge](https://codebeat.co/badges/37249a90-da08-4f9b-804f-2197296f91ff)](https://codebeat.co/projects/github-com-gkislin-javaops)
 
 ### Стек:
 - Spring Boot
