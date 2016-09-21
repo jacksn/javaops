@@ -1,0 +1,41 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>ЗАВТРА старт проекта 'Многопоточность. XML. Веб сервисы.'</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+Напомню, что ЗАВТРА, 23.09 (пятница) в 20.00 будет 2-е занятие masterjava:
+<ul>
+    <li>разбор <a href="https://github.com/JavaOPs/masterjava#-Вступительное-задание">вступительного задания</a></li>
+    <li>прикручивание Microbenchmarking Framework JMH (от Алексея Шипилева)</li>
+    <li> XML технологии: XML. XSD, XPath, XSL(T) в Java: DOM, SAX, StAX, XSLT</li>
+    <li>домашнее задание по Java XML</li>
+</ul>
+<p>
+    <a href="https://meet63418824.adobeconnect.com/lesson2/">Ссылка на комнату вебинара</a>.<br/>
+    Логин: ваш email, пароль: masterjava23. Доступа туда пока нет, дам в пятницу.
+</p>
+<p>Настрой свой проект, чтобы <a href="https://javaops.slack.com/archives/masterjava/p1474281425000030">забирать мои
+    изменения и пушить в свой репозиторий.</a>.
+    Я оптимизировал однопоточную реализацию и пофиксил MailService- обновись.
+</p>
+<p>
+    У кого есть проверка ДЗ: жду решения вступительных заданий. Для остальных - если твое решение показывает результаты
+    лучше, чем
+    <a href="https://github.com/JavaWebinar/masterjava/blob/master/src/main/java/ru/javaops/masterjava/matrix/MatrixUtil.java">singleThreadMultiplyOpt</a>,
+    шлите мне ссылку на репозиторий в личку JavaOPs slack - померяемся милисекундами:)
+</p>
+<p>
+    Вебинар будет вестись в Adobe Connect (<a
+        href="http://admin.adobeconnect.com/common/help/ru/support/meeting_test.htm">диагностика
+    подключения</a>) с одновременной записью. Удобно, что участники вебинара могут общаться голосом и в чате и
+    запись доступна сразу после вебинара (записи планирую редактировать и выкладывать в Google Doc, но не сразу).
+</p>
+До встречи на проекте,
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
