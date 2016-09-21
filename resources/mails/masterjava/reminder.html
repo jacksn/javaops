@@ -1,0 +1,34 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>ЗАВТРА старт проекта 'Многопоточность. XML. Веб сервисы.'</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+Напомню, что ЗАВТРА, 23.09 (пятница) в 20.00 будет 2-е занятие masterjava:
+<ul>
+    <li>разбор <a href="https://github.com/JavaOPs/masterjava#-Вступительное-задание">вступительного задания</a></li>
+    <li>прикручивание Microbenchmarking Framework JMH (от Алексея Шипилева)</li>
+    <li> XML технологии: XML. XSD, XPath, XSL(T) в Java: DOM, SAX, StAX, XSLT</li>
+    <li>домашнее задание по Java XML</li>
+</ul>
+<p>
+    Места есть (пока нас 15). Если есть желание заапгрейдить свой java скиллз - поторопись с  <a href="http://javaops.ru/payment.html">оплатой</a>:<br/>
+    7900 руб. без проверки ДЗ и 15000 руб. с проверкой
+    (после оплаты отписывайтесь в skype <b>grigory.kislin</b> с вашим email).
+</p>
+
+<p>
+Вебинар будет вестись в Adobe Connect (<a href="http://admin.adobeconnect.com/common/help/ru/support/meeting_test.htm">диагностика
+    подключения</a>) с одновременной записью. Удобно, что участники вебинара могут общаться голосом и в чате и
+запись доступна сразу после вебинара.
+Ограничение: 25 человек, включая меня. Т.е. после 24-го человека можно будет участвовать по записям занятий и в слаке
+(записи планирую редактировать и выкладывать в Google Doc).
+</p>
+Жду ваших вступительных ДЗ и до встречи на проекте,
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
