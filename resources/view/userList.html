@@ -20,27 +20,26 @@
 </div>
 <div class="jumbotron">
     <div class="container box">
-        <h4><a th:href="@{http://javaops.ru/participate(email=${param.email}, key=${param.key}, project='javaops')}" href="#">Редактировать мои данные</a>.</h4>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Имя</th>
-                    <th>Город</th>
-                    <th>Обо мне</th>
-                    <th>skype</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="user: ${users}">
-                    <td th:text="${user.fullName}"></td>
-                    <td th:text="${user.location}"></td>
-                    <td th:utext="${user.aboutMe}"></td>
-                    <td th:text="${user.skype}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <h4><a th:href="@{http://javaops.ru/participate(email=${param.email}, key=${param.key}, project='javaops')}"
+               href="#">Редактировать мои данные</a>.</h4>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Город</th>
+                <th>Обо мне</th>
+                <th>skype</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user: ${users}">
+                <td th:text="${user.fullName}"></td>
+                <td th:text="${user.location}"></td>
+                <td th:utext="${user.aboutMe}"></td>
+                <td th:text="${user.skype}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>
