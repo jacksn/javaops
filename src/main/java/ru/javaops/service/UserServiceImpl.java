@@ -16,6 +16,7 @@ import ru.javaops.to.UserStat;
 import ru.javaops.to.UserToExt;
 import ru.javaops.util.UserUtil;
 
+import java.util.List;
 import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -46,6 +47,7 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     }
 
 
+    @Override
     @Transactional
     public void deleteByEmail(String email) {
         log.debug("Delete user " + email);
@@ -62,6 +64,7 @@ public class UserServiceImpl implements UserService, org.springframework.securit
         return userRepository.findByEmail(email.toLowerCase());
     }
 
+    @Override
     public User findExistedByEmail(String email) {
         return checkNotNull(findByEmail(email), "Пользователь %s не найден", email);
     }
@@ -86,10 +89,12 @@ public class UserServiceImpl implements UserService, org.springframework.securit
         userRepository.save(u);
     }
 
+    @Override
     public User findByEmailAndGroupId(String email, int groupId) {
         return userRepository.findByEmailAndGroupId(email.toLowerCase(), groupId);
     }
 
+    @Override
     public User findByEmailAndProjectId(String email, int projectId) {
         return userRepository.findByEmailAndProjectId(email.toLowerCase(), projectId);
     }
@@ -108,7 +113,8 @@ public class UserServiceImpl implements UserService, org.springframework.securit
         return userRepository.findByLocation(location.toLowerCase());
     }
 
-    public Set<UserStat> findAllForStats() {
+    @Override
+    public List<UserStat> findAllForStats() {
         return userRepository.findAllForStats();
     }
 }

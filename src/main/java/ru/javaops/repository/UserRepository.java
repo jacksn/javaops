@@ -9,6 +9,7 @@ import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
 import ru.javaops.to.UserStat;
 
+import java.util.List;
 import java.util.Set;
 
 @Transactional(readOnly = true)
@@ -38,6 +39,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT u FROM User u WHERE LOWER(u.location) LIKE CONCAT('%', :location, '%')")
     Set<User> findByLocation(@Param("location") String location);
 
-    @Query("SELECT new ru.javaops.to.UserStat(u.fullName, u.email, u.location, u.aboutMe, u.skype) FROM User u WHERE u.statsAgree=TRUE ORDER BY u.location")
-    Set<UserStat> findAllForStats();
+    @Query("SELECT new ru.javaops.to.UserStat(u.fullName, u.email, u.location, u.aboutMe, u.skype) FROM User u " +
+            "WHERE u.statsAgree=TRUE " +
+            "AND u.fullName IS NOT NULL " +
+            "AND u.location IS NOT NULL " +
+            "ORDER BY LOWER(u.location)")
+    List<UserStat> findAllForStats();
 }

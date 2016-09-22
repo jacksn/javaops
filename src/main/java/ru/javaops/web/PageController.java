@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.javaops.service.UserService;
 import ru.javaops.to.UserStat;
 
-import java.util.Set;
+import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -20,9 +20,9 @@ public class PageController {
 
     @RequestMapping(value = "/users", method = GET)
     public ModelAndView usersInfo(@RequestParam("key") String key, @RequestParam("email") String email) {
-        Set<UserStat> userSet = userService.findAllForStats();
-        return (userSet.stream().filter(u -> u.getEmail().equals(email)).findAny().isPresent()) ?
-                new ModelAndView("userList", "users", userSet) :
+        List<UserStat> userList = userService.findAllForStats();
+        return (userList.stream().filter(u -> u.getEmail().equals(email)).findAny().isPresent()) ?
+                new ModelAndView("userList", "users", userList) :
                 new ModelAndView("statsForbidden");
     }
 }
