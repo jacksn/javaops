@@ -1,0 +1,25 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>СЕГОДНЯ в 20.00 (GMT+3.00) 3-е занятие Masterjava</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+СЕГОДНЯ, 30.09 (пятница) в 20.00 состоится <a
+        href="https://github.com/JavaWebinar/masterjava/blob/lesson/doc/lesson03.md">3-е занятие Masterjava</a><br/>
+<a href="https://meet63418824.adobeconnect.com/lesson3/">Ссылка на комнату вебинара</a><br/>
+Логин: <code>твой email</code>, пароль: <code>masterjava23</code>, если он не был переопределен ранее.<br/>
+<p>
+    Запись будет доступна сразу после вебинара, в Google Doc пока еще экспортировать не начал.
+    Возможно буду делать это позднее, в любом случае доступ к этим материалам у тебя будет (как и бесплатное участие в
+    следующий выпусках masterjava, которые уже планирую делать по рассылке)
+</p>
+<p>Наша группа Slack <b>https://masterjava01.slack.com</b>, похоже, что мы уже все там:)
+</p>
+До встречи в комнате вебинара,
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
