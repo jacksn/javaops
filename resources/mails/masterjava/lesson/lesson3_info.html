@@ -1,0 +1,24 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Обновление в Masterjava</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+<p>Выложил видео <a href="https://github.com/JavaWebinar/masterjava/blob/lesson/doc/lesson02.md">2-го
+    урока</a>.<br/>
+    Дал всем доступ на видео в Google Drive, если не пускает, попробуй выйти-войти в аккаунт.
+</p>
+<p>
+    Обновил модули в <a href="https://github.com/JavaWebinar/masterjava">репозитории нашего проекта</a> (обновись).<br/>
+    Обновил картинку модулей в <a href="https://github.com/JavaWebinar/masterjava/blob/lesson/doc/lesson03.md#Домашнее-задание">домашнем задании 3-го
+    урока</a>. Остальные нужно доделать по аналогии.<br/>
+    Добавил в ДЗ ссылку <a href="http://stackoverflow.com/a/12207237/548473">Speed up insertion performance in PostgreSQL</a>.
+</p>
+4-е занятие будет в эту пятницу, в 20.00. Не тяните с выполнением ДЗ.
+<p th:include="mailFragments::lessonFooter">
+</p>
+</html>
