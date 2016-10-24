@@ -1,30 +1,40 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Сегодня последний день скидки на 'Java Enterprise (Topjava)'.</title>
+    <title>До 31.10 неделя ЛЬГОТНОЙ ЦЕНЫ на 'Java Enterprise (Topjava)'.</title>
 </head>
 <p th:replace="mailFragments::header(${user})">
     Здравствуй!<br/>
 </p>
-Сегодня последний день <b>льготной цены на <a href="http://javawebinar.ru/topjava">Java Enterprise (Topjava)</a></b>
+<div style="font-size: large">
+    Рад сообщить, что до 31.10 <b>действует акция</b> на проект <a href="http://javawebinar.ru/topjava">Java Enterprise
+    (Topjava)</a><br/>
+    <ul>
+        <li>7600 руб. - участие в проекте и группе slack, помощь по проекту</li>
+        <li>15500 руб. - добавляется проверка домашних заданий и ревью выпускного проекта</li>
+        <li>для всех: бесплатное (или с доплатой за проверку ДЗ) участие в следующий выпусках проекта.</li>
+        <li><a href="http://javawebinar.ru/payment.html">способы оплаты</a></li>
+        <li><a href="http://www.finmarket.ru/currency/USD/">курс рубля</a></li>
+        <li><a href="https://vk.com/topic-74381644_30447246">отзывы по проекту реальных участников</a></li>
+    </ul>
+    Если ты еще в поиске работы Java разработчика, после проекта <a href="https://habrahabr.ru/post/308104/">твои шансы получить работу
+    возрастут на порядок</a>.<br/><br/>
+    Если уже работаешь, но нет достаточно опыта в стеке <i> Maven, Spring MVC, Security, JPA(Hibernate), REST(Jackson),
+    Bootstrap (css,js), datatables, jQuery + plugins, Java 8 Stream and Time API</i>, это отличный шанс их быстро получить на хорошем уровне.
+</div>
+<p>
+    Cсылки проекта:
 <ul>
     <li><a href="https://github.com/JavaOPs/topjava/blob/master/description.md">Описание и план проекта</a></li>
     <li><a href="https://github.com/JavaOPs/topjava#Вводное-занятие">Вводное занятие</a></li>
-    <li><a href="https://vk.com/topic-74381644_30447246">Отзывы по проекту</a></li>
     <li><a href="http://topjava.herokuapp.com/">Демо разрабатываемого приложения</a></li>
     <li><a href="https://github.com/JavaOPs/topjava/wiki">Требования к участникам, Wiki</a></li>
     <li><a href="https://github.com/JavaOPs/topjava#Полезные-ресурсы">Полезные ресурсы</a></li>
 </ul>
-<ul>
-    <li>7600 руб. - участие в проекте и группе slack, помощь по проекту</li>
-    <li>15000 руб. - добавляется проверка домашних заданий и ревью выпускного проекта</li>
-    <li>для всех: бесплатное (или с доплатой за проверку ДЗ) участие в следующий выпусках проекта.</li>
-    <li><a href="http://javawebinar.ru/payment.html">Способы оплаты</a></li>
-    <li><a href="http://www.finmarket.ru/currency/USD/">Курс рубля</a></li>
-</ul>
+</p>
 <h3>
     Поторопись!<br/>
-    Старт проекта: 01.09</h3>
+    Старт проекта: 01.12</h3>
 <p th:include="mailFragments::footer(${subscriptionUrl})">
 </p>
 </html>
