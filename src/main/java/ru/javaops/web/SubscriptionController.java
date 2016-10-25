@@ -91,6 +91,7 @@ public class SubscriptionController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView registerByProject(@RequestParam("project") String project,
                                           @RequestParam("channel") String channel,
+                                          @RequestParam("template") String template,
                                           @Valid UserTo userTo, BindingResult result) {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
@@ -102,7 +103,12 @@ public class SubscriptionController {
         if (userGroup.getRegisterType() == RegisterType.REPEAT) {
             integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail(), projectName);
         }
-        String template = projectName + (userGroup.getRegisterType() == RegisterType.REPEAT ? "_repeat" : "_register");
+
+        if (userGroup.getRegisterType() == RegisterType.REPEAT) {
+            template = projectName + "_repeat";
+        } else if (template == null) {
+            template = projectName + "_register";
+        }
         String mailResult = mailService.sendToUser(template, userGroup.getUser());
         return getRedirectView(mailResult, "http://javawebinar.ru/confirm.html", "http://javawebinar.ru/error.html");
     }
