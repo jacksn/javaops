@@ -91,7 +91,7 @@ public class SubscriptionController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView registerByProject(@RequestParam("project") String project,
                                           @RequestParam("channel") String channel,
-                                          @RequestParam("template") String template,
+                                          @RequestParam(value = "template", required = false) String template,
                                           @Valid UserTo userTo, BindingResult result) {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
