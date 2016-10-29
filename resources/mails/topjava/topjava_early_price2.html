@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>ЗАВТРА, 31.10 заканчивается ЛЬГОТНАЯ ЦЕНА на 'Java Enterprise (Topjava)'.</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+<div style="font-size: large">
+    Напомню, что ЗАВТРА, <b>31.10 заканчивается акция</b> на проект <a href="http://javawebinar.ru/topjava">Java
+    Enterprise
+    (Topjava)</a><br/>
+    <ul>
+        <li>7600 руб. - участие в проекте и группе slack, помощь по проекту</li>
+        <li>15500 руб. - добавляется проверка домашних заданий и ревью выпускного проекта</li>
+        <li>для всех: бесплатное (или с доплатой за проверку ДЗ) участие в следующий выпусках проекта.</li>
+        <li><a href="http://javawebinar.ru/payment.html">способы оплаты</a></li>
+        <li><a href="http://www.finmarket.ru/currency/USD/">курс рубля</a></li>
+        <li><a href="https://vk.com/topic-74381644_30447246">отзывы по проекту реальных участников</a></li>
+    </ul>
+</div>
+<p>
+    <b>Старт проекта: 01.12</b><br/>
+<ul>
+    <li><a href="https://github.com/JavaOPs/topjava/blob/master/description.md">Описание и план проекта</a></li>
+    <li><a href="https://github.com/JavaOPs/topjava#Вводное-занятие">Вводное занятие</a></li>
+    <li><a href="http://topjava.herokuapp.com/">Демо разрабатываемого приложения</a></li>
+    <li><a href="https://github.com/JavaOPs/topjava/wiki">Требования к участникам, Wiki</a></li>
+    <li><a href="https://github.com/JavaOPs/topjava#Полезные-ресурсы">Полезные ресурсы</a></li>
+</ul>
+</p>
+<a href="https://habrahabr.ru/post/308104/">Из юниоров в разработчики: получаем первую работу</a>
+<h3>
+    Последний шанс принять участие в проекте по акции!</h3>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
