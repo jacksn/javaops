@@ -23,6 +23,7 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Cacheable("group")
     Group findByName(@Param("name") String name);
 
+    @Override
     @Cacheable("groups")
     List<Group> findAll(Sort sort);
 }
