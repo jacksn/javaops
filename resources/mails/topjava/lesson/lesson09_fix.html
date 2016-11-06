@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Правки к уроку 9</title>
+</head>
+<body>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!
+</p>
+В 9-м уроке сделал несколько правок: патч <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFQzBOcEp5Q2k4cUU">9_13_fix.patch</a>
+<ul>
+    <li>вернул <code>DELETE FROM</code> в populateDB.sql, чтобы работал HSQLDB (TRUNCATE оставил в коментариях)</li>
+    <li>сделал "честную" авторизацию в <code>RootControllerTest</code> (через authentication метод) + утильный метод в
+        <code>TestUtil</code></li>
+    <li>сделал mockAuthorize для <code>SpringMain</code>, в который не попадают фильтры</li>
+</ul>
+Напоминаю про ссылку на группу Slack <b>Java Online Projects</b>, где мы общаемся на любые темы IT (помощь с Java, отзывы о работах, обсуждение тестовых заданий,
+    вакансии, цены на рынке труда, IT события, интересные видео по теме и пр.) в время и после проекта.
+    Проверь свои <a th:href="@{http://javaops.ru/participate(email=${user.email}, key=${activationKey}, project='javaops')}">контактные
+        данные</a>.
+    Галочка 'размещение своих данных в закрытой статистике группы' говорит о том, что участники проектов смогут
+    увидеть твой город и skype в списке, а ты сможешь найти там разработчиков из своего города.
+    После сохранения формы на почту должно прийти приглашение в группу Slack и откроется ссылка на список
+    участников, отсортированный по городам.
+<p th:include="mailFragments::lessonFooter">
+</p>
+</body>
+</html>
