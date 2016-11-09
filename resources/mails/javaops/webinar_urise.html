@@ -1,0 +1,29 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>ЗАВТРА, 10.11 в 19.00 Киев, 20.00 Москва вебинар: Java SE + Web + Enterprise. Трудоустройство.
+        Java-разработчика.</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+<p>
+    <h3>Приглашаю тебя на бесплатный вебинар по актуальным темам:</h3>
+<h2>Осваиваем Java SE + Web</h2>
+<ul>
+    <li>Основные темы Java SE</li>
+    <li>Самые частые вопросы на собеседованиях</li>
+    <li>Первое Web приложение</li>
+</ul>
+<h2>Java Enterprise</h2>
+<ul>
+    <li>Что востребовано на рынке</li>
+    <li>С чего начинать изучать</li>
+    <li>Составляем резюме. Первая работа</li>
+</ul>
+Статистика, полезные ресурсы, опыт трудоустойства и ответы вживую на любой интересующий тебя вопрос по этим темам.
+<h3>Приглашаю <a href="">к участию в вебинаре</a></h3>
+<p th:include="mailFragments::footer(${subscriptionUrl})"></p>
+</html>
