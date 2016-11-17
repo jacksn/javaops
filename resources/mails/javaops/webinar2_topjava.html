@@ -1,0 +1,23 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Вебинар СЕГОДНЯ в 20.00 Москва, 19.00 Киев: "Осваиваем  Java Enterprise"</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+<b>Напоминаю, что СЕГОДНЯ в 20.00 GMT+3 состоится бесплатный вебинар:</b>
+<h3>Осваиваем Java Enterprise</h3>
+<ul>
+    <li>Статистика: что востребовано на рынке</li>
+    <li>С чего начинать изучение</li>
+    <li>Что нужно, чтобы стать Java разработчиком</li>
+</ul>
+Для участия нужно в назначенное время зайти по ссылке:
+<h3><a href="https://www.youtube.com/watch?v=ZUZ_4WmcG0k">Прямая трансляция "Осваиваем Java Enterprise"</a></h3>
+Статистика, полезные ресурсы, структура типичного Enterprise приложения, опыт трудоустойства и ответы вживую на любой интересующий тебя вопрос по этим темам.<br/>
+<a href="https://goo.gl/XNVOj4">Слайды презентации</a>
+<p th:include="mailFragments::footer(${subscriptionUrl})"></p>
+</html>
