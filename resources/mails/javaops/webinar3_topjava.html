@@ -1,0 +1,21 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Запись вебинара ОСВАИВАЕМ JAVA ENTERPRISE</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+По ссылке доступна немного отредактированная в начале запись сегодняшнего вебинара
+<h3><a href="https://youtu.be/J9yDOGT2BhE">ОСВАИВАЕМ JAVA ENTERPRISE</a></h3>
+Надеюсь, что он было интересно.
+<ul>
+Полезные ссылки из <a href="https://goo.gl/XNVOj4">слайдов презентации</a>:
+    <li><a href="https://github.com/spring-projects/spring-petclinic">Spring-Petclinic (sample Spring-based application) на github</a></li>
+    <li><a href="https://github.com/JavaOPs/topjava/blob/master/cv.md">Составление резюме, подготовка к интервью, поиск работы</a></li>
+    <li><a href="http://javaops.ru/vacation/test.html">Ссылки на темы тестового собеседования</a></li>
+</ul>
+<p th:include="mailFragments::footer(${subscriptionUrl})"></p>
+</html>
