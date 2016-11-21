@@ -1,0 +1,45 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Участие в 'Java Enterprise (Topjava)'</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+<h3>Напомню, что скоро старт проекта <b>Java Enterprise (Topjava)!</b></h3>
+<p>
+<i>Разработка полнофункционального Spring/JPA Enterprise приложения c авторизацией и правами доступа на основе ролей
+    с использованием наиболее популярных инструментов и технологий Java: Maven, Spring MVC, Security, JPA(Hibernate),
+    REST(Jackson), Bootstrap (css,js), datatables, jQuery + plugins, Java 8 Stream and Time API</i></p>
+<p>
+    <b>В группе Slack нас уже больше 100!</b> (с учетом участников, которые пошли на повтор).<br/>
+Уже идут обсуждения в каналах <b>#general, #hw0, #idea</b>. Также сделал канал <b>#rss</b> с подпиской на интерсные публикации от
+JUG.ru, Хабрабабр, Типичный программист. <br/>
+</p>
+<p>
+    <b>Если у тебя есть подписка JavaRush "реальный проект/стажировка", свяжись со мной отдельно в скайпе: grigory.kislin (или тел. +7 921 855 0482). </b>
+</p>
+<h3>Если такой подписки нет и ты уже принял решение об участии, можно оплачивать и участвовать в проекте, чтобы ничего важного не пропустить.<br>После оплаты объязательны вышли мне в skype: grigory.kislin (или <a href="https://vk.com/grigory.kislin">VK</a> или sms +7 921 855 0482) свой email - я вышлю письмо участника с приглашением в группу проекта.</h3>
+<ul>
+    <li>
+        Стоимость участия без проверки домашних заданий: 8300 руб./ 128$<br/>
+        <i>сюда входят все материалы, участие в группе slack, ответы на вопросы и помощь с проектом.</i>
+    </li>
+    <li>Стоимость полного пакета: 16500 руб./255$:
+        <i>добавляется проверка домашних заданий + ревью выпускного проекта (либо вашего, например тестового задания при
+            устройстве на работу).</i>
+    </li>
+    <li><b>Для всех: бесплатное</b> участие в следующий выпусках проекта.</li>
+    <li><a href="http://javawebinar.ru/payment.html">Способы оплаты</a></li>
+</ul>
+<a href="https://github.com/JavaOPs/topjava/wiki">Вопросы по проекту</a><br/>
+<a href="https://github.com/JavaOPs/topjava#Ресурсы-для-подготовки-к-проекту">Ресурсы для подготовки</a><br/>
+<a href="https://vk.com/topic-74381644_30447246">Отзывы реальных участиников предыдущих выпусков</a><br/>
+<a href="http://topjava.herokuapp.com">Демо приложения</a>
+<hr/>
+<h4>Поторопись, если хочешь значительно поднять свой уровень владения Java Enterprise и принять участие в разработке!</h4>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
