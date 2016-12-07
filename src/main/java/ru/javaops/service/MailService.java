@@ -35,7 +35,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Service
 public class MailService {
     private static final Locale LOCALE_RU = Locale.forLanguageTag("ru");
-    private static final String OK = "OK";
+    public static final String OK = "OK";
     private static final Logger LOG = LoggerFactory.getLogger(MailService.class);
 
     @Autowired
@@ -136,8 +136,12 @@ public class MailService {
         checkNotNull(user, "User must not be null");
         String activationKey = subscriptionService.generateActivationKey(user.getEmail());
         String subscriptionUrl = subscriptionService.getSubscriptionUrl(user.getEmail(), activationKey, false);
-        String result = sendWithTemplate(user.getEmail(), user.getFullName(), template,
+        return sendWithTemplate(user, template,
                 ImmutableMap.of("user", user, "subscriptionUrl", subscriptionUrl, "activationKey", activationKey));
+    }
+
+    public String sendWithTemplate(User user, String template, final Map<String, ?> params) {
+        String result = sendWithTemplate(user.getEmail(), user.getFullName(), template, params);
         mailCaseRepository.save(new MailCase(user, template, result));
         return result;
     }

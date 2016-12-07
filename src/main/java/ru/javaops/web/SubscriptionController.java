@@ -18,6 +18,8 @@ import ru.javaops.util.Util;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
@@ -47,6 +49,9 @@ public class SubscriptionController {
 
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private IdeaCouponService ideaCouponService;
 
 
     @RequestMapping(value = "/activate", method = RequestMethod.GET)
@@ -128,6 +133,25 @@ public class SubscriptionController {
         mailService.sendToUser(projectName + "_repeat", user);
         groupService.save(user, projectProps.currentGroup, RegisterType.REPEAT, "mail");
         return sendSlackInvitation(email, projectName);
+    }
+
+    @RequestMapping(value = "/idea", method = RequestMethod.GET)
+    public ModelAndView ideaRegister(@RequestParam("email") String email, @RequestParam("group") String groupName) throws MessagingException {
+
+        Group group = groupService.findByName(groupName);
+        if (group == null || group.getStartDate() == null || group.getStartDate().isBefore(LocalDate.of(2016, Month.OCTOBER, 1))) {
+            throw new IllegalArgumentException("Неверное имя группы");
+        }
+        User user = userService.findByEmailAndGroupId(email, group.getId());
+        checkNotNull(user, "Пользователь %s не найден в группе %s", email, groupName);
+
+        IdeaCoupon coupon = ideaCouponService.assignToUser(user, group.getProject());
+        String response = mailService.sendWithTemplate(user, "idea_register", ImmutableMap.of("user", user, "coupon", coupon.getCoupon()));
+        if (MailService.OK.equals(response)) {
+            return new ModelAndView("registration_idea");
+        } else {
+            throw new IllegalStateException("Ошибка отправки почты" + response);
+        }
     }
 
     private ModelAndView sendSlackInvitation(String email, String projectName) {
