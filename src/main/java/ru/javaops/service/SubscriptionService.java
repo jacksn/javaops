@@ -19,8 +19,8 @@ public class SubscriptionService {
         return PasswordUtil.getPasswordEncoder().encode(getSalted(email));
     }
 
-    public void checkActivationKey(String email, String key) {
-        if (!PasswordUtil.isMatch(getSalted(email), key)) {
+    public void checkActivationKey(String value, String key) {
+        if (!PasswordUtil.isMatch(getSalted(value), key)) {
             throw new IllegalArgumentException("Неверный ключ активации");
         }
     }

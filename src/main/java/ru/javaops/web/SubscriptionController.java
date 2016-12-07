@@ -73,10 +73,13 @@ public class SubscriptionController {
                                         @RequestParam(value = "callback", required = false) String callback,
                                         @RequestParam("channel") String channel,
                                         @RequestParam("template") String template,
+                                        @RequestParam("secret") String secret,
                                         @Valid UserTo userTo, BindingResult result) {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
+        subscriptionService.checkActivationKey(channel, secret);
+
         UserGroup userGroup = groupService.registerAtGroup(userTo, group, channel);
         String mailResult = mailService.sendToUser(template, userGroup.getUser());
         ImmutableMap<String, ?> params = ImmutableMap.of("userGroup", userGroup, "result", mailResult);
@@ -123,7 +126,12 @@ public class SubscriptionController {
     }
 
     @RequestMapping(value = "/repeat", method = RequestMethod.GET)
-    public ModelAndView repeat(@RequestParam("email") String email, @RequestParam("project") String projectName) throws MessagingException {
+    public ModelAndView repeat(@RequestParam("email") String email,
+                               @RequestParam("project") String projectName,
+                               @RequestParam("secret") String secret) throws MessagingException {
+
+        subscriptionService.checkActivationKey(projectName, secret);
+
         ProjectProps projectProps = groupService.getProjectProps(projectName);
         User user = userService.findByEmailAndProjectId(email, projectProps.project.getId());
         checkNotNull(user, "Пользователь %s не найден в проекте %s", email, projectName);
