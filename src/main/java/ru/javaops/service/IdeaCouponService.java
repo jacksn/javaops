@@ -26,7 +26,10 @@ public class IdeaCouponService {
             throw new IllegalStateException(
                     String.format("Вы уже получали купон IDEA, проверьте почту<br>На проекте %s можно получить купон только один раз", project.getName()));
         }
-        ideaCoupon = ideaCouponRepository.getFirstByUserIdIsNull();
+        ideaCoupon = ideaCouponRepository.getUnused();
+        if (ideaCoupon == null) {
+            throw new IllegalStateException("Закончились купоны IDEA, напиши плз в skype: grigory.kislin");
+        }
         ideaCoupon.setUser(user);
         ideaCoupon.setProject(project);
         ideaCouponRepository.save(ideaCoupon);

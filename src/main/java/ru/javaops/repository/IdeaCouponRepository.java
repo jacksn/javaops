@@ -11,6 +11,6 @@ public interface IdeaCouponRepository extends JpaRepository<IdeaCoupon, Integer>
     @Query("SELECT c FROM IdeaCoupon c WHERE c.user.id=:userId AND c.project.id=:projectId")
     IdeaCoupon findByUserIdAndProjectId(@Param("userId") int userId, @Param("projectId") int projectId);
 
-    @Query
-    IdeaCoupon getFirstByUserIdIsNull();
+    @Query(value = "SELECT * FROM idea_coupon WHERE user_id IS NULL LIMIT 1", nativeQuery = true)
+    IdeaCoupon getUnused();
 }
