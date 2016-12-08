@@ -23,13 +23,15 @@
         <!--/*@thymesVar id="result" type="ru.javaops.SqlResult"*/-->
         <thead>
         <tr>
+            <th></th>
             <th th:each="header: ${result.headers}">
                 <span th:text="${header}"></span>
             </th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="row: ${result.rows}">
+        <tr th:each="row,iter: ${result.rows}">
+            <td th:text="${iter.count}"></td>
             <th:block th:each="item: ${row}">
                 <td th:text="${item}"></td>
             </th:block>
