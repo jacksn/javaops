@@ -37,12 +37,17 @@ public class PageController {
     }
 
     @RequestMapping(value = "/sql", method = GET)
-    public ModelAndView sqlExecute(@RequestParam("sql_key") String sqlKey, @RequestParam Map<String, String> params) {
+    public ModelAndView sqlExecute(@RequestParam("sql_key") String sqlKey,
+                                   @RequestParam(value = "limit", required = false) Integer limit,
+                                   @RequestParam Map<String, String> params) {
         String sql = AppConfig.SQL_PROPS.getProperty(sqlKey);
         if (sql == null) {
             throw new IllegalArgumentException("Key '" + sqlKey + "' is not found");
         }
         try {
+            if (limit != null) {
+                sql = sql.replace(":limit", String.valueOf(limit));
+            }
             SqlResult result = sqlRepository.execute(sql, params);
             return new ModelAndView("sqlResult", "result", result);
         } catch (Exception e) {
