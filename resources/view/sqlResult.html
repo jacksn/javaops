@@ -22,8 +22,10 @@
     <table class="table table-striped">
         <!--/*@thymesVar id="result" type="ru.javaops.SqlResult"*/-->
         <thead>
-        <tr th:each="header: ${result.headers}">
-            <th th:text="${header}"></th>
+        <tr>
+            <th th:each="header: ${result.headers}">
+                <span th:text="${header}"></span>
+            </th>
         </tr>
         </thead>
         <tbody>

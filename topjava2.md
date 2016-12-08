@@ -276,3 +276,5 @@ https://api.slack.com/web
 https://api.slack.com/docs/oauth-test-tokens
 http://stackoverflow.com/questions/30955818/slack-api-team-invitation
 https://spring.io/blog/2009/03/27/rest-in-spring-3-resttemplate
+
+Spring-jdbc:   https://www.javacodegeeks.com/2016/03/springboot-working-jdbctemplate.html

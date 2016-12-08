@@ -8,8 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.scheduling.annotation.Scheduled;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * GKislin
@@ -33,5 +40,17 @@ public class AppConfig {
     public void configeJackson(ObjectMapper objectMapper) {
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
                 .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+    }
+
+    public static final Properties SQL_PROPS = new Properties();
+
+    @Scheduled(fixedRate = 5000)  // every 5 sec
+    private void refreshSqlProps() {
+        Path path = Paths.get("./config/sql.properties");
+        try (Reader reader = Files.newBufferedReader(path)) {
+            SQL_PROPS.load(reader);
+        } catch (IOException e) {
+            throw new IllegalStateException(path.toAbsolutePath().toString() + " is not found");
+        }
     }
 }
