@@ -1,0 +1,29 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Участие в проекте 'Многопоточность. XML. Веб сервисы.'</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!
+</p>
+Поздравляю с участием в проекте 'Многопоточность. XML. Веб сервисы.'!
+<p>
+Проект идет живыми вебинарами в Adobe Connect (<a
+        href="http://admin.adobeconnect.com/common/help/ru/support/meeting_test.htm">диагностика
+    подключения</a>) с одновременной записью. Удобно, что участники вебинара могут общаться голосом и в чате и
+    запись доступна сразу после вебинара (записи редактирую и выкладываю в Google Doc, но не сразу).<br/>
+    Занятия начинаются в 20.00 GMT+3, заренее я делаю пост в группе slack и рассылку по почте.
+    Периодичность получаются ~ раз в две недели.
+</p>
+<a href="https://github.com/JavaOPs/masterjava">Вступительное занятие</a><br/>
+<a href="https://github.com/JavaWebinar/masterjava/tree/lesson/doc">Остальные уроки</a>
+<p>Настрой свой проект, чтобы <a href="https://javaops.slack.com/archives/masterjava/p1474281425000030">забирать мои
+    изменения и пушить в свой репозиторий </a>(по ходу вебинара можно будет забирать по <code>Ctrl+T</code> мои изменения).
+</p>
+
+До встречи на проекте,
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
