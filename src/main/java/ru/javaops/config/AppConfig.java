@@ -48,6 +48,7 @@ public class AppConfig {
     private void refreshSqlProps() {
         Path path = Paths.get("./config/sql.properties");
         try (Reader reader = Files.newBufferedReader(path)) {
+            SQL_PROPS.clear();
             SQL_PROPS.load(reader);
         } catch (IOException e) {
             throw new IllegalStateException(path.toAbsolutePath().toString() + " load exception", e);
