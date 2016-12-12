@@ -50,7 +50,7 @@ public class AppConfig {
         try (Reader reader = Files.newBufferedReader(path)) {
             SQL_PROPS.load(reader);
         } catch (IOException e) {
-            throw new IllegalStateException(path.toAbsolutePath().toString() + " is not found");
+            throw new IllegalStateException(path.toAbsolutePath().toString() + " load exception", e);
         }
     }
 }
