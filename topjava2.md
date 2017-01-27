@@ -57,6 +57,8 @@ http://mtdevuk.com/2015/02/10/how-to-deploy-a-spring-boot-application-to-amazon-
 -  <a href="http://mtdevuk.com/2015/02/10/how-to-deploy-a-spring-boot-application-to-amazon-aws-using-elastic-beanstalk">Deploy spring boot application to amazon elastic beanstalk</a>
 -  <a href="http://cloud.spring.io/spring-cloud-aws/spring-cloud-aws.html">Spring Cloud AWS</a>
 
+http://eax.me/amazon-one-year/
+
 ## Static resources
 http://www.baeldung.com/spring-mvc-static-resources
 
