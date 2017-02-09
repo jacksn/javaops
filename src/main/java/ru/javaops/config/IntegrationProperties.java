@@ -29,6 +29,10 @@ public class IntegrationProperties {
         this.vkToken = vkToken;
     }
 
+    public Map<String, String> getSlackTokens() {
+        return slackTokens;
+    }
+
     public void setSlackTokens(Map<String, String> slackTokens) {
         this.slackTokens = slackTokens;
     }
@@ -37,11 +41,15 @@ public class IntegrationProperties {
         return slackTokens.get(teamName);
     }
 
+    public Map<String, String> getGoogleGroups() {
+        return googleGroups;
+    }
+
     public void setGoogleGroups(Map<String, String> googleGroups) {
         this.googleGroups = googleGroups;
     }
 
     public String getGoogleGroup(String groupName) {
-        return slackTokens.get(groupName);
+        return googleGroups.get(groupName);
     }
 }
