@@ -12,14 +12,14 @@ import java.util.Map;
 @ConfigurationProperties("app.integration")
 public class IntegrationProperties {
 
-    /**
-     * VK token
-     */
     @NotNull
     private String vkToken;
 
     @NotNull
     private Map<String, String> slackTokens;
+
+    @NotNull
+    private Map<String, String> googleGroups;
 
     public String getVkToken() {
         return vkToken;
@@ -29,15 +29,19 @@ public class IntegrationProperties {
         this.vkToken = vkToken;
     }
 
-    public Map<String, String> getSlackTokens() {
-        return slackTokens;
-    }
-
     public void setSlackTokens(Map<String, String> slackTokens) {
         this.slackTokens = slackTokens;
     }
 
     public String getSlackToken(String teamName) {
         return slackTokens.get(teamName);
+    }
+
+    public void setGoogleGroups(Map<String, String> googleGroups) {
+        this.googleGroups = googleGroups;
+    }
+
+    public String getGoogleGroup(String groupName) {
+        return slackTokens.get(groupName);
     }
 }

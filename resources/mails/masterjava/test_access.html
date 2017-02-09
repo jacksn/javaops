@@ -1,0 +1,23 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Тестирование доступа к материалам MasterJava</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+Поздравляю с участием в проекте MasterJava, который начнем в конце февраля.
+<p>
+Проверь плз. доступ к материалам: <a href="https://drive.google.com/file/d/0B9Ye2auQ_NsFQW1DUkZRbTR2RFU">картинка MasterJava</a><br/>
+<b>Доступ дал по gmail, если его нет (после выхода-входа в google аккаунт), обязательно свяжись со мной в skype: grigory.kislin</b> либо письмом.
+</p>
+На днях сделаю группу слак и буду раздавать именные ключи к IDEA (на полгода).
+<p>
+    Пока смотрите <a href="">первое занятие: Многопоточность</a> и делайте ДЗ.
+</p>
+До встречи на проекте,
+<p th:include="mailFragments::lessonFooter">
+</p>
+</html>
