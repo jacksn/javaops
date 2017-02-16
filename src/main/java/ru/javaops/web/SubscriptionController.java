@@ -127,10 +127,9 @@ public class SubscriptionController {
 
     @RequestMapping(value = "/repeat", method = RequestMethod.GET)
     public ModelAndView repeat(@RequestParam("email") String email,
-                               @RequestParam("project") String projectName,
-                               @RequestParam("secret") String secret) throws MessagingException {
-
-        subscriptionService.checkActivationKey(projectName, secret);
+                               @RequestParam("project") String projectName
+            /*,@RequestParam("secret") String secret*/) throws MessagingException {
+//        subscriptionService.checkActivationKey(projectName, secret);
 
         ProjectProps projectProps = groupService.getProjectProps(projectName);
         User user = userService.findByEmailAndProjectId(email, projectProps.project.getId());
