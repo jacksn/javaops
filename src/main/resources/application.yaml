@@ -16,6 +16,7 @@ spring:
       base-path: /api
       default-page-size: 100
 
+#http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-caching.html#boot-features-caching-provider-caffeine
 spring.cache:
     cache-names: group, groups, project, projects
     guava.spec: maximumSize=100, expireAfterAccess=300s

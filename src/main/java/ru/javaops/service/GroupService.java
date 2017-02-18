@@ -9,6 +9,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import ru.javaops.model.*;
 import ru.javaops.repository.GroupRepository;
 import ru.javaops.repository.PaymentRepository;
@@ -78,13 +79,11 @@ public class GroupService {
         RegisterType registerType;
 
         if (user != null) {
-            UserUtil.updateFromTo(user, userTo);
             Set<Group> groups = findByUserId(user.getId());
             registerType = groups.stream()
-                    .filter(g -> projectProps.project.equals(g.getProject()) && g.getType() == GroupType.FINISHED)
-                    .findFirst().isPresent() ? RegisterType.REPEAT : RegisterType.REGISTERED;
+                    .anyMatch(g -> projectProps.project.equals(g.getProject()) && g.getType() == GroupType.FINISHED) ? RegisterType.REPEAT : RegisterType.REGISTERED;
 
-            if (groups.stream().filter(g -> g.equals(projectProps.registeredGroup) || g.equals(projectProps.currentGroup)).findFirst().isPresent()) {
+            if (groups.stream().anyMatch(g -> g.equals(projectProps.registeredGroup) || g.equals(projectProps.currentGroup))) {
                 // Already registered
                 return new UserGroup(user, projectProps.registeredGroup, registerType, channel);
             }
@@ -92,8 +91,15 @@ public class GroupService {
             user = UserUtil.createFromTo(userTo);
             registerType = RegisterType.FIRST_REGISTERED;
         }
-        userService.save(user);
         Group group = (registerType == RegisterType.REPEAT) ? projectProps.currentGroup : projectProps.registeredGroup;
+        return saveAll(user, group, registerType, channel);
+    }
+
+    public UserGroup saveAll(User user, Group group, RegisterType registerType, String channel) {
+        if (group.isMembers()) {
+            user.getRoles().add(Role.ROLE_MEMBER);
+        }
+        userService.save(user);
         return save(user, group, registerType, channel);
     }
 
@@ -101,6 +107,7 @@ public class GroupService {
         return userGroupRepository.save(new UserGroup(user, group, registerType, channel));
     }
 
+    @Transactional
     public UserGroup registerAtGroup(UserTo userTo, String groupName, String channel) {
         log.info("add{} to group {}", userTo, groupName);
         Group group = findByName(groupName);
@@ -108,7 +115,6 @@ public class GroupService {
         RegisterType registerType;
         if (user == null) {
             user = UserUtil.createFromTo(userTo);
-            userService.save(user);
             registerType = RegisterType.FIRST_REGISTERED;
         } else {
             UserGroup ug = userGroupRepository.findByUserIdAndGroupId(user.getId(), group.getId());
@@ -118,7 +124,7 @@ public class GroupService {
             }
             registerType = RegisterType.REGISTERED;
         }
-        return save(user, group, registerType, channel);
+        return saveAll(user, group, registerType, channel);
     }
 
     public UserGroup moveOrCreate(User u, Group sourceGroup, Group targetGroup) {
@@ -164,6 +170,22 @@ public class GroupService {
         return includeUsers;
     }
 
+    public User getUserInProject(String email, String projectName) {
+        User u;
+        if (projectName.equals("javaops")) {
+            u = userService.findByEmail(email);
+            checkNotNull(u, "Пользователь %s не найден в проекте %s", email, projectName);
+            if (CollectionUtils.isEmpty(u.getRoles())) {
+                throw new IllegalStateException("Регистрация только для участников Java Online Projects");
+            }
+        } else {
+            ProjectProps projectProps = getProjectProps(projectName);
+            u = userService.findByEmailAndGroupId(email, projectProps.currentGroup.getId());
+            checkNotNull(u, "Пользователь %s не найден в проекте %s", email, projectName);
+        }
+        return u;
+    }
+
     private Set<User> filterUserByGroupNames(List<Group> groups, String groupNames, RegisterType registerType, LocalDate startRegisteredDate, LocalDate endRegisteredDate) {
         List<Predicate<String>> predicates = getMatcher(groupNames);
         Date startDate = TimeUtil.toDate(startRegisteredDate);
@@ -197,5 +219,4 @@ public class GroupService {
                         (Predicate<String>) paramName::equals
                 ).collect(Collectors.toList());
     }
-
 }

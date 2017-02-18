@@ -3,8 +3,7 @@ package ru.javaops.service;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
@@ -33,10 +32,10 @@ import java.util.stream.Collectors;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @Service
+@Slf4j
 public class MailService {
     private static final Locale LOCALE_RU = Locale.forLanguageTag("ru");
     public static final String OK = "OK";
-    private static final Logger LOG = LoggerFactory.getLogger(MailService.class);
 
     @Autowired
     private SpringTemplateEngine templateEngine;
@@ -110,9 +109,9 @@ public class MailService {
     }
 
     private void cancelAll(Map<Future<String>, String> resultMap) {
-        LOG.warn("Cancel all unsent tasks");
+        log.warn("Cancel all unsent tasks");
         resultMap.forEach((feature, email) -> {
-            LOG.warn("Sending to " + email + " failed");
+            log.warn("Sending to " + email + " failed");
             feature.cancel(true);
         });
     }
@@ -142,12 +141,14 @@ public class MailService {
 
     public String sendWithTemplate(User user, String template, final Map<String, ?> params) {
         String result = sendWithTemplate(user.getEmail(), user.getFullName(), template, params);
-        mailCaseRepository.save(new MailCase(user, template, result));
+        if (!result.equals(OK)) {
+            mailCaseRepository.save(new MailCase(user, template, result));
+        }
         return result;
     }
 
     public String sendWithTemplate(String toEmail, String toName, String template, final Map<String, ?> params) {
-        LOG.debug("Sending {} email to '{}'", template, toEmail);
+        log.debug("Sending {} email to '{}'", template, toEmail);
         String content = getContent(template, params);
         final String subject = Util.getTitle(content);
         String result;
@@ -156,13 +157,13 @@ public class MailService {
             result = OK;
         } catch (MessagingException | MailException e) {
             result = e.getMessage();
-            LOG.error("Sending to {} failed: \n{}", toEmail, result);
+            log.error("Sending to {} failed: \n{}", toEmail, result);
         }
         return result;
     }
 
     public void send(String toEmail, String toName, String subject, String content, boolean isHtml, String subscriptionUrl) throws MessagingException {
-        LOG.debug("Send email to '{} <{}>' with subject '{}'", toName, toEmail, subject);
+        log.debug("Send email to '{} <{}>' with subject '{}'", toName, toEmail, subject);
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         if (subscriptionUrl != null) {
@@ -207,10 +208,10 @@ public class MailService {
                 }
             } catch (InterruptedException e) {
                 failedCause = "Task interrupted";
-                LOG.error("Sending to " + email + " interrupted");
+                log.error("Sending to " + email + " interrupted");
             } catch (ExecutionException e) {
                 failed.add(new MailResult(email, e.toString()));
-                LOG.error("Sending to " + email + " failed with " + e.getMessage());
+                log.error("Sending to " + email + " failed with " + e.getMessage());
             }
             return (failed.size() < 6) && failedCause == null;
         }

@@ -49,6 +49,10 @@ public class Group extends NamedEntity {
         return endDate;
     }
 
+    public boolean isMembers() {
+        return type == GroupType.CURRENT || type == GroupType.FINISHED;
+    }
+
     @Override
     public String toString() {
         return "Group{" +

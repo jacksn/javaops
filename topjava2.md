@@ -280,3 +280,11 @@ http://stackoverflow.com/questions/30955818/slack-api-team-invitation
 https://spring.io/blog/2009/03/27/rest-in-spring-3-resttemplate
 
 Spring-jdbc:   https://www.javacodegeeks.com/2016/03/springboot-working-jdbctemplate.html
+
+## Google Apps Admin SDK Directory API
+[Explorer](https://developers.google.com/admin-sdk/directory/v1/reference/members/list)
+[QuickStart](https://developers.google.com/admin-sdk/directory/v1/quickstart/java)
+[Service Accounts](https://console.developers.google.com/iam-admin/serviceaccounts/project)
+[Group mail](https://groups.google.com/a/javaops.ru/forum/#!groupsettings/masterjava/information)
+[Delegating domain-wide authority to the service account](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#delegatingauthority)
+[Управление доступом клиента API](https://admin.google.com/AdminHome?chromeless=1#OGX:ManageOauthClients)

@@ -18,9 +18,6 @@ public class IntegrationProperties {
     @NotNull
     private Map<String, String> slackTokens;
 
-    @NotNull
-    private Map<String, String> googleGroups;
-
     public String getVkToken() {
         return vkToken;
     }
@@ -39,17 +36,5 @@ public class IntegrationProperties {
 
     public String getSlackToken(String teamName) {
         return slackTokens.get(teamName);
-    }
-
-    public Map<String, String> getGoogleGroups() {
-        return googleGroups;
-    }
-
-    public void setGoogleGroups(Map<String, String> googleGroups) {
-        this.googleGroups = googleGroups;
-    }
-
-    public String getGoogleGroup(String groupName) {
-        return googleGroups.get(groupName);
     }
 }

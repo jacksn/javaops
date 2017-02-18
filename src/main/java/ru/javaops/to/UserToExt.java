@@ -21,6 +21,14 @@ public class UserToExt extends UserTo {
 
     private boolean statsAgree;
 
+    private boolean considerJobOffers;
+
+    private boolean jobThruTopjava;
+
+    private String company;
+
+    private String resumeUrl;
+
     public String getGmail() {
         return gmail;
     }
@@ -59,5 +67,37 @@ public class UserToExt extends UserTo {
 
     public void setStatsAgree(boolean statsAgree) {
         this.statsAgree = statsAgree;
+    }
+
+    public boolean isConsiderJobOffers() {
+        return considerJobOffers;
+    }
+
+    public void setConsiderJobOffers(boolean considerJobOffers) {
+        this.considerJobOffers = considerJobOffers;
+    }
+
+    public boolean isJobThruTopjava() {
+        return jobThruTopjava;
+    }
+
+    public void setJobThruTopjava(boolean jobThruTopjava) {
+        this.jobThruTopjava = jobThruTopjava;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getResumeUrl() {
+        return resumeUrl;
+    }
+
+    public void setResumeUrl(String resumeUrl) {
+        this.resumeUrl = resumeUrl;
     }
 }

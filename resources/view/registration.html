@@ -22,10 +22,17 @@
     <div class="container box">
         <h2>Спасибо за регистрацию!</h2>
         <!--/*@thymesVar id="response" type="ru.javaops.service.IntegrationService.SlackResponse"*/-->
-        <h4 th:text="${response.ok} ? 'На почту должно прийти приглашение в группу Slack.' : 'Ответ от Slack: '+ ${response.error}">
+        <h3 th:text="${response.ok} ? 'На почту должно прийти приглашение в группу Slack (в течении 5 мин)' : 'Ответ от Slack: '+ ${response.error}">
             На почту должно прийти приглашение в группу Slack.
-        </h4>
-        <h4><a th:href="@{http://javaops.ru/users(email=${email}, key=${activationKey}, project='javaops')}">Список участников, отсортированный по городам</a></h4>
+        </h3>
+        <!--/*@thymesVar id="accessResponse" type="java.lang.String"*/-->
+        <th:block th:if="${accessResponse}!=null">
+            <h3 th:text="${accessResponse}=='ok' ? 'Проверьте доступ к материалам по ссылке в письме.' : 'Ошибка доступа: '+ ${accessResponse}+' Для решения проблемы напиши мне в скайп: grigory.kislin'">
+                Проверьте доступ к материалам по ссылке в письме.
+            </h3>
+        </th:block>
+        <h3><a th:href="@{http://javaops.ru/users(email=${email}, key=${activationKey})}">Список участников,
+            отсортированный по городам</a></h3>
     </div>
 </div>
 </body>

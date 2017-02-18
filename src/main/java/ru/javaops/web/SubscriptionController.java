@@ -1,5 +1,6 @@
 package ru.javaops.web;
 
+import com.google.api.client.repackaged.com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,6 @@ import javax.validation.ValidationException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Date;
-import java.util.Optional;
-import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -52,6 +51,9 @@ public class SubscriptionController {
 
     @Autowired
     private IdeaCouponService ideaCouponService;
+
+    @Autowired
+    private GoogleAdminSDKDirectoryService googleAdminSDKDirectoryService;
 
 
     @RequestMapping(value = "/activate", method = RequestMethod.GET)
@@ -108,11 +110,9 @@ public class SubscriptionController {
         ProjectProps projectProps = groupService.getProjectProps(project);
         UserGroup userGroup = groupService.registerAtProject(userTo, projectProps, channel);
         String projectName = projectProps.project.getName();
-        if (userGroup.getRegisterType() == RegisterType.REPEAT) {
-            integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail(), projectName);
-        }
 
         if (userGroup.getRegisterType() == RegisterType.REPEAT) {
+            integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail(), projectName);
             template = projectName + "_repeat";
         } else if (template == null) {
             template = projectName + "_register";
@@ -127,9 +127,7 @@ public class SubscriptionController {
 
     @RequestMapping(value = "/repeat", method = RequestMethod.GET)
     public ModelAndView repeat(@RequestParam("email") String email,
-                               @RequestParam("project") String projectName
-            /*,@RequestParam("secret") String secret*/) throws MessagingException {
-//        subscriptionService.checkActivationKey(projectName, secret);
+                               @RequestParam("project") String projectName) throws MessagingException {
 
         ProjectProps projectProps = groupService.getProjectProps(projectName);
         User user = userService.findByEmailAndProjectId(email, projectProps.project.getId());
@@ -139,7 +137,10 @@ public class SubscriptionController {
         }
         mailService.sendToUser(projectName + "_repeat", user);
         groupService.save(user, projectProps.currentGroup, RegisterType.REPEAT, "mail");
-        return sendSlackInvitation(email, projectName);
+
+        IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, projectName);
+        return new ModelAndView("registration",
+                ImmutableMap.of("response", response, "email", email, "activationKey", subscriptionService.generateActivationKey(email)));
     }
 
     @RequestMapping(value = "/idea", method = RequestMethod.GET)
@@ -161,38 +162,43 @@ public class SubscriptionController {
         }
     }
 
-    private ModelAndView sendSlackInvitation(String email, String projectName) {
-        IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, projectName);
-        return new ModelAndView("registration_" + projectName,
-                ImmutableMap.of("response", response, "email", email, "activationKey", subscriptionService.generateActivationKey(email)));
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key) {
+        User u = userService.findByEmail(email);
+        checkNotNull(u, "Пользователь %s не найден", email);
+        return new ModelAndView("profile", ImmutableMap.of("user", u, "key", key));
     }
 
     @RequestMapping(value = "/participate", method = RequestMethod.GET)
     public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key, @RequestParam("project") String projectName) {
-        User u;
-        Project project = projectService.findByName(projectName);
-        if (projectName.equals("javaops")) {
-            u = userService.findByEmail(email);
-            checkNotNull(u, "Пользователь %s не найден в проекте %s", email, projectName);
-            Set<Group> groups = groupService.findByUserId(u.getId());
-            Optional<Group> group = groups.stream().filter(g -> g.getType() == GroupType.FINISHED || g.getType() == GroupType.CURRENT).findAny();
-            if (!group.isPresent()) {
-                throw new IllegalStateException("Регистрация только для участников Java Online Projects");
-            }
-        } else {
-            ProjectProps projectProps = groupService.getProjectProps(projectName);
-            u = userService.findByEmailAndGroupId(email, projectProps.currentGroup.getId());
-            checkNotNull(u, "Пользователь %s не найден в проекте %s", email, projectName);
-        }
-        return new ModelAndView("participation", ImmutableMap.of("user", u, "project", project, "key", key));
+        User u = groupService.getUserInProject(email, projectName);
+        return new ModelAndView("profile", ImmutableMap.of("user", u, "project", projectService.findByName(projectName), "key", key));
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView save(@RequestParam("key") String key, @RequestParam("project") String project, @Valid UserToExt userToExt, BindingResult result) {
+    public ModelAndView save(@RequestParam("key") String key, @RequestParam(value = "project", required = false) String project, @Valid UserToExt userToExt, BindingResult result) {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
         userService.update(userToExt);
-        return sendSlackInvitation(userToExt.getEmail(), project);
+        if (!Strings.isNullOrEmpty(project)) {
+            String email = userToExt.getEmail();
+            groupService.getUserInProject(email, project);
+            return grantAllAccess(email, project);
+        } else {
+            return new ModelAndView("saveProfile", ImmutableMap.of("userToExt", userToExt, "key", key));
+        }
+    }
+
+    private ModelAndView grantAllAccess(String email, String project) {
+        IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, project);
+        String accessResponse = null;
+        if (!project.equals("javaops")) {
+            accessResponse = googleAdminSDKDirectoryService.insertMember(project + "@javaops.ru", email);
+        }
+        return new ModelAndView("registration",
+                ImmutableMap.of("response", response, "email", email,
+                        "activationKey", subscriptionService.generateActivationKey(email),
+                        "accessResponse", accessResponse));
     }
 }

@@ -3,7 +3,7 @@ package ru.javaops;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -12,7 +12,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
  * 16.02.2016
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(JavaOPsApplication.class)
+@SpringBootTest
 @WebAppConfiguration
 public abstract class ApplicationAbstractTest {
     @Rule

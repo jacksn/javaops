@@ -1,7 +1,6 @@
 package ru.javaops.web;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +18,8 @@ import java.util.Map;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
+@Slf4j
 public class PageController {
-    private static final Logger LOG = LoggerFactory.getLogger(PageController.class);
 
     @Autowired
     private UserService userService;
@@ -51,7 +50,7 @@ public class PageController {
             SqlResult result = sqlRepository.execute(sql, params);
             return new ModelAndView("sqlResult", "result", result);
         } catch (Exception e) {
-            LOG.error("Sql '" + sql + "' execution exception", e);
+            log.error("Sql '" + sql + "' execution exception", e);
             throw new IllegalStateException("Sql execution exception");
         }
     }

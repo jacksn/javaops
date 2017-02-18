@@ -24,7 +24,11 @@ public class UserUtil {
         assignNotEmpty(userToExt.getAboutMe(), user::setAboutMe);
         assignNotEmpty(userToExt.getSkype(), user::setSkype);
         assignNotEmpty(userToExt.getGmail(), user::setGmail);
+        assignNotEmpty(userToExt.getCompany(), user::setCompany);
+        assignNotEmpty(userToExt.getResumeUrl(), user::setResumeUrl);
         user.setStatsAgree(userToExt.isStatsAgree());
+        user.setConsiderJobOffers(userToExt.isConsiderJobOffers());
+        user.setJobThruTopjava(userToExt.isJobThruTopjava());
     }
 
     public static void updateFromTo(User user, UserTo userTo) {

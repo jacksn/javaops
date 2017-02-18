@@ -57,10 +57,19 @@ public class User extends BaseEntity {
     @Column(name = "stats_agree")
     private boolean statsAgree;
 
-    @Size(max = 100)
+    @Column(name = "consider_job_offers")
+    private Boolean considerJobOffers;
+
+    @Column(name = "job_thru_topjava")
+    private Boolean jobThruTopjava;
+
+    @Column(name = "resume_url")
+    private String resumeUrl;
+
+    @Size
     private String website;
 
-    @Size(max = 50)
+    @Size
     private String company;
 
     @Size(max = 50)
@@ -206,6 +215,14 @@ public class User extends BaseEntity {
         return company;
     }
 
+    public Boolean isJobThruTopjava() {
+        return jobThruTopjava;
+    }
+
+    public String getResumeUrl() {
+        return resumeUrl;
+    }
+
     public String getGithub() {
         return github;
     }
@@ -220,6 +237,26 @@ public class User extends BaseEntity {
 
     public Date getActivatedDate() {
         return activatedDate;
+    }
+
+    public Boolean isConsiderJobOffers() {
+        return considerJobOffers;
+    }
+
+    public void setConsiderJobOffers(Boolean considerJobOffers) {
+        this.considerJobOffers = considerJobOffers;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public void setJobThruTopjava(Boolean jobThruTopjava) {
+        this.jobThruTopjava = jobThruTopjava;
+    }
+
+    public void setResumeUrl(String resumeUrl) {
+        this.resumeUrl = resumeUrl;
     }
 
     public boolean isStatsAgree() {
