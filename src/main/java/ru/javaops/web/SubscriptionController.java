@@ -19,8 +19,6 @@ import ru.javaops.util.Util;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.Date;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -145,10 +143,9 @@ public class SubscriptionController {
 
     @RequestMapping(value = "/idea", method = RequestMethod.GET)
     public ModelAndView ideaRegister(@RequestParam("email") String email, @RequestParam("group") String groupName) throws MessagingException {
-
         Group group = groupService.findByName(groupName);
-        if (group == null || group.getStartDate() == null || group.getStartDate().isBefore(LocalDate.of(2016, Month.OCTOBER, 1))) {
-            throw new IllegalArgumentException("Неверное имя группы");
+        if (group == null || group.getType() != GroupType.CURRENT) {
+            throw new IllegalArgumentException("Для этой группы лицензии IDEA не предусмотрены");
         }
         User user = userService.findByEmailAndGroupId(email, group.getId());
         checkNotNull(user, "Пользователь %s не найден в группе %s", email, groupName);

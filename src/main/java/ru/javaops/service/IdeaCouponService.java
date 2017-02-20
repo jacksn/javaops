@@ -21,14 +21,13 @@ public class IdeaCouponService {
     private IdeaCouponRepository ideaCouponRepository;
 
     public IdeaCoupon assignToUser(User user, Project project) {
-        IdeaCoupon ideaCoupon = ideaCouponRepository.findByUserIdAndProjectId(user.getId(), project.getId());
+        IdeaCoupon ideaCoupon = ideaCouponRepository.findByUserId(user.getId());
         if (ideaCoupon != null) {
-            throw new IllegalStateException(
-                    String.format("Вы уже получали купон IDEA, проверьте почту<br>На проекте %s можно получить купон только один раз", project.getName()));
+            throw new IllegalStateException("Согласно политике JetBrains персональный купон IDEA выдается только один раз.");
         }
         ideaCoupon = ideaCouponRepository.getUnused();
         if (ideaCoupon == null) {
-            throw new IllegalStateException("Закончились купоны IDEA, напиши плз в skype: grigory.kislin");
+            throw new IllegalStateException("Закончились купоны IDEA, напиши пожалуйста в skype: grigory.kislin");
         }
         ideaCoupon.setUser(user);
         ideaCoupon.setProject(project);
