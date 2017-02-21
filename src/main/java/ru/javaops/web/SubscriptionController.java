@@ -73,13 +73,11 @@ public class SubscriptionController {
                                         @RequestParam(value = "callback", required = false) String callback,
                                         @RequestParam("channel") String channel,
                                         @RequestParam("template") String template,
-                                        @RequestParam("secret") String secret,
+                                        @RequestParam("channelKey") String channelKey,
                                         @Valid UserTo userTo, BindingResult result) {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
-        subscriptionService.checkActivationKey(channel, secret);
-
         UserGroup userGroup = groupService.registerAtGroup(userTo, group, channel);
         String mailResult = mailService.sendToUser(template, userGroup.getUser());
         ImmutableMap<String, ?> params = ImmutableMap.of("userGroup", userGroup, "result", mailResult);
