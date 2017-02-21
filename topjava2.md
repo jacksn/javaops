@@ -59,6 +59,8 @@ http://mtdevuk.com/2015/02/10/how-to-deploy-a-spring-boot-application-to-amazon-
 
 http://eax.me/amazon-one-year/
 
+[Change Timezone](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html#change_time_zone)
+
 ## Static resources
 http://www.baeldung.com/spring-mvc-static-resources
 
