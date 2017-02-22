@@ -135,8 +135,7 @@ public class SubscriptionController {
         groupService.save(user, projectProps.currentGroup, RegisterType.REPEAT, "mail");
 
         IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, projectName);
-        return new ModelAndView("registration",
-                ImmutableMap.of("response", response, "email", email, "activationKey", subscriptionService.generateActivationKey(email)));
+        return new ModelAndView("registration","response", response);
     }
 
     @RequestMapping(value = "/idea", method = RequestMethod.GET)
@@ -179,13 +178,13 @@ public class SubscriptionController {
         if (!Strings.isNullOrEmpty(project)) {
             String email = userToExt.getEmail();
             groupService.getUserInProject(email, project);
-            return grantAllAccess(email, project);
+            return grantAllAccess(email, project, key);
         } else {
             return new ModelAndView("saveProfile", ImmutableMap.of("userToExt", userToExt, "key", key));
         }
     }
 
-    private ModelAndView grantAllAccess(String email, String project) {
+    private ModelAndView grantAllAccess(String email, String project, String key) {
         IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, project);
         String accessResponse = null;
         if (!project.equals("javaops")) {
@@ -193,7 +192,7 @@ public class SubscriptionController {
         }
         return new ModelAndView("registration",
                 ImmutableMap.of("response", response, "email", email,
-                        "activationKey", subscriptionService.generateActivationKey(email),
+                        "activationKey", key,
                         "accessResponse", accessResponse));
     }
 }
