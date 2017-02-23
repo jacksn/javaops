@@ -28,7 +28,9 @@ public class UserUtil {
         assignNotEmpty(userToExt.getResumeUrl(), user::setResumeUrl);
         user.setStatsAgree(userToExt.isStatsAgree());
         user.setConsiderJobOffers(userToExt.isConsiderJobOffers());
-        user.setJobThruTopjava(userToExt.isJobThruTopjava());
+        user.setJobThroughTopjava(userToExt.isJobThroughTopjava());
+        user.setRelocationReady(userToExt.isRelocationReady());
+        user.setUnderRecruitment(userToExt.isUnderRecruitment());
     }
 
     public static void updateFromTo(User user, UserTo userTo) {

@@ -23,7 +23,11 @@ public class UserToExt extends UserTo {
 
     private boolean considerJobOffers;
 
-    private boolean jobThruTopjava;
+    private boolean jobThroughTopjava;
+
+    private boolean relocationReady;
+
+    private boolean underRecruitment;
 
     private String company;
 
@@ -77,12 +81,28 @@ public class UserToExt extends UserTo {
         this.considerJobOffers = considerJobOffers;
     }
 
-    public boolean isJobThruTopjava() {
-        return jobThruTopjava;
+    public boolean isJobThroughTopjava() {
+        return jobThroughTopjava;
     }
 
-    public void setJobThruTopjava(boolean jobThruTopjava) {
-        this.jobThruTopjava = jobThruTopjava;
+    public void setJobThroughTopjava(boolean jobThroughTopjava) {
+        this.jobThroughTopjava = jobThroughTopjava;
+    }
+
+    public boolean isRelocationReady() {
+        return relocationReady;
+    }
+
+    public void setRelocationReady(boolean relocationReady) {
+        this.relocationReady = relocationReady;
+    }
+
+    public boolean isUnderRecruitment() {
+        return underRecruitment;
+    }
+
+    public void setUnderRecruitment(boolean underRecruitment) {
+        this.underRecruitment = underRecruitment;
     }
 
     public String getCompany() {

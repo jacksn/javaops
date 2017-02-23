@@ -60,8 +60,14 @@ public class User extends BaseEntity {
     @Column(name = "consider_job_offers")
     private Boolean considerJobOffers;
 
-    @Column(name = "job_thru_topjava")
-    private Boolean jobThruTopjava;
+    @Column(name = "relocation_ready")
+    private Boolean relocationReady;
+
+    @Column(name = "job_through_topjava")
+    private Boolean jobThroughTopjava;
+
+    @Column(name = "under_recruitment")
+    private Boolean underRecruitment;
 
     @Column(name = "resume_url")
     private String resumeUrl;
@@ -215,8 +221,20 @@ public class User extends BaseEntity {
         return company;
     }
 
-    public Boolean isJobThruTopjava() {
-        return jobThruTopjava;
+    public Boolean isJobThroughTopjava() {
+        return jobThroughTopjava;
+    }
+
+    public Boolean isUnderRecruitment() {
+        return underRecruitment;
+    }
+
+    public void setUnderRecruitment(Boolean underRecruitment) {
+        this.underRecruitment = underRecruitment;
+    }
+
+    public void setGithub(String github) {
+        this.github = github;
     }
 
     public String getResumeUrl() {
@@ -251,8 +269,8 @@ public class User extends BaseEntity {
         this.company = company;
     }
 
-    public void setJobThruTopjava(Boolean jobThruTopjava) {
-        this.jobThruTopjava = jobThruTopjava;
+    public void setJobThroughTopjava(Boolean jobThroughTopjava) {
+        this.jobThroughTopjava = jobThroughTopjava;
     }
 
     public void setResumeUrl(String resumeUrl) {
@@ -269,6 +287,14 @@ public class User extends BaseEntity {
 
     public String getPhone() {
         return phone;
+    }
+
+    public Boolean isRelocationReady() {
+        return relocationReady;
+    }
+
+    public void setRelocationReady(Boolean relocationReady) {
+        this.relocationReady = relocationReady;
     }
 
     @Override
