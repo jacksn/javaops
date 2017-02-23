@@ -144,7 +144,7 @@ public class User extends BaseEntity {
     }
 
     public Set<Role> getRoles() {
-        return roles;
+        return roles == null ? EnumSet.noneOf(Role.class) : roles;
     }
 
     public String getPassword() {
