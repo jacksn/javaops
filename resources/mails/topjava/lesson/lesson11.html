@@ -8,89 +8,54 @@
 <p th:replace="mailFragments::header(${user})">
     Здравствуй firstName!<br/>
 </p>
-Выложил <a href="https://github.com/JavaWebinar/topjava09/blob/doc/doc/lesson11.md">заключительное занятие
-    нашего проекта</a>.<br/>
-Все патчи этого урока уже вчекинены в наш репозиторий и я обновил им <a href="http://topjava.herokuapp.com/">демо приложение</a>.<br/>
-Обсуждение урока в Slack <a href="https://topjava9.slack.com/messages/lesson11/">#lesson11</a><br/>
-<ul>
-    <li>
-        Если ты решил сделать <a href="https://github.com/JavaWebinar/topjava09/blob/doc/doc/lesson11.md#Возможные-доработки-приложения">доработку проекта</a>, отдай мне свой код на ревью. Я включу ссылку на твой репозиторий в
-        список сделанных доработок для доступа к ним всех участников Topjava.<br/><br/>
+В день защитника отечества 23.02 мы заканчиваем наш проект-стажировку, поздравляю мужскую половину!
+<hr/>
+Выложил <a href="https://github.com/JavaWebinar/topjava09/blob/doc/doc/lesson11.md">заключительное занятие </a> и
+обновленное <a href="http://topjava.herokuapp.com/">демо приложение</a>.<br/>
+Обсуждение урока в Slack <a href="https://topjava9.slack.com/messages/hw11_final/">#hw11_final</a><br/>
+<a href="https://github.com/JavaWebinar/topjava09/blob/doc/doc/graduation.md#graduation-project">Выпускной
+    проект</a> от участников с проверкой ДЗ нужно сдать на ревью до 23.03
+    (обратите внимание на <a href="https://github.com/JavaWebinar/topjava09/blob/doc/doc/graduation.md#-Рекомендации">рекомендации</a>).
+<ul><b>Важные ссылки</b>:
+    <li><a th:href="@{http://javaops.ru/repeat(email=${user.email}, project='topjava')}">Бесплатное повторное участие в
+        TopJava-10</a> (первое занятие 23.03)
     </li>
-    <li><a href="https://github.com/JavaWebinar/topjava09/blob/doc/doc/graduation.md#graduation-project">Выпускной
-        проект</a> от участников с проверкой ДЗ желательно сдать на ревью до 08.12
-        (добавил к нему <a href="https://github.com/JavaWebinar/topjava09/blob/doc/doc/graduation.md#-Рекомендации">рекомендации</a>).<br/><br/>
+    <li><a th:href="@{http://javaops.ru/participate(email=${user.email}, key=${activationKey}, project='javaops')}">Регистрация
+        в группе Slack выпускников <b>Java Online Projects</b></a></li>
+    <li><a th:href="@{http://javaops.ru/profile(email=${user.email}, key=${activationKey})}">Редактирование своего
+        профиля</a></li>
+    <li><a th:href="@{http://javaops.ru/users(email=${user.email}, key=${activationKey})}">Список участников,
+        отсортированный по городам</a></li>
+    <li><a href="http://javaops.ru/interview/test.html">Ссылки по темам интервью, тестовое интервью</a></li>
+    <li><a href="https://github.com/JavaOPs/topjava/blob/master/cv.md">Составление резюме, подготовка к интервью, поиск
+        работы</a></li>
+    <li><b><a href="https://vk.com/javawebinar?w=wall-58538268_470">ссылкой на TopJava-10 в VK</a> и <a href="https://www.facebook.com/gkislin/posts/10211489370055143">Facebook</a>,
+        буду очень признателен за репост</b>
     </li>
-    <li><b>Повторное участие в проекте без проверки домашних заданий бесплатное. <br/>
-        Единственное условие (надеюсь не будет препятствием) - поделиться пожалуйста <a href="https://vk.com/javawebinar?w=wall-58538268_470">ссылкой на проект в VK</a> или
-        <a href="https://www.facebook.com/gkislin/posts/10211489370055143">Facebook</a></b>.<br/>
-        <b><a th:href="@{http://javaops.ru/repeat(email=${user.email}, project='topjava')}">Зарегистрируйся</a></b> и тебе
-        придет ссылка на группу Slack <b>topjava9</b> (там уже есть новые участники). <br/>
-        Первый урок будет 08.12.<br/>
-        Прект будем вести в <a href="https://github.com/JavaWebinar/topjava09">репозитории topjava09</a>, здесь же есть расписание.
-        Приглашай знакомых, желающих стать java разработчиками или повысить свою квалификацию!<br/><br/>
-    </li>
-    <li>Группа Slack <b>topjava9</b> после 08.12 будет удалена, вступай в группу <b>Java Online Projects</b> (кто еще не
-        вступил), где мы все общаемся на любые темы IT (помощь с Java, отзывы о работах, обсуждение тестовых заданий,
-        вакансии, цены на рынке труда, IT события, интересные видео по теме и пр.)
-        По каждой теме сделан свой канал. Проверь свои <a
-                th:href="@{http://javaops.ru/participate(email=${user.email}, key=${activationKey}, project='javaops')}">контактные
-            данные</a>.
-        Галочка 'размещение своих данных в закрытой статистике группы' говорит о том, что участники проектов смогут
-        увидеть твой город и skype в списке, а ты сможешь найти там разработчиков из своего города.
-        После сохранения формы на почту должно прийти приглашение в группу Slack и откроется ссылка на список
-        участников, отсортированный по городам.<br/><br/>
-    </li>
-    <li>
-        <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFflp6ZHBLSFI2OGVEZ2NQU0pzZkx4SnFmOWlzX0lzcDFjSi1SRk5OdzBYYkU">Все материалы проекта</a> останутся тебе доступны (в течении нового курса они будут постепенно переезжать в подпапку Topjava9).
-        Для просмотра в Chrome файлов md я пользуюсь <a
-            href="https://chrome.google.com/webstore/detail/markdown-preview/jmchmkecamhbiokiopfpnfgbidieafmd?utm_source=chrome-app-launcher-info-dialog">плагином
-        Markdown Preview</a> (нужно в его параметрах разрешить открывать файл по ссылкам) или можно использовать плагин
-        IDEA <b>Markdown support</b>.<br/><br/>
-    </li>
-    <li>
-        В феврале 2017 г. планирую второй выпуск курса <a href="http://javawebinar.ru/masterjava/">Многопоточность. Веб сервисы</a>.
-        (темы поменяются на актуальные ближе к концу текущего выпуска)<br/>
-        Посмотри бесплатное <a href="https://github.com/JavaOPs/masterjava">первое занятие: многопоточность</a>, это важная для разработчика тема, ее часто спрашивают на собеседованиях.<br/><br/>
-        Предварительная стоимость участия в в проекте MasterJava (учитывая скидку участника Topjava, <a href="http://www.finmarket.ru/currency/USD/">курс рубля к USD</a>):
-        <ul>
-            <li>без проверок домашних заданий: 8600 руб.</li>
-            <li>с проверками заданий: 16800 руб.</li>
-            <li>бесплатное повторное участие в формате рассылки материалов</li>
-        </ul>
-        <br/><b>Дата старта и программа проекта будут уточняться и рассылаться всем зарегистрированным участникам.</b><br/><br/>
-        Также у участников TopJava будут скидки на другие проекты (осенью планируется topjava2 на Spring-Boot).<br/>
-        О всех новостях буду делать рассылку и публиковать в группе VK <a href="https://vk.com/javawebinar">практика Java (Web/ Enterprise)</a>.<br/><br/>
-    </li>
-    <li>
-    Наконец, если ты рассматриваешь предложения о работе, занеси свои данные и ссылку на резюме <a href="https://github.com/JavaOPs/topjava/blob/master/cv.md#В-течении-проекта-заполните-форму-соискателя-Разработчик-java">в форму соискателя</a>.
-    Я ее рассылаю всем знакомым HR.
-        <br/><br/>
-    </li>
-    <li>
-        Можно еще участвовать в разработке <a href="http://javaops.ru">сайта Java Online Projects</a> (<a href="https://github.com/gkislin/javaops">репозиторий в GitHub</a>, <a href="https://javaops.slack.com/archives/javaops_ru">канал в Slack</a>), но тут пока почти никакой от меня поддержки, кроме выставления заданий.
-        Есть еще мысли сделать что-то вроде фрилансовой конторы, но это планы после курса <b>topjava2</b>.
-    </li>
+    <li><b><a href="http://javawebinar.ru/masterjava/">Регистрация на проект MasterJava</a></b></li>
 </ul>
-<h4>После прохождения испытательного срока на работе не забудь поделиться <a href="http://javaops.ru/story.html">своей историей успеха</a>!</h4>
-<h3>Большая просьба <a href="http://goo.gl/forms/PtFcPqEV5n">ответить на несколько вопросов по проекту</a>.<br/>
-Важно: если проект понравился, напиши пожалуйста в VK <a href="https://vk.com/topic-74381644_30447246"> отзыв о
-    проекте</a>.</h3>
-
-<b>Еще, сегодня (17.11) в 20.00 GMT+3 состоится бесплатный вебинар:</b>
-<h3>Осваиваем Java Enterprise</h3>
-<ul>
-    <li>Статистика: что востребовано на рынке</li>
-    <li>С чего начинать изучение</li>
-    <li>Что нужно, чтобы стать Java разработчиком</li>
-</ul>
-Для участия нужно в назначенное время зайти по ссылке:
-<h3><a href="https://www.youtube.com/watch?v=ZUZ_4WmcG0k">Прямая трансляция "Осваиваем Java Enterprise"</a></h3>
-Статистика, полезные ресурсы, структура типичного Enterprise приложения, опыт трудоустойства и ответы вживую на любой интересующий тебя вопрос по этим темам.<br/>
-<br/>
-<a href="https://goo.gl/XNVOj4">Слайды презентации</a>
-<h3>
-    Спасибо за участие в проекте TopJava, желаю отличной карьеры и, надеюсь, до новой встречи!
+<p>
+    <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFflp6ZHBLSFI2OGVEZ2NQU0pzZkx4SnFmOWlzX0lzcDFjSi1SRk5OdzBYYkU">Все
+        материалы проекта</a> останутся тебе доступны (в течении нового курса они будут постепенно переезжать в подпапку
+    Topjava10).<br/>
+    Для просмотра в Chrome файлов md я пользуюсь <a
+        href="https://chrome.google.com/webstore/detail/markdown-preview/jmchmkecamhbiokiopfpnfgbidieafmd?utm_source=chrome-app-launcher-info-dialog">плагином
+    Markdown Preview</a> (нужно в его параметрах разрешить открывать файл по ссылкам) или можно использовать плагин
+    IDEA <b>Markdown support</b>.
+</p>
+<p>
+    <a href="https://github.com/JavaWebinar/topjava09/blob/doc/doc/lesson11.md#Возможные-доработки-приложения">Доработки
+    проекта</a>, шли мне на ревью. Я включу ссылку на твой репозиторий в список для доступа к ним всех участников Topjava.<br/>
+    Можно также участвовать в разработке <a href="http://javaops.ru">сайта Java Online Projects</a> (<a
+        href="https://github.com/gkislin/javaops">репозиторий в GitHub</a>, <a
+        href="https://javaops.slack.com/archives/javaops_ru">канал в Slack</a>), с меня -  выставления заданий.
+</p>
+<h3>Большая просьба <a href="http://goo.gl/forms/PtFcPqEV5n">ответить на несколько вопросов по проекту</a>, тчобы сделать его лучше<br/>
+    Если проект понравился, напиши пожалуйста в VK <a href="https://vk.com/topic-74381644_30447246"> отзыв о
+        проекте</a>.</h3>
+<h3>После прохождения испытательного срока на работе не забудь поделиться <a href="http://javaops.ru/story.html">своей
+    историей успеха</a>!<br/>
+    Спасибо за участие в TopJava, желаю отличной карьеры и, надеюсь, до новой встречи!
 </h3>
 <p th:include="mailFragments::footer(${subscriptionUrl})">
 </p>
