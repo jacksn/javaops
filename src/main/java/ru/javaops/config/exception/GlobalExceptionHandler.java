@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     @Order(Ordered.LOWEST_PRECEDENCE - 1)
     public ModelAndView illegalArgumentHandler(HttpServletRequest req, Exception e) throws Exception {
-        log.error("Illegal params in request" + req.getRequestURL(), e);
+        log.error("Illegal params in request " + req.getRequestURL(), e);
         return processException(e.getMessage() == null ? "Неверные параметры запроса" : e.getMessage());
     }
 
