@@ -186,7 +186,7 @@ public class SubscriptionController {
 
     private ModelAndView grantAllAccess(String email, String project, String key) {
         IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, project);
-        String accessResponse = null;
+        String accessResponse = "";
         if (!project.equals("javaops")) {
             accessResponse = googleAdminSDKDirectoryService.insertMember(project + "@javaops.ru", email);
         }
