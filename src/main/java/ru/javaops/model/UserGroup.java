@@ -4,6 +4,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * GKislin
@@ -22,6 +23,9 @@ public class UserGroup extends BaseEntity {
     @JoinColumn(name = "group_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Group group;
+
+    @Column(name = "registered_date", columnDefinition = "TIMESTAMP DEFAULT NOW()")
+    private Date registeredDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "register_type")

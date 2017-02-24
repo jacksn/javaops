@@ -31,8 +31,10 @@
                 Проверьте доступ к материалам по ссылке в письме.
             </h3>
         </th:block>
-        <h3><a th:href="@{http://javaops.ru/users(email=${email}, key=${activationKey})}">Список участников,
-            отсортированный по городам</a></h3>
+        <th:block th:if="${activationKey}!=null">
+            <h3><a th:href="@{http://javaops.ru/users(email=${email}, key=${activationKey})}">Список участников,
+                отсортированный по городам</a></h3>
+        </th:block>
     </div>
 </div>
 </body>

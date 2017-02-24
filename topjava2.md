@@ -59,6 +59,8 @@ http://mtdevuk.com/2015/02/10/how-to-deploy-a-spring-boot-application-to-amazon-
 
 http://eax.me/amazon-one-year/
 
+SES: https://aws.amazon.com/ru/ses/faqs/
+
 [Change Timezone](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html#change_time_zone)
 
 ## Static resources
@@ -290,3 +292,9 @@ Spring-jdbc:   https://www.javacodegeeks.com/2016/03/springboot-working-jdbctemp
 [Group mail](https://groups.google.com/a/javaops.ru/forum/#!groupsettings/masterjava/information)
 [Delegating domain-wide authority to the service account](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#delegatingauthority)
 [Управление доступом клиента API](https://admin.google.com/AdminHome?chromeless=1#OGX:ManageOauthClients)
+
+
+## Hot Swapping
+http://docs.spring.io/spring-boot/docs/current/reference/html/howto-hotswapping.html
+https://patrickgrimard.io/2016/01/18/spring-boot-devtools-first-look/
+https://www.youtube.com/watch?v=VWF7vCJSqrA  : spring-boot-devtools
