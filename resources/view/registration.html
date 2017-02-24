@@ -26,7 +26,7 @@
             На почту должно прийти приглашение в группу Slack.
         </h3>
         <!--/*@thymesVar id="accessResponse" type="java.lang.String"*/-->
-        <th:block th:if="${accessResponse}!='' && ${accessResponse}!=null  ">
+        <th:block th:if="${accessResponse}!='' and ${accessResponse}!=null  ">
             <h3 th:text="${accessResponse}=='ok' ? 'Проверьте доступ к материалам по ссылке в письме.' : 'Ошибка доступа: '+ ${accessResponse}+' Для решения проблемы напиши мне в скайп: grigory.kislin'">
                 Проверьте доступ к материалам по ссылке в письме.
             </h3>
