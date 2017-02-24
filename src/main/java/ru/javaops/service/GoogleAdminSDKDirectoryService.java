@@ -54,10 +54,10 @@ public class GoogleAdminSDKDirectoryService {
         return service.members().list(googleGroupName).execute();
     }
 
-    public String insertMember(String googleGroupMail, String email) {
-        log.info("++++ insert {} to {} google groups ++++", email, googleGroupMail);
+    public String insertMember(String googleGroupMail, String gmail) {
+        log.info("++++ insert {} to {} google groups ++++", gmail, googleGroupMail);
         Member member = new Member();
-        member.setEmail(email);
+        member.setEmail(gmail);
         try {
             service.members().insert(googleGroupMail, member).execute();
             return "ok";

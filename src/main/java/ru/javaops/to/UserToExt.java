@@ -1,5 +1,7 @@
 package ru.javaops.to;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -13,6 +15,7 @@ public class UserToExt extends UserTo {
     private Integer id;
 
     @Pattern(regexp = "[_A-Za-z0-9-\\+\\.]*@gmail\\.[A-Za-z]{2,3}", message = "Неверный gmail формат")
+    @NotEmpty(message = "для авторизации требуется gmail")
     private String gmail;
 
     private String skype;

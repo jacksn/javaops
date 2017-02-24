@@ -2,6 +2,7 @@ package ru.javaops.web;
 
 import com.google.api.client.repackaged.com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * GKislin
  */
 @Controller
+@Slf4j
 public class SubscriptionController {
 
     @Autowired
@@ -135,7 +137,7 @@ public class SubscriptionController {
         groupService.save(user, projectProps.currentGroup, RegisterType.REPEAT, "mail");
 
         IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, projectName);
-        return new ModelAndView("registration","response", response);
+        return new ModelAndView("registration", "response", response);
     }
 
     @RequestMapping(value = "/idea", method = RequestMethod.GET)
@@ -178,17 +180,18 @@ public class SubscriptionController {
         if (!Strings.isNullOrEmpty(project)) {
             String email = userToExt.getEmail();
             groupService.getUserInProject(email, project);
-            return grantAllAccess(email, project, key);
+            return grantAllAccess(email, userToExt.getGmail(), project, key);
         } else {
             return new ModelAndView("saveProfile", ImmutableMap.of("userToExt", userToExt, "key", key));
         }
     }
 
-    private ModelAndView grantAllAccess(String email, String project, String key) {
+    private ModelAndView grantAllAccess(String email, String gmail, String project, String key) {
+        log.info("grantAllAccess to {}/{}", email, gmail);
         IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, project);
         String accessResponse = "";
         if (!project.equals("javaops")) {
-            accessResponse = googleAdminSDKDirectoryService.insertMember(project + "@javaops.ru", email);
+            accessResponse = googleAdminSDKDirectoryService.insertMember(project + "@javaops.ru", gmail);
         }
         return new ModelAndView("registration",
                 ImmutableMap.of("response", response, "email", email,
