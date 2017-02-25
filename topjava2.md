@@ -298,3 +298,4 @@ Spring-jdbc:   https://www.javacodegeeks.com/2016/03/springboot-working-jdbctemp
 http://docs.spring.io/spring-boot/docs/current/reference/html/howto-hotswapping.html
 https://patrickgrimard.io/2016/01/18/spring-boot-devtools-first-look/
 https://www.youtube.com/watch?v=VWF7vCJSqrA  : spring-boot-devtools
+https://www.leveluplunch.com/java/tutorials/004-hot-deploy-java-applications-with-spring-loaded/

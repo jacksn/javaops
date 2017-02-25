@@ -1,5 +1,6 @@
 package ru.javaops.to;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -8,6 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class UserTo {
     @NotEmpty(message = "Поле email не может быть пустым")
+    @Email
     private String email;
 
     private String nameSurname;
