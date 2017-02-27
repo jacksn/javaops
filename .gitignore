@@ -4,7 +4,4 @@ target
 *.iml
 logs
 db
-
-
-
-
+config
