@@ -1,0 +1,23 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Новости проекта Masterjava</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+Новости проекта Masterjava:
+<ul>
+    <li><a href="https://github.com/JavaWebinar/masterjava/blob/lesson/doc/lesson10.md">10й (предпоследний) урок</a>
+        пока еще в процессе обновления. Надеюсь на днях завершить. Извиняюсь, что затянул.</li>
+    <li>28.02 - начинаю принимать ДЗ по первому занятию Masterjava02, <b>07.03</b> буду делать рассылку второго занятия. Твоя ссылка
+        на <a href="@{http://javaops.ru/repeat(email=${user.email}, project='masterjava')}">бесплатное участие в
+            Masterjava02</a>. Планирую поменять соотношение материала занятия/ДЗ, что-то думаю дополнять.
+    </li>
+    <li>11-е занятие Masterjava- за мной. Как только появится окно, подготовлю и разошлю приглашения. В крайнем случае это будет в рамках Masterjava02</li>
+    <li>Если у тебя участие с проверкой, то неприсланные ДЗ я буду проверять на Masterjava02</li>
+</ul>
+<p th:include="mailFragments::generalFooter">
+</p>
+</html>
