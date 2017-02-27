@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Начало 'Masterjava'</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+Сегодня начало проекта Masterjava: <a href="https://github.com/JavaOPs/masterjava">Многомодульный maven.
+        Многопоточность. XML. Веб сервисы. Удаленное взаимодействие!</a>
+<p>
+С сегодняшнего дня принимаю на проверку Домашние Задания к <a
+        href="https://github.com/JavaOPs/masterjava#Первое-занятие-многопоточность">первому занятию Многопоточность</a> (если есть проверка).
+<br/>
+Сформирована группа Slak, дал доступ к Google Drive и личные полугодовые лицензии IDEA.<br/>
+<b><a href="https://github.com/JavaOPs/masterjava#Занятие-2">Второе занятие</a> буду рассылать 07.03</b>,
+еще есть возможность принять участие в этом потоке.
+</p>
+<ul>
+    <li>Стоимость участия без проверки домашних заданий: 8900 руб. (после курса TopJava: <b>8200 руб.</b>)<br/>
+        <i>сюда входят все материалы, участие в группе skype и slack, ответы на вопросы и помощь с проектом.</i>
+    </li>
+    <li>Стоимость полного пакета: 17000 руб. (после TopJava: <b>15500 руб.</b>)<br/>
+        <i>добавляется проверка домашних заданий</i></li>
+    <li>Для всех: бесплатное (или с доплатой за проверку ДЗ) участие в следующий выпусках проекта MasterJava.</li>
+    <li><a href="http://javaops.ru/payment.html">Способы оплаты</a></li>
+    <li><a href="http://www.finmarket.ru/currency/USD/">Курс рубля</a></li>
+</ul>
+<p>
+    <span>Поспеши, если решил присоединиться к нам!</span><br/>
+    Надеюсь встретится на проекте, <br/>
+    Григорий Кислин<br/>
+    <em>skype: grigory.kislin</em>
+</p>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
