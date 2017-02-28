@@ -1,0 +1,14 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Ссылка на Masterjava2</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+Исправил нерабочую ссылку в предыдущем письме:
+<a th:href="@{http://javaops.ru/repeat(email=${user.email}, project='masterjava')}">выслать приглашение на Masterjava02</a>
+<p th:include="mailFragments::generalFooter">
+</p>
+</html>
