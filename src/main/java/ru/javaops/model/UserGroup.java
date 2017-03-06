@@ -25,7 +25,7 @@ public class UserGroup extends BaseEntity {
     private Group group;
 
     @Column(name = "registered_date", columnDefinition = "TIMESTAMP DEFAULT NOW()")
-    private Date registeredDate;
+    private Date registeredDate = new Date();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "register_type")

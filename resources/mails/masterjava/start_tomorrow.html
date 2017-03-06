@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Завтра (07.03) второе занятие 'Masterjava'</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+Я добавил <a href="https://github.com/JavaOPs/masterjava/blob/master/README.md#-Подсказки-по-hw0">подсказки по первому ДЗ</a>:
+<ul>
+    <li>не делайте 1000 000 тасок, лучше их сделать крупнее</li>
+    <li>у меня разница между 4 и 1000 тасками по времени незаметна, поэтому делайте просто и не делайте сложно</li>
+    <li>наконец: можно не считать значение элемента результирующей матрицы C за раз, а накапливать (concurrentMultiply2)</li>
+</ul>
+Мои результаты (через JMH):<br/>
+<pre>
+    Benchmark                             (matrixSize)  Mode  Cnt    Score    Error  Units
+    MatrixBenchmark.singleThreadMultiplyOpt       1000    ss  100  837,867 ± 25,530  ms/op
+    MatrixBenchmark.concurrentMultiply            1000    ss  100  394,294 ± 21,657  ms/op
+    MatrixBenchmark.concurrentMultiply2           1000    ss  100  186,827 ± 11,882  ms/op
+</pre>
+<h3>ЗАВТРА начинается платная часть проекта Masterjava: <a href="https://github.com/JavaOPs/masterjava#Занятие-2">Занятие 2: JMH,
+    Guava, XML /XSD /JAXB /JAXP /StAX /XPath/ XSLT</a>.<br/>
+    Последняя возможность принять участие в проекте.
+</h3>
+
+
+<ul>
+    <li>Стоимость участия без проверки домашних заданий: 8900 руб. (после курса TopJava: <b>8200 руб.</b>)<br/>
+        <i>сюда входят все материалы, участие в группе skype и slack, ответы на вопросы и помощь с проектом.</i>
+    </li>
+    <li>Стоимость полного пакета: 17000 руб. (после TopJava: <b>15500 руб.</b>)<br/>
+        <i>добавляется проверка домашних заданий</i></li>
+    <li>Для всех: бесплатное (или с доплатой за проверку ДЗ) участие в следующий выпусках проекта MasterJava.</li>
+    <li><a href="http://javaops.ru/payment.html">Способы оплаты</a></li>
+    <li><a href="http://www.finmarket.ru/currency/USD/">Курс рубля</a></li>
+</ul>
+<p>
+    <span>Поспеши, если решил присоединиться к нам!</span><br/>
+    Надеюсь встретится на проекте, <br/>
+    Григорий Кислин<br/>
+    <em>skype: grigory.kislin</em>
+</p>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
