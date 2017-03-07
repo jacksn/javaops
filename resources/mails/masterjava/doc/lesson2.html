@@ -1,0 +1,49 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>2-е занятие занятие Masterjava</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+Сегодня выложил <a href="https://github.com/JavaWebinar/masterjava/blob/doc/doc/lesson02.md">2-е занятие Masterjava</a>.<br/>
+Для обсуждение материалов занятия и домашнего задания (HW2) в слаке группа <a
+        href="https://masterjava02.slack.com/archives/hw02">#hw02</a>.<br/>
+Обзор Guava перенес в 3й урок.
+<p>
+    Проект будет вестись в <a href="https://github.com/JavaWebinar/masterjava">GitHub репозитории masterjava</a>
+    анологично проекту topjava:<br/>
+<ul>
+    <li>в ветке <b>master</b> мои патчи</li>
+    <li>в ветках <b>HWxx</b>- ваши домашние задания. Напомню <b><a
+            href="https://github.com/JavaOPs/topjava/wiki/Git#%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B-%D1%81-%D0%BF%D0%B0%D1%82%D1%87%D0%B0%D0%BC%D0%B8-%D0%BD%D0%B0-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B5">правила
+        работы с патчами на проекте</a></b>.
+    </li>
+    <li><a href="https://github.com/JavaWebinar/masterjava/tree/doc/doc">в ветке <b>doc</b>, каталоге doc</a> уроки</li>
+</ul>
+</p>
+<hr/>
+Напомню, что для доступа к материалам урока и получения приглашения в Slack необходимо заполнить <b><a
+        th:href="@{http://javaops.ru/participate(email=${user.email}, key=${activationKey}, project='masterjava')}"
+        href="#">регистрационную форму</a>.</b> После ее сохранения
+<ul>
+    <li>на почту придет приглашение в группу Slack (обычно в течении 5 мин, проверь папку спам)</li>
+    <li>по gmail аккаунту предоставится доступ к материалам.<br/>
+        Если доступа к <a href="">материалам урока</a> нет,
+        <b>НЕ НАДО запрашивать доступ через Google Drive</b> (он дается автоматически по заполнению формы)<br/>
+        По порядку:
+        <ul>
+            <li>выйти-войти в gmail аккаунт, который указан в gmail формы</li>
+            <li>попробовать войти в анонимной вкладке</li>
+            <li>написать мне в skype <i>grigory.kislin</i> или в <a
+                    href="https://masterjava02.slack.com/messages/@grigory.kislin/">личку в группы Slak</a></li>
+        </ul>
+    </li>
+</ul>
+<hr/>
+У кого есть проверка ДЗ - жду решения до вечера 12.03 в личку слака.
+<p th:include="mailFragments::lessonFooter">
+</p>
+</html>
