@@ -74,14 +74,17 @@ public class SubscriptionController {
                                         @RequestParam(value = "confirmMail", required = false) String confirmMail,
                                         @RequestParam(value = "callback", required = false) String callback,
                                         @RequestParam("channel") String channel,
-                                        @RequestParam("template") String template,
+                                        @RequestParam(value = "template", required = false) String template,
                                         @RequestParam("channelKey") String channelKey,
                                         @Valid UserTo userTo, BindingResult result) {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
         UserGroup userGroup = groupService.registerAtGroup(userTo, group, channel);
-        String mailResult = mailService.sendToUser(template, userGroup.getUser());
+        String mailResult = "без отправки";
+        if (template != null) {
+            mailResult = mailService.sendToUser(template, userGroup.getUser());
+        }
         ImmutableMap<String, ?> params = ImmutableMap.of("userGroup", userGroup, "result", mailResult);
 
         final ModelAndView mv;
