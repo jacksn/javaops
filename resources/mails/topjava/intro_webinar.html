@@ -1,0 +1,31 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>ЗАВТРА бесплатный вебинар "Java: от основ до получения работы"</title>
+</head>
+<body>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!
+</p>
+Рад сообщить, что <b>ЗАВТРА</b> совместно cо школой U-Rise я проверду бесплатный вебинар <b>"Java: от основ до
+    получения работы".</b>
+
+<ul>Темы вебинара:
+    <li>Что востребовано на рынке Java</li>
+    <li>С чего начинать изучение</li>
+    <li>Что нужно, чтобы стать Java разработчиком</li>
+    <li>Подготовка к собеседованию</li>
+</ul>
+На вебинаре можно будет задать все интересующие вопросы мне, либо организатором обучения школы U-Rise, на базе которой проходит
+<a href="https://github.com/JavaOPs/JavaSE-Web">базовый проект JavaSE + Web</a>
+<br/>
+Для тех, кто не сможет присутствовать, будет рассылка записи вебинара.
+<h3>Начало трансляции <a href="https://online.bizon365.ru/room/1949/webinar_free">по ссылке в 21.00 Москва / 20.00
+    Киев</a></h3>
+<p>
+    <b>До встречи на вебинаре</b>
+</p>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</body>
+</html>
