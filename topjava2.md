@@ -240,6 +240,7 @@ https://dzone.com/articles/spring-caching-abstraction-and
 ## Logging
 https://docs.spring.io/spring-boot/docs/current/reference/html/howto-logging.html
 https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-logging.html#boot-features-logging-file-output
+http://blog.codeleak.pl/2017/03/spring-boot-configure-log-level-in.html
 
 ## Error handling
 http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-error-handling
