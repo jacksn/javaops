@@ -100,7 +100,7 @@ public class SubscriptionController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView registerByProject(@RequestParam("project") String project,
+    public ModelAndView registerByProject(@RequestParam("project") String projectName,
                                           @RequestParam("channel") String channel,
                                           @RequestParam(value = "template", required = false) String template,
                                           @Valid UserTo userTo, BindingResult result) {
@@ -108,11 +108,10 @@ public class SubscriptionController {
             throw new ValidationException(Util.getErrorMessage(result));
         }
 
-        ProjectProps projectProps = groupService.getProjectProps(project);
-        UserGroup userGroup = groupService.registerAtProject(userTo, projectProps, channel);
-        String projectName = projectProps.project.getName();
-
-        if (userGroup.getRegisterType() == RegisterType.REPEAT) {
+        UserGroup userGroup = groupService.registerAtProject(userTo, projectName, channel);
+        if (userGroup.getRegisterType() == RegisterType.DUPLICATED && userGroup.getGroup().isMembers()) {
+            return getRedirectView("http://javawebinar.ru/duplicate.html");
+        } else if (userGroup.getRegisterType() == RegisterType.REPEAT) {
             integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail(), projectName);
             template = projectName + "_repeat";
         } else if (template == null) {
@@ -123,7 +122,11 @@ public class SubscriptionController {
     }
 
     private ModelAndView getRedirectView(String mailResult, String successUrl, String failUrl) {
-        return new ModelAndView("redirectToUrl", "redirectUrl", MailService.isOk(mailResult) ? successUrl : failUrl);
+        return getRedirectView(MailService.isOk(mailResult) ? successUrl : failUrl);
+    }
+
+    private ModelAndView getRedirectView(String url) {
+        return new ModelAndView("redirectToUrl", "redirectUrl", url);
     }
 
     @RequestMapping(value = "/repeat", method = RequestMethod.GET)
@@ -137,8 +140,7 @@ public class SubscriptionController {
             return new ModelAndView("already_registered");
         }
         mailService.sendToUser(projectName + "_repeat", user);
-        groupService.save(user, projectProps.currentGroup, RegisterType.REPEAT, "mail");
-
+        groupService.save(user, projectProps.currentGroup, RegisterType.REPEAT, "repeat");
         IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, projectName);
         return new ModelAndView("registration", "response", response);
     }

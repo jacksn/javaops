@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.javaops.model.Currency;
 import ru.javaops.model.ParticipationType;
 import ru.javaops.model.Payment;
-import ru.javaops.model.User;
+import ru.javaops.model.UserGroup;
 import ru.javaops.service.GroupService;
 import ru.javaops.service.MailService;
 import ru.javaops.service.UserService;
+import ru.javaops.to.UserTo;
 
-import java.util.Collection;
+import javax.validation.Valid;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -41,18 +42,13 @@ public class UserController {
         userService.deleteByEmail(email);
     }
 
-    @RequestMapping(value = "/group", method = POST)
-    public Collection<User> getGroup(@Param("group") String group) {
-//      TODO make json projection
-        return userService.findByGroupName(group);
-    }
-
     @RequestMapping(value = "/pay", method = POST)
-    public String pay(@Param("project") String project, @Param("email") String email,
+    public String pay(@Param("project") String project, @Valid UserTo userTo,
                       @Param("sum") int sum, @Param("currency") Currency currency, @Param("comment") String comment,
                       @RequestParam(value = "type", required = false) ParticipationType participationType,
+                      @RequestParam(value = "channel", required = false) String channel,
                       @RequestParam(value = "template", required = false) String template) {
-        groupService.pay(email.toLowerCase(), project, new Payment(sum, currency, comment), participationType);
-        return (template == null) ? "Paid" : mailService.sendToUser(template, email);
+        UserGroup ug = groupService.pay(userTo, project, new Payment(sum, currency, comment), participationType, channel);
+        return (template == null) ? "Paid" : mailService.sendToUser(template, ug.getUser());
     }
 }

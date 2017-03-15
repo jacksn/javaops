@@ -7,5 +7,6 @@ package ru.javaops.model;
 public enum RegisterType {
     REPEAT,
     FIRST_REGISTERED,
-    REGISTERED
+    REGISTERED,
+    DUPLICATED
 }

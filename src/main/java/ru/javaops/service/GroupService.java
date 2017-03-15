@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -73,84 +74,85 @@ public class GroupService {
     }
 
     @Transactional
-    public UserGroup registerAtProject(UserTo userTo, ProjectProps projectProps, String channel) {
-        log.info("add{} to project {}", userTo, projectProps.project);
-        User user = userService.findByEmail(userTo.getEmail());
-        RegisterType registerType;
+    public UserGroup registerAtProject(UserTo userTo, String projectName, String channel) {
+        log.info("add{} to project {}", userTo, projectName);
 
-        if (user != null) {
-            Set<Group> groups = findByUserId(user.getId());
-            registerType = groups.stream()
-                    .anyMatch(g -> projectProps.project.equals(g.getProject()) && g.getType() == GroupType.FINISHED) ? RegisterType.REPEAT : RegisterType.REGISTERED;
-
-            if (groups.stream().anyMatch(g -> g.equals(projectProps.registeredGroup) || g.equals(projectProps.currentGroup))) {
-                // Already registered
-                return new UserGroup(user, projectProps.registeredGroup, registerType, channel);
-            }
-        } else {
-            user = UserUtil.createFromTo(userTo);
-            registerType = RegisterType.FIRST_REGISTERED;
-        }
-        Group group = (registerType == RegisterType.REPEAT) ? projectProps.currentGroup : projectProps.registeredGroup;
-        return saveAll(user, group, registerType, channel);
-    }
-
-    public UserGroup saveAll(User user, Group group, RegisterType registerType, String channel) {
-        if (group.isMembers()) {
-            user.getRoles().add(Role.ROLE_MEMBER);
-        }
-        userService.save(user);
-        return save(user, group, registerType, channel);
-    }
-
-    public UserGroup save(User user, Group group, RegisterType registerType, String channel) {
-        return userGroupRepository.save(new UserGroup(user, group, registerType, channel));
+        ProjectProps projectProps = getProjectProps(projectName);
+        return registerAtGroup(userTo, channel, projectProps.registeredGroup,
+                user -> {
+                    Set<Group> groups = findByUserId(user.getId());
+                    RegisterType registerType = groups.stream()
+                            .anyMatch(g -> projectProps.project.equals(g.getProject()) && g.isMembers()) ? RegisterType.REPEAT : RegisterType.REGISTERED;
+                    return new UserGroup(user,
+                            registerType == RegisterType.REGISTERED ? projectProps.registeredGroup : projectProps.currentGroup,
+                            registerType, channel);
+                });
     }
 
     @Transactional
     public UserGroup registerAtGroup(UserTo userTo, String groupName, String channel) {
         log.info("add{} to group {}", userTo, groupName);
         Group group = findByName(groupName);
-        User user = userService.findByEmail(userTo.getEmail());
-        RegisterType registerType;
-        if (user == null) {
-            user = UserUtil.createFromTo(userTo);
-            registerType = RegisterType.FIRST_REGISTERED;
-        } else {
-            UserGroup ug = userGroupRepository.findByUserIdAndGroupId(user.getId(), group.getId());
-            if (ug != null) {
-                ug.setRegisterType(RegisterType.REPEAT);
-                return ug;
-            }
-            registerType = RegisterType.REGISTERED;
-        }
-        return saveAll(user, group, registerType, channel);
-    }
-
-    public UserGroup moveOrCreate(User u, Group sourceGroup, Group targetGroup) {
-        UserGroup ug = userGroupRepository.findByUserIdAndGroupId(u.getId(), sourceGroup.getId());
-        if (ug == null) {
-            ug = userGroupRepository.findByUserIdAndGroupId(u.getId(), targetGroup.getId());
-            if (ug == null) {
-                ug = new UserGroup(u, targetGroup, RegisterType.REGISTERED, "email");
-            }
-        } else {
-            ug.setGroup(targetGroup);
-        }
-        return ug;
+        return registerAtGroup(userTo, channel, group,
+                user -> new UserGroup(user, group, RegisterType.REGISTERED, channel));
     }
 
     @Transactional
-    public UserGroup pay(String email, String projectName, Payment payment, ParticipationType participationType) {
-        log.info("Pay from {} for {}: {}", email, projectName, payment);
-        User u = userService.findExistedByEmail(email);
+    public UserGroup pay(UserTo userTo, String projectName, Payment payment, ParticipationType participationType, String channel) {
+        log.info("Pay from {} for {}: {}", userTo, projectName, payment);
         ProjectProps projectProps = getProjectProps(projectName);
-        UserGroup ug = moveOrCreate(u, projectProps.registeredGroup, projectProps.currentGroup);
-        ug.setParticipationType(participationType);
+        UserGroup ug = registerAtGroup(userTo, channel, projectProps.currentGroup,
+                user -> new UserGroup(user, projectProps.currentGroup, RegisterType.REGISTERED, null));
+
         paymentRepository.save(payment);
         ug.setPayment(payment);
+        ug.setParticipationType(participationType);
         userGroupRepository.save(ug);
         return ug;
+    }
+
+    private UserGroup registerAtGroup(UserTo userTo, String channel, Group newUserGroup, Function<User, UserGroup> existedUserGroupProvider) {
+        User user = userService.findByEmail(userTo.getEmail());
+        UserGroup ug;
+        if (user == null) {
+            user = UserUtil.createFromTo(userTo);
+            ug = new UserGroup(user, newUserGroup, RegisterType.FIRST_REGISTERED, channel);
+        } else {
+            ug = existedUserGroupProvider.apply(user);
+            if (userGroupRepository.findByUserIdAndGroupId(user.getId(), ug.getGroup().getId()) != null) {
+                ug.setRegisterType(RegisterType.DUPLICATED);
+                return ug;
+            }
+        }
+        if (ug.getRegisterType() != RegisterType.REPEAT) {
+            if (ug.getGroup().isMembers()) {
+                if (ug.getRegisterType() == RegisterType.REGISTERED) {
+                    ug = checkRemoveFromRegistered(ug);
+                }
+                user.getRoles().add(Role.ROLE_MEMBER);
+            }
+            userService.save(user);
+        }
+        return userGroupRepository.save(ug);
+    }
+
+    public UserGroup save(User user, Group group, RegisterType registerType, String channel) {
+        return userGroupRepository.save(new UserGroup(user, group, registerType, channel));
+    }
+
+    private UserGroup checkRemoveFromRegistered(UserGroup ug) {
+        ProjectProps projectProps = getProjectProps(ug.getGroup().getProject().getName());
+        UserGroup registeredUserGroup = userGroupRepository.findByUserIdAndGroupId(ug.getUser().getId(), projectProps.registeredGroup.getId());
+        if (registeredUserGroup == null) {
+            return ug;
+        }
+        registeredUserGroup.setRegisterType(RegisterType.REGISTERED);
+        registeredUserGroup.setGroup(ug.getGroup());
+        if (ug.getChannel() != null) {
+            registeredUserGroup.setChannel(ug.getChannel());
+        }
+        registeredUserGroup.setRegisteredDate(new Date());
+        return registeredUserGroup;
     }
 
     public ProjectProps getProjectProps(String projectName) {

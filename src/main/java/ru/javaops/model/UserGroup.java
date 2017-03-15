@@ -80,6 +80,14 @@ public class UserGroup extends BaseEntity {
         this.participationType = participationType;
     }
 
+    public void setChannel(String channel) {
+        this.channel = channel;
+    }
+
+    public void setRegisteredDate(Date registeredDate) {
+        this.registeredDate = registeredDate;
+    }
+
     public void setRegisterType(RegisterType registerType) {
         this.registerType = registerType;
     }

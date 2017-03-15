@@ -11,6 +11,7 @@
         <p th:case="${T(ru.javaops.model.RegisterType).FIRST_REGISTERED}">Успешно добавлен в группу.</p>
         <p th:case="${T(ru.javaops.model.RegisterType).REGISTERED}">Добавлен в группу, уже присутствует в базе Java
             Online Projects.</p>
+        <p th:case="${T(ru.javaops.model.RegisterType).DUPLICATED}">Уже присутствует в группе.</p>
         <p th:case="${T(ru.javaops.model.RegisterType).REPEAT}">Уже есть в группе, повторная регистрация.</p>
     </div>
     <p>Имя: <span th:text="*{fullName}?: 'нет'">имя</span>

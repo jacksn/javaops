@@ -5,9 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Collection;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
@@ -37,7 +35,6 @@ public class User extends BaseEntity {
     @Email
     @Size(max = 100)
     @Column(length = 100, unique = true)
-    @Pattern(regexp = "[_A-Za-z0-9-\\+\\.]*@gmail\\.[A-Za-z]{2,3}", message = "Неверный gmail формат")
     private String gmail;
 
     @Size(max = 50)
@@ -50,8 +47,7 @@ public class User extends BaseEntity {
     @Column(name = "info_source", length = 100)
     private String infoSource;
 
-    @Size(max = 500)
-    @Column(name = "about_me", length = 5000)
+    @Column(name = "about_me")
     private String aboutMe;
 
     @Column(name = "stats_agree")
@@ -158,10 +154,6 @@ public class User extends BaseEntity {
 
     public String getPassword() {
         return password;
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = EnumSet.copyOf(roles);
     }
 
     public Set<UserGroup> getUserGroups() {
