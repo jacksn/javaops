@@ -1,0 +1,18 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>3-е занятие занятие Masterjava (поправил ссылку на урок)</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+<a href="https://github.com/JavaWebinar/masterjava/blob/doc/doc/lesson03.md">3-е занятие Masterjava</a>, запостил в Slack и забыл продублировать письмом:(<br/>
+Обсуждение материалов занятия и домашнего задания (HW3) в группе слака  <a
+        href="https://masterjava02.slack.com/messages/hw03/">#hw03</a>.<br/>
+У кого есть проверка ДЗ - жду решения до вечера 19.03 в личку слака.<br/>
+Напомню, что перед применением патчей ваша ветка master должна быть такой же, как <a href="https://github.com/JavaWebinar/masterjava/commits/master">ветка master нашего репозитория</a>.
+<p th:include="mailFragments::lessonFooter">
+</p>
+</html>
