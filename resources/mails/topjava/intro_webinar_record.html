@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>ЗАПИСЬ вебинара "Java: от основ до получения работы", старт Topjava</title>
+</head>
+<body>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!
+</p>
+<b>Высылаю тебе запись вчерашнего вебинара <a href="https://www.youtube.com/watch?v=vBK2DS8wg1U">Java: от основ до
+    получения работы</a><br/>
+    <a href="https://goo.gl/6vo1WK">Презентация с полезными для начинающего Java разработчика ссылками</a>.</b>
+<p>
+    На всякий случай даю ссылки на предуыдущие вебинары:<br/>
+    <a href="https://www.youtube.com/watch?v=M4ODqY1hgUY">Собеседование. Разработка ПО. Вопросы.</a><br/>
+    <a href="https://www.youtube.com/watch?v=J9yDOGT2BhE">ОСВАИВАЕМ JAVA ENTERPRISE</a>
+</p>
+<p>
+    Напомню, что сегодня начало 10-го юбилейного проекта-стажировки <a href="http://javawebinar.ru/topjava/">Java
+    Enterprise (Topjava)</a><br/>
+
+<h3>Первое занятие буду рассылать 23.03. Еще есть возможность принять участие</h3>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</body>
+</html>
