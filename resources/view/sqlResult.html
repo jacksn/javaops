@@ -33,7 +33,7 @@
         <tr th:each="row,iter: ${result.rows}">
             <td th:text="${iter.count}"></td>
             <th:block th:each="item: ${row}">
-                <td th:text="${item}"></td>
+                <td th:utext="${item}"></td>
             </th:block>
         </tr>
         </tbody>
