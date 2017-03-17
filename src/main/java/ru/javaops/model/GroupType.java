@@ -6,6 +6,7 @@ package ru.javaops.model;
  */
 public enum GroupType {
     TEST,
+    PARTNER,
     REGISTERED,
     FINISHED,
     CURRENT

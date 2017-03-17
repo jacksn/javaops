@@ -48,9 +48,6 @@ public class SubscriptionController {
     private GroupService groupService;
 
     @Autowired
-    private ProjectService projectService;
-
-    @Autowired
     private IdeaCouponService ideaCouponService;
 
     @Autowired
@@ -155,15 +152,12 @@ public class SubscriptionController {
     }
 
     @RequestMapping(value = "/idea", method = RequestMethod.GET)
-    public ModelAndView ideaRegister(@RequestParam("email") String email, @RequestParam("group") String groupName) throws MessagingException {
-        Group group = groupService.findByName(groupName);
-        if (group.getType() != GroupType.CURRENT) {
-            throw new IllegalArgumentException("Для этой группы лицензии IDEA не предусмотрены");
-        }
-        User user = userService.findByEmailAndGroupId(email, group.getId());
-        checkNotNull(user, "Пользователь %s не найден в группе %s", email, groupName);
+    public ModelAndView ideaRegister(@RequestParam("email") String email, @RequestParam("project") String projectName) throws MessagingException {
+        ProjectUtil.ProjectProps projectProps = groupService.getProjectProps(projectName);
+        User user = userService.findByEmailAndGroupId(email, projectProps.currentGroup.getId());
+        checkNotNull(user, "Пользователь %s не найден в проекте %s", email, projectName);
 
-        IdeaCoupon coupon = ideaCouponService.assignToUser(user, group.getProject());
+        IdeaCoupon coupon = ideaCouponService.assignToUser(user, projectProps.project);
         String response = mailService.sendWithTemplate(user, "idea_register", ImmutableMap.of("user", user, "coupon", coupon.getCoupon()));
         if (MailService.OK.equals(response)) {
             return new ModelAndView("registration_idea");
@@ -181,7 +175,7 @@ public class SubscriptionController {
     @RequestMapping(value = "/participate", method = RequestMethod.GET)
     public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key, @RequestParam("project") String projectName) {
         User u = groupService.getCurrentUserInProject(email, projectName);
-        return new ModelAndView("profile", ImmutableMap.of("user", u, "project", projectService.findByName(projectName), "key", key));
+        return new ModelAndView("profile", ImmutableMap.of("user", u, "projectName", projectName, "key", key));
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)

@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.javaops.model.GroupType;
 import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
+import ru.javaops.repository.UserRepository;
 import ru.javaops.service.GroupService;
 import ru.javaops.service.MailService;
 import ru.javaops.service.MailService.GroupResult;
-import ru.javaops.service.UserService;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -41,7 +41,7 @@ public class MailController {
     private GroupService groupService;
 
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
 
     @RequestMapping(value = "/test", method = POST)
     public ResponseEntity<String> sendToUser(@Param("template") String template) {
@@ -57,7 +57,7 @@ public class MailController {
 
     @RequestMapping(value = "/by-location", method = POST)
     public ResponseEntity<GroupResult> sendToUsersByLocation(@Param("template") String template, @Param("location") String location) {
-        return sendToGroup(template, userService.findByLocation(location));
+        return sendToGroup(template, userRepository.findByLocation(location));
     }
 
     @RequestMapping(value = "/to-users", method = POST)

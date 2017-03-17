@@ -12,11 +12,9 @@ import ru.javaops.model.GroupType;
 import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
-import ru.javaops.to.UserStat;
 import ru.javaops.to.UserToExt;
 import ru.javaops.util.UserUtil;
 
-import java.util.List;
 import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -101,15 +99,5 @@ public class UserServiceImpl implements UserService, org.springframework.securit
         UserUtil.updateFromToExt(user, userTo);
         userRepository.save(user);
         return user;
-    }
-
-    @Override
-    public Set<User> findByLocation(String location) {
-        return userRepository.findByLocation(location.toLowerCase());
-    }
-
-    @Override
-    public List<UserStat> findAllForStats() {
-        return userRepository.findAllForStats();
     }
 }

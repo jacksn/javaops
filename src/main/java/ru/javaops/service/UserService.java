@@ -3,10 +3,8 @@ package ru.javaops.service;
 import ru.javaops.model.GroupType;
 import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
-import ru.javaops.to.UserStat;
 import ru.javaops.to.UserToExt;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,8 +30,4 @@ public interface UserService {
     void save(User u);
 
     User update(UserToExt userTo);
-
-    Set<User> findByLocation(String location);
-
-    List<UserStat> findAllForStats();
 }

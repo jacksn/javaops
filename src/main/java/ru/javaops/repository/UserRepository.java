@@ -42,4 +42,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "AND u.location IS NOT NULL " +
             "ORDER BY LOWER(u.location)")
     List<UserStat> findAllForStats();
+
+    @Query("SELECT ug.user FROM UserGroup ug WHERE ug.user.email=:email AND ug.group.name=:groupName")
+    User findByEmailAndGroupName(@Param("email") String email, @Param("groupName") String partnerGroupName);
 }
