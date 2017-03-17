@@ -25,8 +25,8 @@ public class CachedGroups {
     GroupRepository groupRepository;
 
     @Cacheable("groups")
-    public List<Group> getAllWithProject() {
-        log.debug("getAllWithProject");
+    public List<Group> getAll() {
+        log.debug("getAll");
         List<Group> groups = groupRepository.findAll();
         Cache cache = cacheManager.getCache("group");
         groups.forEach(g -> cache.put(g.getName(), g));
@@ -34,8 +34,8 @@ public class CachedGroups {
     }
 
     @Cacheable("group")
-    public Group findByNameWithProject(String name) {
-        List<Group> groups = getAllWithProject();
+    public Group findByName(String name) {
+        List<Group> groups = getAll();
         return groups.stream()
                 .filter(g -> name.equals(g.getName()))
                 .findAny().orElseThrow(() -> new IllegalArgumentException("Не найдена группа '" + name + '\''));

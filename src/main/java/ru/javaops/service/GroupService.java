@@ -53,7 +53,7 @@ public class GroupService {
 
     public boolean isProjectMember(int userId, String projectName) {
         return findByUserId(userId).stream()
-                .anyMatch(g -> projectName.equals(g.getProject().getName()) && g.isMembers());
+                .anyMatch(g -> g.isMembers() && projectName.equals(g.getProject().getName()));
     }
 
     public Set<Group> findByUserId(int userId) {
@@ -80,7 +80,7 @@ public class GroupService {
     @Transactional
     public UserGroup registerAtGroup(UserTo userTo, String groupName, String channel) {
         log.info("add{} to group {}", userTo, groupName);
-        Group group = cachedGroups.findByNameWithProject(groupName);
+        Group group = cachedGroups.findByName(groupName);
         return registerAtGroup(userTo, channel, group,
                 user -> new UserGroup(user, group, RegisterType.REGISTERED, channel));
     }
@@ -144,11 +144,11 @@ public class GroupService {
     }
 
     public ProjectProps getProjectProps(String projectName) {
-        return ProjectUtil.getProjectProps(projectName, cachedGroups.getAllWithProject());
+        return ProjectUtil.getProjectProps(projectName, cachedGroups.getAll());
     }
 
     public Set<User> filterUserByGroupNames(String includes, String excludes, RegisterType registerType, GroupType[] groupTypes, LocalDate startRegisteredDate, LocalDate endRegisteredDate) {
-        final List<Group> groups = cachedGroups.getAllWithProject();
+        final List<Group> groups = cachedGroups.getAll();
         final Set<User> includeUsers = (groupTypes == null || groupTypes.length == 0) ?
                 filterUserByGroupNames(groups, includes, registerType, startRegisteredDate, endRegisteredDate) :
                 userService.findByGroupTypes(groupTypes);
