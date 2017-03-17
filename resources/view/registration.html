@@ -32,6 +32,8 @@
             </h3>
         </th:block>
         <th:block th:if="${activationKey}!=null">
+            <h3><a th:href="@{http://javaops.ru/profile(email=${param.email}, key=${param.key})}"
+                   href="#">Редактировать мои данные</a></h3>
             <h3><a th:href="@{http://javaops.ru/users(email=${email}, key=${activationKey})}">Список участников,
                 отсортированный по городам</a></h3>
         </th:block>
