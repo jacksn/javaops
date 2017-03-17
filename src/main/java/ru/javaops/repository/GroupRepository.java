@@ -17,6 +17,6 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     Set<Group> findByUser(@Param("userId") int userId);
 
     @Override
-    @Query("SELECT g FROM Group g JOIN FETCH g.project")
+    @Query("SELECT g FROM Group g LEFT JOIN FETCH g.project")
     List<Group> findAll();
 }
