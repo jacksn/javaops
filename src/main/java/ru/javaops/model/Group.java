@@ -25,7 +25,6 @@ public class Group extends NamedEntity {
     @JoinColumn(name = "project_id")
     private Project project;
 
-
     @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private Set<UserGroup> groupUsers;
 

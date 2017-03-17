@@ -105,7 +105,7 @@ public class MailService {
     }
 
     private User getAppUser() {
-        return userService.findByEmail(appProperties.getEmail());
+        return userService.findExistedByEmail(appProperties.getEmail());
     }
 
     private void cancelAll(Map<Future<String>, String> resultMap) {
@@ -128,7 +128,7 @@ public class MailService {
     public String sendToUser(String template, String email) {
         checkNotNull(template, "Template must not be null");
         checkNotNull(email, "Email must not be null");
-        return sendToUser(template, userService.findByEmail(email));
+        return sendToUser(template, userService.findExistedByEmail(email));
     }
 
     public String sendToUser(String template, User user) {

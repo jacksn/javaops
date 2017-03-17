@@ -4,9 +4,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -43,6 +40,9 @@ public class GroupService {
     private GroupRepository groupRepository;
 
     @Autowired
+    private CachedGroups cachedGroups;
+
+    @Autowired
     private UserGroupRepository userGroupRepository;
 
     @Autowired
@@ -51,26 +51,18 @@ public class GroupService {
     @Autowired
     private PaymentRepository paymentRepository;
 
-    @Autowired
-    private CacheManager cacheManager;
-
-    public Group findByName(String name) {
-        Group group = groupRepository.findByName(name);
-        checkNotNull(group, "Не найдена группа '" + name + '\'');
-        return group;
-    }
-
-    public List<Group> getAll() {
-        log.debug("getAll");
-        List<Group> groups = groupRepository.findAll(new Sort("name"));
-        Cache cache = cacheManager.getCache("group");
-        groups.forEach(g -> cache.put(g.getName(), g));
-        return groups;
+    public boolean isProjectMember(int userId, String projectName) {
+        return findByUserId(userId).stream()
+                .anyMatch(g -> projectName.equals(g.getProject().getName()) && g.isMembers());
     }
 
     public Set<Group> findByUserId(int userId) {
         log.debug("findByUserId {}", userId);
         return groupRepository.findByUser(userId);
+    }
+
+    public Group findByName(String name) {
+        return cachedGroups.findByName(name);
     }
 
     @Transactional
@@ -80,9 +72,9 @@ public class GroupService {
         ProjectProps projectProps = getProjectProps(projectName);
         return registerAtGroup(userTo, channel, projectProps.registeredGroup,
                 user -> {
-                    Set<Group> groups = findByUserId(user.getId());
-                    RegisterType registerType = groups.stream()
-                            .anyMatch(g -> projectProps.project.equals(g.getProject()) && g.isMembers()) ? RegisterType.REPEAT : RegisterType.REGISTERED;
+                    RegisterType registerType = isProjectMember(user.getId(), projectProps.project.getName()) ?
+                            RegisterType.REPEAT : RegisterType.REGISTERED;
+
                     return new UserGroup(user,
                             registerType == RegisterType.REGISTERED ? projectProps.registeredGroup : projectProps.currentGroup,
                             registerType, channel);
@@ -92,7 +84,7 @@ public class GroupService {
     @Transactional
     public UserGroup registerAtGroup(UserTo userTo, String groupName, String channel) {
         log.info("add{} to group {}", userTo, groupName);
-        Group group = findByName(groupName);
+        Group group = cachedGroups.findByName(groupName);
         return registerAtGroup(userTo, channel, group,
                 user -> new UserGroup(user, group, RegisterType.REGISTERED, channel));
     }
@@ -156,11 +148,11 @@ public class GroupService {
     }
 
     public ProjectProps getProjectProps(String projectName) {
-        return ProjectUtil.getProjectProps(projectName, getAll());
+        return ProjectUtil.getProjectProps(projectName, cachedGroups.getAll());
     }
 
     public Set<User> filterUserByGroupNames(String includes, String excludes, RegisterType registerType, GroupType[] groupTypes, LocalDate startRegisteredDate, LocalDate endRegisteredDate) {
-        final List<Group> groups = getAll();
+        final List<Group> groups = cachedGroups.getAll();
         final Set<User> includeUsers = (groupTypes == null || groupTypes.length == 0) ?
                 filterUserByGroupNames(groups, includes, registerType, startRegisteredDate, endRegisteredDate) :
                 userService.findByGroupTypes(groupTypes);
@@ -172,18 +164,17 @@ public class GroupService {
         return includeUsers;
     }
 
-    public User getUserInProject(String email, String projectName) {
+    public User getCurrentUserInProject(String email, String projectName) {
         User u;
         if (projectName.equals("javaops")) {
-            u = userService.findByEmail(email);
-            checkNotNull(u, "Пользователь %s не найден в проекте %s", email, projectName);
+            u = userService.findExistedByEmail(email);
             if (CollectionUtils.isEmpty(u.getRoles())) {
                 throw new IllegalStateException("Регистрация только для участников Java Online Projects");
             }
         } else {
             ProjectProps projectProps = getProjectProps(projectName);
             u = userService.findByEmailAndGroupId(email, projectProps.currentGroup.getId());
-            checkNotNull(u, "Пользователь %s не найден в проекте %s", email, projectName);
+            checkNotNull(u, "Пользователь %s не найден в группе %s", email, projectProps.currentGroup.getName());
         }
         return u;
     }

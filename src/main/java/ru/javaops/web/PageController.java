@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.javaops.SqlResult;
 import ru.javaops.config.AppConfig;
+import ru.javaops.model.User;
 import ru.javaops.repository.SqlRepository;
+import ru.javaops.service.GroupService;
+import ru.javaops.service.SubscriptionService;
 import ru.javaops.service.UserService;
 import ru.javaops.to.UserStat;
 
@@ -21,8 +24,15 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @Slf4j
 public class PageController {
 
+    public static final String HR_GROUP_NAME = "hr";
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private GroupService groupService;
+
+    @Autowired
+    private SubscriptionService subscriptionService;
 
     @Autowired
     private SqlRepository sqlRepository;
@@ -38,7 +48,13 @@ public class PageController {
     @RequestMapping(value = "/sql", method = GET)
     public ModelAndView sqlExecute(@RequestParam("sql_key") String sqlKey,
                                    @RequestParam(value = "limit", required = false) Integer limit,
-                                   @RequestParam Map<String, String> params) {
+                                   @RequestParam Map<String, String> params,
+                                   @RequestParam("email") String email) {
+
+        User user = userService.findByEmailAndGroupId(email, groupService.findByName(HR_GROUP_NAME).getId());
+        if (user == null && !subscriptionService.checkSecret(email)) {
+            return new ModelAndView("noRegisteredHR", "email", email);
+        }
         String sql = AppConfig.SQL_PROPS.getProperty(sqlKey);
         if (sql == null) {
             throw new IllegalArgumentException("Key '" + sqlKey + "' is not found");

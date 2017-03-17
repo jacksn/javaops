@@ -95,11 +95,6 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     }
 
     @Override
-    public User findByEmailAndProjectId(String email, int projectId) {
-        return userRepository.findByEmailAndProjectId(email.toLowerCase(), projectId);
-    }
-
-    @Override
     @Transactional
     public User update(UserToExt userTo) {
         User user = userRepository.findOne(userTo.getId());

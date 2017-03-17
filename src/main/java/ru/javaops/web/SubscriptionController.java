@@ -14,13 +14,14 @@ import ru.javaops.model.*;
 import ru.javaops.service.*;
 import ru.javaops.to.UserTo;
 import ru.javaops.to.UserToExt;
-import ru.javaops.util.ProjectUtil.ProjectProps;
+import ru.javaops.util.ProjectUtil;
 import ru.javaops.util.Util;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
 import java.util.Date;
+import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -133,22 +134,30 @@ public class SubscriptionController {
     public ModelAndView repeat(@RequestParam("email") String email,
                                @RequestParam("project") String projectName) throws MessagingException {
 
-        ProjectProps projectProps = groupService.getProjectProps(projectName);
-        User user = userService.findByEmailAndProjectId(email, projectProps.project.getId());
-        checkNotNull(user, "Пользователь %s не найден в проекте %s", email, projectName);
-        if (userService.findByEmailAndGroupId(email, projectProps.currentGroup.getId()) != null) {
+        email = email.toLowerCase();
+        User user = userService.findExistedByEmail(email);
+        Set<Group> groups = groupService.findByUserId(user.getId());
+
+        if (ProjectUtil.getGroupByProjectAndType(groups, projectName, GroupType.CURRENT).isPresent()) {
             return new ModelAndView("already_registered");
         }
-        mailService.sendToUser(projectName + "_repeat", user);
-        groupService.save(user, projectProps.currentGroup, RegisterType.REPEAT, "repeat");
-        IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, projectName);
-        return new ModelAndView("registration", "response", response);
+        if (ProjectUtil.getGroupByProjectAndType(groups, projectName, GroupType.FINISHED).isPresent()) {
+            ProjectUtil.ProjectProps projectProps = groupService.getProjectProps(projectName);
+            groupService.save(user, projectProps.currentGroup, RegisterType.REPEAT, "repeat");
+
+            mailService.sendToUser(projectName + "_repeat", user);
+            IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, projectName);
+            return new ModelAndView("registration",
+                    ImmutableMap.of("response", response, "email", email,
+                            "activationKey", subscriptionService.generateActivationKey(email)));
+        }
+        throw new IllegalStateException("Пользователь " + email + " не участник проекта " + projectName);
     }
 
     @RequestMapping(value = "/idea", method = RequestMethod.GET)
     public ModelAndView ideaRegister(@RequestParam("email") String email, @RequestParam("group") String groupName) throws MessagingException {
         Group group = groupService.findByName(groupName);
-        if (group == null || group.getType() != GroupType.CURRENT) {
+        if (group.getType() != GroupType.CURRENT) {
             throw new IllegalArgumentException("Для этой группы лицензии IDEA не предусмотрены");
         }
         User user = userService.findByEmailAndGroupId(email, group.getId());
@@ -165,14 +174,13 @@ public class SubscriptionController {
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key) {
-        User u = userService.findByEmail(email);
-        checkNotNull(u, "Пользователь %s не найден", email);
+        User u = userService.findExistedByEmail(email);
         return new ModelAndView("profile", ImmutableMap.of("user", u, "key", key));
     }
 
     @RequestMapping(value = "/participate", method = RequestMethod.GET)
     public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key, @RequestParam("project") String projectName) {
-        User u = groupService.getUserInProject(email, projectName);
+        User u = groupService.getCurrentUserInProject(email, projectName);
         return new ModelAndView("profile", ImmutableMap.of("user", u, "project", projectService.findByName(projectName), "key", key));
     }
 
@@ -184,7 +192,7 @@ public class SubscriptionController {
         userService.update(userToExt);
         if (!Strings.isNullOrEmpty(project)) {
             String email = userToExt.getEmail();
-            groupService.getUserInProject(email, project);
+            groupService.getCurrentUserInProject(email, project);
             return grantAllAccess(email, userToExt.getGmail(), project, key);
         } else {
             return new ModelAndView("saveProfile", ImmutableMap.of("userToExt", userToExt, "key", key));

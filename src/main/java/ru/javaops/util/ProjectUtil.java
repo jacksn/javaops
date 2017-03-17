@@ -7,8 +7,6 @@ import ru.javaops.model.Project;
 import java.util.Collection;
 import java.util.Optional;
 
-import static com.google.common.base.Preconditions.checkState;
-
 /**
  * gkislin
  * 13.07.2016
@@ -17,16 +15,19 @@ public class ProjectUtil {
 
     public static ProjectUtil.ProjectProps getProjectProps(String projectName, Collection<Group> groups) {
         return new ProjectUtil.ProjectProps(
-                getGroupByProjectAndType(groups, projectName, GroupType.REGISTERED),
-                getGroupByProjectAndType(groups, projectName, GroupType.CURRENT));
+                getExistedGroupByProjectAndType(groups, projectName, GroupType.REGISTERED),
+                getExistedGroupByProjectAndType(groups, projectName, GroupType.CURRENT));
     }
 
-    private static Group getGroupByProjectAndType(Collection<Group> groups, String projectName, GroupType type) {
-        Optional<Group> group = groups.stream()
+    public static Optional<Group> getGroupByProjectAndType(Collection<Group> groups, String projectName, GroupType type) {
+        return groups.stream()
                 .filter(g -> g.getProject() != null && g.getProject().getName().equals(projectName) && (g.getType() == type))
                 .findFirst();
-        checkState(group.isPresent(), "В проекте %s отсутствуют группы c типом %s", projectName, type);
-        return group.get();
+    }
+
+    public static Group getExistedGroupByProjectAndType(Collection<Group> groups, String projectName, GroupType type) {
+        return getGroupByProjectAndType(groups, projectName, type)
+                .orElseThrow(() -> new IllegalStateException("В проекте " + projectName + " отсутствуют группы c типом " + type));
     }
 
     public static class ProjectProps {

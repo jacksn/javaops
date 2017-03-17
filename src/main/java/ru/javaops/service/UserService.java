@@ -29,8 +29,6 @@ public interface UserService {
 
     User findByEmailAndGroupId(String email, int groupId);
 
-    User findByEmailAndProjectId(String email, int projectId);
-
     void save(User u);
 
     User update(UserToExt userTo);
