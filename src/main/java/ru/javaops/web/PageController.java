@@ -10,7 +10,6 @@ import ru.javaops.SqlResult;
 import ru.javaops.config.AppConfig;
 import ru.javaops.repository.SqlRepository;
 import ru.javaops.repository.UserRepository;
-import ru.javaops.service.SubscriptionService;
 import ru.javaops.to.UserStat;
 
 import java.util.List;
@@ -25,9 +24,6 @@ public class PageController {
     public static final String PARTNER_GROUP_NAME = "partner";
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private SubscriptionService subscriptionService;
 
     @Autowired
     private SqlRepository sqlRepository;
@@ -46,9 +42,8 @@ public class PageController {
                                    @RequestParam("partnerKey") String partnerKey,
                                    @RequestParam Map<String, String> params) {
 
-        if (!subscriptionService.checkSecret(partnerKey) &&
-                userRepository.findByEmailAndGroupName(partnerKey.toLowerCase(), PARTNER_GROUP_NAME) == null) {
-            return new ModelAndView("noRegisteredHR", "email", partnerKey);
+        if (userRepository.findByEmailAndGroupName(partnerKey.toLowerCase(), PARTNER_GROUP_NAME) == null) {
+            return new ModelAndView("noRegisteredPartner", "email", partnerKey);
         }
         String sql = AppConfig.SQL_PROPS.getProperty(sqlKey);
         if (sql == null) {

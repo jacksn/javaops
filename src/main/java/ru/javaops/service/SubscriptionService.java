@@ -15,16 +15,12 @@ public class SubscriptionService {
         return appProperties.getHostUrl() + "/activate?email=" + email + "&key=" + activationKey + "&activate=" + active;
     }
 
-    public boolean checkSecret(String value) {
-        return value.equals(getSalted(""));
-    }
-
     public String generateActivationKey(String email) {
         return PasswordUtil.getPasswordEncoder().encode(getSalted(email));
     }
 
     public void checkActivationKey(String value, String key) {
-        if (!PasswordUtil.isMatch(getSalted(value), key) && !checkSecret(key)) {
+        if (!PasswordUtil.isMatch(getSalted(value), key)) {
             throw new IllegalArgumentException("Неверный ключ активации");
         }
     }
