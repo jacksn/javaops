@@ -8,6 +8,7 @@
 - https://springframework.guru/spring-boot-web-application-part-1-spring-initializr/
 - https://springframework.guru/spring-boot-web-application-part-2-using-thymeleaf/
 - https://springframework.guru/using-logback-spring-boot/
+- https://www.youtube.com/watch?v=KmxoQRnMLfE
 
 spring-boot-starter-actuator: https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html
 
