@@ -12,6 +12,8 @@
 
 spring-boot-starter-actuator: https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html
 
+CharacterEncodingFilter : http://stackoverflow.com/a/23051264/548473
+
 2. Profiles.
 3. Add H2. WebServer/TcpServer
 4. Model User/Role. Repository UserRepository.
