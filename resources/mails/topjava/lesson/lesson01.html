@@ -7,32 +7,26 @@
 <p th:replace="mailFragments::header(${user})">
     Здравствуй firstName!
 </p>
-Поздравляю тебя с <a href="https://github.com/JavaWebinar/topjava09/blob/doc/doc/lesson01.md">первым занятием нашего
-    проекта</a>! Обычно ночью я выкладываю новое занятие в slack и днем делаю рассылку.
+Поздравляю тебя с <a href="https://github.com/JavaWebinar/topjava10/blob/doc/doc/lesson01.md">первым занятием нашего
+    проекта</a>! Обычно ночью я выкладываю новое занятие в slack и днем дублирую информацию в письме.
 <p>
-    Это <a href="https://github.com/JavaWebinar/topjava09">репозиторий на github</a>, в котором я буду вести проект паралельно с вами.<br/>
-    Перед началом урока код в ветке master твоего проекта должна быть в том же состоянии, что и <a href="https://github.com/JavaWebinar/topjava09/commits/master">в моей ветка master</a>.
+    В <a href="https://github.com/JavaWebinar/topjava10">репозитории на github</a> я буду вести проект паралельно (классы в нем совпадают с теми, откуда ты делал fork).<br/>
+    Перед началом урока код в ветке master твоего проекта должна быть в том же состоянии, что и <a href="https://github.com/JavaWebinar/topjava10/commits/master">в моей ветка master</a>.
     В случае проблем с накаткой патчей всегда можно взять код, на который патчи будут ложиться без проблем,
-    например <a href="https://raw.githubusercontent.com/JavaWebinar/topjava09/master/src/main/java/ru/javawebinar/topjava/util/UserMealsUtil.java">UserMealsUtil в формате Raw</a>. Решение проблем с патчами есть в <a href="https://github.com/JavaOPs/topjava/wiki/Git#patch-%D0%BD%D0%B5-%D0%BD%D0%B0%D0%BA%D0%B0%D1%82%D1%8B%D0%B2%D0%B0%D0%B5%D1%82%D1%81%D1%8F-%D0%BF%D1%80%D0%B5%D0%B4%D0%BB%D0%B0%D0%B3%D0%B0%D0%B5%D1%82-merge">Wiki Git</a>.
+    например <a href="https://raw.githubusercontent.com/JavaWebinar/topjava10/master/src/main/java/ru/javawebinar/topjava/util/UserMealsUtil.java">UserMealsUtil в формате Raw</a>. Решение проблем с патчами есть в <a href="https://github.com/JavaOPs/topjava/wiki/Git#patch-%D0%BD%D0%B5-%D0%BD%D0%B0%D0%BA%D0%B0%D1%82%D1%8B%D0%B2%D0%B0%D0%B5%D1%82%D1%81%D1%8F-%D0%BF%D1%80%D0%B5%D0%B4%D0%BB%D0%B0%D0%B3%D0%B0%D0%B5%D1%82-merge">Wiki Git</a>.
     В <a href="https://github.com/JavaOPs/topjava/wiki/Git#%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B-%D1%81-%D0%BF%D0%B0%D1%82%D1%87%D0%B0%D0%BC%D0%B8-%D0%BD%D0%B0-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B5">правилах работы с патчами на проекте</a> написал, что делать <b>apply patch</b> лучше по одному, непосредственно перед видео на эту тему, а при просмотре видео сразу отслеживать все изменения кода проекта по изменению в патче.
-    Патчи можно закачивать архивом и распаковывать в корень (или отдельную папку) в проекте, я добавил <code>*.patch</code> в <code>.gitignore</code>, чтобы они не попадали в git.
+    Патчи можно закачивать архивом и распаковывать в корень (или отдельную папку) в проекте (я добавил <code>*.patch</code> в <code>.gitignore</code>, чтобы они не попадали в git).
+</p>
+    Занятия буду выкладывать в <a href="https://github.com/JavaWebinar/topjava10/tree/doc/doc">каталоге doc ветки doc</a> проекта.<br/>
+    Обсуждение занятия и HW1 в канале Slack <a href="https://topjava10.slack.com/messages/hw1/">#hw1</a>.
+<p>
+Инструкция по доступу к Google Drive есть в письме участника, запросы на доступ из Google Drive не принимаю (там уже достигли лимита).
+    Если нет доступа к материалам (после логаут/логин в Google Account), <a th:href="@{http://javaops.ru/participate(email=${user.email}, key=${activationKey}, project='topjava')}" href="#">зайди в свой профиль</a> и проверь правильность gmail (домен com вместо ru, не пропушены ли буквы или символы). Если после сохранения доступ не появился, свяжись со мной (личка slack или skype: <i>grigory.kislin</i>)
     Если в Google Drive патчи удваиваются, попробуйте выйти из акаунта и снова войти.
 </p>
-    Занятия буду выкладывать в <a href="https://github.com/JavaWebinar/topjava09/tree/doc/doc">каталоге doc ветки doc</a> проекта.<br/>
-    Обсуждение занятия в ветке <a href="https://topjava9.slack.com/messages/lesson01/">#lesson01</a> а домашнего задания (HW1) в
-    <a href="https://topjava9.slack.com/messages/hw1/">#hw1</a> (если будем путаться в каналах, то сократим)<br/>
+Обновленная ссылка на <a th:href="@{http://javaops.ru/idea(email=${user.email}, project='topjava')}" href="">купон IntelliJ IDEA на полгода</a> (можно получить только 1 раз).
 <p>
-    Если Google Drive отказывает в доступе к материалам урока:
-<ul>
-    <li>убедись, что ты в участник <a href="https://groups.google.com/d/forum/topjava">Google Group Topjava</a> (если нет - оставь заявку)</li>
-    <li>попробуй выйти из google аккаунта и снова зайти;</li>
-    <li>попробуй зайти в google аккаунт в приватном окне Ctrl+Shift+N в хроме, Ctrl+Shift+P в FF;</li>
-    <li>напиши мне в личку в skype.</li>
-</ul>
-</p>
-Купон на <b>бесплатную регистрицию IntelliJ IDEA на полгода</b> можно получить <a th:href="@{http://javaops.ru/idea(email=${user.email}, project='topjava')}">по этой ссылке</a> и далее по инструкции в письме.
-<p>
-    Домашнее задание (у кого есть проверка) желательно присылать до вечера 13.12.<br/>
+    Домашнее задание (у кого есть проверка) присылать до вечера 28.12.<br/>
 </p>
 <p th:include="mailFragments::lessonFooter">
 </p>
