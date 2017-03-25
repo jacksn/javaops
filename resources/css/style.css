@@ -10,3 +10,10 @@
 
 .indent-body { padding-top: 70px; }
 .bs-callout { padding: 5px 20px;}
+
+.align_left{
+    text-align: left;
+}
+.align_center{
+    text-align: center;
+}
