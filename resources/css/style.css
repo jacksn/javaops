@@ -8,12 +8,18 @@
     padding: 70px;
 }
 
-.indent-body { padding-top: 70px; }
-.bs-callout { padding: 5px 20px;}
-
-.align_left{
-    text-align: left;
+.indent-body {
+    padding-top: 70px;
 }
-.align_center{
+
+.bs-callout {
+    padding: 5px 20px;
+}
+
+.align_left, .dataTables_filter{
+    text-align: left !important;
+}
+
+.align_center {
     text-align: center;
 }

@@ -1,12 +1,17 @@
 $(document).ready(function () {
-    var table = $('#table').DataTable(
+    $('#table').DataTable(
         {
+            "paging": false,
+            fixedHeader: {
+                header: true,
+                headerOffset: 45
+            },
             "language": {
                 "url": "static/datatables/Russian.json"
             },
-            dom: "<'row'<'col-sm-4 align_left'l><'col-sm-4 align_center'B><'col-sm-4'f>>R" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-5 align_left'i><'col-sm-7'p>>",
+            dom: "<'row'<'col-sm-3'f><'col-sm-6 align_center'B>>" +
+            "tr" +
+            "<'row'<'col-sm-5 align_left'i>>",
             'columnDefs': [
                 {
                     'targets': 0,
@@ -29,12 +34,10 @@ $(document).ready(function () {
             select: {
                 style: 'multi'
             },
-            initComplete : function () {
-                var api = this.api();
-                api.buttons().container()
-                    .appendTo( $('.buttons'));
+            initComplete: function () {
+                this.api().buttons().container()
+                    .appendTo($('.buttons'));
             },
             'order': [[1, 'asc']]
         });
 });
-
