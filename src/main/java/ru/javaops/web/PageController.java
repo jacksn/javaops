@@ -1,5 +1,6 @@
 package ru.javaops.web;
 
+import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,7 @@ public class PageController {
     @RequestMapping(value = "/sql", method = GET)
     public ModelAndView sqlExecute(@RequestParam("sql_key") String sqlKey,
                                    @RequestParam(value = "limit", required = false) Integer limit,
+                                   @RequestParam(value = "csv", required = false, defaultValue = "false") boolean csv,
                                    @RequestParam("partnerKey") String partnerKey,
                                    @RequestParam Map<String, String> params) {
 
@@ -54,7 +56,8 @@ public class PageController {
                 sql = sql.replace(":limit", String.valueOf(limit));
             }
             SqlResult result = sqlRepository.execute(sql, params);
-            return new ModelAndView("sqlResult", "result", result);
+            return new ModelAndView("sqlResult",
+                    ImmutableMap.of("result", result, "csv", csv));
         } catch (Exception e) {
             log.error("Sql '" + sql + "' execution exception", e);
             throw new IllegalStateException("Sql execution exception");

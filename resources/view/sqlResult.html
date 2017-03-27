@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="../css/style.css"/>
     <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
 </head>
-<link rel="stylesheet" href="../static/datatables/css/dataTables.bootstrap.min.css"/>
-<link rel="stylesheet" href="../static/datatables/css/buttons.bootstrap.min.css"/>
-<link rel="stylesheet" href="../static/datatables/css/select.dataTables.min.css"/>
-<link rel="stylesheet" href="../static/datatables/css/dataTables.checkboxes.css"/>
-<link rel="stylesheet" href="../static/datatables/css/fixedHeader.dataTables.min.css"/>
+<!--/*@thymesVar id="csv" type="java.lang.Boolean"*/-->
+<th:block th:if="${csv}">
+    <link rel="stylesheet" href="../static/datatables/css/dataTables.bootstrap.min.css"/>
+    <link rel="stylesheet" href="../static/datatables/css/buttons.bootstrap.min.css"/>
+    <link rel="stylesheet" href="../static/datatables/css/select.dataTables.min.css"/>
+    <link rel="stylesheet" href="../static/datatables/css/dataTables.checkboxes.css"/>
+    <link rel="stylesheet" href="../static/datatables/css/fixedHeader.dataTables.min.css"/>
+</th:block>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header">
     <div class="container">
@@ -27,7 +30,7 @@
         <!--/*@thymesVar id="result" type="ru.javaops.SqlResult"*/-->
         <thead>
         <tr>
-            <th></th>
+            <th th:if="${csv}"></th>
             <th th:each="header: ${result.headers}">
                 <span th:text="${header}"></span>
             </th>
@@ -35,7 +38,7 @@
         </thead>
         <tbody>
         <tr th:each="row: ${result.rows}">
-            <td/>
+            <td th:if="${csv}"></td>
             <th:block th:each="item: ${row}">
                 <td th:utext="${item}"></td>
             </th:block>
@@ -44,14 +47,16 @@
     </table>
 </div>
 </body>
-<script type="text/javascript" src="../static/jquery-1.12.0.min.js"></script>
-<script type="text/javascript" src="../static/datatables/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../static/datatables/js/dataTables.bootstrap.min.js"></script>
-<script type="text/javascript" src="../static/datatables/js/dataTables.select.min.js"></script>
-<script type="text/javascript" src="../static/datatables/js/dataTables.checkboxes.min.js"></script>
-<script type="text/javascript" src="../static/datatables/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" src="../static/datatables/js/buttons.bootstrap.min.js"></script>
-<script type="text/javascript" src="../static/datatables/js/buttons.html5.min.js"></script>
-<script type="text/javascript" src="../static/datatables/js/dataTables.fixedHeader.min.js"></script>
-<script type="text/javascript" src="../static/js/sqlResult.js"></script>
+<th:block th:if="${csv}">
+    <script type="text/javascript" src="../static/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="../static/datatables/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../static/datatables/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/datatables/js/dataTables.select.min.js"></script>
+    <script type="text/javascript" src="../static/datatables/js/dataTables.checkboxes.min.js"></script>
+    <script type="text/javascript" src="../static/datatables/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="../static/datatables/js/buttons.bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/datatables/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="../static/datatables/js/dataTables.fixedHeader.min.js"></script>
+    <script type="text/javascript" src="../static/js/sqlResult.js"></script>
+</th:block>
 </html>
