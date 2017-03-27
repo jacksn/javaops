@@ -30,15 +30,16 @@
         <!--/*@thymesVar id="result" type="ru.javaops.SqlResult"*/-->
         <thead>
         <tr>
-            <th th:if="${csv}"></th>
+            <th></th>
             <th th:each="header: ${result.headers}">
                 <span th:text="${header}"></span>
             </th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="row: ${result.rows}">
-            <td th:if="${csv}"></td>
+
+        <tr th:each="row,iter: ${result.rows}">
+            <td th:text="${iter.count}"></td>
             <th:block th:each="item: ${row}">
                 <td th:utext="${item}"></td>
             </th:block>
