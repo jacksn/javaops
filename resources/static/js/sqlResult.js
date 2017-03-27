@@ -27,7 +27,13 @@ $(document).ready(function () {
                     bom: true,
                     text: 'Выгрузить как CSV',
                     exportOptions: {
-                        rows: {selected: true}
+                        rows: {selected: true},
+                        columns: [1, 2, 3, 4, 5, 6],
+                        format: {
+                            body: function (data, row, column, node) {
+                                return column === 4 && node.childNodes[0] ? node.childNodes[0].href : data;
+                            }
+                        }
                     }
                 }
             ],
