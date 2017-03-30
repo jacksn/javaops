@@ -3,6 +3,7 @@ package ru.javaops.model;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -65,9 +66,11 @@ public class User extends BaseEntity {
     @Column(name = "under_recruitment")
     private Boolean underRecruitment;
 
+    @URL
     @Column(name = "resume_url")
     private String resumeUrl;
 
+    @URL
     @Size
     private String website;
 
