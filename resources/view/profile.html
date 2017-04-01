@@ -1,8 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
+<!--/*@thymesVar id="projectName" type="java.lang.String"*/-->
 <head th:replace="fragments::headTag('Регистрация')">
     <meta charset="UTF-8"/>
-    <title th:text="${projectName}==null ? 'Редактирование профиля':'Регистрация на проект '+ ${projectName}">Регистрация</title>
+    <title th:text="${projectName}==null ? 'Редактирование профиля':'Регистрация на проект '+ ${projectName}">Профиль</title>
     <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
     <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
@@ -154,7 +155,6 @@
             </div>
 
             <input type="hidden" name="id" th:value="${user.id}"/>
-            <!--/*@thymesVar id="projectName" type="java.lang.String"*/-->
             <input th:if="${projectName}!=null" type="hidden" name="project" th:value="${projectName}"/>
             <!--/*@thymesVar id="key" type="java.lang.String"*/-->
             <input type="hidden" name="key" th:value="${key}"/>
