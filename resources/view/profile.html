@@ -1,9 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
 <!--/*@thymesVar id="projectName" type="java.lang.String"*/-->
-<head th:replace="fragments::headTag('Регистрация')">
+<head th:replace="fragments::headTag(${projectName}==null ? 'Редактирование профиля':'Регистрация на проект '+ ${projectName})">
     <meta charset="UTF-8"/>
-    <title th:text="${projectName}==null ? 'Редактирование профиля':'Регистрация на проект '+ ${projectName}">Профиль</title>
+    <title>Профиль</title>
     <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
     <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
