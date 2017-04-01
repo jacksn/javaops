@@ -20,7 +20,7 @@
 <div class="jumbotron">
     <div class="container">
         <br/>
-        <h2>Редактирование профиля</h2>
+        <h2 th:text="${projectName}==null ? 'Редактирование профиля':'Регистрация на проект '+ ${projectName}">Редактирование профиля</h2>
         <br/>
         <form class="form-horizontal" method="post" action="save">
             <div class="form-group ">
@@ -99,12 +99,14 @@
                     <input class="form-control" name="company" th:value="${user.company}"/>
                 </div>
                 <div class="checkbox col-xs-offset-3 col-xs-10">
-                    <label class="control-label"><input th:checked="${user.underRecruitment}" type="checkbox" name="underRecruitment"/>
+                    <label class="control-label"><input th:checked="${user.underRecruitment}" type="checkbox"
+                                                        name="underRecruitment"/>
                         На работе готовы трудоустроить наших лучших выпускников
                     </label>
                 </div>
                 <div class="checkbox col-xs-offset-3 col-xs-10">
-                    <label class="control-label"><input th:checked="${user.jobThroughTopjava}" type="checkbox" name="jobThroughTopjava"/>
+                    <label class="control-label"><input th:checked="${user.jobThroughTopjava}" type="checkbox"
+                                                        name="jobThroughTopjava"/>
                         Получил работу благодаря стажировке Java Online Projects
                     </label>
                 </div>
@@ -117,13 +119,15 @@
                 </div>
 
                 <div class="checkbox col-xs-offset-3 col-xs-10">
-                    <label class="control-label"><input th:checked="${user.considerJobOffers}" type="checkbox" name="considerJobOffers"/>
+                    <label class="control-label"><input th:checked="${user.considerJobOffers}" type="checkbox"
+                                                        name="considerJobOffers"/>
                         Рассматриваю предложения о работе
                     </label>
                 </div>
 
                 <div class="checkbox col-xs-offset-3 col-xs-10">
-                    <label class="control-label"><input th:checked="${user.relocationReady}" type="checkbox" name="relocationReady"/>
+                    <label class="control-label"><input th:checked="${user.relocationReady}" type="checkbox"
+                                                        name="relocationReady"/>
                         Готов к релокации (рассматриваю все предложения)
                     </label>
                 </div>
@@ -135,7 +139,8 @@
                 </div>
                 <th:block th:if="!${user.roles.isEmpty()}">
                     <div class="checkbox col-xs-offset-3 col-xs-10">
-                        <label class="control-label"><input th:checked="${user.statsAgree}" type="checkbox" name="statsAgree"/>
+                        <label class="control-label"><input th:checked="${user.statsAgree}" type="checkbox"
+                                                            name="statsAgree"/>
                             Согласен на размещением своих данных в закрытой статистике группы
                         </label>
                     </div>
@@ -150,9 +155,7 @@
 
             <input type="hidden" name="id" th:value="${user.id}"/>
             <!--/*@thymesVar id="projectName" type="java.lang.String"*/-->
-            <th:block th:if="${projectName}!=null">
-                <input type="hidden" name="project" th:value="${projectName}"/>
-            </th:block>
+            <input th:if="${projectName}!=null" type="hidden" name="project" th:value="${projectName}"/>
             <!--/*@thymesVar id="key" type="java.lang.String"*/-->
             <input type="hidden" name="key" th:value="${key}"/>
         </form>
