@@ -2,7 +2,7 @@
 <!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
 <head th:replace="fragments::headTag('Регистрация')">
     <meta charset="UTF-8"/>
-    <title>Регистрация</title>
+    <title th:text="${projectName}==null ? 'Редактирование профиля':'Регистрация на проект '+ ${projectName}">Регистрация</title>
     <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
     <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
