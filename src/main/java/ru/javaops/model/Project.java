@@ -1,5 +1,7 @@
 package ru.javaops.model;
 
+import com.google.common.base.CaseFormat;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,5 +33,10 @@ public class Project extends NamedEntity {
 
     public void setGroup(Set<Group> group) {
         this.group = group;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("<a href='https://github.com/JavaOPs/%s' target='_blank'>%s</a>", name, CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, name));
     }
 }

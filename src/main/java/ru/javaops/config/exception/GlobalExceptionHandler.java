@@ -3,8 +3,6 @@ package ru.javaops.config.exception;
 import com.google.common.base.Throwables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,20 +19,23 @@ public class GlobalExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(NoHandlerFoundException.class)
-    @Order(Ordered.LOWEST_PRECEDENCE - 1)
     public ModelAndView noHandlerFoundHandler() throws Exception {
         return processException("Неверный запрос");
     }
 
+    @ExceptionHandler(NoPartnerException.class)
+    public ModelAndView noPartnerException(HttpServletRequest req, NoPartnerException pe) throws Exception {
+        log.error("Illegal partner email in request " + req.getRequestURL());
+        return new ModelAndView("noRegisteredPartner", "email", pe.getPartnerKey());
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
-    @Order(Ordered.LOWEST_PRECEDENCE - 1)
     public ModelAndView illegalArgumentHandler(HttpServletRequest req, Exception e) throws Exception {
         log.error("Illegal params in request " + req.getRequestURL(), e);
         return processException(e.getMessage() == null ? "Неверные параметры запроса" : e.getMessage());
     }
 
     @ExceptionHandler(Throwable.class)
-    @Order(Ordered.LOWEST_PRECEDENCE)
     public ModelAndView defaultHandler(HttpServletRequest req, Throwable e) throws Exception {
         log.error("Exception at request " + req.getRequestURL(), e);
         return processException(Throwables.getRootCause(e).getMessage());

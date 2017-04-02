@@ -10,6 +10,8 @@ import ru.javaops.model.Group;
 import ru.javaops.repository.GroupRepository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * gkislin
@@ -22,7 +24,7 @@ public class CachedGroups {
     private CacheManager cacheManager;
 
     @Autowired
-    GroupRepository groupRepository;
+    private GroupRepository groupRepository;
 
     @Cacheable("groups")
     public List<Group> getAll() {
@@ -31,6 +33,12 @@ public class CachedGroups {
         Cache cache = cacheManager.getCache("group");
         groups.forEach(g -> cache.put(g.getName(), g));
         return groups;
+    }
+
+    @Cacheable("member_groups")
+    public Map<Integer, Group> getMembers() {
+        List<Group> groups = getAll();
+        return groups.stream().filter(Group::isMembers).collect(Collectors.toMap(Group::getId, g -> g));
     }
 
     @Cacheable("group")

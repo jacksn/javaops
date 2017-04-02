@@ -27,7 +27,7 @@
             <div class="form-group ">
                 <label class="control-label col-xs-3">Имя Фамилия</label>
                 <div class="col-xs-4">
-                    <input class="form-control" name="nameSurname" th:value="${user.fullName}"/>
+                    <input class="form-control" name="nameSurname" placeholder="Имя Фамилия" th:value="${user.fullName}"/>
                 </div>
             </div>
 
@@ -129,7 +129,7 @@
                 <div class="checkbox col-xs-offset-3 col-xs-10">
                     <label class="control-label"><input th:checked="${user.relocationReady}" type="checkbox"
                                                         name="relocationReady"/>
-                        Готов к релокации (рассматриваю все предложения)
+                        Готов(а) к релокации (рассматриваю все предложения)
                     </label>
                 </div>
             </div>

@@ -101,7 +101,7 @@ public class User extends BaseEntity {
     @ElementCollection(fetch = FetchType.LAZY)
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<UserGroup> userGroups;
 
     public User() {

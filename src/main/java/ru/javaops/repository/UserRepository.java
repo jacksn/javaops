@@ -18,6 +18,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "  LEFT JOIN FETCH u.roles WHERE u.email=:email")
     User findByEmail(@Param("email") String email);
 
+    @Query("SELECT u FROM User u " +
+            "  LEFT JOIN FETCH u.userGroups WHERE u.email=:email")
+    User findByEmailWithGroup(@Param("email") String email);
+
     @Query("SELECT DISTINCT(ug.user) FROM UserGroup ug " +
             " WHERE ug.group.name=:groupName AND ug.user.active=TRUE")
     Set<User> findByGroupName(@Param("groupName") String groupName);

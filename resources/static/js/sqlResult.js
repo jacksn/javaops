@@ -25,10 +25,9 @@ $(document).ready(function () {
                     extend: 'csv',
                     charset: 'utf-8',
                     bom: true,
-                    text: 'Выгрузить как CSV',
+                    text: 'Выгрузить выбранное как CSV',
                     exportOptions: {
                         rows: {selected: true},
-                        columns: [1, 2, 3, 4, 5, 6],
                         format: {
                             body: function (data, row, column, node) {
                                 return column === 4 && node.childNodes[0] ? node.childNodes[0].href : data;

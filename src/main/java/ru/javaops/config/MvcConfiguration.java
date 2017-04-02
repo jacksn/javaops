@@ -59,6 +59,11 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
                         String channel = request.getParameter("channel");
                         checkNotNull(channel, "Не задан channel");
                         subscriptionService.checkActivationKey(channel, channelKey);
+                    } else {
+                        String partnerKey = request.getParameter("partnerKey");
+                        if (partnerKey != null) {
+                            subscriptionService.checkPartner(partnerKey);
+                        }
                     }
                 }
                 return true;
