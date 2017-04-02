@@ -104,6 +104,9 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<UserGroup> userGroups;
 
+    @Temporal(TemporalType.DATE)
+    private Date hrUpdate;
+
     public User() {
     }
 
@@ -293,6 +296,14 @@ public class User extends BaseEntity {
 
     public void setRelocationReady(Boolean relocationReady) {
         this.relocationReady = relocationReady;
+    }
+
+    public Date getHrUpdate() {
+        return hrUpdate;
+    }
+
+    public void setHrUpdate(Date hrUpdate) {
+        this.hrUpdate = hrUpdate;
     }
 
     @Override

@@ -1,9 +1,11 @@
 package ru.javaops.util;
 
+import com.google.common.base.Strings;
 import ru.javaops.model.User;
 import ru.javaops.to.UserTo;
 import ru.javaops.to.UserToExt;
 
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import static ru.javaops.util.Util.assignNotEmpty;
@@ -21,6 +23,10 @@ public class UserUtil {
 
     public static void updateFromToExt(User user, UserToExt userToExt) {
         updateFromTo(user, userToExt);
+        if (userToExt.isConsiderJobOffers() && (user.isConsiderJobOffers() == null || !user.isConsiderJobOffers()) ||
+                (!Strings.isNullOrEmpty(userToExt.getResumeUrl()) && Strings.isNullOrEmpty(user.getResumeUrl()))) {
+            user.setHrUpdate(new Date());
+        }
         assignNotEmpty(userToExt.getAboutMe(), user::setAboutMe);
         assignNotEmpty(userToExt.getSkype(), user::setSkype);
         assignNotEmpty(userToExt.getGmail(), user::setGmail);
