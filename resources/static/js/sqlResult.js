@@ -28,9 +28,18 @@ $(document).ready(function () {
                     text: 'Выгрузить выбранное как CSV',
                     exportOptions: {
                         rows: {selected: true},
+                        columns: [1, 2, 3, 4, 5, 6],
                         format: {
                             body: function (data, row, column, node) {
-                                return column === 4 && node.childNodes[0] ? node.childNodes[0].href : data;
+                                switch (column) {
+                                    case 1:
+                                    case 3:
+                                        return node.childNodes[0].text;
+                                    case 2:
+                                        if (node.childNodes[0]) return node.childNodes[0].href;
+                                        break;
+                                }
+                                return data;
                             }
                         }
                     }
