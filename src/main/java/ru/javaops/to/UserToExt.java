@@ -30,6 +30,8 @@ public class UserToExt extends UserTo {
 
     private boolean relocationReady;
 
+    private String  relocation;
+
     private boolean underRecruitment;
 
     private String company;
@@ -122,5 +124,13 @@ public class UserToExt extends UserTo {
 
     public void setResumeUrl(String resumeUrl) {
         this.resumeUrl = resumeUrl;
+    }
+
+    public String getRelocation() {
+        return relocation;
+    }
+
+    public void setRelocation(String relocation) {
+        this.relocation = relocation;
     }
 }

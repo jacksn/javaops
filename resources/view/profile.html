@@ -127,10 +127,21 @@
                 </div>
 
                 <div class="checkbox col-xs-offset-3 col-xs-10">
-                    <label class="control-label"><input th:checked="${user.relocationReady}" type="checkbox"
-                                                        name="relocationReady"/>
-                        Готов(а) к релокации (рассматриваю все предложения)
+                    <label class="control-label">
+                        <input th:checked="${user.relocationReady}" type="checkbox"
+                               id="relocationReady" name="relocationReady" onclick="handleRelocation()"/>
+                        Рассматриваю релокацию
                     </label>
+                </div>
+            </div>
+            <div class="form-group" id="relocation">
+                <label class="control-label col-xs-3">Выбрать несколько через Ctrl:</label>
+                <div class="col-xs-4">
+                    <select multiple="multiple" class="form-control" name="relocation" size="9"
+                            th:with="places = ${ {'Россия', 'Москва', 'Санкт-Петербург','Украина','Киев','Беларусь','Минск','Казахстнан','Европа','Польша','USA'} }">
+                        <option th:each="place : ${places}" th:value="${place}" th:text="${place}"
+                                th:selected="${user.relocation!=null and user.relocation.contains(place)}"/>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -162,4 +173,17 @@
     </div>
 </div>
 </body>
+<script type="text/javascript" src="../static/jquery-1.12.0.min.js"></script>
+<script type="application/javascript">
+    $(function () {
+        handleRelocation();
+    });
+    function handleRelocation() {
+        if ($("#relocationReady").is(':checked')) {
+            $("#relocation").show();
+        } else {
+            $("#relocation").hide();
+        }
+    }
+</script>
 </html>

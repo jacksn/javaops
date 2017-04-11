@@ -32,6 +32,7 @@ public class UserUtil {
         assignNotEmpty(userToExt.getGmail(), user::setGmail);
         assignNotEmpty(userToExt.getCompany(), user::setCompany);
         assignNotEmpty(userToExt.getResumeUrl(), user::setResumeUrl);
+        assignNotEmpty(userToExt.getRelocation(), user::setRelocation);
         user.setStatsAgree(userToExt.isStatsAgree());
         user.setConsiderJobOffers(userToExt.isConsiderJobOffers());
         user.setJobThroughTopjava(userToExt.isJobThroughTopjava());

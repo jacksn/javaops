@@ -72,18 +72,22 @@ public class User extends BaseEntity {
 
     @URL
     @Size
+    @Column
     private String website;
 
-    @Size
+    @Column
     private String company;
 
     @Size(max = 50)
+    @Column
     private String skype;
 
     @Size(max = 100)
+    @Column
     private String github;
 
     @Size(max = 100)
+    @Column
     private String vk;
 
     @Column(name = "active", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
@@ -91,6 +95,9 @@ public class User extends BaseEntity {
 
     @Column(name = "registered_date", columnDefinition = "TIMESTAMP DEFAULT NOW()")
     private Date registeredDate = new Date();
+
+    @Column
+    private String relocation;
 
     @Column(name = "activated_date")
     private Date activatedDate;
@@ -304,6 +311,14 @@ public class User extends BaseEntity {
 
     public void setHrUpdate(Date hrUpdate) {
         this.hrUpdate = hrUpdate;
+    }
+
+    public String getRelocation() {
+        return relocation;
+    }
+
+    public void setRelocation(String relocation) {
+        this.relocation = relocation;
     }
 
     @Override
