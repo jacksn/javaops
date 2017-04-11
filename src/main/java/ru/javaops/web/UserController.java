@@ -1,7 +1,6 @@
 package ru.javaops.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,13 +37,13 @@ public class UserController {
     private GroupService groupService;
 
     @RequestMapping(method = DELETE)
-    public void delete(@Param("email") String email) {
+    public void delete(@RequestParam("email") String email) {
         userService.deleteByEmail(email);
     }
 
     @RequestMapping(value = "/pay", method = POST)
-    public String pay(@Param("project") String project, @Valid UserTo userTo,
-                      @Param("sum") int sum, @Param("currency") Currency currency, @Param("comment") String comment,
+    public String pay(@RequestParam("project") String project, @Valid UserTo userTo,
+                      @RequestParam("sum") int sum, @RequestParam("currency") Currency currency, @RequestParam("comment") String comment,
                       @RequestParam(value = "type", required = false) ParticipationType participationType,
                       @RequestParam(value = "channel", required = false) String channel,
                       @RequestParam(value = "template", required = false) String template) {

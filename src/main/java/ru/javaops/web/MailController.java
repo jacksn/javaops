@@ -3,7 +3,6 @@ package ru.javaops.web;
 import com.google.common.base.Splitter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,31 +43,31 @@ public class MailController {
     private SqlService sqlService;
 
     @RequestMapping(value = "/test", method = POST)
-    public ResponseEntity<String> sendTest(@Param("template") String template) {
+    public ResponseEntity<String> sendTest(@RequestParam("template") String template) {
         String result = mailService.sendTest(template);
         return new ResponseEntity<>(result, MailService.isOk(result) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @RequestMapping(value = "/to-user", method = POST)
-    public ResponseEntity<String> sendToUser(@Param("template") String template, @Param("email") String email) {
+    public ResponseEntity<String> sendToUser(@RequestParam("template") String template, @RequestParam("email") String email) {
         String result = mailService.sendToUser(template, email);
         return new ResponseEntity<>(result, MailService.isOk(result) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @RequestMapping(value = "/by-sql", method = POST)
-    public ResponseEntity<GroupResult> sendToUsersByLocation(@Param("template") String template, @Param("sql_key") String sqlKey) {
+    public ResponseEntity<GroupResult> sendToUsersByLocation(@RequestParam("template") String template, @RequestParam("sql_key") String sqlKey) {
         Set<User> users = sqlService.getUsers(sqlKey);
         return sendToGroup(template, users);
     }
 
     @RequestMapping(value = "/to-users", method = POST)
-    public ResponseEntity<GroupResult> sendToUsers(@Param("template") String template, @Param("emails") String emails) {
+    public ResponseEntity<GroupResult> sendToUsers(@RequestParam("template") String template, @RequestParam("emails") String emails) {
         GroupResult groupResult = mailService.sendToEmailList(template, Splitter.on(',').trimResults().omitEmptyStrings().splitToList(emails));
         return getGroupResultResponseEntity(groupResult);
     }
 
     @RequestMapping(value = "/to-groups", method = POST)
-    public ResponseEntity<GroupResult> sendToGroup(@Param("template") String template, @Param("includes") String includes,
+    public ResponseEntity<GroupResult> sendToGroup(@RequestParam("template") String template, @RequestParam("includes") String includes,
                                                    @RequestParam(value = "excludes", required = false) String excludes,
                                                    @RequestParam(value = "reg-type", required = false) RegisterType registerType,
                                                    @RequestParam(value = "group-types", required = false) GroupType[] groupTypes,
@@ -78,7 +77,7 @@ public class MailController {
     }
 
     @RequestMapping(value = "/resend", method = POST)
-    public ResponseEntity<GroupResult> resend(@Param("template") String template) {
+    public ResponseEntity<GroupResult> resend(@RequestParam("template") String template) {
         GroupResult groupResult = mailService.resendTodayFailed(template);
         return getGroupResultResponseEntity(groupResult);
     }

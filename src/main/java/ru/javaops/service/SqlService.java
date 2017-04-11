@@ -1,6 +1,5 @@
 package ru.javaops.service;
 
-import com.google.common.collect.ImmutableSet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +8,7 @@ import ru.javaops.config.AppConfig;
 import ru.javaops.model.User;
 import ru.javaops.repository.SqlRepository;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -37,7 +37,7 @@ public class SqlService {
     public Set<User> getUsers(String sqlKey) {
         return execute(sqlKey, sql -> {
             List<User> users = sqlRepository.getUsers(sql);
-            return ImmutableSet.copyOf(users);
+            return new HashSet<>(users);
         });
     }
 
