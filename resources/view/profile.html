@@ -121,12 +121,12 @@
 
                 <div class="checkbox col-xs-offset-3 col-xs-10">
                     <label class="control-label"><input th:checked="${user.considerJobOffers}" type="checkbox"
-                                                        name="considerJobOffers"/>
+                                id="considerJobOffers" name="considerJobOffers" onclick="handleRelocation()"/>
                         Рассматриваю предложения о работе
                     </label>
                 </div>
 
-                <div class="checkbox col-xs-offset-3 col-xs-10">
+                <div class="checkbox col-xs-offset-3 col-xs-10" id="relocationCheck">
                     <label class="control-label">
                         <input th:checked="${user.relocationReady}" type="checkbox"
                                id="relocationReady" name="relocationReady" onclick="handleRelocation()"/>
@@ -177,11 +177,18 @@
 <script type="application/javascript">
     $(function () {
         handleRelocation();
+
     });
     function handleRelocation() {
-        if ($("#relocationReady").is(':checked')) {
-            $("#relocation").show();
+        if ($("#considerJobOffers").is(':checked')) {
+            $("#relocationCheck").show();
+            if ($("#relocationReady").is(':checked')) {
+                $("#relocation").show();
+            } else {
+                $("#relocation").hide();
+            }
         } else {
+            $("#relocationCheck").hide();
             $("#relocation").hide();
         }
     }
