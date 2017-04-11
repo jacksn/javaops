@@ -37,9 +37,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT ug.user FROM UserGroup ug WHERE ug.user.email=:email AND ug.group.id=:groupId")
     User findByEmailAndGroupId(@Param("email") String email, @Param("groupId") int groupId);
 
-    @Query("SELECT u FROM User u WHERE LOWER(u.location) LIKE CONCAT('%', :location, '%')")
-    Set<User> findByLocation(@Param("location") String location);
-
     @Query("SELECT new ru.javaops.to.UserStat(u.fullName, u.email, u.location, u.aboutMe, u.skype) FROM User u " +
             "WHERE u.statsAgree=TRUE " +
             "AND u.fullName IS NOT NULL " +

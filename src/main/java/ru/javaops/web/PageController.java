@@ -1,20 +1,18 @@
 package ru.javaops.web;
 
 import com.google.common.collect.ImmutableMap;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.javaops.SqlResult;
-import ru.javaops.config.AppConfig;
 import ru.javaops.model.Group;
 import ru.javaops.model.Project;
 import ru.javaops.model.User;
-import ru.javaops.repository.SqlRepository;
 import ru.javaops.repository.UserRepository;
 import ru.javaops.service.CachedGroups;
+import ru.javaops.service.SqlService;
 import ru.javaops.to.UserStat;
 
 import java.util.List;
@@ -24,14 +22,13 @@ import java.util.stream.Collectors;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
-@Slf4j
 public class PageController {
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private SqlRepository sqlRepository;
+    private SqlService sqlService;
 
     @Autowired
     private CachedGroups cachedGroups;
@@ -65,21 +62,9 @@ public class PageController {
                                    @RequestParam("partnerKey") String partnerKey,
                                    @RequestParam Map<String, String> params) {
 
-        String sql = AppConfig.SQL_PROPS.getProperty(sqlKey);
-        if (sql == null) {
-            throw new IllegalArgumentException("Key '" + sqlKey + "' is not found");
-        }
-        try {
-            if (limit != null) {
-                sql = sql.replace(":limit", String.valueOf(limit));
-            }
-            params.put("partnerKey", partnerKey);
-            SqlResult result = sqlRepository.execute(sql, params);
-            return new ModelAndView("sqlResult",
-                    ImmutableMap.of("result", result, "csv", csv));
-        } catch (Exception e) {
-            log.error("Sql '" + sql + "' execution exception", e);
-            throw new IllegalStateException("Sql execution exception");
-        }
+        params.put("partnerKey", partnerKey);
+        SqlResult result = sqlService.execute(sqlKey, limit, params);
+        return new ModelAndView("sqlResult",
+                ImmutableMap.of("result", result, "csv", csv));
     }
 }
