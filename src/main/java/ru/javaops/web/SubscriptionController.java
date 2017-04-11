@@ -158,7 +158,7 @@ public class SubscriptionController {
         checkNotNull(user, "Пользователь %s не найден в проекте %s", email, projectName);
 
         IdeaCoupon coupon = ideaCouponService.assignToUser(user, projectProps.project);
-        String response = mailService.sendWithTemplate(user, "idea_register", ImmutableMap.of("user", user, "coupon", coupon.getCoupon()));
+        String response = mailService.sendWithTemplate(user, "idea_register", ImmutableMap.of("coupon", coupon.getCoupon()));
         if (MailService.OK.equals(response)) {
             return new ModelAndView("registration_idea");
         } else {

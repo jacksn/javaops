@@ -138,7 +138,7 @@
                 <label class="control-label col-xs-3">Выбрать несколько через Ctrl:</label>
                 <div class="col-xs-4">
                     <select multiple="multiple" class="form-control" name="relocation" size="9"
-                            th:with="places = ${ {'Россия', 'Москва', 'Санкт-Петербург','Украина','Киев','Беларусь','Минск','Казахстнан','Европа','Польша','USA'} }">
+                            th:with="places = ${ {'Россия', 'Москва', 'Санкт-Петербург','Украина','Киев','Беларусь','Минск','Казахстнан','Европа','Польша','Другое'} }">
                         <option th:each="place : ${places}" th:value="${place}" th:text="${place}"
                                 th:selected="${user.relocation!=null and user.relocation.contains(place)}"/>
                     </select>
