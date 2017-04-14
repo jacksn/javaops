@@ -183,7 +183,7 @@ public class MailService {
         }
         message.setSubject(subject);
         message.setText(content, isHtml);
-//        javaMailSender.send(mimeMessage);
+        javaMailSender.send(mimeMessage);
     }
 
     public GroupResult resendTodayFailed(String template) {
