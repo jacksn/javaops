@@ -38,6 +38,7 @@
     Еще- если интересна/неинтересна рассылка вакансии - проверь плз.
     <a th:href="@{http://javaops.ru/profile(email=${user.email}, key=${activationKey})}">в своем профиле поля</a><br/>
     <i>Рассматриваю предложения о работе</i>, <i>Рассматриваю релокацию</i> и <i>Ссылка на резюме</i>.
+
 </p>
 <p th:include="mailFragments::footer(${subscriptionUrl})">
 </p>
