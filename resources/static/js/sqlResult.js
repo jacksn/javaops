@@ -28,7 +28,7 @@ $(document).ready(function () {
                     text: 'Выгрузить выбранное как CSV',
                     exportOptions: {
                         rows: {selected: true},
-                        columns: [1, 2, 3, 4, 5, 6],
+                        columns: [1, 2, 3, 4, 5, 6, 7],
                         format: {
                             body: function (data, row, column, node) {
                                 switch (column) {
