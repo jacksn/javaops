@@ -1,0 +1,39 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Вакансия Java-разработчик (Москва,Санкт-Петербург)</title>
+</head>
+<!--/*@thymesVar id="user" type="ru.javaops.to.UserMail"*/-->
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+Возможно тебе будет интересно: открыта вакансии Java разработчиков:
+<h3><a href="https://www.at-consulting.ru/">AT Consulting</a> (Москва, Санкт-Петербург)</h3>
+<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFMVNIWTVRdTI0bUk">Подробное описание в презентации</a>
+<ul>Краткая информация о системе:
+    <li>Общее число пользователей: более 200 000</li>
+    <li>Бекенд на Spring</li>
+    <li>Фронт базируется на React</li>
+    <li>В разработке используется Agile-методология</li>
+    <li>Все команды комплектуется как минимум одним высококлассным тимлидом, который курирует начинающих
+        специалистов и
+        выполняет ревью кода
+    </li>
+</ul>
+<ul>Кратко о компании:
+    <li>Ведущий системный интегратор <a href="https://www.at-consulting.ru/">AT Consulting</a>.</li>
+    <li>Оформление по ТК. Белая заработная плата.</li>
+    <li>Возможность обучения. Кураторство начинающих специалистов.</li>
+</ul>
+<h3><a href="http://www.technodiasoft.ru">ТехноДиасофт</a> (Москва)</h3>:
+<ul>
+    <li>Проект Конструктор структур</li>
+    <li>Требования: Java Core, Oracle, Hibernate</li>
+</ul>
+Если тебе вакансии интересны, пришли в ответ ссылку на резюме. Удаленка не предусмотрена, только с релокацией.
+Вилка ~60-80 тыс. руб.
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
