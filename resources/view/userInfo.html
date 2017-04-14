@@ -29,9 +29,25 @@
         <dt>Обо мне</dt>
         <dd th:text="${user.aboutMe}">aboutMe</dd>
         <br/>
+        <!--/*@thymesVar id="partner" type="ru.javaops.model.User"*/-->
+        <form th:if="${partner.isAdmin()}" class="form-horizontal" method="post" action="saveComment">
+            <input type="hidden" name="email" th:value="${user.email}"/>
+            <input type="hidden" name="adminKey" th:value="${partner.email}"/>
+            <dt>Комментарий<br/>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </dt>
+            <dd>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <textarea class="form-control " name="comment" rows="7" th:utext="${user.comment}"></textarea>
+                    </div>
+                </div>
+            </dd>
+        </form>
         <dt></dt>
-        <dd><button class="btn" onclick="window.close()">Закрыть</button></dd>
-
+        <dd>
+            <button class="btn" onclick="window.close()">Закрыть</button>
+        </dd>
     </dl>
 </div>
 </body>

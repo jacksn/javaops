@@ -28,7 +28,6 @@ public class UserUtil {
             user.setHrUpdate(new Date());
         }
         assignNotEmpty(userToExt.getAboutMe(), user::setAboutMe);
-        assignNotEmpty(userToExt.getSkype(), user::setSkype);
         assignNotEmpty(userToExt.getGmail(), user::setGmail);
         assignNotEmpty(userToExt.getCompany(), user::setCompany);
         assignNotEmpty(userToExt.getResumeUrl(), user::setResumeUrl);
@@ -45,6 +44,7 @@ public class UserUtil {
         assignNotEmpty(userTo.getLocation(), user::setLocation);
         assignNotEmpty(userTo.getInfoSource(), user::setInfoSource);
         assignNotEmpty(userTo.getEmail(), user::setEmail);
+        assignNotEmpty(userTo.getSkype(), user::setSkype);
         user.setActive(true);
         tryFillGmail(user);
     }

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.javaops.config.AppProperties;
 import ru.javaops.config.exception.NoPartnerException;
-import ru.javaops.repository.UserRepository;
+import ru.javaops.model.User;
 import ru.javaops.util.PasswordUtil;
 
 @Service
@@ -15,7 +15,7 @@ public class SubscriptionService {
     private AppProperties appProperties;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     public String getSubscriptionUrl(String email, String activationKey, boolean active) {
         return appProperties.getHostUrl() + "/activate?email=" + email + "&key=" + activationKey + "&activate=" + active;
@@ -35,9 +35,17 @@ public class SubscriptionService {
         return value + appProperties.getActivationSecretSalt();
     }
 
-    public void checkPartner(String partnerKey) {
-        if (userRepository.findByEmailAndGroupName(partnerKey.toLowerCase(), PARTNER_GROUP_NAME) == null) {
+    public User checkPartner(String partnerKey) {
+        User partner = userService.findByEmailAndGroupName(partnerKey.toLowerCase(), PARTNER_GROUP_NAME);
+        if (partner == null) {
             throw new NoPartnerException(partnerKey);
+        }
+        return partner;
+    }
+
+    public void checkAdminKey(String adminKey) {
+        if(!userService.findExistedByEmail(adminKey).isAdmin()){
+            throw new IllegalArgumentException("Неверный ключ");
         }
     }
 }

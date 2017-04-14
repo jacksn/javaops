@@ -3,7 +3,8 @@ package ru.javaops.web;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.javaops.SqlResult;
@@ -13,13 +14,12 @@ import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
 import ru.javaops.service.CachedGroups;
 import ru.javaops.service.SqlService;
+import ru.javaops.service.SubscriptionService;
 import ru.javaops.to.UserStat;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
 public class PageController {
@@ -33,7 +33,10 @@ public class PageController {
     @Autowired
     private CachedGroups cachedGroups;
 
-    @RequestMapping(value = "/users", method = GET)
+    @Autowired
+    private SubscriptionService subscriptionService;
+
+    @GetMapping(value = "/users")
     public ModelAndView usersInfo(@RequestParam("key") String key, @RequestParam("email") String email) {
         List<UserStat> users = userRepository.findAllForStats();
         return (users.stream().anyMatch(u -> u.getEmail().equals(email))) ?
@@ -41,10 +44,11 @@ public class PageController {
                 new ModelAndView("statsForbidden");
     }
 
-    @RequestMapping(value = "/user", method = GET)
+    @GetMapping(value = "/user")
     public ModelAndView userInfo(@RequestParam("email") String email,
                                  @RequestParam("partnerKey") String partnerKey) {
 
+        User partner = subscriptionService.checkPartner(partnerKey);
         User user = userRepository.findByEmailWithGroup(email);
         Map<Integer, Group> groupMembers = cachedGroups.getMembers();
         List<Project> projects = user.getUserGroups().stream()
@@ -52,16 +56,26 @@ public class PageController {
                 .map(ug -> groupMembers.get(ug.getGroup().getId()).getProject())
                 .distinct()
                 .collect(Collectors.toList());
-        return new ModelAndView("userInfo", ImmutableMap.of("user", user, "projects", projects));
+        return new ModelAndView("userInfo",
+                ImmutableMap.of("user", user, "projects", projects, "partner", partner));
     }
 
-    @RequestMapping(value = "/sql", method = GET)
+    @PostMapping(value = "/saveComment")
+    public String saveComment(@RequestParam("email") String email,
+                            @RequestParam("adminKey") String adminKey,
+                            @RequestParam("comment") String comment) {
+        userRepository.saveComment(email, comment);
+        return "closeWindow";
+    }
+
+    @GetMapping(value = "/sql")
     public ModelAndView sqlExecute(@RequestParam("sql_key") String sqlKey,
                                    @RequestParam(value = "limit", required = false) Integer limit,
                                    @RequestParam(value = "csv", required = false, defaultValue = "false") boolean csv,
                                    @RequestParam("partnerKey") String partnerKey,
                                    @RequestParam Map<String, String> params) {
 
+        subscriptionService.checkPartner(partnerKey);
         params.put("partnerKey", partnerKey);
         SqlResult result = sqlService.execute(sqlKey, limit, params);
         return new ModelAndView("sqlResult",

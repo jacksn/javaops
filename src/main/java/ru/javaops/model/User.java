@@ -114,6 +114,8 @@ public class User extends BaseEntity {
     @Temporal(TemporalType.DATE)
     private Date hrUpdate;
 
+    private String comment;
+
     public User() {
     }
 
@@ -319,6 +321,22 @@ public class User extends BaseEntity {
 
     public void setRelocation(String relocation) {
         this.relocation = relocation;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public boolean isAdmin() {
+        return roles != null && roles.contains(Role.ROLE_ADMIN);
+    }
+
+    public boolean isMember() {
+        return roles != null && roles.contains(Role.ROLE_MEMBER);
     }
 
     @Override

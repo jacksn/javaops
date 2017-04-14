@@ -149,7 +149,7 @@
                 <div class="col-xs-4">
                     <textarea class="form-control " name="aboutMe" rows="5" th:utext="${user.aboutMe}"></textarea>
                 </div>
-                <th:block th:if="!${user.roles.isEmpty()}">
+                <th:block th:if="${user.isMember()}">
                     <div class="checkbox col-xs-offset-3 col-xs-10">
                         <label class="control-label"><input th:checked="${user.statsAgree}" type="checkbox"
                                                             name="statsAgree"/>

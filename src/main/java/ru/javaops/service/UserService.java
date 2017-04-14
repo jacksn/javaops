@@ -1,8 +1,7 @@
 package ru.javaops.service;
 
-import ru.javaops.model.GroupType;
-import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
+import ru.javaops.to.UserMail;
 import ru.javaops.to.UserToExt;
 
 import java.util.Set;
@@ -19,15 +18,13 @@ public interface UserService {
 
     User findByEmail(String email);
 
-    Set<User> findByGroupName(String email);
-
-    Set<User> findByGroupTypes(GroupType[] groupTypes);
-
-    Set<User> findByGroupNameAndRegisterType(String groupName, RegisterType registerType);
+    Set<UserMail> findByGroupName(String email);
 
     User findByEmailAndGroupId(String email, int groupId);
 
     void save(User u);
 
     User update(UserToExt userTo);
+
+    User findByEmailAndGroupName(String email, String groupName);
 }

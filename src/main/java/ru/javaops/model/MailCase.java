@@ -1,9 +1,10 @@
 package ru.javaops.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import ru.javaops.to.UserMail;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -18,11 +19,12 @@ public class MailCase extends BaseEntity {
     @NotNull
     private Date datetime;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
+    @Column(name = "email", nullable = false)
     @NotNull
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private User user;
+    private String email;
+
+    @Column(name = "full_name")
+    private String fullName;
 
     @Column(name = "template", nullable = false)
     @NotNull
@@ -35,19 +37,16 @@ public class MailCase extends BaseEntity {
     protected MailCase() {
     }
 
-    public MailCase(User user, String template, String result) {
-        this.user = user;
+    public MailCase(UserMail userMail, String template, String result) {
+        this.fullName = userMail.getFullName();
+        this.email = userMail.getEmail();
         this.template = template;
         this.result = result;
         this.datetime = new Date();
     }
 
-    public Date getDatetime() {
-        return datetime;
-    }
-
-    public User getUser() {
-        return user;
+    public UserMail getUserMail() {
+        return new UserMail(fullName, email);
     }
 
     public String getTemplate() {

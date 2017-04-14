@@ -1,12 +1,12 @@
 package ru.javaops.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import ru.javaops.model.GroupType;
-import ru.javaops.model.RegisterType;
 import ru.javaops.model.User;
+import ru.javaops.to.UserMail;
 import ru.javaops.to.UserStat;
 
 import java.util.List;
@@ -22,17 +22,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "  LEFT JOIN FETCH u.userGroups WHERE u.email=:email")
     User findByEmailWithGroup(@Param("email") String email);
 
-    @Query("SELECT DISTINCT(ug.user) FROM UserGroup ug " +
+    @Query("SELECT new ru.javaops.to.UserMail(ug.user) FROM UserGroup ug " +
             " WHERE ug.group.name=:groupName AND ug.user.active=TRUE")
-    Set<User> findByGroupName(@Param("groupName") String groupName);
-
-    @Query("SELECT DISTINCT(ug.user) FROM UserGroup ug " +
-            " WHERE ug.group.type IN (:groupTypes) AND ug.user.active=TRUE")
-    Set<User> findByGroupType(@Param("groupTypes") GroupType[] groupTypes);
-
-    @Query("SELECT DISTINCT(ug.user) FROM UserGroup ug " +
-            " WHERE ug.registerType=:registerType AND ug.group.name=:groupName AND ug.user.active=TRUE")
-    Set<User> findByGroupNameAndRegisterType(@Param("groupName") String groupName, @Param("registerType") RegisterType registerType);
+    Set<UserMail> findByGroupName(@Param("groupName") String groupName);
 
     @Query("SELECT ug.user FROM UserGroup ug WHERE ug.user.email=:email AND ug.group.id=:groupId")
     User findByEmailAndGroupId(@Param("email") String email, @Param("groupId") int groupId);
@@ -45,8 +37,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<UserStat> findAllForStats();
 
     @Query("SELECT ug.user FROM UserGroup ug WHERE ug.user.email=:email AND ug.group.name=:groupName")
-    User findByEmailAndGroupName(@Param("email") String email, @Param("groupName") String partnerGroupName);
+    User findByEmailAndGroupName(@Param("email") String email, @Param("groupName") String groupName);
 
     @Override
     User save(User entity);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE User u SET u.comment=:comment WHERE u.email=:email")
+    void saveComment(@Param("email") String email, @Param("comment") String comment);
 }

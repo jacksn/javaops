@@ -14,6 +14,7 @@ import ru.javaops.service.SubscriptionService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.function.Consumer;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -48,27 +49,25 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
         return new HandlerInterceptorAdapter() {
             @Override
             public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-                String key = request.getParameter("key");
-                if (key != null) {
+                check(request, "adminKey", adminKey -> subscriptionService.checkAdminKey(adminKey));
+                check(request, "channelKey", channelKey -> {
+                    String channel = request.getParameter("channel");
+                    subscriptionService.checkActivationKey(checkNotNull(channel, "Не задан channel"), channelKey);
+                });
+                check(request, "key", key -> {
                     String email = request.getParameter("email");
-                    checkNotNull(email, "Не задан email");
-                    subscriptionService.checkActivationKey(email, key);
-                } else {
-                    String channelKey = request.getParameter("channelKey");
-                    if (channelKey != null) {
-                        String channel = request.getParameter("channel");
-                        checkNotNull(channel, "Не задан channel");
-                        subscriptionService.checkActivationKey(channel, channelKey);
-                    } else {
-                        String partnerKey = request.getParameter("partnerKey");
-                        if (partnerKey != null) {
-                            subscriptionService.checkPartner(partnerKey);
-                        }
-                    }
-                }
+                    subscriptionService.checkActivationKey(checkNotNull(email, "Не задан email"), key);
+                });
                 return true;
             }
         };
+    }
+
+    private void check(HttpServletRequest request, String param, Consumer<String> checker) {
+        String value = request.getParameter(param);
+        if (value != null) {
+            checker.accept(value);
+        }
     }
 
     @Override

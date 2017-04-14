@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.javaops.SqlResult;
 import ru.javaops.config.AppConfig;
-import ru.javaops.model.User;
 import ru.javaops.repository.SqlRepository;
+import ru.javaops.to.UserMail;
 
 import java.util.HashSet;
 import java.util.List;
@@ -34,9 +34,9 @@ public class SqlService {
         });
     }
 
-    public Set<User> getUsers(String sqlKey) {
+    public Set<UserMail> getUsers(String sqlKey) {
         return execute(sqlKey, sql -> {
-            List<User> users = sqlRepository.getUsers(sql);
+            List<UserMail> users = sqlRepository.getUsersMail(sql);
             return new HashSet<>(users);
         });
     }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.javaops.model.*;
 import ru.javaops.service.*;
+import ru.javaops.to.UserMail;
 import ru.javaops.to.UserTo;
 import ru.javaops.to.UserToExt;
 import ru.javaops.util.ProjectUtil;
@@ -158,7 +159,7 @@ public class SubscriptionController {
         checkNotNull(user, "Пользователь %s не найден в проекте %s", email, projectName);
 
         IdeaCoupon coupon = ideaCouponService.assignToUser(user, projectProps.project);
-        String response = mailService.sendWithTemplate(user, "idea_register", ImmutableMap.of("coupon", coupon.getCoupon()));
+        String response = mailService.sendWithTemplate("idea_register", new UserMail(user), ImmutableMap.of("coupon", coupon.getCoupon()));
         if (MailService.OK.equals(response)) {
             return new ModelAndView("registration_idea");
         } else {

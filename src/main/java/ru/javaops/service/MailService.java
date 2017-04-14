@@ -6,7 +6,6 @@ import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -19,6 +18,7 @@ import ru.javaops.config.AppProperties;
 import ru.javaops.model.MailCase;
 import ru.javaops.model.User;
 import ru.javaops.repository.MailCaseRepository;
+import ru.javaops.to.UserMail;
 import ru.javaops.util.Util;
 
 import javax.mail.MessagingException;
@@ -44,9 +44,6 @@ public class MailService {
     private JavaMailSender javaMailSender;
 
     @Autowired
-    private MailProperties mailProperties;
-
-    @Autowired
     private MailCaseRepository mailCaseRepository;
 
     @Autowired
@@ -67,13 +64,13 @@ public class MailService {
     }
 
     public GroupResult sendToEmailList(String template, Collection<String> emails) {
-        return sendToUserList(template, emails.stream().map(userService::findExistedByEmail).collect(Collectors.toSet()));
+        return sendToUserList(template, emails.stream().map(email -> new UserMail(userService.findExistedByEmail(email))).collect(Collectors.toSet()));
     }
 
-    public GroupResult sendToUserList(String template, Set<User> users) {
+    public GroupResult sendToUserList(String template, Set<UserMail> users) {
         checkNotNull(template, " template must not be null");
         checkNotNull(users, " users must not be null");
-        users.add(getAppUser());
+        users.add(new UserMail(getAppUser()));
         CompletionService<String> completionService = new ExecutorCompletionService<>(mailExecutor);
         Map<Future<String>, String> resultMap = new HashMap<>();
         users.forEach(
@@ -133,21 +130,25 @@ public class MailService {
 
     public String sendToUser(String template, User user) {
         checkNotNull(user, "User must not be null");
-        return sendWithTemplate(user, template, ImmutableMap.of());
+        return sendToUser(template, new UserMail(user));
     }
 
-    public String sendWithTemplate(User user, String template, final Map<String, ?> params) {
-        String activationKey = subscriptionService.generateActivationKey(user.getEmail());
-        String subscriptionUrl = subscriptionService.getSubscriptionUrl(user.getEmail(), activationKey, false);
+    public String sendToUser(String template, UserMail userMail) {
+        return sendWithTemplate(template, userMail, ImmutableMap.of());
+    }
+
+    public String sendWithTemplate(String template, UserMail userMail, final Map<String, ?> params) {
+        String activationKey = subscriptionService.generateActivationKey(userMail.getEmail());
+        String subscriptionUrl = subscriptionService.getSubscriptionUrl(userMail.getEmail(), activationKey, false);
         ImmutableMap<String, Object> attrs = ImmutableMap.<String, Object>builder()
                 .putAll(params)
-                .put("user", user)
+                .put("user", userMail)
                 .put("subscriptionUrl", subscriptionUrl)
                 .put("activationKey", activationKey).build();
 
-        String result = sendWithTemplate(user.getEmail(), user.getFullName(), template, attrs);
+        String result = sendWithTemplate(userMail.getEmail(), userMail.getFullName(), template, attrs);
         if (!result.equals(OK)) {
-            mailCaseRepository.save(new MailCase(user, template, result));
+            mailCaseRepository.save(new MailCase(userMail, template, result));
         }
         return result;
     }
@@ -182,12 +183,12 @@ public class MailService {
         }
         message.setSubject(subject);
         message.setText(content, isHtml);
-        javaMailSender.send(mimeMessage);
+//        javaMailSender.send(mimeMessage);
     }
 
     public GroupResult resendTodayFailed(String template) {
         List<MailCase> todayFailed = mailCaseRepository.getTodayFailed();
-        return sendToUserList(template, todayFailed.stream().map(MailCase::getUser).collect(Collectors.toSet()));
+        return sendToUserList(template, todayFailed.stream().map(MailCase::getUserMail).collect(Collectors.toSet()));
     }
 
     public static class GroupResultBuilder {

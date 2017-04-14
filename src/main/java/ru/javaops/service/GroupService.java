@@ -6,11 +6,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 import ru.javaops.model.*;
 import ru.javaops.repository.GroupRepository;
 import ru.javaops.repository.PaymentRepository;
 import ru.javaops.repository.UserGroupRepository;
+import ru.javaops.to.UserMail;
 import ru.javaops.to.UserTo;
 import ru.javaops.util.ProjectUtil;
 import ru.javaops.util.ProjectUtil.ProjectProps;
@@ -147,14 +147,11 @@ public class GroupService {
         return ProjectUtil.getProjectProps(projectName, cachedGroups.getAll());
     }
 
-    public Set<User> filterUserByGroupNames(String includes, String excludes, RegisterType registerType, GroupType[] groupTypes, LocalDate startRegisteredDate, LocalDate endRegisteredDate) {
+    public Set<UserMail> filterUserByGroupNames(String includes, String excludes, LocalDate startRegisteredDate, LocalDate endRegisteredDate) {
         final List<Group> groups = cachedGroups.getAll();
-        final Set<User> includeUsers = (groupTypes == null || groupTypes.length == 0) ?
-                filterUserByGroupNames(groups, includes, registerType, startRegisteredDate, endRegisteredDate) :
-                userService.findByGroupTypes(groupTypes);
-
+        final Set<UserMail> includeUsers = filterUserByGroupNames(groups, includes, startRegisteredDate, endRegisteredDate);
         if (StringUtils.isNoneEmpty(excludes)) {
-            Set<User> excludeUsers = filterUserByGroupNames(groups, excludes, null, startRegisteredDate, endRegisteredDate);
+            Set<UserMail> excludeUsers = filterUserByGroupNames(groups, excludes, startRegisteredDate, endRegisteredDate);
             includeUsers.removeAll(excludeUsers);
         }
         return includeUsers;
@@ -164,7 +161,7 @@ public class GroupService {
         User u;
         if (projectName.equals("javaops")) {
             u = userService.findExistedByEmail(email);
-            if (CollectionUtils.isEmpty(u.getRoles())) {
+            if (!u.isMember()) {
                 throw new IllegalStateException("Регистрация только для участников Java Online Projects");
             }
         } else {
@@ -175,20 +172,16 @@ public class GroupService {
         return u;
     }
 
-    private Set<User> filterUserByGroupNames(List<Group> groups, String groupNames, RegisterType registerType, LocalDate startRegisteredDate, LocalDate endRegisteredDate) {
+    private Set<UserMail> filterUserByGroupNames(List<Group> groups, String groupNames, LocalDate startRegisteredDate, LocalDate endRegisteredDate) {
         List<Predicate<String>> predicates = getMatcher(groupNames);
         Date startDate = TimeUtil.toDate(startRegisteredDate);
         Date endDate = TimeUtil.toDate(endRegisteredDate);
 
         // filter users by predicates
         return groups.stream().filter(group -> predicates.stream().anyMatch(p -> p.test(group.getName())))
-                .flatMap(group ->
-                        (registerType == null ?
-                                userService.findByGroupName(group.getName()) :
-                                userService.findByGroupNameAndRegisterType(group.getName(), registerType)
-                        ).stream())
-                .filter(u -> startDate == null || u.getRegisteredDate().compareTo(startDate) >= 0)
-                .filter(u -> endDate == null || u.getRegisteredDate().compareTo(endDate) <= 0)
+                .flatMap(group -> userService.findByGroupName(group.getName()).stream())
+                .filter(um -> startDate == null || um.getRegisteredDate().compareTo(startDate) >= 0)
+                .filter(um -> endDate == null || um.getRegisteredDate().compareTo(endDate) <= 0)
                 .collect(Collectors.toSet());
     }
 
