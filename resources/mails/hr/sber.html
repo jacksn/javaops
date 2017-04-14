@@ -9,7 +9,7 @@
 <p th:replace="mailFragments::header(${user})">
     Здравствуй firstName!<br/>
 </p>
-Возможно тебе будет интересно: открыта вакансии Java разработчиков:
+Возможно тебе будет интересно: открыты вакансии Java разработчиков:
 <h3><a href="https://www.at-consulting.ru/">AT Consulting</a> (Москва, Санкт-Петербург)</h3>
 <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFMVNIWTVRdTI0bUk">Подробное описание в презентации</a>
 <ul>Краткая информация о системе:
@@ -27,13 +27,18 @@
     <li>Оформление по ТК. Белая заработная плата.</li>
     <li>Возможность обучения. Кураторство начинающих специалистов.</li>
 </ul>
-<h3><a href="http://www.technodiasoft.ru">ТехноДиасофт</a> (Москва)</h3>:
+<h3><a href="http://www.technodiasoft.ru">ТехноДиасофт</a> (Москва)</h3>
 <ul>
     <li>Проект Конструктор структур</li>
     <li>Требования: Java Core, Oracle, Hibernate</li>
 </ul>
 Если тебе вакансии интересны, пришли в ответ ссылку на резюме. Удаленка не предусмотрена, только с релокацией.
 Вилка ~60-80 тыс. руб.
+<p>
+    Еще- если интересна/неинтересна рассылка вакансии - проверь плз.
+    <a th:href="@{http://javaops.ru/profile(email=${user.email}, key=${activationKey})}">в своем профиле поля</a><br/>
+    <i>Рассматриваю предложения о работе</i>, <i>Рассматриваю релокацию</i> и <i>Ссылка на резюме</i>.
+</p>
 <p th:include="mailFragments::footer(${subscriptionUrl})">
 </p>
 </html>
