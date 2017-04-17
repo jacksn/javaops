@@ -76,8 +76,9 @@ public class PageController {
                                    @RequestParam("partnerKey") String partnerKey,
                                    @RequestParam Map<String, String> params) {
 
-        subscriptionService.checkPartner(partnerKey);
+        User partner = subscriptionService.checkPartner(partnerKey);
         params.put("partnerKey", partnerKey);
+        params.put("partnerMark", partner.getMark());
         SqlResult result = sqlService.execute(sqlKey, limit, params);
         return new ModelAndView("sqlResult",
                 ImmutableMap.of("result", result, "csv", csv));
