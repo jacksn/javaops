@@ -5,7 +5,8 @@ import ru.javaops.model.User;
 import ru.javaops.to.UserTo;
 import ru.javaops.to.UserToExt;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.regex.Pattern;
 
 import static ru.javaops.util.Util.assignNotEmpty;
@@ -23,9 +24,13 @@ public class UserUtil {
 
     public static void updateFromToExt(User user, UserToExt userToExt) {
         updateFromTo(user, userToExt);
-        if (userToExt.isConsiderJobOffers() && (user.isConsiderJobOffers() == null || !user.isConsiderJobOffers()) ||
-                (!Strings.isNullOrEmpty(userToExt.getResumeUrl()) && Strings.isNullOrEmpty(user.getResumeUrl()))) {
-            user.setHrUpdate(new Date());
+        if (userToExt.isConsiderJobOffers() && user.getHrUpdate().isBefore(LocalDate.now()) &&
+                ((user.isConsiderJobOffers() == null || !user.isConsiderJobOffers()) ||
+                        (!Strings.isNullOrEmpty(userToExt.getResumeUrl()) && Strings.isNullOrEmpty(user.getResumeUrl())))
+                ) {
+            user.setHrUpdate(LocalDate.now());
+        } else if (!userToExt.isConsiderJobOffers() && user.isConsiderJobOffers()) {
+            user.setHrUpdate(LocalDate.now().plus(90, ChronoUnit.DAYS));
         }
         assignNotEmpty(userToExt.getAboutMe(), user::setAboutMe);
         assignNotEmpty(userToExt.getGmail(), user::setGmail);

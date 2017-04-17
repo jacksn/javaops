@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
@@ -114,8 +115,7 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<UserGroup> userGroups;
 
-    @Temporal(TemporalType.DATE)
-    private Date hrUpdate;
+    private LocalDate hrUpdate;
 
     private String comment;
 
@@ -310,11 +310,11 @@ public class User extends BaseEntity {
         this.relocationReady = relocationReady;
     }
 
-    public Date getHrUpdate() {
+    public LocalDate getHrUpdate() {
         return hrUpdate;
     }
 
-    public void setHrUpdate(Date hrUpdate) {
+    public void setHrUpdate(LocalDate hrUpdate) {
         this.hrUpdate = hrUpdate;
     }
 
