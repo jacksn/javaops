@@ -26,22 +26,34 @@
         <dd><a href="" th:href="${user.resumeUrl}" target="_blank">Ссылка на резюме</a></dd>
         <dt>Релокация</dt>
         <dd th:text="${user.relocationReady}">true</dd>
+        <dt>Место релокации</dt>
+        <dd th:text="${user.relocation}">Relocation</dd>
         <dt>Обо мне</dt>
         <dd th:text="${user.aboutMe}">aboutMe</dd>
         <br/>
         <!--/*@thymesVar id="partner" type="ru.javaops.model.User"*/-->
-        <form th:if="${partner.isAdmin()}" class="form-horizontal" method="post" action="saveComment">
+        <form th:if="${partner.isAdmin()}" class="form-horizontal" method="post" action="saveAdminInfo">
             <input type="hidden" name="email" th:value="${user.email}"/>
             <input type="hidden" name="adminKey" th:value="${partner.email}"/>
-            <dt>Комментарий<br/>
-                <button type="submit" class="btn btn-primary">Сохранить</button>
-            </dt>
+            <dt>Метка</dt>
+            <dd>
+                <div class="form-group ">
+                    <div class="col-xs-4">
+                        <input class="form-control" name="mark" th:value="${user.mark}"/>
+                    </div>
+                </div>
+            </dd>
+            <dt>Комментарий</dt>
             <dd>
                 <div class="form-group">
                     <div class="col-xs-12">
                         <textarea class="form-control " name="comment" rows="7" th:utext="${user.comment}"></textarea>
                     </div>
                 </div>
+            </dd>
+            <dt></dt>
+            <dd>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
             </dd>
         </form>
         <dt></dt>

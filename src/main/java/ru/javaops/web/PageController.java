@@ -60,11 +60,12 @@ public class PageController {
                 ImmutableMap.of("user", user, "projects", projects, "partner", partner));
     }
 
-    @PostMapping(value = "/saveComment")
+    @PostMapping(value = "/saveAdminInfo")
     public String saveComment(@RequestParam("email") String email,
                             @RequestParam("adminKey") String adminKey,
-                            @RequestParam("comment") String comment) {
-        userRepository.saveComment(email, comment);
+                            @RequestParam("comment") String comment,
+                            @RequestParam("mark") String mark) {
+        userRepository.saveAdminInfo(email, comment, mark);
         return "closeWindow";
     }
 

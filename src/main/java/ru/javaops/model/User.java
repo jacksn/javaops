@@ -99,6 +99,9 @@ public class User extends BaseEntity {
     @Column
     private String relocation;
 
+    @Column
+    private String mark;
+
     @Column(name = "activated_date")
     private Date activatedDate;
 
@@ -337,6 +340,14 @@ public class User extends BaseEntity {
 
     public boolean isMember() {
         return roles != null && roles.contains(Role.ROLE_MEMBER);
+    }
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
     }
 
     @Override
