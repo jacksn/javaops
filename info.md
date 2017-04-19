@@ -68,6 +68,7 @@ Remote git via SSH:
 git via ssh: http://stackoverflow.com/a/17307628/548473
 git ssh url syntax: http://stackoverflow.com/a/39841058/548473
 http://stackoverflow.com/questions/11117823/git-push-error-refusing-to-update-checked-out-branch
+git push non-bare repository: http://stackoverflow.com/a/28262104/548473
 
 [Change Timezone](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html#change_time_zone)
 
