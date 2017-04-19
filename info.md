@@ -64,6 +64,11 @@ http://eax.me/amazon-one-year/
 
 SES: https://aws.amazon.com/ru/ses/faqs/
 
+Remote ssh for Windows:
+git via ssh: http://stackoverflow.com/a/17307628/548473
+git ssh url syntax: http://stackoverflow.com/a/39841058/548473
+
+
 [Change Timezone](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html#change_time_zone)
 
 ## Static resources
@@ -81,8 +86,8 @@ Run at 80 port: http://stackoverflow.com/questions/33703965/spring-boot-running-
 cat /etc/init.d/nginx
 `Ctrl+D (exit)`
 
-# config:      /etc/nginx/nginx.conf
-# config:      /etc/sysconfig/nginx
+config:      /etc/nginx/nginx.conf
+config:      /etc/sysconfig/nginx
 
 cat /etc/sysconfig/nginx
 cat /etc/nginx/nginx.conf
@@ -303,3 +308,59 @@ http://docs.spring.io/spring-boot/docs/current/reference/html/howto-hotswapping.
 https://patrickgrimard.io/2016/01/18/spring-boot-devtools-first-look/
 https://www.youtube.com/watch?v=VWF7vCJSqrA  : spring-boot-devtools
 https://www.leveluplunch.com/java/tutorials/004-hot-deploy-java-applications-with-spring-loaded/
+
+-----------
+## H2
+-  <a href="http://stackoverflow.com/questions/24803279/grails-accessing-h2-tcp-server-hangs#33718748">H2 TCP connection</a>
+
+## Spring Boot
+-  http://habrahabr.ru/post/257223/
+-  <a href="http://blog.jetbrains.com/idea/2015/04/webinar-recording-spring-boot-and-intellij-idea-14-1">Spring Boot and Intellij IDEA 14</a>
+-  https://github.com/snicoll-demos/spring-boot-intellij-idea-webinar
+-  <a href="http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/">Spring Boot Reference Guide</a>
+-  <a href="https://github.com/spring-projects/spring-boot">spring-projects/spring-boot</a>
+-  <a href="http://spring.io/guides/tutorials/bookmarks/">Building REST services with Spring</a>
+-  <a href="http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html">Common application properties</a>
+-  <a href="http://stackoverflow.com/questions/25855795/spring-boot-and-multiple-external-configuration-files">Multiple external configuration</a>
+http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-logging.html
+
+## REST
+- http://curl.haxx.se/docs/manpage.html
+- http://spring.io/guides/gs/accessing-data-rest/
+- https://github.com/spring-guides/gs-accessing-data-rest
+
+org\springframework\web\servlet\DispatcherServlet.java
+   mappedHandler = getHandler(processedRequest)
+
+org.springframework.data.rest.core.mapping.ResourceMetadata
+		for (ResourceMetadata metadata : cache.values()) {
+- <a href="https://spring.io/blog/2014/07/14/spring-data-rest-now-comes-with-alps-metadata">Spring Data REST now comes with ALPS metadata</a>
+- HAL: https://tools.ietf.org/html/draft-kelly-json-hal-07
+
+## ETag
+- https://objectpartners.com/2015/06/02/etags-and-spring-data-rest/
+- http://stackoverflow.com/questions/31882180/why-is-the-version-property-not-set-with-spring-data-jpa
+
+
+## ID
+- https://github.com/spring-projects/spring-hateoas/issues/66
+- https://github.com/spring-projects/spring-hateoas/issues/67
+- https://github.com/gregturn/task-manager-app
+- http://stackoverflow.com/questions/24936636/while-using-spring-data-rest-after-migrating-an-app-to-spring-boot-i-have-obser
+- http://stackoverflow.com/questions/24839760/spring-boot-responsebody-doesnt-serialize-entity-id
+
+## JSON
+https://github.com/spring-projects/spring-hateoas/issues/333
+
+## Projects
+https://github.com/spring-projects/spring-data-rest
+https://github.com/spring-projects/spring-hateoas
+https://en.wikipedia.org/wiki/HATEOAS
+http://translate.academic.ru/hypermedia/en/ru/
+http://stackoverflow.com/questions/19514131/spring-hateoas-versus-spring-data-rest/19516776
+https://ru.wikipedia.org/wiki/Список_кодов_состояния_HTTP
+https://github.com/spring-projects/spring-data-examples/tree/master/rest/
+
+## Bugs
+http://stackoverflow.com/questions/17277078/spring-mvc-exception-when-using-responsebody-and-entity-with-circular-referenc
+http://stackoverflow.com/questions/8966030/hibernate-jpa-import-sql-utf8-characters-corrupted
