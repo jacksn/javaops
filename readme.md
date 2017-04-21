@@ -14,24 +14,19 @@ https://api.travis-ci.org/gkislin/javaops.svg?branch=master
 - Рассмаривается на кандидаты в UI: 
   - https://vaadin.com/elements
   - https://www.sencha.com/products/gxt
-  - <a href="https://angular.io">Angular 2</a>
-
-### Сделано:
-- REST API
-  - Рассылка почты через API
-
-- Внешние запросы
-  - Регистрация
-  - Оплата
-  - Отписка
 
 ### Задачи:
-- Сделать редактирование личных данных с авторизацией через github
-- Сделать обновляемые (как Thymeleaf) шаблоны в формате md (см. `MarkdownUtil`) с кэшированием
-- Сделать ошибки в форме `participation.html` как в профиле проекта topjava
+- Селать авторизацию по oAuth2 с github: https://spring.io/guides/tutorials/spring-boot-oauth2/
+  - Пример не на boot:
+      - <a href="http://rblik-topjava.herokuapp.com">Авторизация в приложение через GitHub аккаунт по OAuth2</a></b><br/>
+      - <a href="https://github.com/rblik/topjava/tree/oauth">ветка oauth в гитхабе</a>
+
+- Рассылка сообщений в slack: https://api.slack.com/interactive-messages
 
 ### Работа:
-
+   Создать пустой ./config/sql.properties
+   Закомментировать GoogleAdminSDKDirectoryService.init()
+   
    Запуск: `mvn spring-boot:run`
 
    Коннект к базе (только 1 коннект возможен):
@@ -44,3 +39,4 @@ https://api.travis-ci.org/gkislin/javaops.svg?branch=master
       - `jdbc:h2:tcp://localhost:9092/mem:javaops`
 
    - Общение в https://javaops.slack.com/messages/javaops_ru/
+
