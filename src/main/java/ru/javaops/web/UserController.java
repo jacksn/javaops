@@ -48,6 +48,6 @@ public class UserController {
                       @RequestParam(value = "channel", required = false) String channel,
                       @RequestParam(value = "template", required = false) String template) {
         UserGroup ug = groupService.pay(userTo, group, new Payment(sum, currency, comment), participationType, channel);
-        return (template == null) ? ug.toString() : mailService.sendToUser(template, ug.getUser());
+        return ug.toString() + '\n' + (template == null ? "No template" : mailService.sendToUser(template, ug.getUser()));
     }
 }
