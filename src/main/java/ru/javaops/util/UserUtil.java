@@ -19,7 +19,7 @@ public class UserUtil {
     static final Pattern GMAIL_EXP = Pattern.compile("\\@gmail\\.");
 
     public static User createFromTo(UserTo userTo) {
-        return tryFillGmail(new User(userTo.getEmail(), userTo.getNameSurname(), userTo.getLocation(), userTo.getInfoSource(), userTo.getPhone()));
+        return tryFillGmail(new User(userTo.getEmail(), userTo.getNameSurname(), userTo.getLocation(), userTo.getInfoSource(), userTo.getSkype()));
     }
 
     public static void updateFromToExt(User user, UserToExt userToExt) {

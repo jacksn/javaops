@@ -1,5 +1,6 @@
 package ru.javaops.model;
 
+import com.google.common.base.MoreObjects;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -38,18 +39,22 @@ public class UserGroup extends BaseEntity {
     @Column(name = "channel")
     private String channel;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Payment payment;
+    @Transient
+    private boolean alreadyExist = false;
 
     public UserGroup() {
     }
 
-    public UserGroup(User user, Group group, RegisterType type, String channel) {
+    public UserGroup(User user, Group group, RegisterType type, ParticipationType participationType, String channel) {
         this.user = user;
         this.group = group;
         this.registerType = type;
         this.channel = channel;
+        this.participationType = participationType;
+    }
+
+    public UserGroup(User user, Group group, RegisterType type, String channel) {
+        this(user, group, type, null, channel);
     }
 
     public String getChannel() {
@@ -72,10 +77,6 @@ public class UserGroup extends BaseEntity {
         return group;
     }
 
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
     public void setParticipationType(ParticipationType participationType) {
         this.participationType = participationType;
     }
@@ -96,7 +97,25 @@ public class UserGroup extends BaseEntity {
         return participationType;
     }
 
-    public Payment getPayment() {
-        return payment;
+    public boolean isAlreadyExist() {
+        return alreadyExist;
+    }
+
+    public void setAlreadyExist(boolean alreadyExist) {
+        this.alreadyExist = alreadyExist;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("id", getId())
+                .add("user", user)
+                .add("group", group)
+                .add("registeredDate", registeredDate)
+                .add("registerType", registerType)
+                .add("participationType", participationType)
+                .add("channel", channel)
+                .add("alreadyExist", alreadyExist)
+                .toString();
     }
 }

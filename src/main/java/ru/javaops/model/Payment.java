@@ -1,5 +1,8 @@
 package ru.javaops.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -10,6 +13,12 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "payment")
 public class Payment extends BaseEntity {
+
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_group_id", nullable = false)
+    @ManyToOne
+    private UserGroup userGroup;
+
     @Column(name = "date")
     private LocalDate date = LocalDate.now();
 
@@ -37,19 +46,7 @@ public class Payment extends BaseEntity {
         this.comment = comment;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public int getSum() {
-        return sum;
-    }
-
-    public Currency getCurrency() {
-        return currency;
-    }
-
-    public String getComment() {
-        return comment;
+    public void setUserGroup(UserGroup userGroup) {
+        this.userGroup = userGroup;
     }
 }

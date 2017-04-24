@@ -42,12 +42,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/pay", method = POST)
-    public String pay(@RequestParam("project") String project, @Valid UserTo userTo,
+    public String pay(@RequestParam("group") String group, @Valid UserTo userTo,
                       @RequestParam("sum") int sum, @RequestParam("currency") Currency currency, @RequestParam("comment") String comment,
                       @RequestParam(value = "type", required = false) ParticipationType participationType,
                       @RequestParam(value = "channel", required = false) String channel,
                       @RequestParam(value = "template", required = false) String template) {
-        UserGroup ug = groupService.pay(userTo, project, new Payment(sum, currency, comment), participationType, channel);
-        return (template == null) ? "Paid" : mailService.sendToUser(template, ug.getUser());
+        UserGroup ug = groupService.pay(userTo, group, new Payment(sum, currency, comment), participationType, channel);
+        return (template == null) ? ug.toString() : mailService.sendToUser(template, ug.getUser());
     }
 }

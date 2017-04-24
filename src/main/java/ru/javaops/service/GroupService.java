@@ -62,7 +62,7 @@ public class GroupService {
     }
 
     @Transactional
-    public UserGroup registerAtProject(UserTo userTo, String projectName, String channel) {
+    public UserGroup registerAtProject(UserTo userTo, String projectName, String channel, ParticipationType participationType) {
         log.info("add{} to project {}", userTo, projectName);
 
         ProjectProps projectProps = getProjectProps(projectName);
@@ -73,29 +73,26 @@ public class GroupService {
 
                     return new UserGroup(user,
                             registerType == RegisterType.REGISTERED ? projectProps.registeredGroup : projectProps.currentGroup,
-                            registerType, channel);
+                            registerType, participationType, channel);
                 });
     }
 
     @Transactional
-    public UserGroup registerAtGroup(UserTo userTo, String groupName, String channel) {
+    public UserGroup registerAtGroup(UserTo userTo, String groupName, String channel, ParticipationType participationType) {
         log.info("add{} to group {}", userTo, groupName);
         Group group = cachedGroups.findByName(groupName);
         return registerAtGroup(userTo, channel, group,
-                user -> new UserGroup(user, group, RegisterType.REGISTERED, channel));
+                user -> new UserGroup(user, group, RegisterType.REGISTERED, participationType, channel));
     }
 
     @Transactional
-    public UserGroup pay(UserTo userTo, String projectName, Payment payment, ParticipationType participationType, String channel) {
-        log.info("Pay from {} for {}: {}", userTo, projectName, payment);
-        ProjectProps projectProps = getProjectProps(projectName);
-        UserGroup ug = registerAtGroup(userTo, channel, projectProps.currentGroup,
-                user -> new UserGroup(user, projectProps.currentGroup, RegisterType.REGISTERED, null));
-
+    public UserGroup pay(UserTo userTo, String groupName, Payment payment, ParticipationType participationType, String channel) {
+        log.info("Pay from {} for {}: {}", userTo, groupName, payment);
+        Group group = cachedGroups.findByName(groupName);
+        UserGroup ug = registerAtGroup(userTo, channel, group,
+                user -> new UserGroup(user, group, RegisterType.REGISTERED, channel));
+        payment.setUserGroup(ug);
         paymentRepository.save(payment);
-        ug.setPayment(payment);
-        ug.setParticipationType(participationType);
-        userGroupRepository.save(ug);
         return ug;
     }
 
@@ -107,9 +104,10 @@ public class GroupService {
             ug = new UserGroup(user, newUserGroup, RegisterType.FIRST_REGISTERED, channel);
         } else {
             ug = existedUserGroupProvider.apply(user);
-            if (userGroupRepository.findByUserIdAndGroupId(user.getId(), ug.getGroup().getId()) != null) {
-                ug.setRegisterType(RegisterType.DUPLICATED);
-                return ug;
+            UserGroup oldUserGroup = userGroupRepository.findByUserIdAndGroupId(user.getId(), ug.getGroup().getId());
+            if (oldUserGroup != null) {
+                oldUserGroup.setAlreadyExist(true);
+                return oldUserGroup;
             }
         }
         if (ug.getRegisterType() != RegisterType.REPEAT) {

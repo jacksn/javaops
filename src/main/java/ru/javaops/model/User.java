@@ -122,17 +122,17 @@ public class User extends BaseEntity {
     public User() {
     }
 
-    public User(String email, String nameSurname, String location, String infoSource, String phone) {
-        this(null, email, nameSurname, location, infoSource, phone);
+    public User(String email, String nameSurname, String location, String infoSource, String skype) {
+        this(null, email, nameSurname, location, infoSource, skype);
     }
 
-    public User(Integer id, String email, String fullName, String location, String infoSource, String phone) {
+    public User(Integer id, String email, String fullName, String location, String infoSource, String skype) {
         super(id);
         this.email = email;
         this.fullName = fullName;
         this.location = location;
         this.infoSource = infoSource;
-        this.phone = phone;
+        this.skype = skype;
     }
 
     public String getEmail() {

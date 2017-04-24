@@ -74,17 +74,18 @@ public class SubscriptionController {
                                         @RequestParam(value = "callback", required = false) String callback,
                                         @RequestParam("channel") String channel,
                                         @RequestParam(value = "template", required = false) String template,
+                                        @RequestParam(value = "type", required = false) ParticipationType participationType,
                                         @RequestParam("channelKey") String channelKey,
                                         @Valid UserTo userTo, BindingResult result) {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
-        UserGroup userGroup = groupService.registerAtGroup(userTo, group, channel);
+        UserGroup userGroup = groupService.registerAtGroup(userTo, group, channel, participationType);
         String mailResult = "без отправки";
         if (template != null) {
             mailResult = mailService.sendToUser(template, userGroup.getUser());
         }
-        ImmutableMap<String, ?> params = ImmutableMap.of("userGroup", userGroup, "result", mailResult);
+        ImmutableMap<String, ?> params = ImmutableMap.of("user", userGroup.getUser(), "result", mailResult);
 
         final ModelAndView mv;
         if (callback != null) {
@@ -107,8 +108,8 @@ public class SubscriptionController {
             throw new ValidationException(Util.getErrorMessage(result));
         }
 
-        UserGroup userGroup = groupService.registerAtProject(userTo, projectName, channel);
-        if (userGroup.getRegisterType() == RegisterType.DUPLICATED && userGroup.getGroup().isMembers()) {
+        UserGroup userGroup = groupService.registerAtProject(userTo, projectName, channel, null);
+        if (userGroup.isAlreadyExist()) {
             return getRedirectView("http://javawebinar.ru/duplicate.html");
         } else if (userGroup.getRegisterType() == RegisterType.REPEAT) {
             integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail(), projectName);

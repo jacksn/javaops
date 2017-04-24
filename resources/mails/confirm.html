@@ -1,24 +1,23 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<!--/*@thymesVar id="userGroup" type="ru.javaops.model.UserGroup"*/-->
+<!--/*@thymesVar id="userGroup" type="ru.javaops.model.User"*/-->
 <!--/*@thymesVar id="result" type="java.lang.String"*/-->
-<th:block th:object="${userGroup.user}">
+<th:block th:object="${user}">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title th:text="|Регистрация ${userGroup.registerType}, *{fullName}, *{email}, *{phone}|"></title>
+        <title th:text="|Регистрация *{fullName} &lt;*{email}&gt;|"></title>
     </head>
-    <div th:switch="${userGroup.registerType}">
+    <div th:switch="${registerType}">
         <p th:case="${T(ru.javaops.model.RegisterType).FIRST_REGISTERED}">Успешно добавлен в группу.</p>
         <p th:case="${T(ru.javaops.model.RegisterType).REGISTERED}">Добавлен в группу, уже присутствует в базе Java
             Online Projects.</p>
-        <p th:case="${T(ru.javaops.model.RegisterType).DUPLICATED}">Уже присутствует в группе.</p>
         <p th:case="${T(ru.javaops.model.RegisterType).REPEAT}">Уже есть в группе, повторная регистрация.</p>
     </div>
     <p>Имя: <span th:text="*{fullName}?: 'нет'">имя</span>
     </p>
     <p th:text="|Почта: *{email}|">
     </p>
-    <p>Телефон: <span th:text="*{phone}?: 'нет'">123-456</span>
+    <p>Skype: <span th:text="*{skype}?: 'нет'">123-456</span>
     </p>
     <p th:text="|Результат отправки: ${result}|">
     </p>
