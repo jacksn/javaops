@@ -103,6 +103,9 @@ public class User extends BaseEntity {
     @Column
     private String mark;
 
+    @Column
+    private Integer bonus;
+
     @Column(name = "activated_date")
     private Date activatedDate;
 
@@ -330,6 +333,10 @@ public class User extends BaseEntity {
         return comment;
     }
 
+    public Integer getBonus() {
+        return bonus;
+    }
+
     public void setComment(String comment) {
         this.comment = comment;
     }
@@ -344,10 +351,6 @@ public class User extends BaseEntity {
 
     public String getMark() {
         return mark;
-    }
-
-    public void setMark(String mark) {
-        this.mark = mark;
     }
 
     @Override

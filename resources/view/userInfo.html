@@ -31,35 +31,32 @@
         <dt>Обо мне</dt>
         <dd th:text="${user.aboutMe}">aboutMe</dd>
         <br/>
-        <!--/*@thymesVar id="partner" type="ru.javaops.model.User"*/-->
-        <form th:if="${partner.isAdmin()}" class="form-horizontal" method="post" action="saveAdminInfo">
-            <input type="hidden" name="email" th:value="${user.email}"/>
-            <input type="hidden" name="adminKey" th:value="${partner.email}"/>
-            <dt>Метка</dt>
-            <dd>
-                <div class="form-group ">
-                    <div class="col-xs-4">
-                        <input class="form-control" name="mark" th:value="${user.mark}"/>
-                    </div>
-                </div>
-            </dd>
-            <dt>Комментарий</dt>
-            <dd>
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <textarea class="form-control " name="comment" rows="7" th:utext="${user.comment}"></textarea>
-                    </div>
-                </div>
-            </dd>
-            <dt></dt>
-            <dd>
-                <button type="submit" class="btn btn-primary">Сохранить</button>
-            </dd>
-        </form>
         <dt></dt>
         <dd>
             <button class="btn" onclick="window.close()">Закрыть</button>
         </dd>
+        <br/>
+        <!--/*@thymesVar id="partner" type="ru.javaops.model.User"*/-->
+        <form th:if="${partner.isAdmin()}" class="form-horizontal" method="post" action="saveAdminInfo">
+            <input type="hidden" name="email" th:value="${user.email}"/>
+            <input type="hidden" name="adminKey" th:value="${partner.email}"/>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <textarea class="form-control " name="comment" rows="7" th:utext="${user.comment}"></textarea>
+                </div>
+            </div>
+            <div class="form-group ">
+                <label class="control-label col-sm-1">Бонус:</label>
+                <div class="col-xs-2">
+                    <input type="number" class="form-control" name="bonus" th:value="${user.bonus}"/>
+                </div>
+                <label class="control-label col-sm-1">Метка:</label>
+                <div class="col-xs-4">
+                    <input class="form-control" name="mark" th:value="${user.mark}"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
     </dl>
 </div>
 </body>

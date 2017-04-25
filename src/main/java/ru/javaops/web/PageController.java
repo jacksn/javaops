@@ -15,6 +15,7 @@ import ru.javaops.repository.UserRepository;
 import ru.javaops.service.CachedGroups;
 import ru.javaops.service.SqlService;
 import ru.javaops.service.SubscriptionService;
+import ru.javaops.to.UserAdminsInfo;
 import ru.javaops.to.UserStat;
 
 import java.util.List;
@@ -62,10 +63,10 @@ public class PageController {
 
     @PostMapping(value = "/saveAdminInfo")
     public String saveComment(@RequestParam("email") String email,
-                            @RequestParam("adminKey") String adminKey,
-                            @RequestParam("comment") String comment,
-                            @RequestParam("mark") String mark) {
-        userRepository.saveAdminInfo(email, comment, mark);
+                              @RequestParam("adminKey") String adminKey,
+                              UserAdminsInfo uaInfo) {
+//        userRepository.saveAdminInfo(email, uaInfo);
+        userRepository.saveAdminInfo(email, uaInfo.getComment(), uaInfo.getMark(), uaInfo.getBonus());
         return "closeWindow";
     }
 

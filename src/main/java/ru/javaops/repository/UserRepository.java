@@ -42,8 +42,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Override
     User save(User entity);
 
+    //    https://jira.spring.io/browse/DATAJPA-1103
+//    @Query("UPDATE User u SET u.comment = :#{#uaInfo.comment}, u.mark=:#{#uaInfo.mark}, u.bonus=:#{#uaInfo.bonus} WHERE u.email=:email")
+//    void saveAdminInfo(@Param("email") String email, @Param("uaInfo") UserAdminsInfo uaInfo);
     @Transactional
     @Modifying
-    @Query("UPDATE User u SET u.comment=:comment, u.mark=:mark WHERE u.email=:email")
-    void saveAdminInfo(@Param("email") String email, @Param("comment") String comment, @Param("mark") String mark);
+    @Query("UPDATE User u SET u.comment = :comment, u.mark=:mark, u.bonus=:bonus WHERE u.email=:email")
+    void saveAdminInfo(@Param("email") String email, @Param("comment") String comment, @Param("mark") String mark, @Param("bonus") Integer bonus);
 }
