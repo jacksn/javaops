@@ -24,12 +24,12 @@ public class UserUtil {
 
     public static void updateFromToExt(User user, UserToExt userToExt) {
         updateFromTo(user, userToExt);
-        if (userToExt.isConsiderJobOffers() && user.getHrUpdate().isBefore(LocalDate.now()) &&
-                ((user.isConsiderJobOffers() == null || !user.isConsiderJobOffers()) ||
-                        (!Strings.isNullOrEmpty(userToExt.getResumeUrl()) && Strings.isNullOrEmpty(user.getResumeUrl())))
-                ) {
+        if ((user.getHrUpdate()==null || user.getHrUpdate().isBefore(LocalDate.now())) // not switched back
+                && userToExt.isConsiderJobOffers() && !Strings.isNullOrEmpty(userToExt.getResumeUrl())  // visible for HR
+                && (user.isConsiderJobOffers() == null || !user.isConsiderJobOffers() || Strings.isNullOrEmpty(user.getResumeUrl()))) {  // was not visible for HR
             user.setHrUpdate(LocalDate.now());
-        } else if (!userToExt.isConsiderJobOffers() && user.isConsiderJobOffers()) {
+
+        } else if (!userToExt.isConsiderJobOffers() && user.isConsiderJobOffers() != null && user.isConsiderJobOffers()) {  // stop job considering
             user.setHrUpdate(LocalDate.now().plus(90, ChronoUnit.DAYS));
         }
         assignNotEmpty(userToExt.getAboutMe(), user::setAboutMe);
