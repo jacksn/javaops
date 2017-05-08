@@ -3,6 +3,7 @@ package ru.javaops.web;
 import com.google.api.client.repackaged.com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -82,7 +83,7 @@ public class SubscriptionController {
         }
         UserGroup userGroup = groupService.registerAtGroup(userTo, group, channel, participationType);
         String mailResult = "без отправки";
-        if (template != null) {
+        if (StringUtils.isNotEmpty(template)) {
             mailResult = mailService.sendToUser(template, userGroup.getUser());
         }
         ImmutableMap<String, ?> params = ImmutableMap.of("user", userGroup.getUser(), "result", mailResult);
