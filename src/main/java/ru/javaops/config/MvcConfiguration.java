@@ -1,5 +1,7 @@
 package ru.javaops.config;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import ru.javaops.service.SubscriptionService;
+import ru.javaops.util.WebUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +22,9 @@ import java.util.function.Consumer;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 //@EnableWebMvc : http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-spring-mvc-auto-configuration
-@EnableAutoConfiguration // OK, 10 converters
-@Configuration // OK, 9 converters
+@EnableAutoConfiguration
+@Configuration
+@Slf4j
 public class MvcConfiguration extends WebMvcConfigurerAdapter {
 
 /*
@@ -49,6 +53,11 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
         return new HandlerInterceptorAdapter() {
             @Override
             public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+                String project = request.getParameter("project");
+                if (project != null && StringUtils.isBlank(project)) {
+                    WebUtil.logWarn(request);
+                    return false;
+                }
                 check(request, "adminKey", adminKey -> subscriptionService.checkAdminKey(adminKey));
                 check(request, "channelKey", channelKey -> {
                     String channel = request.getParameter("channel");
