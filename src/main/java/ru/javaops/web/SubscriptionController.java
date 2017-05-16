@@ -86,7 +86,7 @@ public class SubscriptionController {
         if (StringUtils.isNotEmpty(template)) {
             mailResult = mailService.sendToUser(template, userGroup.getUser());
         }
-        ImmutableMap<String, ?> params = ImmutableMap.of("user", userGroup.getUser(), "result", mailResult);
+        ImmutableMap<String, ?> params = ImmutableMap.of("userGroup", userGroup, "result", mailResult);
 
         final ModelAndView mv;
         if (callback != null) {
@@ -109,7 +109,7 @@ public class SubscriptionController {
             throw new ValidationException(Util.getErrorMessage(result));
         }
 
-        UserGroup userGroup = groupService.registerAtProject(userTo, projectName, channel, null);
+        UserGroup userGroup = groupService.registerAtProject(userTo, projectName, channel);
         if (userGroup.isAlreadyExist()) {
             return getRedirectView("http://javawebinar.ru/duplicate.html");
         } else if (userGroup.getRegisterType() == RegisterType.REPEAT) {

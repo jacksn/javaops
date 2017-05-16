@@ -18,10 +18,7 @@ import ru.javaops.util.TimeUtil;
 import ru.javaops.util.UserUtil;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -62,18 +59,18 @@ public class GroupService {
     }
 
     @Transactional
-    public UserGroup registerAtProject(UserTo userTo, String projectName, String channel, ParticipationType participationType) {
+    public UserGroup registerAtProject(UserTo userTo, String projectName, String channel) {
         log.info("add{} to project {}", userTo, projectName);
 
         ProjectProps projectProps = getProjectProps(projectName);
-        return registerAtGroup(userTo, channel, projectProps.registeredGroup,
+        return registerAtGroup(userTo, channel, projectProps.registeredGroup, null,
                 user -> {
                     RegisterType registerType = isProjectMember(user.getId(), projectProps.project.getName()) ?
                             RegisterType.REPEAT : RegisterType.REGISTERED;
 
                     return new UserGroup(user,
                             registerType == RegisterType.REGISTERED ? projectProps.registeredGroup : projectProps.currentGroup,
-                            registerType, participationType, channel);
+                            registerType, null, channel);
                 });
     }
 
@@ -81,7 +78,7 @@ public class GroupService {
     public UserGroup registerAtGroup(UserTo userTo, String groupName, String channel, ParticipationType participationType) {
         log.info("add{} to group {}", userTo, groupName);
         Group group = cachedGroups.findByName(groupName);
-        return registerAtGroup(userTo, channel, group,
+        return registerAtGroup(userTo, channel, group, participationType,
                 user -> new UserGroup(user, group, RegisterType.REGISTERED, participationType, channel));
     }
 
@@ -89,25 +86,29 @@ public class GroupService {
     public UserGroup pay(UserTo userTo, String groupName, Payment payment, ParticipationType participationType, String channel) {
         log.info("Pay from {} for {}: {}", userTo, groupName, payment);
         Group group = cachedGroups.findByName(groupName);
-        UserGroup ug = registerAtGroup(userTo, channel, group,
-                user -> new UserGroup(user, group, RegisterType.REGISTERED, channel));
+        UserGroup ug = registerAtGroup(userTo, channel, group, participationType,
+                user -> new UserGroup(user, group, RegisterType.REGISTERED, participationType, channel));
         payment.setUserGroup(ug);
         paymentRepository.save(payment);
         return ug;
     }
 
-    private UserGroup registerAtGroup(UserTo userTo, String channel, Group newUserGroup, Function<User, UserGroup> existedUserGroupProvider) {
+    private UserGroup registerAtGroup(UserTo userTo, String channel, Group newUserGroup, ParticipationType type, Function<User, UserGroup> existedUserGroupProvider) {
         User user = userService.findByEmail(userTo.getEmail());
         UserGroup ug;
         if (user == null) {
             user = UserUtil.createFromTo(userTo);
-            ug = new UserGroup(user, newUserGroup, RegisterType.FIRST_REGISTERED, channel);
+            ug = new UserGroup(user, newUserGroup, RegisterType.FIRST_REGISTERED, type, channel);
         } else {
             ug = existedUserGroupProvider.apply(user);
             UserGroup oldUserGroup = userGroupRepository.findByUserIdAndGroupId(user.getId(), ug.getGroup().getId());
             if (oldUserGroup != null) {
                 oldUserGroup.setAlreadyExist(true);
-                return oldUserGroup;
+                if (Objects.equals(oldUserGroup.getParticipationType(), type)) {
+                    return oldUserGroup;
+                }
+                oldUserGroup.setParticipationType(type);
+                return userGroupRepository.save(oldUserGroup);
             }
         }
         if (ug.getRegisterType() != RegisterType.REPEAT) {
@@ -123,7 +124,7 @@ public class GroupService {
     }
 
     public UserGroup save(User user, Group group, RegisterType registerType, String channel) {
-        return userGroupRepository.save(new UserGroup(user, group, registerType, channel));
+        return userGroupRepository.save(new UserGroup(user, group, registerType, null, channel));
     }
 
     private UserGroup checkRemoveFromRegistered(UserGroup ug) {
