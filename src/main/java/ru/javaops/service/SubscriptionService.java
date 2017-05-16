@@ -1,5 +1,6 @@
 package ru.javaops.service;
 
+import com.google.api.client.repackaged.com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.javaops.config.AppProperties;
@@ -71,7 +72,7 @@ public class SubscriptionService {
     }
 
     public String decrypt(String value) {
-        return value.charAt(0) == '-' ?
+        return !Strings.isNullOrEmpty(value) && value.charAt(0) == '-' ?
                 decrypt0(value.substring(1), secretKey) : null;
     }
 
