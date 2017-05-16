@@ -1,9 +1,11 @@
 package ru.javaops.web;
 
 import com.google.common.collect.ImmutableMap;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +25,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
+@Slf4j
 public class PageController {
 
     @Autowired
@@ -83,5 +86,17 @@ public class PageController {
         SqlResult result = sqlService.execute(sqlKey, limit, params);
         return new ModelAndView("sqlResult",
                 ImmutableMap.of("result", result, "csv", csv));
+    }
+
+    @GetMapping(value = "/topjava/{encodedChannel}")
+    public ModelAndView topjava(@PathVariable(value = "encodedChannel", required = false) String encodedChannel) {
+        String email = subscriptionService.decrypt(encodedChannel);
+        if (email != null) {
+            User u = userRepository.findByEmail(email);
+            log.info("+++ Visit from " + (u == null ? "!!! Unknown " + encodedChannel + '\'' : u.getEmail()));
+        } else {
+            log.info("+++ Visit from " + encodedChannel);
+        }
+        return new ModelAndView("topjava", "encodedChannel", encodedChannel);
     }
 }

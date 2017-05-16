@@ -30,6 +30,12 @@ public class AppProperties {
     private String activationSecretSalt;
 
     /**
+     * Secret key
+     */
+    @NotNull
+    private String secretKey;
+
+    /**
      * Host url
      */
     @NotNull
@@ -41,6 +47,14 @@ public class AppProperties {
 
     public void setActivationSecretSalt(String activationSecretSalt) {
         this.activationSecretSalt = activationSecretSalt;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
     }
 
     public void setCacheSeconds(int cacheSeconds) {
