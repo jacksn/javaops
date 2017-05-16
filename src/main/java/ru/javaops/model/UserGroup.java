@@ -104,13 +104,13 @@ public class UserGroup extends BaseEntity {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
+                .add("channel", channel)
                 .add("id", getId())
                 .add("user", user)
                 .add("group", group)
                 .add("registeredDate", registeredDate)
                 .add("registerType", registerType)
                 .add("participationType", participationType)
-                .add("channel", channel)
                 .add("alreadyExist", alreadyExist)
                 .toString();
     }

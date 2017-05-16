@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -90,7 +91,7 @@ public class SubscriptionController {
 
         final ModelAndView mv;
         if (callback != null) {
-            mv = getRedirectView(mailResult, callback, "http://javawebinar.ru/error.html");
+            mv = getRedirectView(mailResult, callback, "/error.html");
         } else {
             mv = new ModelAndView("confirm", params);
         }
@@ -102,16 +103,27 @@ public class SubscriptionController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView registerByProject(@RequestParam("project") String projectName,
-                                          @RequestParam("channel") String channel,
+                                          @RequestParam(value = "channel", required = false) String channel,
                                           @RequestParam(value = "template", required = false) String template,
-                                          @Valid UserTo userTo, BindingResult result) {
+                                          @Valid UserTo userTo, BindingResult result,
+                                          @CookieValue(value = "channel", required = false) String cookieChannel,
+                                          @CookieValue(value = "ref", required = false) String refUserId) {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
+        if (!Strings.isNullOrEmpty(refUserId)) {
+            User refUser = userService.get(Integer.parseInt(refUserId));
+            channel = SubscriptionService.markRef(refUser.getEmail());
+        } else if (!Strings.isNullOrEmpty(cookieChannel)) {
+            channel = cookieChannel;
+        }
+        log.info("+++ !!! Register from '{}', project={}, email={}", channel, projectName, userTo.getEmail());
 
         UserGroup userGroup = groupService.registerAtProject(userTo, projectName, channel);
+
+        // TODO send registration ref email
         if (userGroup.isAlreadyExist()) {
-            return getRedirectView("http://javawebinar.ru/duplicate.html");
+            return getRedirectView("/duplicate.html");
         } else if (userGroup.getRegisterType() == RegisterType.REPEAT) {
             integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail(), projectName);
             template = projectName + "_repeat";
@@ -119,7 +131,7 @@ public class SubscriptionController {
             template = projectName + "_register";
         }
         String mailResult = mailService.sendToUser(template, userGroup.getUser());
-        return getRedirectView(mailResult, "http://javawebinar.ru/confirm.html", "http://javawebinar.ru/error.html");
+        return getRedirectView(mailResult, "/confirm.html", "/error.html");
     }
 
     private ModelAndView getRedirectView(String mailResult, String successUrl, String failUrl) {

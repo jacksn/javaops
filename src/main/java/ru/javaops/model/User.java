@@ -363,4 +363,12 @@ public class User extends BaseEntity {
                 ", infoSource=" + infoSource +
                 ')';
     }
+
+    public void addBonus(int bonus) {
+        if (this.bonus == null) {
+            this.bonus = bonus;
+        } else {
+            this.bonus += bonus;
+        }
+    }
 }

@@ -94,4 +94,9 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     public User findByEmailAndGroupName(String email, String groupName) {
         return userRepository.findByEmailAndGroupName(email, groupName);
     }
+
+    @Override
+    public User get(int id) {
+        return userRepository.getOne(id);
+    }
 }

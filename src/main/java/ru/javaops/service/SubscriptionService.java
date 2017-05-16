@@ -1,6 +1,7 @@
 package ru.javaops.service;
 
 import com.google.api.client.repackaged.com.google.common.base.Strings;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.javaops.config.AppProperties;
@@ -16,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 @Service
+@Slf4j
 public class SubscriptionService {
     private static final String PARTNER_GROUP_NAME = "partner";
 
@@ -68,12 +70,23 @@ public class SubscriptionService {
     }
 
     public String encrypt(String value) {
-        return "-" + encrypt0(value, secretKey);
+        return markRef(encrypt0(value, secretKey));
     }
 
     public String decrypt(String value) {
-        return !Strings.isNullOrEmpty(value) && value.charAt(0) == '-' ?
-                decrypt0(value.substring(1), secretKey) : null;
+        return isRef(value) ? decrypt0(value.substring(1), secretKey) : null;
+    }
+
+    public User decryptUser(String value) {
+        User user = null;
+        String email = decrypt(value);
+        if (email != null) {
+            user = userService.findByEmail(email);
+            if (user == null) {
+                log.error("!!! Error user decrypted email '{}'", email);
+            }
+        }
+        return user;
     }
 
     static String encrypt0(String value, SecretKey secretKey) {
@@ -84,7 +97,8 @@ public class SubscriptionService {
             byte[] encryptedByte = cipher.doFinal(bytes);
             return Base64.getUrlEncoder().encodeToString(encryptedByte);
         } catch (Exception e) {
-            throw new IllegalStateException(e);
+            log.warn("!!! Error encrypt '{}'", value);
+            return null;
         }
     }
 
@@ -96,7 +110,16 @@ public class SubscriptionService {
             byte[] bytes = cipher.doFinal(encryptedByte);
             return new String(bytes);
         } catch (Exception e) {
-            throw new IllegalStateException(e);
+            log.warn("!!! Error decrypt '{}'", encrypted);
+            return null;
         }
+    }
+
+    public static boolean isRef(String value) {
+        return !Strings.isNullOrEmpty(value) && value.charAt(0) == '$';
+    }
+
+    public static String markRef(String value) {
+        return '$' + value;
     }
 }

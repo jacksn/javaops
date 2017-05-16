@@ -20,6 +20,8 @@ import ru.javaops.service.SubscriptionService;
 import ru.javaops.to.UserAdminsInfo;
 import ru.javaops.to.UserStat;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -88,15 +90,28 @@ public class PageController {
                 ImmutableMap.of("result", result, "csv", csv));
     }
 
-    @GetMapping(value = "/topjava/{encodedChannel}")
-    public ModelAndView topjava(@PathVariable(value = "encodedChannel", required = false) String encodedChannel) {
-        String email = subscriptionService.decrypt(encodedChannel);
-        if (email != null) {
-            User u = userRepository.findByEmail(email);
-            log.info("+++ Visit from " + (u == null ? "!!! Unknown " + encodedChannel + '\'' : u.getEmail()));
+    @GetMapping(value = "/ref/{project}/{channel}")
+    public ModelAndView reference(@PathVariable(value = "channel") String channel,
+                                          @PathVariable(value = "project") String project,
+                                          HttpServletResponse response) {
+
+        User user = subscriptionService.decryptUser(channel);
+        Cookie cookie;
+        if (user == null) {
+            log.error("+++ Visit channel {}", channel);
+            cookie = new Cookie("channel", channel);
         } else {
-            log.info("+++ Visit from " + encodedChannel);
+            log.info("+++ Visit from user {}", user.getEmail());
+            cookie = new Cookie("ref", user.getId().toString());
         }
-        return new ModelAndView("topjava", "encodedChannel", encodedChannel);
+        cookie.setPath("/");
+        cookie.setMaxAge(60 * 60 * 24 * 30); // 30 days
+        response.addCookie(cookie);
+        return new ModelAndView("redirectToUrl", "redirectUrl", "/reg/" + project);
+    }
+
+    @GetMapping(value = "/reg/{project}")
+    public ModelAndView registration(@PathVariable(value = "project") String project) {
+        return new ModelAndView(project);
     }
 }

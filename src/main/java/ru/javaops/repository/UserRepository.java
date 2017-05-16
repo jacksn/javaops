@@ -14,6 +14,9 @@ import java.util.Set;
 
 @Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository<User, Integer> {
+    @Override
+    User getOne(Integer integer);
+
     @Query("SELECT u FROM User u " +
             "  LEFT JOIN FETCH u.roles WHERE u.email=:email")
     User findByEmail(@Param("email") String email);

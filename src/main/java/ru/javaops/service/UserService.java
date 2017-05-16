@@ -27,4 +27,6 @@ public interface UserService {
     User update(UserToExt userTo);
 
     User findByEmailAndGroupName(String email, String groupName);
+
+    User get(int id);
 }
