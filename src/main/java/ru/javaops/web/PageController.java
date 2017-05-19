@@ -18,7 +18,6 @@ import ru.javaops.service.CachedGroups;
 import ru.javaops.service.SqlService;
 import ru.javaops.service.SubscriptionService;
 import ru.javaops.to.UserAdminsInfo;
-import ru.javaops.to.UserStat;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -41,14 +40,6 @@ public class PageController {
 
     @Autowired
     private SubscriptionService subscriptionService;
-
-    @GetMapping(value = "/users")
-    public ModelAndView usersInfo(@RequestParam("key") String key, @RequestParam("email") String email) {
-        List<UserStat> users = userRepository.findAllForStats();
-        return (users.stream().anyMatch(u -> u.getEmail().equals(email))) ?
-                new ModelAndView("users", "users", users) :
-                new ModelAndView("statsForbidden");
-    }
 
     @GetMapping(value = "/user")
     public ModelAndView userInfo(@RequestParam("email") String email,

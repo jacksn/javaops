@@ -156,7 +156,7 @@ public class GroupService {
         return includeUsers;
     }
 
-    public User getCurrentUserInProject(String email, String projectName) {
+    public User getExistedUserInProject(String email, String projectName) {
         User u;
         if (projectName.equals("javaops")) {
             u = userService.findExistedByEmail(email);

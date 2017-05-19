@@ -16,7 +16,6 @@ import ru.javaops.model.*;
 import ru.javaops.service.*;
 import ru.javaops.to.UserMail;
 import ru.javaops.to.UserTo;
-import ru.javaops.to.UserToExt;
 import ru.javaops.util.ProjectUtil;
 import ru.javaops.util.Util;
 
@@ -52,10 +51,6 @@ public class SubscriptionController {
 
     @Autowired
     private IdeaCouponService ideaCouponService;
-
-    @Autowired
-    private GoogleAdminSDKDirectoryService googleAdminSDKDirectoryService;
-
 
     @RequestMapping(value = "/activate", method = RequestMethod.GET)
     public ModelAndView activate(@RequestParam("email") String email, @RequestParam("activate") boolean activate, @RequestParam("key") String key) {
@@ -179,45 +174,5 @@ public class SubscriptionController {
         } else {
             throw new IllegalStateException("Ошибка отправки почты" + response);
         }
-    }
-
-    @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key) {
-        User u = userService.findExistedByEmail(email);
-        return new ModelAndView("profile", ImmutableMap.of("user", u, "key", key));
-    }
-
-    @RequestMapping(value = "/participate", method = RequestMethod.GET)
-    public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key, @RequestParam("project") String projectName) {
-        User u = groupService.getCurrentUserInProject(email, projectName);
-        return new ModelAndView("profile", ImmutableMap.of("user", u, "projectName", projectName, "key", key));
-    }
-
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView save(@RequestParam("key") String key, @RequestParam(value = "project", required = false) String project, @Valid UserToExt userToExt, BindingResult result) {
-        if (result.hasErrors()) {
-            throw new ValidationException(Util.getErrorMessage(result));
-        }
-        userService.update(userToExt);
-        if (!Strings.isNullOrEmpty(project)) {
-            String email = userToExt.getEmail();
-            groupService.getCurrentUserInProject(email, project);
-            return grantAllAccess(email, userToExt.getGmail(), project, key);
-        } else {
-            return new ModelAndView("saveProfile", ImmutableMap.of("userToExt", userToExt, "key", key));
-        }
-    }
-
-    private ModelAndView grantAllAccess(String email, String gmail, String project, String key) {
-        log.info("grantAllAccess to {}/{}", email, gmail);
-        IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, project);
-        String accessResponse = "";
-        if (!project.equals("javaops")) {
-            accessResponse = googleAdminSDKDirectoryService.insertMember(project + "@javaops.ru", gmail);
-        }
-        return new ModelAndView("registration",
-                ImmutableMap.of("response", response, "email", email,
-                        "activationKey", key,
-                        "accessResponse", accessResponse));
     }
 }
