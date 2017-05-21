@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -16,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Properties;
 
 /**
@@ -23,6 +26,7 @@ import java.util.Properties;
  */
 @Configuration
 public class AppConfig {
+    public static final Properties SQL_PROPS = new Properties();
 
     @Profile("dev")
     @Bean(initMethod = "start", destroyMethod = "stop")
@@ -42,7 +46,10 @@ public class AppConfig {
                 .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
     }
 
-    public static final Properties SQL_PROPS = new Properties();
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate(Collections.singletonList(new MappingJackson2HttpMessageConverter()));
+    }
 
     @Scheduled(fixedRate = 5000)  // every 5 sec
     private void refreshSqlProps() {
