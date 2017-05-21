@@ -7,7 +7,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.javaops.LoggedUser;
+import ru.javaops.AuthorizedUser;
 import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
 import ru.javaops.to.UserMail;
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     private UserRepository userRepository;
 
     @Override
-    public LoggedUser loadUserByUsername(final String email) {
+    public AuthorizedUser loadUserByUsername(final String email) {
         String lowercaseLogin = email.toLowerCase();
         log.debug("Authenticating {}", email);
         User user = userRepository.findByEmail(lowercaseLogin);
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService, org.springframework.securit
         if (!user.isActive()) {
             throw new DisabledException("User " + lowercaseLogin + " was not activated");
         }
-        return new LoggedUser(user);
+        return new AuthorizedUser(user);
     }
 
 
