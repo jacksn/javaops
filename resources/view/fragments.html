@@ -1,26 +1,49 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="headTag (title)">
+<head th:fragment="headTag(title)">
     <meta charset="UTF-8"/>
     <title th:text="${title}"></title>
     <link rel="stylesheet" href="/static/bootstrap-3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/static/bootstrap-3.3.6/css/blog.css"/>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.6/css/bootstrap-social.min.css"/>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.6/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="/static/plugins/bootstrap.footnotes.css"/>
     <link rel="stylesheet" href="/css/style.css"/>
     <link rel="shortcut icon" href="/static/img/java_cup.ico"/>
 </head>
 
-<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
-    <div class="container">
-        <a href="/" class="navbar-brand">Java Online Projects</a>
-        <div class="collapse navbar-collapse">
-            <form class="navbar-form navbar-right">
-                <a href="skype: grigory.kislin" class="btn btn-link">skype: grigory.kislin</a>
-                <a href="mailto:admin@javaops.ru" class="btn-link"><img src="/static/img/email.png"/></a>
-                <a href="https://vk.com/javawebinar" class="btn-link" target="_blank"><img src="/static/img/vk.gif"/></a>
-            </form>
+<th:block th:fragment="header(authorized)">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <a href="/" class="navbar-brand">Java Online Projects</a>
+            <div class="collapse navbar-collapse">
+                <div class="navbar-form navbar-right">
+                    <a th:if="${!authorized}" href="/login/github" class="btn btn-social btn-github">
+                        <span class="fa fa-github"></span>
+                        Войти с GitHub
+                    </a>
+                    <a th:if="${authorized}" href="/profile" class="btn btn-info">
+                        Профиль
+                    </a>
+                    <a th:if="${authorized}" href="/logout" class="btn btn-primary">
+                        Выход
+                    </a>
+
+                </div>
+                <form class="navbar-form navbar-right">
+                    <a href="skype: grigory.kislin" class="btn btn-social-icon btn-dropbox">
+                        <span class="fa fa-skype"></span>
+                    </a>
+                    <a href="mailto:admin@javaops.ru" class="btn btn-social-icon btn-google">
+                        <span class="fa fa-envelope"></span>
+                    </a>
+                    <a href="https://vk.com/javawebinar" class="btn btn-social-icon btn-vk" target="_blank">
+                        <span class="fa fa-vk"></span>
+                    </a>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+</th:block>
 
 <th:block th:fragment="footer">
     <script src="/static/jquery-1.12.0.min.js"></script>
@@ -45,34 +68,44 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         (function (d, w, c) {
-            (w[c] = w[c] || []).push(function() {
+            (w[c] = w[c] || []).push(function () {
                 try {
                     w.yaCounter36112350 = new Ya.Metrika({
-                        id:36112350,
-                        clickmap:true,
-                        trackLinks:true,
-                        accurateTrackBounce:true
+                        id: 36112350,
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true
                     });
-                } catch(e) { }
+                } catch (e) {
+                }
             });
 
             var n = d.getElementsByTagName("script")[0],
-                    s = d.createElement("script"),
-                    f = function () { n.parentNode.insertBefore(s, n); };
+                s = d.createElement("script"),
+                f = function () {
+                    n.parentNode.insertBefore(s, n);
+                };
             s.type = "text/javascript";
             s.async = true;
             s.src = "https://mc.yandex.ru/metrika/watch.js";
 
             if (w.opera == "[object Opera]") {
                 d.addEventListener("DOMContentLoaded", f, false);
-            } else { f(); }
+            } else {
+                f();
+            }
         })(document, window, "yandex_metrika_callbacks");
         /*]]>*/
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/36112350" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/36112350" style="position:absolute; left:-9999px;" alt=""/></div>
+    </noscript>
 </th:block>
+
 <th:block th:fragment="skype">
-    <a data-config="commands=chat,add;size=14;status=on;theme=logo;bgcolor=#2a92f3" id="skaip-buttons" href="http://www.skaip.su/">Skype</a>
+    <a data-config="commands=chat,add;size=14;status=on;theme=logo;bgcolor=#2a92f3" id="skaip-buttons"
+       href="http://www.skaip.su/">Skype</a>
     <script src="http://apps.skaip.su/buttons/widget/core.min.js" defer="defer"></script>
 </th:block>
+
 </html>
