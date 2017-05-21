@@ -9,15 +9,7 @@
     <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header">
-    <div class="container">
-        <a href="/" class="navbar-brand">Java Online Projects</a>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-            </ul>
-        </div>
-    </div>
-</div>
+<th:block th:include="fragments::header(${authorized})"/>
 <div class="jumbotron">
     <div class="container box">
         <!--/*@thymesVar id="email" type="java.lang.String"*/-->

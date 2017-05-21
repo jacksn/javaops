@@ -13,20 +13,14 @@
     <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
+<th:block th:include="fragments::header(${authorized})"/>
+
+<div class="container pad wide">
+    <div class="row">
         <a data-toggle="collapse" data-target="#why" href="#why" class="navbar-brand">Почему Java Online
             Projects?</a>
-        <div class="collapse navbar-collapse">
-            <form class="navbar-form navbar-right">
-                <a href="skype:grigory.kislin" style="font-size: large; color: white">grigory.kislin</a>
-                <a href="mailto:admin@javaops.ru" class="btn-link"><img src="/static/img/email.png"/></a>
-                <a href="https://vk.com/javawebinar" class="btn-link" target="_blank"><img src="/static/img/vk.gif"/></a>
-            </form>
-        </div>
     </div>
-</div>
-<div class="container pad wide">
+
     <div id="why" class="panel-collapse collapse">
         <ul class="list-group" style="margin-bottom: 0;">
             <li class="list-group-item">
@@ -114,14 +108,21 @@
         <h2><a href="/story.html">Наши истории (делимся опытом и успехом)</a></h2>
         <hr/>
         <h2><a href="https://github.com/JavaOPs/topjava">Стажировка Java Enterprise:</a></h2>
-        <h3><b>Старт следующей стажировки: 06.07 (<a href="https://github.com/JavaOPs/topjava/blob/master/ReleaseNotes.md">история изменений</a>).</b></h3>
-        <p>Разработка <strong>полнофункционального Spring/JPA Enterprise приложения c авторизацией и правами доступа на основе ролей с использованием наиболее популярных инструментов и технологий Java: Maven, Spring MVC, Security, JPA(Hibernate), REST(Jackson), Bootstrap (css,js), datatables, jQuery + plugins, Java 8 Stream and Time API и хранением в базах данных Postgresql и HSQLDB.</strong><br/>
-        <h4><a href="http://topjava.herokuapp.com/">Приложения проекта, задеплоенное в Heroku (будет у каждого участника)</a></h4>
+        <h3><b>Старт следующей стажировки: 06.07 (<a
+                href="https://github.com/JavaOPs/topjava/blob/master/ReleaseNotes.md">история изменений</a>).</b></h3>
+        <p>Разработка <strong>полнофункционального Spring/JPA Enterprise приложения c авторизацией и правами доступа на
+            основе ролей с использованием наиболее популярных инструментов и технологий Java: Maven, Spring MVC,
+            Security, JPA(Hibernate), REST(Jackson), Bootstrap (css,js), datatables, jQuery + plugins, Java 8 Stream and
+            Time API и хранением в базах данных Postgresql и HSQLDB.</strong><br/>
+        <h4><a href="http://topjava.herokuapp.com/">Приложения проекта, задеплоенное в Heroku (будет у каждого
+            участника)</a></h4>
         </p>
         <hr/>
-        <h2><a href="https://github.com/JavaOPs/masterjava">Многомодульный maven. Многопоточность. XML. Веб сервисы. Удаленное взаимодействие.</a></h2>
+        <h2><a href="https://github.com/JavaOPs/masterjava">Многомодульный maven. Многопоточность. XML. Веб сервисы.
+            Удаленное взаимодействие.</a></h2>
         <h3><b>Стажировка идет. Следующий набор ориентировочно в конце лета/осенью.</b></h3>
-        <h4><a href="https://github.com/JavaOPs/masterjava/blob/master/README.md#Программа-проекта-1">Программа проекта</a></h4>
+        <h4><a href="https://github.com/JavaOPs/masterjava/blob/master/README.md#Программа-проекта-1">Программа
+            проекта</a></h4>
         <hr/>
         <h2><a href="https://github.com/JavaOPs/JavaSE-Web">Курс JavaSE + Web</a></h2>
         <p>Разработка WEB-приложения, основываясь на базовых темах курса: объектная модель, коллекции, система
@@ -132,17 +133,20 @@
         <hr/>
         <h2><a href="/interview/test.html">Тестовое интервью на Java разработчика</a></h2>
         <h3></h3>
-        <p>Принципы ООП, Java Core, Коллекции, Java 8, Html/Tomcat/Сервлеты, Spring/IoC, DI, IoC-контейнер, ORM/Hibernate/JPA,
+        <p>Принципы ООП, Java Core, Коллекции, Java 8, Html/Tomcat/Сервлеты, Spring/IoC, DI, IoC-контейнер,
+            ORM/Hibernate/JPA,
             Многопоточность/JMM, Алгоритмы/Сложность, Паттерны проектирования, JDBC/Транзакции/ACID, Maven</p>
-</div>
+    </div>
     <table>
         <tr>
             <td><img src="../static/img/javaops.png" class="img-responsive center-block"/></td>
             <td style="padding: 0 50px"><script type="text/javascript" src="//vk.com/js/api/openapi.js?136"></script>
-
                 <!-- VK Widget -->
                 <div id="vk_groups"></div>
                 <script type="text/javascript">
+                    VK.init({
+                        onlyWidgets: true
+                    });
                     VK.Widgets.Group("vk_groups", {mode: 3, width: "220"}, 58538268);
                 </script>
             </td>
@@ -150,6 +154,6 @@
     </table>
 </div>
 </body>
-<th:block th:include="fragments::skype"/>
+<!--<th:block th:include="fragments::skype"/>-->
 <th:block th:include="fragments::footer"/>
 </html>

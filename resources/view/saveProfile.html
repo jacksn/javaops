@@ -9,15 +9,7 @@
     <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header">
-    <div class="container">
-        <a href="/" class="navbar-brand">Java Online Projects</a>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-            </ul>
-        </div>
-    </div>
-</div>
+<th:block th:include="fragments::header(${authorized})"/>
 <div class="jumbotron">
     <div class="container box">
         <h4>Спасибо, обновления записаны!</h4>
@@ -27,14 +19,17 @@
             <h4>Если еще нет: жду после испытательного срока. Поделись опытом и успехами, это важно!</h4>
         </th:block>
         <h4 th:if="${userToExt.considerJobOffers}">
-            Для получения предложений о вакансиях обязательно заполни поле <code>Ссылка на резюме</code> и напиши для HR <code>Обо мне</code> так, что твое резюме захотят открыть!
+            Для получения предложений о вакансиях обязательно заполни поле <code>Ссылка на резюме</code> и напиши для HR
+            <code>Обо мне</code> так, что твое резюме захотят открыть!
         </h4>
         <h3 th:if="${userToExt.statsAgree}">
             <!--/*@thymesVar id="key" type="java.lang.String"*/-->
             <a th:href="@{/users(email=${userToExt.email}, key=${key})}">Список участников,
                 отсортированный по городам</a>
         </h3>
-        <dd><button class="btn" onclick="window.history.back()">Вернуться к редактированию профиля</button></dd>
+        <dd>
+            <button class="btn" onclick="window.history.back()">Вернуться к редактированию профиля</button>
+        </dd>
     </div>
 </div>
 </body>
