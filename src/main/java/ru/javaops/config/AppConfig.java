@@ -37,7 +37,7 @@ public class AppConfig {
     }
 
     @Autowired
-    public void configeJackson(ObjectMapper objectMapper) {
+    public void configureJackson(ObjectMapper objectMapper) {
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
                 .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
     }
