@@ -8,10 +8,14 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import ru.javaops.AuthorizedUser;
+import ru.javaops.model.User;
+import ru.javaops.service.UserService;
 import ru.javaops.to.UserTo;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,14 +29,21 @@ public abstract class AbstractOAuth2Controller {
     protected RestTemplate template;
 
     @Autowired
-    private UserDetailsService service;
+    private UserService userService;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @RequestMapping("/callback")
     public String authenticate(@RequestParam String code, @RequestParam String state, HttpServletRequest request) {
         if (state.equals("csrf_token_auth")) {
             String accessToken = getAccessToken(code);
-            UserTo user = getUserDetails(accessToken);
-            UserDetails userDetails = service.loadUserByUsername(user.getEmail());
+            UserTo userTo = getUserDetails(accessToken);
+            User user = userService.findByEmailOrGmail(userTo.getEmail());
+            if (user == null) {
+                throw new UsernameNotFoundException("Пользователь с адресом " + userTo.getEmail() + " не зарегистрирован.");
+            }
+            UserDetails userDetails = new AuthorizedUser(user);
             SecurityContext securityContext = SecurityContextHolder.getContext();
             securityContext.setAuthentication(
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities())

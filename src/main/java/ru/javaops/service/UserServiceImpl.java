@@ -62,6 +62,11 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     }
 
     @Override
+    public User findByEmailOrGmail(String email) {
+        return userRepository.findByEmailOrGmail(email.toLowerCase());
+    }
+
+    @Override
     public User findExistedByEmail(String email) {
         return checkNotNull(findByEmail(email), "Пользователь %s не найден", email);
     }
