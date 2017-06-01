@@ -80,7 +80,7 @@ public class SubscriptionController {
         UserGroup userGroup = groupService.registerAtGroup(userTo, group, channel, participationType);
         String mailResult = "без отправки";
         if (StringUtils.isNotEmpty(template)) {
-            mailResult = mailService.sendToUser(template, userGroup.getUser());
+            mailResult = mailService.sendWithTemplate(template, new UserMail(userGroup.getUser()), ImmutableMap.of("participationType", participationType));
         }
         ImmutableMap<String, ?> params = ImmutableMap.of("userGroup", userGroup, "result", mailResult);
 

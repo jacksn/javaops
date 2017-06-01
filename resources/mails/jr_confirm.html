@@ -1,13 +1,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Зачисление на стажировку JavaRush 16.03</title>
+    <title>Зачисление на стажировку JavaRush 06.07.2017</title>
 </head>
 <p th:replace="mailFragments::header(${user})">
     Здравствуй!<br/>
 </p>
 <p>Ваше решение тестового задания проверено. Поздравляю, результат положительный!<br/>
     Вы зачислены на <a href="https://javarush.ru/prices#internship">стажировку JavaRush 06.07.2017</a>
+</p>
+<p>
+    Тип участия: <b th:text="${participationType == T(ru.javaops.model.ParticipationType).HW_REVIEW} ? 'С ПРОВЕРКОЙ домашних заданий':'БЕЗ ПРОВЕРКИ домашних заданий'"></b> (про <i>проверку домашних заданий</i> смотрите ниже).
 </p>
 <h3>Информация по проекту от преподавателя Григория Кислина:</h3>
 <h3>Поздравляю с участием в стажировке на <a href="https://github.com/JavaOPs/topjava">проекте Java Enterprise

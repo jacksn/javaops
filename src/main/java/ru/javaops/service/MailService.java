@@ -101,7 +101,7 @@ public class MailService {
         return groupResultBuilder.buildOK();
     }
 
-    private User getAppUser() {
+    User getAppUser() {
         return userService.findExistedByEmail(appProperties.getEmail());
     }
 
