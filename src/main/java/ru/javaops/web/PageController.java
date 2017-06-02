@@ -105,10 +105,12 @@ public class PageController {
     }
 
     private void setCookie(HttpServletResponse response, String name, String value) {
-        log.info("+++ set Cookie '{}' : '{}'", name, value);
-        Cookie cookie = new Cookie(name, value);
-        cookie.setPath("/");
-        cookie.setMaxAge(60 * 60 * 24 * 30); // 30 days
-        response.addCookie(cookie);
+        if (value != null) {
+            log.info("+++ set Cookie '{}' : '{}'", name, value);
+            Cookie cookie = new Cookie(name, value);
+            cookie.setPath("/");
+            cookie.setMaxAge(60 * 60 * 24 * 30); // 30 days
+            response.addCookie(cookie);
+        }
     }
 }
