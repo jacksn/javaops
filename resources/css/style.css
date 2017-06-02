@@ -39,6 +39,11 @@ footer {
     color: #CCC;
 }
 
+a[href^="skype:"] {
+    font-size: large !important;
+    color: white !important;
+}
+
 a[href^="mailto:"] {
     padding-left: 20px !important;
     background: url(../static/img/email.png) no-repeat center left;
