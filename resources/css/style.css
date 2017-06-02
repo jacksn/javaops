@@ -41,7 +41,7 @@ footer {
 
 a[href^="skype:"] {
     font-size: large !important;
-    color: white !important;
+    color: darkgray !important;
 }
 
 a[href^="mailto:"] {
