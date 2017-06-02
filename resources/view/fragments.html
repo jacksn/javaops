@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="headTag (title)">
     <meta charset="UTF-8"/>
-    <title th:text="${title}"></title>
+    <title th:text="${title==null ? title: 'Java Online Projects'}"></title>
     <link rel="stylesheet" href="/static/bootstrap-3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/static/bootstrap-3.3.6/css/blog.css"/>
     <link rel="stylesheet" href="/static/plugins/bootstrap.footnotes.css"/>
@@ -28,7 +28,7 @@
     <footer>
         Java Enterprise EE проект обучение курсы online онлайн обучение e-lerning семинар вебинар программирование
         джава удаленное обучение корпоративное обучение JPA Maven Spring Hibernate REST webinar
-        Москва Санкт-Петербург Киев Минск Харьков Новосибирск Днепропетровск Одесса Уфа Владивосток
+        Москва Санкт-Петербург Киев Kiev Минск Minsk Харьков Новосибирск Днепропетровск Одесса Уфа Владивосток
         Краснодар Львов Запорожье Самара Нижний Новгород Николаев Гродно Казань Караганда Гомель Пермь
         Рига Алматы Днепр Саратов Астана Екатеринбург Ростов-на-дону Херсон Воронеж Ижевск
     </footer>
@@ -41,38 +41,9 @@
     <script src="/static/plugins/bootstrap.footnotes.js"></script>
 </th:block>
 
-<th:block th:fragment="yandex">
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-        (function (d, w, c) {
-            (w[c] = w[c] || []).push(function() {
-                try {
-                    w.yaCounter36112350 = new Ya.Metrika({
-                        id:36112350,
-                        clickmap:true,
-                        trackLinks:true,
-                        accurateTrackBounce:true
-                    });
-                } catch(e) { }
-            });
-
-            var n = d.getElementsByTagName("script")[0],
-                    s = d.createElement("script"),
-                    f = function () { n.parentNode.insertBefore(s, n); };
-            s.type = "text/javascript";
-            s.async = true;
-            s.src = "https://mc.yandex.ru/metrika/watch.js";
-
-            if (w.opera == "[object Opera]") {
-                d.addEventListener("DOMContentLoaded", f, false);
-            } else { f(); }
-        })(document, window, "yandex_metrika_callbacks");
-        /*]]>*/
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/36112350" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-</th:block>
 <th:block th:fragment="skype">
-    <a data-config="commands=chat,add;size=14;status=on;theme=logo;bgcolor=#2a92f3" id="skaip-buttons" href="http://www.skaip.su/">Skype</a>
+    <a data-config="commands=chat,add;size=14;status=on;theme=logo;bgcolor=#2a92f3" id="skaip-buttons"
+       href="http://www.skaip.su/">Skype</a>
     <script src="http://apps.skaip.su/buttons/widget/core.min.js" defer="defer"></script>
 </th:block>
 </html>
