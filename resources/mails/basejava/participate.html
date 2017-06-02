@@ -1,0 +1,93 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Участие в проекте 'Разработка Web приложения "База данных резюме"'.</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+<p>
+    Поздравляю тебя с участием в проекте "<a href="http://javawebinar.ru/basejava">Разработка Web приложения "База данных резюме"</a>"!<br/>
+    На проекте общаемся на ты, так удобнее и процесс становится более неформальным. Проект ведется по подготовленным на основе вебинара, разбитым по темам и отредактированым записям в индивидуальном режиме. Все домашние
+    задания являются чаcтью проекта, подобранны по темам занятий и требуют реализации функциональности, схожей с
+    пройденной на занятии.
+</p>
+<h4>Заполнение регистрационной формы</h4>
+Общение на проекте будет вестись в группе <a href="http://basejava.slack.com">Slack</a>. <b>Заполни пожалуйста все поля
+    <a
+            th:href="@{http://javaops.ru/participate(email=${user.email}, key=${activationKey}, project='basejava')}"
+            href="#">регистрационной формы</a></b>. После ее сохранения
+<ul>
+    <li>на почту придет приглашение в группу (обычно в течении 5 мин, проверь папку спам)</li>
+    <li>по gmail аккаунту предоставится доступ к материалам. Если <b><a
+            href="https://drive.google.com/file/d/0B_4NpoQW1xfpd1BIUXJ3T2REbGM">
+        картинка по ссылке закрыта</a></b>, по порядку:
+        <ul>
+            <li>выйти-войти в gmail аккаунт, который ты указал в форме регистрации</li>
+            <li>попробовать войти в анонимной вкладке</li>
+            <li><b>Внимание!! НЕ НАДО запрашивать доступ через Google Drive (он дается автоматически по заполнению
+                формы)</b></li>
+            <li>если доступа нет, напиши мне в skype <i>grigory.kislin</i> или в <a
+                    href="https://basejava.slack.com/messages/@grigory.kislin/">личку в группы Slak</a></li>
+        </ul>
+    </li>
+</ul>
+Общение в Slack происходит в каналах по темам, для каждого нового занятие будет делаться отдельный канал. Обсуждение первого занятия происходит в канале Slack <a
+        href="https://basejava.slack.com/messages/lesson01/">#lesson01</a>.<br/>
+Другие каналы Slack:
+<ul>
+    <li><a href="https://basejava.slack.com/messages/flooding/">#flooding</a>: оффтопик</li>
+    <li><a href="https://basejava.slack.com/messages/general/">#general</a>: общие вопросы</li>
+    <li><a href="https://basejava.slack.com/messages/idea/">#idea</a>: вопросы по IDEA</li>
+    <li><a href="https://basejava.slack.com/messages/links">#links</a>: интересные ресурсы</li>
+    <li><a href="https://basejava.slack.com/messages/rss">#rss</a>: подписка на публикации от JUG.ru, Хабрабабр,
+        Типичный программист.
+    </li>
+</ul>
+<a href="https://get.slack.help/hc/en-us/articles/202288908-Formatting-your-messages">Форматирование сообщений в
+    slack</a><br/>
+<a href="https://slack.com/downloads">Desktop/ Mobile приложение Slack</a>
+<h4>IDE: JetBrains IDEA</h4>
+<a href="https://habrahabr.ru/post/112749/">IDEA считается лучшей Java IDE</a>, и по <a
+        href="http://zeroturnaround.com/rebellabs/java-tools-and-technologies-landscape-2016/">последней
+    статистике</a> IntelliJ is the number one IDE. Поэтому разработка проекта ведется в JetBrains IDEA, <b><a href="https://www.jetbrains.com/idea/download">брать версию
+    Ultimate</a></b><br/>
+Если ты студент (или есть знакомые студенты/ аспиранты), то лучше взять <a
+        href="https://www.jetbrains.com/student/">студенческую
+    учебную лицензию JetBrains IDEA на год</a>. Купон на <b>бесплатную личную лизензию IntelliJ IDEA на полгода</b>
+можно получить согласно политике JetBrains только
+один раз <a th:href="@{http://javaops.ru/idea(email=${user.email}, project='basejava')}">по этой ссылке</a> и далее по
+инструкции в письме (лучше активировать ее после месячного trial периода, купон будет действителен).
+<h4>Проверка домашних заданий</h4>
+Разбор домашний заданий происходит в начале каждого занятия.<br/>
+Если у тебя участие с проверкой ДЗ, то свое решение нужно присылать на проверку
+<a href="https://basejava.slack.com/messages/@tanya">Татьяне (@tanya)</a> личным сообщением группы Slak в течении недели.
+Если есть объективные причины, по которым не получается выполнить задание в течении недели, необходимо сообщить об этом Татьяне (из за разницы во времени Татьяна появляется онлайн ближе к вечеру).
+<p>
+    Проверка заданий подразумевает ревью твоего кода (лучше ДЗ присылать пораньше, чтобы успеть поправить ошибки и
+    сделать еще одно ревью). Ты увидишь именно свои ошибки в стиле, структурах данных,
+    алгоритмах и кодировании. <b>Это самый эффективный способ научиться программировать</b>. Все домашние задания
+    являются частью проекта. Участники чекинят код в
+    гитхаб и шлют ссылку на репозиторий. Результат проверки пишется в slack. Получается эффективно и
+    оперативно. Можно что-то переделать и снова поревьюится.<br/>
+</p>
+<h4>Пожелания к участникам.</h4>
+Для усвоения материала ВЫПОЛНЯТЬ ДОМАШНИЕ ЗАДАНИЯ НЕОБХОДИМО: после
+лекции, через месяц у студента в голове остаётся 3% знаний. А если он выполнил упражнение на практике то в памяти
+сохраняется 95% знаний + бонус. Студент, практикуя упражнение, открывает ещё 50% нюансов знаний, которые не были
+озвучены преподавателем.
+
+<h4>Ресурсы</h4>
+<ul>
+    <li><a href="https://github.com/JavaOPs/basejava/blob/master/README.md#Рекомендуемые-книги">Полезные ресурсы</a></li>
+    <li><a href="https://github.com/JavaOPs/topjava/wiki/IDEA">Wiki по IDEA</a></li>
+</ul>
+<p>
+    <span>Удачи в освоении материалов и выполнении задания,</span><br/>
+    Григорий Кислин<br/>
+    <em>skype: grigory.kislin</em>
+</p>
+<p>
+    <a href="http://javaops.ru">Java Online Projects</a>
+</p>
+</html>

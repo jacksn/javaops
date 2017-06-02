@@ -19,7 +19,7 @@ spring:
 #http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-caching.html#boot-features-caching-provider-caffeine
 spring.cache:
     cache-names: group, groups, member_groups
-    guava.spec: maximumSize=100, expireAfterAccess=300s
+    guava.spec: maximumSize=100, expireAfterAccess=15s
 
 logging:
     file: javaops.log
@@ -28,6 +28,6 @@ logging:
        org.hibernate.engine.jdbc.spi.SqlStatementLogger: DEBUG
 
 spring.http.encoding:
-         charset: UTF-8 # Charset of HTTP requests and responses. Added to the "Content-Type" header if not set explicitly.
-         enabled: true # Enable http encoding support.
-         force: true
+    charset: UTF-8 # Charset of HTTP requests and responses. Added to the "Content-Type" header if not set explicitly.
+    enabled: true # Enable http encoding support.
+    force: true
