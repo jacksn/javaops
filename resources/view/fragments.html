@@ -55,7 +55,8 @@
     <script src="http://apps.skaip.su/buttons/widget/core.min.js" defer="defer"></script>
 </th:block>
 
-<div th:fragment="modal(project)">
+<div th:fragment="modal(project, title)">
+    <h3 style="text-align: center" th:text="${title}"></h3>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
