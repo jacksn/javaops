@@ -6,8 +6,8 @@
 <p th:replace="mailFragments::header(${user})">
     Здравствуй!<br/>
 </p>
-<h3>Спасибо за регистрацию на проект <a href="http://javawebinar.ru/topjava">Java Enterprise (Topjava)</a>:</h3>
-<div th:include="topjava_info::topjava_info"></div>
+<h3>Спасибо за регистрацию на проект <a href="http://javaops.ru/reg/topjava">Java Enterprise (Topjava)</a>:</h3>
+<div th:include="topjava_info::info"></div>
 <p th:include="mailFragments::footer(${subscriptionUrl})">
 </p>
 </html>
