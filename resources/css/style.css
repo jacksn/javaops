@@ -38,3 +38,38 @@ footer {
     font-size: 75%;
     color: #CCC;
 }
+
+a[href^="mailto:"] {
+    padding-left: 20px !important;
+    background: url(/static/img/email.png) no-repeat center left;
+}
+
+a[href^="http://vk.com"], .vk {
+    padding-left: 20px !important;
+    background: url(/static/img/vk.gif) no-repeat center left;
+}
+
+a[href^="http://www.youtube.com"], .video {
+    padding-left: 20px !important;
+    background: url(/static/img/youtube.ico) no-repeat center left;
+}
+
+a[href^="http://habrahabr.ru"] {
+    padding-left: 20px !important;
+    background: url(/static/img/habrahabr.png) no-repeat center left;
+}
+
+a[href^="http://stackoverflow.com"] {
+    padding-left: 20px !important;
+    background: url(/static/img/so.ico) no-repeat center left;
+}
+
+a[href*="github.com"] {
+    padding-left: 20px !important;
+    background: url(/static/img/gh.png) no-repeat center left;
+}
+
+a[href*="drive.google.com"] {
+    padding-left: 20px !important;
+    background: url(/static/img/gdrv.ico) no-repeat center left;
+}
