@@ -1,13 +1,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Регистрация на проект 'Java Enterprise (Topjava)'</title>
+    <title>Регистрация на стажировку 'Java Enterprise (Topjava)'</title>
 </head>
 <p th:replace="mailFragments::header(${user})">
     Здравствуй!<br/>
 </p>
-<h3>Спасибо за регистрацию на проект <a href="http://javaops.ru/reg/topjava">Java Enterprise (Topjava)</a>:</h3>
+<h3>Спасибо за регистрацию на стажировку <a href="https://github.com/JavaOPs/topjava">Java Enterprise (Topjava)</a>:</h3>
 <div th:include="topjava_info::info"></div>
-<p th:include="mailFragments::footer(${subscriptionUrl})">
-</p>
 </html>
