@@ -23,11 +23,18 @@
 </div>
 
 <th:block th:fragment="footer">
+    <hr/>
+    <script type="text/javascript" src="//yastatic.net/share/share.js" charset="utf-8"></script>
+    <div class="yashare-auto-init" data-yashareL10n="ru"
+         data-yashareType="button"
+         data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir">
+    </div>
+    <br/>
     <script src="/static/jquery-1.12.0.min.js"></script>
     <script src="/static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <footer>
-        Java Enterprise EE проект обучение курсы online онлайн обучение e-lerning семинар вебинар программирование
-        джава удаленное обучение корпоративное обучение JPA Maven Spring Hibernate REST webinar
+        Java Enterprise JavaEE проект стажировка обучение курсы online онлайн обучение e-lerning семинар вебинар программирование
+        джава удаленное обучение корпоративное обучение JPA Maven Spring Hibernate REST webinar intership
         Москва Санкт-Петербург Киев Kiev Минск Minsk Харьков Новосибирск Днепропетровск Одесса Уфа Владивосток
         Краснодар Львов Запорожье Самара Нижний Новгород Николаев Гродно Казань Караганда Гомель Пермь
         Рига Алматы Днепр Саратов Астана Екатеринбург Ростов-на-дону Херсон Воронеж Ижевск
@@ -46,4 +53,41 @@
        href="http://www.skaip.su/">Skype</a>
     <script src="http://apps.skaip.su/buttons/widget/core.min.js" defer="defer"></script>
 </th:block>
+
+<div class="modal fade" id="entrance" th:fragment="modal(project)">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title">Бесплатное занятие</h2>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="/register" method="post">
+                    <div class="form-group">
+                        <label for="nameSurname" class="control-label col-xs-3">Имя</label>
+                        <div class="col-xs-9">
+                            <input class="form-control" id="nameSurname" name="nameSurname"
+                                   placeholder="Имя Фамилия"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="control-label col-xs-3">Электронная почта</label>
+                        <div class="col-xs-9">
+                            <input type="email" class="form-control" id="email" name="email"
+                                   placeholder="email"/>
+                        </div>
+                    </div>
+                    <input type="text" name="template" th:value="${project}_entrance" hidden="hidden"/>
+                    <input type="text" name="project" th:value="${project}" hidden="hidden"/>
+
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-9">
+                            <button type="submit" class="btn btn-primary">Выслать ссылку</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </html>

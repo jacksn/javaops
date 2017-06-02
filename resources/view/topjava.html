@@ -288,51 +288,6 @@
         <li>Деплой <a href="http://topjava.herokuapp.com/">приложения в Heroku</a></li>
         <li>Возможные доработки приложения</li>
     </ul>
-    <hr/>
-    <script type="text/javascript" src="//yastatic.net/share/share.js" charset="utf-8"></script>
-    <div class="yashare-auto-init" data-yashareL10n="ru"
-         data-yashareType="button"
-         data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir">
-    </div>
-    <br/>
-    <!-- Modal -->
-    <div class="modal fade" id="entrance">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h2 class="modal-title">Бесплатное вступительное занятие</h2>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal" action="/register" method="post">
-                        <div class="form-group">
-                            <label for="nameSurname" class="control-label col-xs-3">Имя</label>
-                            <div class="col-xs-9">
-                                <input class="form-control" id="nameSurname" name="nameSurname"
-                                       placeholder="Имя Фамилия"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="control-label col-xs-3">Электронная почта</label>
-
-                            <div class="col-xs-9">
-                                <input type="email" class="form-control" id="email" name="email"
-                                       placeholder="email"/>
-                            </div>
-                        </div>
-                        <input type="text" name="template" value="topjava_entrance" hidden="hidden"/>
-                        <input type="text" name="project" value="topjava" hidden="hidden"/>
-
-                        <div class="form-group">
-                            <div class="col-xs-offset-3 col-xs-9">
-                                <button type="submit" class="btn btn-primary">Выслать ссылку</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 </body>
 <th:block th:include="fragments::skype"/>
