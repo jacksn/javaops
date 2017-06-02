@@ -1,32 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments::headTag('Java Online Projects')">
-    <!-- ============================================================================ -->
-    <!-- This <head> is only used for static prototyping purposes (natural templates) -->
-    <!-- and is therefore entirely optional, as this markup fragment will be included  -->
-    <!-- from "fragments.html" at runtime.                                            -->
-    <!-- ============================================================================ -->
-    <meta charset="UTF-8"/>
-    <title>Java Online Projects</title>
+<head th:replace="fragments::headTag()">
     <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/blog.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <a data-toggle="collapse" data-target="#why" href="#why" class="navbar-brand">Почему Java Online
-            Projects?</a>
-        <div class="collapse navbar-collapse">
-            <form class="navbar-form navbar-right">
-                <a href="skype:grigory.kislin">grigory.kislin</a>
-                <a href="mailto:admin@javaops.ru" class="btn-link">&nbsp;</a>
-                <a href="https://vk.com/javawebinar" class="btn-link" target="_blank">&nbsp;</a>
-            </form>
-        </div>
-    </div>
-</div>
-<div class="container pad wide">
+<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header"></div>
+<div class="container pad">
     <div id="why" class="panel-collapse collapse">
         <ul class="list-group" style="margin-bottom: 0;">
             <li class="list-group-item">
