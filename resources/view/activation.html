@@ -1,23 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments::headTag('Изменение подписки')">
-    <meta charset="UTF-8"/>
-    <title>Изменение подписки</title>
+<head th:replace="fragments::headTag('')">
     <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/blog.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header">
-    <div class="container">
-        <a href="/" class="navbar-brand">Java Online Projects</a>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-            </ul>
-        </div>
-    </div>
-</div>
+<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header"></div>
 <div class="jumbotron">
-    <div class="container">
+    <div class="container box">
         <br/>
         <h3 th:text="'Ваша подписка '+ (${activate} ? 'включена.' : 'выключена.')">
             Ваша подписка выключена.
