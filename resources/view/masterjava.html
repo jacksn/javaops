@@ -54,8 +54,7 @@
         </p>
         <i><strong>Требование к участникам:</strong> опыт программирования на Java (оптимально стажиовка Topjava). Базовые знания Maven.</i>
         <br/><br/>
-        <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#entrance" id="getentrance">Получить ссылку
-            на бесплатное первое занятие: Многопоточность</a>
+        <th:block th:include="fragments::modal('masterjava', 'Получить ссылку на бесплатное первое занятие: Многопоточность')"/>
         <hr/>
         <ul>
             <li><p>Стоимость участия без проверки домашних заданий: 8600 руб./ 155$ (после курса TopJava: <b>7900 руб./ 143$</b>)<br/>
@@ -76,7 +75,6 @@
     </div>
     <th:block th:include="fragments::footer"/>
 </div>
-<th:block th:include="fragments::modal('masterjava')"/>
 </body>
 <th:block th:include="fragments::skype"/>
 </html>
