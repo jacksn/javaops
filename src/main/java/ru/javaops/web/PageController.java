@@ -89,7 +89,7 @@ public class PageController {
         User user = subscriptionService.decryptUser(channel);
         Cookie cookie;
         if (user == null) {
-            log.error("+++ Visit channel {}", channel);
+            log.info("+++ Visit from channel {}", channel);
             cookie = new Cookie("channel", channel);
         } else {
             log.info("+++ Visit from user {}", user.getEmail());
