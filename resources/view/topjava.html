@@ -1,24 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Стажировка Java Enterprise (Topjava)</title>
+<head th:replace="fragments::headTag('Стажировка Java Enterprise')">
     <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../static/plugins/bootstrap.footnotes.css"/>
+    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/blog.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <a href="/" class="navbar-brand">Java Online Projects</a>
-        <form class="navbar-form navbar-right">
-            <a href="skype:grigory.kislin">grigory.kislin</a>
-            &nbsp;<a href="mailto:admin@javaops.ru" class="btn-link">&nbsp;</a>
-            <a href="https://vk.com/javawebinar" class="btn-link" target="_blank">&nbsp;</a>
-        </form>
-    </div>
-</div>
-<div class="container indent-body">
+<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header"></div>
+<div class="container pad">
     <table width="100%">
         <tr>
             <td>
@@ -42,9 +30,11 @@
                     <h2>Старт следующего набора: 06.07</h2>
                     <h3><a href="https://github.com/JavaOPs/topjava/blob/master/description.md">Описание и план проекта
                         (открыто для просмотра 8 видео)</a></h3>
-                    <h3>&nbsp;&nbsp; <a href="http://vk.com/topic-74381644_30447246" target="_blank">Отзывы по проекту</a></h3>
+                    <h3>&nbsp;&nbsp; <a href="http://vk.com/topic-74381644_30447246" target="_blank">Отзывы по
+                        проекту</a></h3>
                     <h3><a href="http://topjava.herokuapp.com/" target="_blank" style="font-size: x-large"><img
-                            src="../static/img/icon-meal.png" align="middle"/>&nbsp; Демо разрабатываемого приложения</a></h3>
+                            src="../static/img/icon-meal.png" align="middle"/>&nbsp; Демо разрабатываемого
+                        приложения</a></h3>
                 </td>
                 <td>
                     <script type="text/javascript" src="//vk.com/js/api/openapi.js?136"></script>
@@ -69,7 +59,8 @@
             Hibernate, работа с java 8 (time API, Lambda, Streaming), модальные окна bootstrap, переключение локали,
             сильно уменьшено количество и упрощена работа с java
             script. Появилась логика фильтрации таблицы. В каждом уроке добавлены ответы на ваши вопросы по занятию,
-            дополнительные домашние задания и подсказки по выполнению домашних заданий. Начиная с 4го занятия участники пишут собственный выпускной проект.
+            дополнительные домашние задания и подсказки по выполнению домашних заданий. Начиная с 4го занятия участники
+            пишут собственный выпускной проект.
         </p>
         <h3><a href="https://github.com/JavaOPs/topjava/wiki">Требования к участникам, ответы на вопросы</a></h3>
         <i class="lead">Стажировка ведется по подготовленным на основе вебинара, разбитым по темам и отредактированым

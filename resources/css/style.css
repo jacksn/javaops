@@ -5,10 +5,10 @@
 }
 
 .pad, .box {
-    padding: 70px;
+    padding-top: 70px;
 }
 
-.wide {
+.container {
     width: 1170px !important;
 }
 
