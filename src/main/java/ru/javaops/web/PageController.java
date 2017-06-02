@@ -83,26 +83,32 @@ public class PageController {
 
     @GetMapping(value = "/ref/{project}/{channel}")
     public ModelAndView reference(@PathVariable(value = "channel") String channel,
-                                          @PathVariable(value = "project") String project,
-                                          HttpServletResponse response) {
+                                  @PathVariable(value = "project") String project,
+                                  HttpServletResponse response) {
 
         User user = subscriptionService.decryptUser(channel);
-        Cookie cookie;
         if (user == null) {
-            log.info("+++ Visit from channel {}", channel);
-            cookie = new Cookie("channel", channel);
+            setCookie(response, "channel", channel);
         } else {
-            log.info("+++ Visit from user {}", user.getEmail());
-            cookie = new Cookie("ref", user.getId().toString());
+            log.info("+++ Reference from user {}", user.getEmail());
+            setCookie(response, "ref", user.getId().toString());
         }
-        cookie.setPath("/");
-        cookie.setMaxAge(60 * 60 * 24 * 30); // 30 days
-        response.addCookie(cookie);
         return new ModelAndView("redirectToUrl", "redirectUrl", "/reg/" + project);
     }
 
     @GetMapping(value = "/reg/{project}")
-    public ModelAndView registration(@PathVariable(value = "project") String project) {
+    public ModelAndView registration(@PathVariable(value = "project") String project,
+                                     @RequestParam(value = "ch", required = false) String channel,
+                                     HttpServletResponse response) {
+        setCookie(response, "channel", channel);
         return new ModelAndView(project);
+    }
+
+    private void setCookie(HttpServletResponse response, String name, String value) {
+        log.info("+++ set Cookie '{}' : '{}'", name, value);
+        Cookie cookie = new Cookie(name, value);
+        cookie.setPath("/");
+        cookie.setMaxAge(60 * 60 * 24 * 30); // 30 days
+        response.addCookie(cookie);
     }
 }
