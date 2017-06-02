@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="headTag (title)">
     <meta charset="UTF-8"/>
-    <title th:text="${title==null ? title: 'Java Online Projects'}"></title>
+    <title th:text="${title=='' ? 'Java Online Projects': title}"></title>
     <link rel="stylesheet" href="/static/bootstrap-3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/static/bootstrap-3.3.6/css/blog.css"/>
     <link rel="stylesheet" href="/static/plugins/bootstrap.footnotes.css"/>
