@@ -55,13 +55,9 @@
     <script src="http://apps.skaip.su/buttons/widget/core.min.js" defer="defer"></script>
 </th:block>
 
-<div th:fragment="modal(project, title)">
+<div th:fragment="modal(project)">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title" th:text="${title}"></h2>
-            </div>
             <div class="modal-body">
                 <form class="form-horizontal" action="/register" method="post">
                     <div class="form-group">
