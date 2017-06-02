@@ -33,9 +33,6 @@
                     <h3><a href="https://vk.com/topic-74381644_30447246" target="_blank">Отзывы по
                         проекту</a></h3>
                     <h3><a href="http://topjava.herokuapp.com/">Демо разрабатываемого приложения</a></h3>
-                    <br/>
-                    <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#entrance" id="getentrance">Получить ссылку
-                        на бесплатное вступительное занятие</a>
                 </td>
                 <td>
                     <script type="text/javascript" src="//vk.com/js/api/openapi.js?136"></script>
@@ -46,7 +43,7 @@
                 </td>
             </tr>
         </table>
-        <hr/>
+        <th:block th:include="fragments::modal('topjava', 'Получить ссылку на бесплатное вступительное занятие')"/>
         <iframe src="https://drive.google.com/file/d/0B9Ye2auQ_NsFY1ZDNXRCd1NCTG8/preview" width="1024"
                 height="576"></iframe>
         <h3><a href="https://drive.google.com/file/d/0B9Ye2auQ_NsFY1ZDNXRCd1NCTG8/view" target="_blank"
