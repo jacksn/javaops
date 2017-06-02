@@ -44,7 +44,7 @@ a[href^="mailto:"] {
     background: url(/static/img/email.png) no-repeat center left;
 }
 
-a[href^="http://vk.com"], .vk {
+a[href^="https://vk.com"], .vk {
     padding-left: 20px !important;
     background: url(/static/img/vk.gif) no-repeat center left;
 }
