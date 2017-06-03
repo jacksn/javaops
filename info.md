@@ -317,7 +317,7 @@ https://www.leveluplunch.com/java/tutorials/004-hot-deploy-java-applications-wit
 -  <a href="http://stackoverflow.com/questions/24803279/grails-accessing-h2-tcp-server-hangs#33718748">H2 TCP connection</a>
 
 ## Spring Boot
--  http://habrahabr.ru/post/257223/
+-  https://habrahabr.ru/post/257223/
 -  <a href="http://blog.jetbrains.com/idea/2015/04/webinar-recording-spring-boot-and-intellij-idea-14-1">Spring Boot and Intellij IDEA 14</a>
 -  https://github.com/snicoll-demos/spring-boot-intellij-idea-webinar
 -  <a href="http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/">Spring Boot Reference Guide</a>
