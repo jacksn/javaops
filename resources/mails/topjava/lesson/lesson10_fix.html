@@ -1,14 +1,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Ошибка в уроке 10 (10_15_csrf.patch)</title>
+    <title>Ошибка в 10м уроке (10_15_csrf.patch)</title>
 </head>
 <body>
 <p th:replace="mailFragments::header(${user})">
     Здравствуй firstName!
 </p>
 В 10-м уроке ошибка в патче <code>10_15_csrf.patch</code>: CSFR должен выставляется в '<code>makeEditable()</code>' для всех запросов.
-Также удалил '<code>@page session="false"</code>' в JSP: не отображаются ошибки авторизации, которые находятся в сессии (а она отключена от JSP).
+Также удалил '<code>@page session="false"</code>' в JSP: не отображаются ошибки авторизации, которые находятся в сессии, отключенной от JSP.
 <h4>Накатите патч <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFNUdBXzBlZktfb3M">11_0_fix.patch</a></h4>
 <p th:include="mailFragments::lessonFooter">
 </p>
