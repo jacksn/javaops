@@ -3,6 +3,7 @@ package ru.javaops.service;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.javaops.ApplicationAbstractTest;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -10,9 +11,9 @@ import javax.crypto.spec.SecretKeySpec;
  * GKislin
  * 25.02.2016
  */
-public class SubscriptionServiceTest {
+public class SubscriptionServiceTest  extends ApplicationAbstractTest {
 
-    public static final String EMAIL = "gkislin@yandex.ru";
+    public static final String EMAIL = "dummy@yandex.ru";
 
     @Autowired
     private SubscriptionService subscriptionService;

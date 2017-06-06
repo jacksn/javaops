@@ -88,10 +88,10 @@ public class PageController {
 
         User user = subscriptionService.decryptUser(channel);
         if (user == null) {
-            setCookie(response, "channel", channel);
+            setCookie(response, "channel", channel, project);
         } else {
             log.info("+++ Reference from user {}", user.getEmail());
-            setCookie(response, "ref", user.getId().toString());
+            setCookie(response, "ref", user.getId().toString(), project);
         }
         return new ModelAndView("redirectToUrl", "redirectUrl", "/reg/" + project);
     }
@@ -100,13 +100,13 @@ public class PageController {
     public ModelAndView registration(@PathVariable(value = "project") String project,
                                      @RequestParam(value = "ch", required = false) String channel,
                                      HttpServletResponse response) {
-        setCookie(response, "channel", channel);
+        setCookie(response, "channel", channel, project);
         return new ModelAndView(project);
     }
 
-    private void setCookie(HttpServletResponse response, String name, String value) {
+    private void setCookie(HttpServletResponse response, String name, String value, String project) {
         if (value != null) {
-            log.info("+++ set Cookie '{}' : '{}'", name, value);
+            log.info("+++ set Cookie '{}' : '{}' for project {}", name, value, project);
             Cookie cookie = new Cookie(name, value);
             cookie.setPath("/");
             cookie.setMaxAge(60 * 60 * 24 * 30); // 30 days
