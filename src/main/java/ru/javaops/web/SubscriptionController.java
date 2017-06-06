@@ -54,8 +54,8 @@ public class SubscriptionController {
 
     @RequestMapping(value = "/activate", method = RequestMethod.GET)
     public ModelAndView activate(@RequestParam("email") String email, @RequestParam("activate") boolean activate, @RequestParam("key") String key) {
-        User u = userService.findExistedByEmail(email);
-        if (u.isActive() != activate) {
+        User u = userService.findByEmail(email);
+        if (u != null && u.isActive() != activate) {
             u.setActive(activate);
             u.setActivatedDate(new Date());
             userService.save(u);
