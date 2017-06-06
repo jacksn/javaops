@@ -53,7 +53,7 @@ public class MailController {
     }
 
     @RequestMapping(value = "/by-sql", method = POST)
-    public ResponseEntity<GroupResult> sendToUsersByLocation(@RequestParam("template") String template, @RequestParam("sql_key") String sqlKey) {
+    public ResponseEntity<GroupResult> sendToUsersBySql(@RequestParam("template") String template, @RequestParam("sql_key") String sqlKey) {
         Set<UserMail> users = sqlService.getUsers(sqlKey);
         return sendToGroup(template, users);
     }

@@ -219,7 +219,8 @@ public class MailService {
                 failed.add(new MailResult(email, e.toString()));
                 log.error("Sending to " + email + " failed with " + e.getMessage());
             }
-            return (failed.size() < 6) && failedCause == null;
+            double failedSize = failed.size();
+            return (failedSize < 6. || failedSize / (success + failedSize) < 0.15) && failedCause == null;
         }
     }
 
