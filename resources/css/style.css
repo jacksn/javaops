@@ -74,6 +74,11 @@ a[href^="https://stackoverflow.com"] {
     background: url(../static/img/so.ico) no-repeat center left;
 }
 
+a[href^="https://www.linkedin.com"] {
+    padding-left: 20px !important;
+    background: url(../static/img/lin.png) no-repeat center left;
+}
+
 a[href*="github.com"] {
     padding-left: 20px !important;
     background: url(../static/img/gh.png) no-repeat center left;
@@ -82,4 +87,19 @@ a[href*="github.com"] {
 a[href*="drive.google.com"] {
     padding-left: 20px !important;
     background: url(../static/img/gdrv.ico) no-repeat center left;
+}
+
+a[href*="docs.google.com"] {
+    padding-left: 20px !important;
+    background: url(../static/img/gdoc.ico) no-repeat center left;
+}
+
+a[href*="yadi.sk"] {
+    padding-left: 20px !important;
+    background: url(../static/img/yadi.png) no-repeat center left;
+}
+
+a[href*="hh.ru"] {
+    padding-left: 20px !important;
+    background: url(../static/img/hh.png) no-repeat center left;
 }
