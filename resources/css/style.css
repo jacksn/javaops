@@ -99,7 +99,7 @@ a[href*="yadi.sk"] {
     background: url(../static/img/yadi.png) no-repeat center left;
 }
 
-a[href*="hh.ru"] {
+a[href*="hh.ru"], a[href*="hh.ua"] {
     padding-left: 20px !important;
     background: url(../static/img/hh.png) no-repeat center left;
 }
