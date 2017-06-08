@@ -22,8 +22,10 @@
         <dd th:text="${user.skype}">skype</dd>
         <dt>Город</dt>
         <dd th:text="${#strings.capitalize(user.location)}">location</dd>
-        <dt>Резюме</dt>
-        <dd><a href="" th:href="${user.resumeUrl}" target="_blank">Ссылка на резюме</a></dd>
+        <div th:if="${user.resumeUrl}!=null">
+            <dt>Резюме</dt>
+            <dd><a href="" th:href="${user.resumeUrl}" target="_blank">Ссылка на резюме</a></dd>
+        </div>
         <dt>Релокация</dt>
         <dd th:text="${user.relocationReady}">true</dd>
         <dt>Место релокации</dt>
