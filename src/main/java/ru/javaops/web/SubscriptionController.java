@@ -165,7 +165,7 @@ public class SubscriptionController {
     public ModelAndView ideaRegister(@RequestParam("email") String email, @RequestParam("project") String projectName) throws MessagingException {
         ProjectUtil.ProjectProps projectProps = groupService.getProjectProps(projectName);
         User user = userService.findByEmailAndGroupId(email, projectProps.currentGroup.getId());
-        checkNotNull(user, "Пользователь %s не найден в проекте %s", email, projectName);
+        checkNotNull(user, "Пользователь %s не найден в группе %s", email, projectProps.currentGroup.getName());
 
         IdeaCoupon coupon = ideaCouponService.assignToUser(user, projectProps.project);
         String response = mailService.sendWithTemplate("idea_register", new UserMail(user), ImmutableMap.of("coupon", coupon.getCoupon()));
