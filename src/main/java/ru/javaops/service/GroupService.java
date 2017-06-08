@@ -111,14 +111,15 @@ public class GroupService {
                 return userGroupRepository.save(oldUserGroup);
             }
         }
+        Group group = ug.getGroup();
         if (ug.getRegisterType() != RegisterType.REPEAT) {
-            if (ug.getGroup().isMembers()) {
-                if (ug.getRegisterType() == RegisterType.REGISTERED) {
-                    ug = checkRemoveFromRegistered(ug);
-                }
-                user.getRoles().add(Role.ROLE_MEMBER);
+            if (group.isMembers() && ug.getRegisterType() == RegisterType.REGISTERED) {
+                ug = checkRemoveFromRegistered(ug);
             }
-            userService.save(user);
+            if (group.getRole() != null) {
+                user.getRoles().add(group.getRole());
+                userService.save(user);
+            }
         }
         return userGroupRepository.save(ug);
     }

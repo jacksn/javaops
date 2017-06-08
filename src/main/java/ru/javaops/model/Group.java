@@ -28,6 +28,14 @@ public class Group extends NamedEntity {
     @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private Set<UserGroup> groupUsers;
 
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
     public Set<UserGroup> getGroupUsers() {
         return groupUsers;
     }
@@ -49,7 +57,7 @@ public class Group extends NamedEntity {
     }
 
     public boolean isMembers() {
-        return type == GroupType.CURRENT || type == GroupType.FINISHED;
+        return role == Role.ROLE_MEMBER;
     }
 
     @Override
