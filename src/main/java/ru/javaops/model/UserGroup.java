@@ -45,12 +45,11 @@ public class UserGroup extends BaseEntity {
     public UserGroup() {
     }
 
-    public UserGroup(User user, Group group, RegisterType type, ParticipationType participationType, String channel) {
+    public UserGroup(User user, Group group, RegisterType type, String channel) {
         this.user = user;
         this.group = group;
         this.registerType = type;
         this.channel = channel;
-        this.participationType = participationType;
     }
 
     public String getChannel() {

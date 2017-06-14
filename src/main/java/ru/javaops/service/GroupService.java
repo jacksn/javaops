@@ -70,7 +70,7 @@ public class GroupService {
 
                     return new UserGroup(user,
                             registerType == RegisterType.REGISTERED ? projectProps.registeredGroup : projectProps.currentGroup,
-                            registerType, null, channel);
+                            registerType, channel);
                 });
     }
 
@@ -79,7 +79,7 @@ public class GroupService {
         log.info("add{} to group {}", userTo, groupName);
         Group group = cachedGroups.findByName(groupName);
         return registerAtGroup(userTo, channel, group, participationType,
-                user -> new UserGroup(user, group, RegisterType.REGISTERED, participationType, channel));
+                user -> new UserGroup(user, group, RegisterType.REGISTERED, channel));
     }
 
     @Transactional
@@ -87,7 +87,7 @@ public class GroupService {
         log.info("Pay from {} for {}: {}", userTo, groupName, payment);
         Group group = cachedGroups.findByName(groupName);
         UserGroup ug = registerAtGroup(userTo, channel, group, participationType,
-                user -> new UserGroup(user, group, RegisterType.REGISTERED, participationType, channel));
+                user -> new UserGroup(user, group, RegisterType.REGISTERED, channel));
         payment.setUserGroup(ug);
         paymentRepository.save(payment);
         return ug;
@@ -98,7 +98,7 @@ public class GroupService {
         UserGroup ug;
         if (user == null) {
             user = UserUtil.createFromTo(userTo);
-            ug = new UserGroup(user, newUserGroup, RegisterType.FIRST_REGISTERED, type, channel);
+            ug = new UserGroup(user, newUserGroup, RegisterType.FIRST_REGISTERED, channel);
         } else {
             ug = existedUserGroupProvider.apply(user);
             UserGroup oldUserGroup = userGroupRepository.findByUserIdAndGroupId(user.getId(), ug.getGroup().getId());
@@ -118,14 +118,15 @@ public class GroupService {
             }
             if (group.getRole() != null) {
                 user.getRoles().add(group.getRole());
-                userService.save(user);
             }
+            userService.save(user);
         }
+        ug.setParticipationType(type);
         return userGroupRepository.save(ug);
     }
 
     public UserGroup save(User user, Group group, RegisterType registerType, String channel) {
-        return userGroupRepository.save(new UserGroup(user, group, registerType, null, channel));
+        return userGroupRepository.save(new UserGroup(user, group, registerType, channel));
     }
 
     private UserGroup checkRemoveFromRegistered(UserGroup ug) {
