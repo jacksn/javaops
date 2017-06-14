@@ -341,12 +341,20 @@ public class User extends BaseEntity {
         this.comment = comment;
     }
 
+    public boolean isPartner() {
+        return hasRole(Role.ROLE_PARTNER);
+    }
+
     public boolean isAdmin() {
-        return roles != null && roles.contains(Role.ROLE_ADMIN);
+        return hasRole(Role.ROLE_ADMIN);
     }
 
     public boolean isMember() {
-        return roles != null && roles.contains(Role.ROLE_MEMBER);
+        return hasRole(Role.ROLE_MEMBER);
+    }
+
+    public boolean hasRole(Role role) {
+        return roles != null && roles.contains(role);
     }
 
     public String getMark() {
