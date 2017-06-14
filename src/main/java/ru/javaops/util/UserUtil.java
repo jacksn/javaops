@@ -24,7 +24,7 @@ public class UserUtil {
 
     public static void updateFromToExt(User user, UserToExt userToExt) {
         updateFromTo(user, userToExt);
-        if ((user.getHrUpdate()==null || user.getHrUpdate().isBefore(LocalDate.now())) // not switched back
+        if ((user.getHrUpdate() == null || user.getHrUpdate().isBefore(LocalDate.now())) // not switched back
                 && userToExt.isConsiderJobOffers() && !Strings.isNullOrEmpty(userToExt.getResumeUrl())  // visible for HR
                 && (user.isConsiderJobOffers() == null || !user.isConsiderJobOffers() || Strings.isNullOrEmpty(user.getResumeUrl()))) {  // was not visible for HR
             user.setHrUpdate(LocalDate.now());
@@ -37,11 +37,16 @@ public class UserUtil {
         assignNotEmpty(userToExt.getCompany(), user::setCompany);
         assignNotEmpty(userToExt.getResumeUrl(), user::setResumeUrl);
         assignNotEmpty(userToExt.getRelocation(), user::setRelocation);
-        user.setStatsAgree(userToExt.isStatsAgree());
         user.setConsiderJobOffers(userToExt.isConsiderJobOffers());
-        user.setJobThroughTopjava(userToExt.isJobThroughTopjava());
-        user.setRelocationReady(userToExt.isRelocationReady());
         user.setUnderRecruitment(userToExt.isUnderRecruitment());
+        if (user.isMember()) {
+            user.setStatsAgree(userToExt.isStatsAgree());
+            user.setJobThroughTopjava(userToExt.isJobThroughTopjava());
+        }
+        if (user.isPartner()) {
+            user.setPartnerResumeNotify(userToExt.isPartnerResumeNotify());
+            user.setPartnerCorporateStudy(userToExt.isPartnerCorporateStudy());
+        }
     }
 
     public static void updateFromTo(User user, UserTo userTo) {

@@ -36,6 +36,10 @@ public class UserToExt extends UserTo {
 
     private String resumeUrl;
 
+    private boolean partnerResumeNotify;
+
+    private boolean partnerCorporateStudy;
+
     public void setGmail(String gmail) {
         this.gmail = gmail.toLowerCase();
     }

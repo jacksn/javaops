@@ -21,6 +21,8 @@ import static org.apache.commons.lang3.StringUtils.substringBefore;
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
+    private static final long PARTNER_RESUME_NOTIFY = 0x1;
+    private static final long PARTNER_CORPORATE_STUDY = 0x2;
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -121,6 +123,9 @@ public class User extends BaseEntity {
     private LocalDate hrUpdate;
 
     private String comment;
+
+    @Column(name = "partner_flag", columnDefinition = "bigint default 0")
+    private long partnerFlag;
 
     public User() {
     }
@@ -349,12 +354,40 @@ public class User extends BaseEntity {
         return hasRole(Role.ROLE_ADMIN);
     }
 
+    public boolean isPartnerResumeNotify() {
+        return hasPartnerFlag(PARTNER_RESUME_NOTIFY);
+    }
+
+    public boolean isPartnerCorporateStudy() {
+        return hasPartnerFlag(PARTNER_CORPORATE_STUDY);
+    }
+
+    public void setPartnerResumeNotify(boolean flag) {
+        setPartnerFlag(PARTNER_RESUME_NOTIFY, flag);
+    }
+
+    public void setPartnerCorporateStudy(boolean flag) {
+        setPartnerFlag(PARTNER_CORPORATE_STUDY, flag);
+    }
+
     public boolean isMember() {
         return hasRole(Role.ROLE_MEMBER);
     }
 
-    public boolean hasRole(Role role) {
+    private boolean hasRole(Role role) {
         return roles != null && roles.contains(role);
+    }
+
+    private boolean hasPartnerFlag(long mask) {
+        return (partnerFlag & mask) != 0;
+    }
+
+    private void setPartnerFlag(long mask, boolean flag) {
+        if (flag) {
+            partnerFlag |= mask;
+        } else {
+            partnerFlag &= ~mask;
+        }
     }
 
     public String getMark() {

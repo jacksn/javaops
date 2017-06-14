@@ -21,6 +21,8 @@ import ru.javaops.to.UserAdminsInfo;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -71,11 +73,14 @@ public class PageController {
                                    @RequestParam(value = "limit", required = false) Integer limit,
                                    @RequestParam(value = "csv", required = false, defaultValue = "false") boolean csv,
                                    @RequestParam("partnerKey") String partnerKey,
+                                   @RequestParam(value = "fromDate", required = false) String fromDate,
                                    @RequestParam Map<String, String> params) {
 
         User partner = subscriptionService.checkPartner(partnerKey);
         params.put("partnerKey", partnerKey);
         params.put("partnerMark", partner.getMark());
+        params.put("fromDate", fromDate == null ? "01-01-01" : fromDate);
+        params.put("toDate", fromDate == null ? "3000-01-01" : DateTimeFormatter.ISO_DATE.format(LocalDate.now()));
         SqlResult result = sqlService.execute(sqlKey, limit, params);
         return new ModelAndView("sqlResult",
                 ImmutableMap.of("result", result, "csv", csv));
