@@ -1,6 +1,7 @@
 package ru.javaops.util;
 
 import com.google.common.base.Strings;
+import org.thymeleaf.util.StringUtils;
 import ru.javaops.model.User;
 import ru.javaops.to.UserTo;
 import ru.javaops.to.UserToExt;
@@ -25,8 +26,10 @@ public class UserUtil {
     public static void updateFromToExt(User user, UserToExt userToExt) {
         updateFromTo(user, userToExt);
         if (user.isMember()) {
-            if (user.getGmail() == null || !GMAIL_EXP.matcher(user.getGmail()).find()) {
+            if (StringUtils.isEmpty(userToExt.getGmail())) {
                 throw new IllegalArgumentException("Заполните gmail, он требуется для авторизации");
+            } else if (!GMAIL_EXP.matcher(userToExt.getGmail()).find()) {
+                throw new IllegalArgumentException("Неверный формат gmail");
             }
             user.setStatsAgree(userToExt.isStatsAgree());
             user.setJobThroughTopjava(userToExt.isJobThroughTopjava());
