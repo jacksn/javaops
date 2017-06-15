@@ -19,12 +19,18 @@ import java.util.regex.Pattern;
 public class Util {
     private static Pattern MAIL_TITLE = Pattern.compile("<title>(.+)</title>", Pattern.MULTILINE);
 
-    public static <T> boolean assignNotEmpty(T value, Consumer<T> setter) {
-        if (!StringUtils.isEmpty(value)) {
+    public static void assignNotEmpty(String value, Consumer<String> setter) {
+        if (StringUtils.hasText(value)) {
             setter.accept(value);
-            return true;
         }
-        return false;
+    }
+
+    public static void assign(String value, Consumer<String> setter) {
+        if (StringUtils.hasText(value)) {
+            setter.accept(value);
+        } else {
+            setter.accept(null);
+        }
     }
 
     public static String toString(Resource resource) {

@@ -1,7 +1,7 @@
 package ru.javaops.util;
 
 import com.google.common.base.Strings;
-import org.thymeleaf.util.StringUtils;
+import org.springframework.util.StringUtils;
 import ru.javaops.model.User;
 import ru.javaops.to.UserTo;
 import ru.javaops.to.UserToExt;
@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.regex.Pattern;
 
+import static ru.javaops.util.Util.assign;
 import static ru.javaops.util.Util.assignNotEmpty;
 
 /**
@@ -26,7 +27,7 @@ public class UserUtil {
     public static void updateFromToExt(User user, UserToExt userToExt) {
         updateFromTo(user, userToExt);
         if (user.isMember()) {
-            if (StringUtils.isEmpty(userToExt.getGmail())) {
+            if (!StringUtils.hasText(userToExt.getGmail())) {
                 throw new IllegalArgumentException("Заполните gmail, он требуется для авторизации");
             } else if (!GMAIL_EXP.matcher(userToExt.getGmail()).find()) {
                 throw new IllegalArgumentException("Неверный формат gmail");
@@ -46,21 +47,22 @@ public class UserUtil {
             user.setPartnerResumeNotify(userToExt.isPartnerResumeNotify());
             user.setPartnerCorporateStudy(userToExt.isPartnerCorporateStudy());
         }
-        user.setAboutMe(userToExt.getAboutMe());
-        user.setGmail(userToExt.getGmail());
-        user.setCompany(userToExt.getCompany());
-        user.setResumeUrl(userToExt.getResumeUrl());
-        user.setRelocation(userToExt.getRelocation());
         user.setConsiderJobOffers(userToExt.isConsiderJobOffers());
         user.setUnderRecruitment(userToExt.isUnderRecruitment());
+
+        assign(userToExt.getAboutMe(), user::setAboutMe);
+        assign(userToExt.getGmail(), user::setGmail);
+        assign(userToExt.getCompany(), user::setCompany);
+        assign(userToExt.getResumeUrl(), user::setResumeUrl);
+        assign(userToExt.getRelocation(), user::setRelocation);
     }
 
     public static void updateFromTo(User user, UserTo userTo) {
         assignNotEmpty(userTo.getNameSurname(), user::setFullName);
-        assignNotEmpty(userTo.getLocation(), user::setLocation);
         assignNotEmpty(userTo.getInfoSource(), user::setInfoSource);
-        assignNotEmpty(userTo.getEmail(), user::setEmail);
-        assignNotEmpty(userTo.getSkype(), user::setSkype);
+        assign(userTo.getLocation(), user::setLocation);
+        assign(userTo.getEmail(), user::setEmail);
+        assign(userTo.getSkype(), user::setSkype);
         user.setActive(true);
         tryFillGmail(user);
     }
