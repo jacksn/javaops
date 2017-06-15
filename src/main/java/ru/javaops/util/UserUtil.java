@@ -24,6 +24,13 @@ public class UserUtil {
 
     public static void updateFromToExt(User user, UserToExt userToExt) {
         updateFromTo(user, userToExt);
+        if (user.isMember()) {
+            if (user.getGmail() == null || !GMAIL_EXP.matcher(user.getGmail()).find()) {
+                throw new IllegalArgumentException("Заполните gmail, он требуется для авторизации");
+            }
+            user.setStatsAgree(userToExt.isStatsAgree());
+            user.setJobThroughTopjava(userToExt.isJobThroughTopjava());
+        }
         if ((user.getHrUpdate() == null || user.getHrUpdate().isBefore(LocalDate.now())) // not switched back
                 && userToExt.isConsiderJobOffers() && !Strings.isNullOrEmpty(userToExt.getResumeUrl())  // visible for HR
                 && (user.isConsiderJobOffers() == null || !user.isConsiderJobOffers() || Strings.isNullOrEmpty(user.getResumeUrl()))) {  // was not visible for HR
@@ -32,21 +39,17 @@ public class UserUtil {
         } else if (!userToExt.isConsiderJobOffers() && user.isConsiderJobOffers() != null && user.isConsiderJobOffers()) {  // stop job considering
             user.setHrUpdate(LocalDate.now().plus(90, ChronoUnit.DAYS));
         }
-        assignNotEmpty(userToExt.getAboutMe(), user::setAboutMe);
-        assignNotEmpty(userToExt.getGmail(), user::setGmail);
-        assignNotEmpty(userToExt.getCompany(), user::setCompany);
-        assignNotEmpty(userToExt.getResumeUrl(), user::setResumeUrl);
-        assignNotEmpty(userToExt.getRelocation(), user::setRelocation);
-        user.setConsiderJobOffers(userToExt.isConsiderJobOffers());
-        user.setUnderRecruitment(userToExt.isUnderRecruitment());
-        if (user.isMember()) {
-            user.setStatsAgree(userToExt.isStatsAgree());
-            user.setJobThroughTopjava(userToExt.isJobThroughTopjava());
-        }
         if (user.isPartner()) {
             user.setPartnerResumeNotify(userToExt.isPartnerResumeNotify());
             user.setPartnerCorporateStudy(userToExt.isPartnerCorporateStudy());
         }
+        user.setAboutMe(userToExt.getAboutMe());
+        user.setGmail(userToExt.getGmail());
+        user.setCompany(userToExt.getCompany());
+        user.setResumeUrl(userToExt.getResumeUrl());
+        user.setRelocation(userToExt.getRelocation());
+        user.setConsiderJobOffers(userToExt.isConsiderJobOffers());
+        user.setUnderRecruitment(userToExt.isUnderRecruitment());
     }
 
     public static void updateFromTo(User user, UserTo userTo) {
