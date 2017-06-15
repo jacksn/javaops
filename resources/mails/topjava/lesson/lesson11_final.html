@@ -9,39 +9,54 @@
     Здравствуй firstName!<br/>
 </p>
 <p>
-    Спасибо за участие в проекте Java Enterprise (TopJava)! Надеюсь что проект прошел с пользой для тебя и ты уже составил резюме и процессе получения опыта собеседований (если
-    конечно уже не работаешь).
+    Спасибо за участие в проекте Java Enterprise (TopJava)! И спасибо всем, кто принял участие в <a
+        href="http://goo.gl/forms/PtFcPqEV5n">мини-опросе</a>!
+    Кто еще не прошел, ответьте плз. на 4 вопроса.
 </p>
-В недалеком будующем планирую сделать адресную рассылку вакансий по данным про трудоустройство из <a
-        th:href="@{http://javaops.ru/profile(email=${user.email}, key=${activationKey})}">твоего профиля</a>.
-Отредактируй поля для HR: <code>"Город (как он в комбо-боксе, если есть)", "Текущее место работы", "Ссылка на резюме", "Рассматриваю предложения о работе", "Готов к релокации", "Обо мне. Опыт с Java"</code>. Если у тебя на работе есть вакансии для наших выпускников, публикуй их в <a
-        href="https://javaops.slack.com/archives/vacancies">#vacancies группы JavaOPs</a>.
-После выполнения выпускного проекта группу slack topjava10 удалю, продолжаем общение в <a
+Сегодня, 15.06, во второй половине дня буду делать рассылку обновлений по HR (на данный момент 87 HR контактов). Еще
+можно успеть доделать резюме (см.
+<a href="https://github.com/JavaWebinar/topjava10/blob/doc/doc/lesson11.md#-Замечания-по-резюме">замечания по резюме</a>)
+и заполнить в
+<a th:href="@{http://javaops.ru/profile(email=${user.email}, key=${activationKey})}">своем профиле</a> поля для HR:
+<code>"Город (как он в комбо-боксе, если есть)", "Текущее место работы", "Ссылка на резюме", "Рассматриваю предложения о
+    работе", "Готов к релокации", "Информация для HR"</code>.
+Если у тебя на работе есть вакансии для наших выпускников, публикуй их в <a
+        href="https://javaops.slack.com/archives/vacancies">#vacancies группы JavaOPs</a> и пришли мне email отдела
+кадров, я вышлю им доступ к нашей базе.
+<p>
+    Группу slack topjava10 вскоре удалю, продолжаем общение в <a
         th:href="@{http://javaops.ru/participate(email=${user.email}, key=${activationKey}, project='javaops')}">Slack
-    JavaOPs</a>  (после сохранения формы должно прийти приглашение).
-Github репозиторий <a href="https://github.com/JavaWebinar/topjava10">topjava10</a> скоро заархивирую и положу в <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFflp6ZHBLSFI2OGVEZ2NQU0pzZkx4SnFmOWlzX0lzcDFjSi1SRk5OdzBYYkU">google drive</a> (доступ у тебя остается).<br/>
+    JavaOPs</a> (после сохранения формы должно прийти приглашение).
+    Github репозиторий <a href="https://github.com/JavaWebinar/topjava10">topjava10</a> также скоро заархивирую и положу в <a
+        href="https://drive.google.com/drive/folders/0B9Ye2auQ_NsFMFdDenZicjN3MnM">Google Drive</a> (доступ ко всем
+    материалам остается).<br/>
+</p>
 <p>
     Если есть желание, можно <a href="http://javaops.ru/interview/test.html">пройти со мной тестовое интервью</a> (здесь
     также есть полезные ссылки для подготовки, расценки внизу).<br/>
-    Напомню, что в 07.03 будет второе занятие по  проекту <a href="http://javaops.ru/reg/masterjava/">Многопоточность.
-    XML. Веб сервисы</a>, 1-е занятие в свободном доступе.<br/>
-    Спасибо всем, кто принял участие в <b><a href="http://goo.gl/forms/PtFcPqEV5n">опросе по проекту</a></b>! (6 вопросов)
 </p>
-<h3>Еще раз напомню- пожалуйста напиши <a href="https://vk.com/topic-74381644_30447246?offset=40">отзыв в VK</a> (или в личку
+<h4>Пожалуйста напиши <a href="https://vk.com/topic-74381644_30447246?offset=60">отзыв в VK</a> (или в личку
     Slack/skype, если нет VK аккаунта)!<br/>
-    Новый выпуск <a href="http://javaops.ru/reg/topjava">topjava10</a> стартует 16.03 (первое занятие 23.03), приглашай знакомых.
-</h3>
-<h4>Наконец, ссылка на <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFU2FMY1ZYWmIwVG8">последний патч</a></h4>
-<ul>В основном правки от <b>@gamaliev-vadim</b> (кроме локализации)
-    <li>исправление локализации от <b>@jackson</b></li>
-    <li><a href="https://topjava10.slack.com/archives/hw10/p1488050456000444">удалил <code>@Order</code> над методами <code>ExceptionInfoHandler</code></a>. <code>@Order</code> никак не учитывется для методов, только для классов</li>
-    <li><a href="https://topjava10.slack.com/archives/hw11_final/p1488127476000135">убрал defaultLocale и добавил cookieName</a> в <code>spring-mvc.xml</code></li>
+    Новый выпуск <a href="http://javaops.ru/reg/topjava">topjava11</a> стартует 06.07 (первое занятие 13.07), приглашай
+    знакомых.
+</h4>
+<h3>Сделал <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFcklVSU5OT2VQbjQ">последний патч</a>:</h3>
+<ul>
+    <li>Убрал <code>@SafeHtml</code> для полей <code>email</code> (валидируется на формат email) и <code>password</code>
+        (не попадает в браузер)
+    </li>
+    <li>Сделал локализацию <code>NotFoundException</code>, отнаследовав ее от <code>ApplicationException</code></li>
+    <li>Добавил вывод локализированных <code>ApplicationException</code> сообщений в <code>GlobalControllerExceptionHandler</code>
+        (например при попытке отредактировать профиль админа в Heroku)
+    </li>
 </ul>
 <p>
-    Добавляйся в группу VK: <b><a href="https://vk.com/javawebinar">Стажировка Java Enterprise Online Projects</a></b>, все
+    Добавляйся в группу VK: <b><a href="https://vk.com/javawebinar">Стажировка Java Enterprise Online Projects</a></b>,
+    все
     интересное публикую там.<br/>
 </p>
-До встречи на новых проектах!
+До встреч на новых проектах! (в <a href="http://javaops.ru/reg/masterjava">Masterjava</a> до осени участие индивидуальное по готовым материалам и патчам с поддержкой в группе Slack).
+Информацию об остальных проектах + систему бонусов вскоре разошлю.
 <p th:include="mailFragments::footer(${subscriptionUrl})">
 </p>
 </html>
