@@ -16,6 +16,6 @@ public class GroupServiceTest extends ApplicationAbstractTest {
 
     @Test
     public void testFindByUser() throws Exception {
-        System.out.println(groupService.findByUserId(UserTestData.USER_ID));
+        System.out.println(groupService.getGroupsByUserId(UserTestData.USER_ID));
     }
 }

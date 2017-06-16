@@ -49,12 +49,12 @@ public class GroupService {
     private PaymentRepository paymentRepository;
 
     public boolean isProjectMember(int userId, String projectName) {
-        return findByUserId(userId).stream()
+        return getGroupsByUserId(userId).stream()
                 .anyMatch(g -> g.isMembers() && projectName.equals(g.getProject().getName()));
     }
 
-    public Set<Group> findByUserId(int userId) {
-        log.debug("findByUserId {}", userId);
+    public Set<Group> getGroupsByUserId(int userId) {
+        log.debug("getGroupsByUserId {}", userId);
         return groupRepository.findByUser(userId);
     }
 
@@ -158,7 +158,7 @@ public class GroupService {
         return includeUsers;
     }
 
-    public User getExistedUserInProject(String email, String projectName) {
+    public User getExistedUserInCurrentProject(String email, String projectName) {
         User u;
         if (projectName.equals("javaops")) {
             u = userService.findExistedByEmail(email);

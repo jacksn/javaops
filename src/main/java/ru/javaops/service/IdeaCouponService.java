@@ -9,6 +9,8 @@ import ru.javaops.model.Project;
 import ru.javaops.model.User;
 import ru.javaops.repository.IdeaCouponRepository;
 
+import java.time.LocalDate;
+
 /**
  * GKislin
  * 15.02.2016
@@ -31,6 +33,7 @@ public class IdeaCouponService {
         }
         ideaCoupon.setUser(user);
         ideaCoupon.setProject(project);
+        ideaCoupon.setDate(LocalDate.now());
         ideaCouponRepository.save(ideaCoupon);
         log.info("Assign IDEA coupon to " + user.getEmail());
         return ideaCoupon;

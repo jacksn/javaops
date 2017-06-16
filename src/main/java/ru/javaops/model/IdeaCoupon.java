@@ -47,6 +47,10 @@ public class IdeaCoupon extends BaseEntity{
         this.user = user;
     }
 
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     public Project getProject() {
         return project;
     }

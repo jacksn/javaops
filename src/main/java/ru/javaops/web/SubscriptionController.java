@@ -25,7 +25,7 @@ import javax.validation.ValidationException;
 import java.util.Date;
 import java.util.Set;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * GKislin
@@ -143,7 +143,7 @@ public class SubscriptionController {
 
         email = email.toLowerCase();
         User user = userService.findExistedByEmail(email);
-        Set<Group> groups = groupService.findByUserId(user.getId());
+        Set<Group> groups = groupService.getGroupsByUserId(user.getId());
 
         if (ProjectUtil.getGroupByProjectAndType(groups, projectName, GroupType.CURRENT).isPresent()) {
             return new ModelAndView("already_registered");
@@ -155,19 +155,17 @@ public class SubscriptionController {
             mailService.sendToUser(projectName + "_repeat", user);
             IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, projectName);
             return new ModelAndView("registration",
-                    ImmutableMap.of("response", response, "email", email,
-                            "activationKey", subscriptionService.generateActivationKey(email)));
+                    ImmutableMap.of("response", response, "email", email));
         }
         throw new IllegalStateException("Пользователь " + email + " не участник проекта " + projectName);
     }
 
     @RequestMapping(value = "/idea", method = RequestMethod.GET)
     public ModelAndView ideaRegister(@RequestParam("email") String email, @RequestParam("project") String projectName) throws MessagingException {
-        ProjectUtil.ProjectProps projectProps = groupService.getProjectProps(projectName);
-        User user = userService.findByEmailAndGroupId(email, projectProps.currentGroup.getId());
-        checkNotNull(user, "Пользователь %s не найден в группе %s", email, projectProps.currentGroup.getName());
+        User user = userService.findExistedByEmail(email);
+        checkState(groupService.isProjectMember(user.getId(), projectName), "Пользователь %s не найден в проекте %s", email, projectName);
 
-        IdeaCoupon coupon = ideaCouponService.assignToUser(user, projectProps.project);
+        IdeaCoupon coupon = ideaCouponService.assignToUser(user, groupService.getProjectProps(projectName).project);
         String response = mailService.sendWithTemplate("idea_register", new UserMail(user), ImmutableMap.of("coupon", coupon.getCoupon()));
         if (MailService.OK.equals(response)) {
             return new ModelAndView("registration_idea");

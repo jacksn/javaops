@@ -50,7 +50,7 @@ public class ProfileController {
 
     @RequestMapping(value = "/participate", method = RequestMethod.GET)
     public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key, @RequestParam("project") String projectName) {
-        User u = groupService.getExistedUserInProject(email, projectName);
+        User u = groupService.getExistedUserInCurrentProject(email, projectName);
         return new ModelAndView("profile", ImmutableMap.of("user", u, "projectName", projectName, "key", key));
     }
 
@@ -68,7 +68,7 @@ public class ProfileController {
         userService.update(userToExt);
         if (!Strings.isNullOrEmpty(project)) {
             String email = userToExt.getEmail();
-            groupService.getExistedUserInProject(email, project);
+            groupService.getExistedUserInCurrentProject(email, project);
             return grantAllAccess(email, userToExt.getGmail(), project, key);
         } else {
             return new ModelAndView("saveProfile", ImmutableMap.of("userToExt", userToExt, "key", key));

@@ -23,6 +23,7 @@ import static org.apache.commons.lang3.StringUtils.substringBefore;
 public class User extends BaseEntity {
     private static final long PARTNER_RESUME_NOTIFY = 0x1;
     private static final long PARTNER_CORPORATE_STUDY = 0x2;
+    private static final long PARTNER_DIRECT_EMAIL = 0x4;
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -362,12 +363,20 @@ public class User extends BaseEntity {
         return hasPartnerFlag(PARTNER_CORPORATE_STUDY);
     }
 
+    public boolean isPartnerDirectEmail() {
+        return hasPartnerFlag(PARTNER_DIRECT_EMAIL);
+    }
+
     public void setPartnerResumeNotify(boolean flag) {
         setPartnerFlag(PARTNER_RESUME_NOTIFY, flag);
     }
 
     public void setPartnerCorporateStudy(boolean flag) {
         setPartnerFlag(PARTNER_CORPORATE_STUDY, flag);
+    }
+
+    public void setPartnerDirectEmail(boolean flag) {
+        setPartnerFlag(PARTNER_DIRECT_EMAIL, flag);
     }
 
     public boolean isMember() {
