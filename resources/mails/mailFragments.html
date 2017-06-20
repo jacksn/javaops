@@ -5,7 +5,7 @@
     <p th:text="|Здравствуй ${user.firstName}!|"></p>
 </div>
 
-<div th:fragment="footer (subscriptionUrl)">
+<div th:fragment="footer(subscriptionUrl)">
     <p>
         <span>С лучшими пожеланиями,</span><br/>
         Григорий Кислин<br/>
@@ -54,8 +54,12 @@
         Григорий Кислин<br/>
         <em>skype: grigory.kislin</em>
     </p>
+    <p style="font-size: small">
+        <a th:href="${subscriptionUrl}">Отписаться от рассылки</a><br/>
+    </p>
 </div>
-<small th:fragment="bonus" style="font-size: small">
+<div th:fragment="bonus">
+    <p style="font-size: small">
     <ul>На бонусы можно
         <li>получить скидку на любой из текущих проектов (<a
                 href="http://javaops.ru/reg/masterjava?ch=mail">Masterjava</a>,
@@ -72,5 +76,6 @@
         <li th:text="|Masterjava: ${masterjavaRef}|"></li>
         <li th:text="|Basejava: ${basejavaRef}|"></li>
     </ul>
-</small>
+    </p>
+</div>
 </html>
