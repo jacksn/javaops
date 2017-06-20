@@ -19,43 +19,48 @@
         </div>
     </div>
 </div>
-<div th:if="${user.isPartner()}" class="container pad">
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label class="control-label col-xs-2" for="fromDate">От даты:</label>
+<div class="pad">
+    <div th:unless="${user.isPartner()}" class="container">
+        <h4>
+            06.07 старт <a href="http://javaops.ru/reg/topjava?ch=profile">Java Enterprise (Topjava)</a>. <a
+                href="http://javaops.ru/reg/topjava?ch=profile#schedule">Расписание</a>
+        </h4>
+        <h4>
+            <a href="http://javaops.ru/reg/masterjava?ch=profile">Разработка полнофункционального многомодульного Maven
+                проекта (Masterjava)</a>. <a
+                href="https://github.com/JavaOPs/masterjava#Программа-проекта-1">Программа</a><br/>
+            Старт в любое время по готовым материалам и патчам с поддержкой в группе Slack.
+        </h4>
+    </div>
+    <div th:if="${user.isPartner()}" class="container">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-xs-3" for="fromDate">От даты:</label>
 
-            <div class="col-sm-2">
-                <input class="form-control" name="fromDate" id="fromDate" value="2017-04-01"/>
-            </div>
-            <div class="col-sm-8">
-                <h3>
-                    <a th:href="@{/sql(sql_key=_job_wanted_, csv=true, partnerKey=${user.email}, fromDate='2017-04-01')}"
+                <div class="col-sm-2">
+                    <input class="form-control" name="fromDate" id="fromDate" value="2017-04-01"/>
+                </div>
+                <div class="col-sm-7">
+                    <h4><a th:href="@{/sql(sql_key=_job_wanted_, csv=true, partnerKey=${user.email}, fromDate='2017-04-01')}"
                        href="" id="jobWanted">база кандидатов на позицию Java разработчик</a>
-                </h3>
+                    </h4>
+                </div>
             </div>
-        </div>
-    </form>
-</div>
-<div th:unless="${user.isPartner()}" class="container pad">
-        <h3>
-            06.07 старт <a href="http://javaops.ru/reg/topjava?ch=profile">Java Enterprise (Topjava)</a>. <a href="http://javaops.ru/reg/topjava?ch=profile#schedule">Расписание</a>
-        </h3>
-        <h3>
-            В индивидуальном порядке по готовым материалам и патчам с поддержкой в группе Slack<br/>
-            <a href="http://javaops.ru/reg/masterjava?ch=profile">Разработка полнофункционального многомодульного Maven проекта (Masterjava)</a>.
-            <a href="https://github.com/JavaOPs/masterjava#Программа-проекта-1">Программа</a>
-        </h3>
+        </form>
+    </div>
 </div>
 <div class="jumbotron" style="padding-top:0">
     <div class="container">
         <br/>
-        <h2 th:text="${projectName}==null ? 'Редактирование профиля':'Регистрация на проект '+ ${projectName}">Редактирование профиля</h2>
+        <h2 th:text="${projectName}==null ? 'Редактирование профиля':'Регистрация на проект '+ ${projectName}">
+            Редактирование профиля</h2>
         <br/>
         <form class="form-horizontal" method="post" action="save">
             <div class="form-group ">
                 <label class="control-label col-xs-3">Имя Фамилия</label>
                 <div class="col-xs-4">
-                    <input class="form-control" name="nameSurname" placeholder="Имя Фамилия" th:value="${user.fullName}"/>
+                    <input class="form-control" name="nameSurname" placeholder="Имя Фамилия"
+                           th:value="${user.fullName}"/>
                 </div>
             </div>
 
@@ -245,7 +250,6 @@
             format: 'Y-m-d',
             formatDate: 'Y-m-d',
             onChangeDateTime: function (dp, input) {
-                debugger;
                 $("#jobWanted").attr('href', function (i, a) {
                     return a.replace(/(fromDate=).+/ig, '$1' + input.val());
                 });
