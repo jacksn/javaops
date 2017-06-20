@@ -132,7 +132,7 @@ public class SubscriptionController {
             Date date = userGroup.getRegisteredDate();
             if (date != null) {
                 LocalDate ld = LocalDate.of(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
-                if (ld.isAfter(LocalDate.now().minus(10, ChronoUnit.DAYS))) {
+                if (ld.isAfter(LocalDate.now().minus(15, ChronoUnit.DAYS))) {
                     return getRedirectView("/duplicate.html");
                 }
             }
