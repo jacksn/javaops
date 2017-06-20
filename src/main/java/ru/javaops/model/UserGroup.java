@@ -100,6 +100,10 @@ public class UserGroup extends BaseEntity {
         this.alreadyExist = alreadyExist;
     }
 
+    public Date getRegisteredDate() {
+        return registeredDate;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)

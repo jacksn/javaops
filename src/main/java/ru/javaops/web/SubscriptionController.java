@@ -23,6 +23,8 @@ import ru.javaops.util.Util;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Set;
 
@@ -127,7 +129,13 @@ public class SubscriptionController {
 
         UserGroup userGroup = groupService.registerAtProject(userTo, projectName, channel);
         if (userGroup.isAlreadyExist()) {
-            return getRedirectView("/duplicate.html");
+            Date date = userGroup.getRegisteredDate();
+            if (date != null) {
+                LocalDate ld = LocalDate.of(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
+                if (ld.isAfter(LocalDate.now().minus(10, ChronoUnit.DAYS))) {
+                    return getRedirectView("/duplicate.html");
+                }
+            }
         } else if (userGroup.getRegisterType() == RegisterType.REPEAT) {
             integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail(), projectName);
             template = projectName + "_repeat";
