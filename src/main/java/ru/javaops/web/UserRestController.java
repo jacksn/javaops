@@ -53,7 +53,9 @@ public class UserRestController {
                       @RequestParam(value = "template", required = false) String template) {
         UserGroup ug = groupService.pay(userTo, group, new Payment(sum, currency, comment), participationType, channel);
         User refUser = null;
-        if (!ug.isAlreadyExist()) {
+        if (ug.isAlreadyExist()) {
+            log.info("User {} already exist in {}", userTo.getEmail(), group);
+        } else {
             refUser = refService.getRefUser(ug.getChannel());
             if (refUser != null) {
                 refUser.addBonus(25);
