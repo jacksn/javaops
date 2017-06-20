@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
+import ru.javaops.to.UserMail;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -20,7 +21,7 @@ import static org.apache.commons.lang3.StringUtils.substringBefore;
  */
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class User extends BaseEntity implements UserMail {
     private static final long PARTNER_RESUME_NOTIFY = 0x1;
     private static final long PARTNER_CORPORATE_STUDY = 0x2;
     private static final long PARTNER_DIRECT_EMAIL = 0x4;
@@ -106,8 +107,8 @@ public class User extends BaseEntity {
     @Column
     private String mark;
 
-    @Column
-    private Integer bonus;
+    @Column(name = "bonus", columnDefinition = "INT DEFAULT 0")
+    private int bonus = 0;
 
     @Column(name = "activated_date")
     private Date activatedDate;
@@ -144,10 +145,12 @@ public class User extends BaseEntity {
         this.skype = skype;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
 
+    // Exception evaluating SpringEL expression: "user.firstName" for default method in UserMail
     public String getFirstName() {
         return fullName == null ? "" : (substringBefore(capitalize(fullName), " "));
     }
@@ -207,6 +210,7 @@ public class User extends BaseEntity {
         return infoSource;
     }
 
+    @Override
     public String getFullName() {
         return fullName;
     }
@@ -271,6 +275,7 @@ public class User extends BaseEntity {
         return vk;
     }
 
+    @Override
     public Date getRegisteredDate() {
         return registeredDate;
     }
@@ -339,7 +344,7 @@ public class User extends BaseEntity {
         return comment;
     }
 
-    public Integer getBonus() {
+    public int getBonus() {
         return bonus;
     }
 
@@ -391,6 +396,15 @@ public class User extends BaseEntity {
         return (partnerFlag & mask) != 0;
     }
 
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
+    }
+
+    public int addBonus(int bonus) {
+        this.bonus += bonus;
+        return bonus;
+    }
+
     private void setPartnerFlag(long mask, boolean flag) {
         if (flag) {
             partnerFlag |= mask;
@@ -414,11 +428,13 @@ public class User extends BaseEntity {
                 ')';
     }
 
-    public void addBonus(int bonus) {
-        if (this.bonus == null) {
-            this.bonus = bonus;
-        } else {
-            this.bonus += bonus;
-        }
+    @Override
+    public boolean equals(Object o) {
+        return this == o || email.equals(((User) o).email);
+    }
+
+    @Override
+    public int hashCode() {
+        return email.hashCode();
     }
 }

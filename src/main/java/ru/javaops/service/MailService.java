@@ -53,6 +53,9 @@ public class MailService {
     private SubscriptionService subscriptionService;
 
     @Autowired
+    private RefService refService;
+
+    @Autowired
     private AppProperties appProperties;
 
     @Autowired
@@ -64,13 +67,13 @@ public class MailService {
     }
 
     public GroupResult sendToEmailList(String template, Collection<String> emails) {
-        return sendToUserList(template, emails.stream().map(email -> new UserMail(userService.findExistedByEmail(email))).collect(Collectors.toSet()));
+        return sendToUserList(template, emails.stream().map(email -> userService.findExistedByEmail(email)).collect(Collectors.toSet()));
     }
 
     public GroupResult sendToUserList(String template, Set<UserMail> users) {
         checkNotNull(template, " template must not be null");
         checkNotNull(users, " users must not be null");
-        users.add(new UserMail(getAppUser()));
+        users.add(getAppUser());
         CompletionService<String> completionService = new ExecutorCompletionService<>(mailExecutor);
         Map<Future<String>, String> resultMap = new HashMap<>();
         users.forEach(
@@ -114,8 +117,8 @@ public class MailService {
     }
 
     @Async("mailExecutor")
-    public Future<String> sendWithTemplateAsync(String email, String template, final Map<String, ?> params) {
-        return new AsyncResult<>(sendWithTemplate(email, null, template, params));
+    public Future<String> sendWithTemplateAsync(UserMail userMail, String template, final Map<String, ?> params) {
+        return new AsyncResult<>(sendWithTemplate(template, userMail, params));
     }
 
     public String sendTest(String template) {
@@ -123,47 +126,48 @@ public class MailService {
     }
 
     public String sendToUser(String template, String email) {
-        checkNotNull(template, "Template must not be null");
         checkNotNull(email, "Email must not be null");
         return sendToUser(template, userService.findExistedByEmail(email));
-    }
-
-    public String sendToUser(String template, User user) {
-        checkNotNull(user, "User must not be null");
-        return sendToUser(template, new UserMail(user));
     }
 
     public String sendToUser(String template, UserMail userMail) {
         return sendWithTemplate(template, userMail, ImmutableMap.of());
     }
 
+    public void sendRefMail(User refUser, String template, Map<String, ?> params) {
+        sendWithTemplateAsync(refUser, template, params);
+    }
+
     public String sendWithTemplate(String template, UserMail userMail, final Map<String, ?> params) {
-        String activationKey = subscriptionService.generateActivationKey(userMail.getEmail());
-        String subscriptionUrl = subscriptionService.getSubscriptionUrl(userMail.getEmail(), activationKey, false);
-        ImmutableMap<String, Object> attrs = ImmutableMap.<String, Object>builder()
+        checkNotNull(template, "Template must not be null");
+        checkNotNull(userMail, "User must not be null");
+        final String email = checkNotNull(userMail.getEmail());
+
+        log.debug("Sending {} email to '{}'", template, email);
+        String activationKey = subscriptionService.generateActivationKey(email);
+        String subscriptionUrl = subscriptionService.getSubscriptionUrl(email, activationKey, false);
+        ImmutableMap.Builder<String, Object> builder = ImmutableMap.<String, Object>builder()
                 .putAll(params)
                 .put("user", userMail)
                 .put("subscriptionUrl", subscriptionUrl)
-                .put("activationKey", activationKey).build();
+                .put("activationKey", activationKey);
 
-        String result = sendWithTemplate(userMail.getEmail(), userMail.getFullName(), template, attrs);
-        if (!result.equals(OK)) {
-            mailCaseRepository.save(new MailCase(userMail, template, result));
+        if (template.startsWith("ref/")) {
+            builder.put("topjavaRef", refService.getRefUrl("topjava", email))
+                    .put("masterjavaRef", refService.getRefUrl("masterjava", email))
+                    .put("basejavaRef", refService.getRefUrl("basejava", email));
         }
-        return result;
-    }
 
-    public String sendWithTemplate(String toEmail, String toName, String template, final Map<String, ?> params) {
-        log.debug("Sending {} email to '{}'", template, toEmail);
-        String content = getContent(template, params);
+        String content = getContent(template, builder.build());
         final String subject = Util.getTitle(content);
         String result;
         try {
-            send(toEmail, toName, subject, content, true, (String) params.get("subscriptionUrl"));
+            send(email, userMail.getFullName(), subject, content, true, (String) params.get("subscriptionUrl"));
             result = OK;
         } catch (MessagingException | MailException e) {
             result = e.getMessage();
-            log.error("Sending to {} failed: \n{}", toEmail, result);
+            log.error("Sending to {} failed: \n{}", email, result);
+            mailCaseRepository.save(new MailCase(userMail, template, result));
         }
         return result;
     }

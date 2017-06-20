@@ -137,7 +137,7 @@ public class GroupService {
         }
         registeredUserGroup.setRegisterType(RegisterType.REGISTERED);
         registeredUserGroup.setGroup(ug.getGroup());
-        if (ug.getChannel() != null) {
+        if (registeredUserGroup.getChannel() == null) {
             registeredUserGroup.setChannel(ug.getChannel());
         }
         registeredUserGroup.setRegisteredDate(new Date());

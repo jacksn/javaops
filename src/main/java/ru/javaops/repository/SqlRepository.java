@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.stereotype.Repository;
 import ru.javaops.SqlResult;
-import ru.javaops.to.UserMail;
+import ru.javaops.to.UserMailImpl;
 
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
@@ -20,12 +20,12 @@ import java.util.Map;
 
 @Repository
 public class SqlRepository {
-    private static final BeanPropertyRowMapper<UserMail> ROW_MAPPER = BeanPropertyRowMapper.newInstance(UserMail.class);
+    private static final BeanPropertyRowMapper<UserMailImpl> ROW_MAPPER = BeanPropertyRowMapper.newInstance(UserMailImpl.class);
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public List<UserMail> getUsersMail(String sql) {
+    public List<UserMailImpl> getUsersMail(String sql) {
         return jdbcTemplate.query(sql, ROW_MAPPER);
     }
 

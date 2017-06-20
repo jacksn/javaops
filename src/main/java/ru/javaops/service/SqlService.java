@@ -36,7 +36,7 @@ public class SqlService {
 
     public Set<UserMail> getUsers(String sqlKey) {
         return execute(sqlKey, sql -> {
-            List<UserMail> users = sqlRepository.getUsersMail(sql);
+            List<? extends UserMail> users = sqlRepository.getUsersMail(sql);
             return new HashSet<>(users);
         });
     }

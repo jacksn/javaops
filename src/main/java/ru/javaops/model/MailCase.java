@@ -1,6 +1,7 @@
 package ru.javaops.model;
 
 import ru.javaops.to.UserMail;
+import ru.javaops.to.UserMailImpl;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,7 +47,7 @@ public class MailCase extends BaseEntity {
     }
 
     public UserMail getUserMail() {
-        return new UserMail(fullName, email);
+        return new UserMailImpl(fullName, email);
     }
 
     public String getTemplate() {

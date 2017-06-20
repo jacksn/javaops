@@ -15,6 +15,7 @@ import ru.javaops.model.Project;
 import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
 import ru.javaops.service.CachedGroups;
+import ru.javaops.service.RefService;
 import ru.javaops.service.SqlService;
 import ru.javaops.service.SubscriptionService;
 import ru.javaops.to.UserAdminsInfo;
@@ -42,6 +43,9 @@ public class PageController {
 
     @Autowired
     private SubscriptionService subscriptionService;
+
+    @Autowired
+    private RefService refService;
 
     @GetMapping(value = "/user")
     public ModelAndView userInfo(@RequestParam("email") String email,
@@ -91,7 +95,7 @@ public class PageController {
                                   @PathVariable(value = "project") String project,
                                   HttpServletResponse response) {
 
-        User user = subscriptionService.decryptUser(channel);
+        User user = refService.decryptUser(channel);
         if (user == null) {
             setCookie(response, "channel", channel, project);
         } else {

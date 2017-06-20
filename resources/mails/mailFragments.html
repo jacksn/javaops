@@ -45,4 +45,26 @@
         <a href="https://vk.com/javawebinar">vk: Java Enterprise Online Projects</a> (все самое интересное из мира Java и IT)
     </p>
 </div>
+<div th:fragment="simpleFooter">
+    <p>
+        <span>С лучшими пожеланиями,</span><br/>
+        Григорий Кислин<br/>
+        <em>skype: grigory.kislin</em>
+    </p>
+</div>
+<small th:fragment="bonus" style="font-size: small">
+    <ul>На бонусы можно
+        <li>получить скидку на любой из текущих проектов (<a href="http://javaops.ru/reg/masterjava?ch=mail">Masterjava</a>,
+            <a href="http://javaops.ru/reg/basejava?ch=mail">Basejava</a>, <a
+                    href="http://javaops.ru/reg/topjava?ch=mail">Topjava</a>), 1 бонус = 1% скидки
+        </li>
+        <li>получить скидку на будущие проекты. В конце лета планирую дополнения к Topjava (Java Config, Thymleaf, H2, Bean Mapping, Ouath2, Spring Boot, ...). Следи за рассылкой.</li>
+        <li>накопив от 100 получить наличные (100 бонусов = 10 000 руб/ 175$)</li>
+    </ul>
+    <ul>Личные реферальные ссылки:
+        <li><a th:href="${topjavaRef}">Topjava</a></li>
+        <li><a th:href="${masterjavaRef}">Masterjava</a></li>
+        <li><a th:href="${basejavaRef}">Basejava</a></li>
+    </ul>
+</small>
 </html>

@@ -4,9 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.javaops.ApplicationAbstractTest;
-import ru.javaops.model.ParticipationType;
 import ru.javaops.model.User;
-import ru.javaops.to.UserMail;
 
 /**
  * GKislin
@@ -20,6 +18,9 @@ public class MailServiceTest extends ApplicationAbstractTest {
     @Autowired
     private SubscriptionService subscriptionService;
 
+    @Autowired
+    private RefService refService;
+
     @Test
     public void testSendMail() throws Exception {
         System.out.println(mailService.sendTest("jr_confirm"));
@@ -27,15 +28,17 @@ public class MailServiceTest extends ApplicationAbstractTest {
 
     @Test
     public void testTemplate() throws Exception {
-        User userMail = mailService.getAppUser();
-        String activationKey = subscriptionService.generateActivationKey(userMail.getEmail());
-        String subscriptionUrl = subscriptionService.getSubscriptionUrl(userMail.getEmail(), activationKey, false);
+        User user = mailService.getAppUser();
+        String activationKey = subscriptionService.generateActivationKey(user.getEmail());
+        String subscriptionUrl = subscriptionService.getSubscriptionUrl(user.getEmail(), activationKey, false);
 
-        String content = mailService.getContent("jr_confirm",
-                ImmutableMap.of("participationType", ParticipationType.HW_REVIEW,
-                        "user", new UserMail(userMail),
-                        "subscriptionUrl", subscriptionUrl,
-                        "activationKey", activationKey));
+        String email = user.getEmail();
+        String content = mailService.getContent("ref/refParticipation",
+                ImmutableMap.of(
+                        "user", user,
+                        "topjavaRef", refService.getRefUrl("topjava", email),
+                        "masterjavaRef", refService.getRefUrl("masterjava", email),
+                        "basejavaRef", refService.getRefUrl("basejava", email)));
 
         System.out.println(content);
     }

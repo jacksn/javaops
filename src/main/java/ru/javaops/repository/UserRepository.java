@@ -25,7 +25,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "  LEFT JOIN FETCH u.userGroups WHERE u.email=:email")
     User findByEmailWithGroup(@Param("email") String email);
 
-    @Query("SELECT new ru.javaops.to.UserMail(ug.user) FROM UserGroup ug " +
+    @Query("SELECT new ru.javaops.to.UserMailImpl(ug.user) FROM UserGroup ug " +
             " WHERE ug.group.name=:groupName AND ug.user.active=TRUE")
     Set<UserMail> findByGroupName(@Param("groupName") String groupName);
 
@@ -43,6 +43,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     User findByEmailAndGroupName(@Param("email") String email, @Param("groupName") String groupName);
 
     @Override
+    @Transactional
     User save(User entity);
 
     //    https://jira.spring.io/browse/DATAJPA-1103

@@ -1,6 +1,5 @@
 package ru.javaops.service;
 
-import com.google.api.client.repackaged.com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,13 +7,6 @@ import ru.javaops.config.AppProperties;
 import ru.javaops.config.exception.NoPartnerException;
 import ru.javaops.model.User;
 import ru.javaops.util.PasswordUtil;
-
-import javax.annotation.PostConstruct;
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 
 @Service
 @Slf4j
@@ -26,16 +18,6 @@ public class SubscriptionService {
 
     @Autowired
     private UserService userService;
-
-    private SecretKey secretKey;
-
-    @PostConstruct
-    private void postConstruct() throws NoSuchAlgorithmException {
-//        http://stackoverflow.com/questions/10303767/encrypt-and-decrypt-in-java
-//        http://sakthipriyan.com/2015/07/21/encryption-and-decrption-in-java.html
-
-        this.secretKey = new SecretKeySpec(appProperties.getSecretKey().getBytes(), "AES");
-    }
 
     public String getSubscriptionUrl(String email, String activationKey, boolean active) {
         return appProperties.getHostUrl() + "/activate?email=" + email + "&key=" + activationKey + "&activate=" + active;
@@ -67,59 +49,5 @@ public class SubscriptionService {
         if (!userService.findExistedByEmail(adminKey).isAdmin()) {
             throw new IllegalArgumentException("Неверный ключ");
         }
-    }
-
-    public String encrypt(String value) {
-        return markRef(encrypt0(value, secretKey));
-    }
-
-    public String decrypt(String value) {
-        return isRef(value) ? decrypt0(value.substring(1), secretKey) : null;
-    }
-
-    public User decryptUser(String value) {
-        User user = null;
-        String email = decrypt(value);
-        if (email != null) {
-            user = userService.findByEmail(email);
-            if (user == null) {
-                log.error("!!! Error user decrypted email '{}'", email);
-            }
-        }
-        return user;
-    }
-
-    static String encrypt0(String value, SecretKey secretKey) {
-        try {
-            byte[] bytes = value.getBytes();
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-            byte[] encryptedByte = cipher.doFinal(bytes);
-            return Base64.getUrlEncoder().encodeToString(encryptedByte);
-        } catch (Exception e) {
-            log.warn("!!! Error encrypt '{}'", value);
-            return null;
-        }
-    }
-
-    static String decrypt0(String encrypted, SecretKey secretKey) {
-        try {
-            byte[] encryptedByte = Base64.getUrlDecoder().decode(encrypted);
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(Cipher.DECRYPT_MODE, secretKey);
-            byte[] bytes = cipher.doFinal(encryptedByte);
-            return new String(bytes);
-        } catch (Exception e) {
-            log.warn("!!! Error decrypt '{}'", encrypted);
-            return null;
-        }
-    }
-
-    public static boolean isRef(String value) {
-        return !Strings.isNullOrEmpty(value) && value.charAt(0) == '$';
-    }
-
-    public static String markRef(String value) {
-        return '$' + value;
     }
 }

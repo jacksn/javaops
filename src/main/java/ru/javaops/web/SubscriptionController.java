@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.javaops.model.*;
 import ru.javaops.service.*;
-import ru.javaops.to.UserMail;
+import ru.javaops.to.UserMailImpl;
 import ru.javaops.to.UserTo;
 import ru.javaops.util.ProjectUtil;
+import ru.javaops.util.RefUtil;
 import ru.javaops.util.Util;
 
 import javax.mail.MessagingException;
@@ -54,6 +55,7 @@ public class SubscriptionController {
 
     @RequestMapping(value = "/activate", method = RequestMethod.GET)
     public ModelAndView activate(@RequestParam("email") String email, @RequestParam("activate") boolean activate, @RequestParam("key") String key) {
+        log.info("User {} set activete={}", email, activate);
         User u = userService.findByEmail(email);
         if (u != null && u.isActive() != activate) {
             u.setActive(activate);
@@ -80,7 +82,7 @@ public class SubscriptionController {
         UserGroup userGroup = groupService.registerAtGroup(userTo, group, channel, participationType);
         String mailResult = "без отправки";
         if (StringUtils.isNotEmpty(template)) {
-            mailResult = mailService.sendWithTemplate(template, new UserMail(userGroup.getUser()), ImmutableMap.of("participationType", participationType == null ? "" : participationType));
+            mailResult = mailService.sendWithTemplate(template, userGroup.getUser(), ImmutableMap.of("participationType", participationType == null ? "" : participationType));
         }
         ImmutableMap<String, ?> params = ImmutableMap.of("userGroup", userGroup, "result", mailResult);
 
@@ -91,7 +93,7 @@ public class SubscriptionController {
             mv = new ModelAndView("confirm", params);
         }
         if (confirmMail != null) {
-            mailService.sendWithTemplateAsync(confirmMail, "confirm", params);
+            mailService.sendWithTemplateAsync(new UserMailImpl(null, confirmMail), "confirm", params);
         }
         return mv;
     }
@@ -106,24 +108,36 @@ public class SubscriptionController {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
+        User refUser = null;
         if (!Strings.isNullOrEmpty(refUserId)) {
-            User refUser = userService.get(Integer.parseInt(refUserId));
-            channel = SubscriptionService.markRef(refUser.getEmail());
+            try {
+                refUser = userService.get(Integer.parseInt(refUserId));
+                if (refUser != null) {
+                    channel = RefUtil.markRef(refUser.getEmail());
+                } else {
+                    channel = "Unknown_refUserId_" + refUserId;
+                }
+            } catch (Exception e) {
+                channel = "Unknown_refUserId_" + refUserId;
+            }
         } else if (!Strings.isNullOrEmpty(cookieChannel)) {
             channel = cookieChannel;
         }
         log.info("+++ !!! Register from '{}', project={}, email={}", channel, projectName, userTo.getEmail());
 
         UserGroup userGroup = groupService.registerAtProject(userTo, projectName, channel);
-
-        // TODO send registration ref email
         if (userGroup.isAlreadyExist()) {
             return getRedirectView("/duplicate.html");
         } else if (userGroup.getRegisterType() == RegisterType.REPEAT) {
             integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail(), projectName);
             template = projectName + "_repeat";
-        } else if (template == null) {
-            template = projectName + "_register";
+        } else {
+            if (template == null) {
+                template = projectName + "_register";
+            }
+            if (refUser != null) {
+                mailService.sendRefMail(refUser, "ref/refRegistration", ImmutableMap.of("project", projectName, "email", userTo.getEmail()));
+            }
         }
         String mailResult = mailService.sendToUser(template, userGroup.getUser());
         return getRedirectView(mailResult, "/confirm.html", "/error.html");
@@ -166,7 +180,7 @@ public class SubscriptionController {
         checkState(groupService.isProjectMember(user.getId(), projectName), "Пользователь %s не найден в проекте %s", email, projectName);
 
         IdeaCoupon coupon = ideaCouponService.assignToUser(user, groupService.getProjectProps(projectName).project);
-        String response = mailService.sendWithTemplate("idea_register", new UserMail(user), ImmutableMap.of("coupon", coupon.getCoupon()));
+        String response = mailService.sendWithTemplate("idea_register", user, ImmutableMap.of("coupon", coupon.getCoupon()));
         if (MailService.OK.equals(response)) {
             return new ModelAndView("registration_idea");
         } else {

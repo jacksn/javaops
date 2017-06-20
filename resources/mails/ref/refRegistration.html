@@ -1,0 +1,15 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title th:text="|Регистрация пользователя ${email} на проект ${project}|">Регистрация пользователя mail на проект
+        project</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй!<br/>
+</p>
+<p th:text="|По реферальной ссылке произведенена регистрация пользователя ${email} на проект ${project}|"></p>
+В случае оплаты придет письмо и +25 бонусов <span th:text="|(на данный момент: ${user.bonus})|"></span>
+<hr/>
+<th:block th:include="mailFragments::bonus"/>
+<th:block  th:include="mailFragments::simpleFooter"/>
+</html>
