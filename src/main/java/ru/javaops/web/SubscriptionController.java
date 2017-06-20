@@ -136,6 +136,8 @@ public class SubscriptionController {
                     return getRedirectView("/duplicate.html");
                 }
             }
+            userGroup.setRegisteredDate(new Date());
+            groupService.save(userGroup);
         } else if (userGroup.getRegisterType() == RegisterType.REPEAT) {
             integrationService.asyncSendSlackInvitation(userGroup.getUser().getEmail(), projectName);
             template = projectName + "_repeat";
@@ -172,7 +174,7 @@ public class SubscriptionController {
         }
         if (ProjectUtil.getGroupByProjectAndType(groups, projectName, GroupType.FINISHED).isPresent()) {
             ProjectUtil.ProjectProps projectProps = groupService.getProjectProps(projectName);
-            groupService.save(user, projectProps.currentGroup, RegisterType.REPEAT, "repeat");
+            groupService.save(new UserGroup(user, projectProps.currentGroup, RegisterType.REPEAT, "repeat"));
 
             mailService.sendToUser(projectName + "_repeat", user);
             IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, projectName);

@@ -125,8 +125,8 @@ public class GroupService {
         return userGroupRepository.save(ug);
     }
 
-    public UserGroup save(User user, Group group, RegisterType registerType, String channel) {
-        return userGroupRepository.save(new UserGroup(user, group, registerType, channel));
+    public UserGroup save(UserGroup userGroup) {
+        return userGroupRepository.save(userGroup);
     }
 
     private UserGroup checkRemoveFromRegistered(UserGroup ug) {
