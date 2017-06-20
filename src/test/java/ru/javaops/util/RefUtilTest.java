@@ -14,7 +14,7 @@ public class RefUtilTest {
     @Test
 //    $vZDS4I86C3mPhvvo_lXKTQDCBJK7AdUl4nTm8Zso5RQ=
     public void encryptDecrypt() throws Exception {
-        SecretKeySpec secretKey = new SecretKeySpec("".getBytes(), "AES");
+        SecretKeySpec secretKey = new SecretKeySpec("1234567890123456".getBytes(), "AES");
         String mail = "admin@javaops.ru";
         String code = RefUtil.encrypt0(mail, secretKey);
         System.out.println(code);
