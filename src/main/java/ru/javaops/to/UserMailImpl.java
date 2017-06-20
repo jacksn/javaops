@@ -44,7 +44,7 @@ public class UserMailImpl implements UserMail {
 
     @Override
     public boolean equals(Object o) {
-        return this == o || email.equals(((UserMailImpl) o).email);
+        return this == o || email.equals(((UserMail) o).getEmail());
     }
 
     @Override

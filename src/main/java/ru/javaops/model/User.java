@@ -430,7 +430,7 @@ public class User extends BaseEntity implements UserMail {
 
     @Override
     public boolean equals(Object o) {
-        return this == o || email.equals(((User) o).email);
+        return this == o || email.equals(((UserMail) o).getEmail());
     }
 
     @Override
