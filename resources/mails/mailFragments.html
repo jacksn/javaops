@@ -14,7 +14,8 @@
     <p>
         <a th:href="@{http://javaops.ru/profile(email=${user.email}, key=${activationKey})}">Личный профиль</a><br/>
         <a href="http://javaops.ru">Java Online Projects</a><br/>
-        <a href="https://vk.com/javawebinar">vk: Java Enterprise Online Projects</a> (все самое интересное из мира Java и IT)
+        <a href="https://vk.com/javawebinar">vk: Java Enterprise Online Projects</a> (все самое интересное из мира Java
+        и IT)
     </p>
     <p style="font-size: small">
         <a th:href="${subscriptionUrl}">Отписаться от рассылки</a><br/>
@@ -30,7 +31,8 @@
     <p>
         <a th:href="@{http://javaops.ru/profile(email=${user.email}, key=${activationKey})}">Личный профиль</a><br/>
         <a href="http://javaops.ru">Java Online Projects</a><br/>
-        <a href="https://vk.com/javawebinar">vk: Java Enterprise Online Projects</a> (все самое интересное из мира Java и IT)
+        <a href="https://vk.com/javawebinar">vk: Java Enterprise Online Projects</a> (все самое интересное из мира Java
+        и IT)
     </p>
 </div>
 <div th:fragment="generalFooter">
@@ -42,7 +44,8 @@
     <p>
         <a th:href="@{http://javaops.ru/profile(email=${user.email}, key=${activationKey})}">Личный профиль</a><br/>
         <a href="http://javaops.ru">Java Online Projects</a><br/>
-        <a href="https://vk.com/javawebinar">vk: Java Enterprise Online Projects</a> (все самое интересное из мира Java и IT)
+        <a href="https://vk.com/javawebinar">vk: Java Enterprise Online Projects</a> (все самое интересное из мира Java
+        и IT)
     </p>
 </div>
 <div th:fragment="simpleFooter">
@@ -54,17 +57,20 @@
 </div>
 <small th:fragment="bonus" style="font-size: small">
     <ul>На бонусы можно
-        <li>получить скидку на любой из текущих проектов (<a href="http://javaops.ru/reg/masterjava?ch=mail">Masterjava</a>,
+        <li>получить скидку на любой из текущих проектов (<a
+                href="http://javaops.ru/reg/masterjava?ch=mail">Masterjava</a>,
             <a href="http://javaops.ru/reg/basejava?ch=mail">Basejava</a>, <a
                     href="http://javaops.ru/reg/topjava?ch=mail">Topjava</a>), 1 бонус = 1% скидки
         </li>
-        <li>получить скидку на будущие проекты. В конце лета планирую дополнения к Topjava (Java Config, Thymleaf, H2, Bean Mapping, Ouath2, Spring Boot, ...). Следи за рассылкой.</li>
+        <li>получить скидку на будущие проекты. В конце лета планирую дополнения к Topjava (Java Config, Thymleaf, H2,
+            Bean Mapping, Ouath2, Spring Boot, ...). Следи за рассылкой.
+        </li>
         <li>накопив от 100 бонусов получить наличные (100 бонусов = 10 000 руб./ 175$)</li>
     </ul>
-    <ul>Личные реферальные ссылки:
-        <li><a th:href="${topjavaRef}">Topjava</a></li>
-        <li><a th:href="${masterjavaRef}">Masterjava</a></li>
-        <li><a th:href="${basejavaRef}">Basejava</a></li>
+    <ul>Личные реферальные ссылки (:
+        <li th:text="|Topjava: ${topjavaRef}|"></li>
+        <li th:text="|Masterjava: ${masterjavaRef}|"></li>
+        <li th:text="|Basejava: ${basejavaRef}|"></li>
     </ul>
 </small>
 </html>

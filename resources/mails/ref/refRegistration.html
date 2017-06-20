@@ -7,7 +7,7 @@
 <p th:replace="mailFragments::header(${user})">
     Здравствуй!<br/>
 </p>
-<p th:text="|По реферальной ссылке произведенена регистрация пользователя ${email} на проект ${project}|"></p>
+<p th:text="|По реферальной ссылке пользователь ${email} зарегистрировался на проект ${project}|"></p>
 В случае оплаты придет письмо и +25 бонусов <span th:text="|(на данный момент: ${user.bonus})|"></span>
 <hr/>
 <th:block th:include="mailFragments::bonus"/>
