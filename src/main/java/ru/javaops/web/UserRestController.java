@@ -58,10 +58,12 @@ public class UserRestController {
         } else {
             refUser = refService.getRefUser(ug.getChannel());
             if (refUser != null) {
-                refUser.addBonus(25);
+                String project = ug.getGroup().getProject().getName();
+                int addBonus = "topjava".equals(project) || "masterjava".equals(project) ? 25 : 10;
+                refUser.addBonus(addBonus);
                 log.info("!!! Ref Participation from user {}, bonus {}", refUser.getEmail(), refUser.getBonus());
                 userService.save(refUser);
-                mailService.sendRefMail(refUser, "ref/refParticipation", ImmutableMap.of("group", group, "email", userTo.getEmail()));
+                mailService.sendRefMail(refUser, "ref/refParticipation", ImmutableMap.of("project", project, "email", userTo.getEmail(), "addBonus", addBonus));
             }
         }
         return (refUser == null ? "" : "Reference from " + refUser.getEmail() + ", bonus=" + refUser.getBonus() + "\n") +

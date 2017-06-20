@@ -396,10 +396,6 @@ public class User extends BaseEntity implements UserMail {
         return (partnerFlag & mask) != 0;
     }
 
-    public void setBonus(int bonus) {
-        this.bonus = bonus;
-    }
-
     public int addBonus(int bonus) {
         this.bonus += bonus;
         return bonus;
