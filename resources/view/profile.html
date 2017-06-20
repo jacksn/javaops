@@ -5,6 +5,7 @@
     <meta charset="UTF-8"/>
     <title>Профиль</title>
     <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.6/css/blog.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
     <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
 </head>
@@ -43,7 +44,7 @@
                     <input class="form-control" name="fromDate" id="fromDate" value="2017-04-01"/>
                 </div>
                 <div class="col-sm-7">
-                    <h4><a th:href="@{/sql(sql_key=_job_wanted_, csv=true, partnerKey=${user.email}, fromDate='2017-04-01')}"
+                    <h4 style="margin-top: 10px"><a th:href="@{/sql(sql_key=_job_wanted_, csv=true, partnerKey=${user.email}, fromDate='2017-04-01')}"
                        href="" id="jobWanted">база кандидатов на позицию Java разработчик</a>
                     </h4>
                 </div>
