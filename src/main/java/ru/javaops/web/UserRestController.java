@@ -3,7 +3,9 @@ package ru.javaops.web;
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,8 +43,8 @@ public class UserRestController {
     private GroupService groupService;
 
     @RequestMapping(method = DELETE)
-    public void delete(@RequestParam("email") String email) {
-        userService.deleteByEmail(email);
+    public ResponseEntity<String> delete(@RequestParam("email") String email) {
+        return new ResponseEntity<>(userService.deleteByEmail(email) ? "OK":"Not Found", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/pay", method = POST)

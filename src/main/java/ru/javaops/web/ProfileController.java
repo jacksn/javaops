@@ -4,6 +4,8 @@ import com.google.api.client.repackaged.com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,6 +60,11 @@ public class ProfileController {
     public ModelAndView profile(@RequestParam("email") String email, @RequestParam("key") String key) {
         User u = userService.findExistedByEmail(email);
         return new ModelAndView("profile", ImmutableMap.of("user", u, "key", key));
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public ResponseEntity<String> delete(@RequestParam("email") String email, @RequestParam("key") String key) {
+        return new ResponseEntity<>(userService.deleteByEmail(email) ? "OK" : "Not Found", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
