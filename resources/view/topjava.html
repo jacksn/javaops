@@ -136,13 +136,14 @@
                             src="https://camo.githubusercontent.com/3979c19ae2c9bd2b3a3fc359d53f3b79de0f8d6f/68747470733a2f2f6c68362e676f6f676c6575736572636f6e74656e742e636f6d2f2d2d5149494a664b726a536b2f554a4a36582d556f6849492f414141414141414141564d2f634f5737456a6e483737382f733830302f62616e6e65725f494445412e706e67"
                             alt="IntelliJ"/></a>
                 </p></li>
-
         </ul>
     </div>
+    <hr/>
 </div>
-<div class="container" style="background-color: #eee">
-    <th:block th:include="fragments::delim('price', 'Стоимость:')"/>
-    <span style="font-size: large">
+<div class="jumbotron">
+    <div class="container">
+        <th:block th:include="fragments::delim('price', 'Стоимость:')"/>
+        <span style="font-size: large">
         <ul>
             <li><p>Стоимость участия без проверки домашних заданий: <b>8300 руб./ 150$</b> <br/>
                 <i>сюда входят все материалы, участие в группе <a href="https://slack.com/">Slack</a> (на каждое занятие и тему- свой канал), полугодовая лицензия IntelliJ IDEA, ответы на вопросы и помощь с проектом.</i></p>
@@ -155,8 +156,10 @@
   	        <li><p>Добавляйтесь в <b><a href="skype:grigory.kislin">skype: grigory.kislin</a></b></p></li>
         </ul>
         </span>
+    </div>
 </div>
 <div class="container">
+    <hr/>
     <th:block th:include="fragments::delim('schedule', 'Расписание:')"/>
 
     <div style="font-size: large">
