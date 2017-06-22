@@ -7,20 +7,16 @@
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header"></div>
 <div class="container pad">
-    <table width="100%">
-        <tr>
-            <td>
-                <h2>Стажировка Java Enterprise (Topjava)</h2>
-                <p class="lead"><i>Разработка полнофункционального Spring/JPA Enterprise приложения c авторизацией и
-                    правами доступа на основе ролей с использованием наиболее популярных инструментов и технологий
-                    Java: Maven, Spring MVC, Security, JPA(Hibernate), REST(Jackson), Bootstrap (css,js),
-                    datatables, jQuery + plugins, Java 8 Stream and Time API и сохранением в базах данных Postgresql и
-                    HSQLDB.</i>
-                </p>
-            </td>
-            <td align="right" valign="top"><img src="../static/img/javaEE.png"/></td>
-        </tr>
-    </table>
+    <h2>Стажировка Java Enterprise (Topjava)</h2>
+    <p class="lead"><i>Разработка полнофункционального Spring/JPA Enterprise приложения c авторизацией и
+        правами доступа на основе ролей с использованием наиболее популярных инструментов и технологий
+        Java: Maven, Spring MVC, Security, JPA(Hibernate), REST(Jackson), Bootstrap (css,js),
+        datatables, jQuery + plugins, Java 8 Stream and Time API и сохранением в базах данных Postgresql и
+        HSQLDB.</i>
+    </p>
+        <img src="https://user-images.githubusercontent.com/13649199/27433096-c95b5fe4-575b-11e7-9888-ff06b7b526b3.jpg"
+             alt="Структура проекта"/>
+    <hr/>
 </div>
 <div class="jumbotron">
     <div class="container">
@@ -141,9 +137,13 @@
                 </p></li>
 
         </ul>
-
+    </div>
+    <div class="jumbotron">
+        <div class="container">
         <th:block th:include="fragments::delim('price', 'Стоимость:')"/>
-
+        </div>
+    </div>
+    <div class="container">
         <span style="font-size: large">
         <ul>
             <li><p>Стоимость участия без проверки домашних заданий: <b>8300 руб./ 150$</b> <br/>
