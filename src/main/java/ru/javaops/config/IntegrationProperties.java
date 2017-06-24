@@ -1,6 +1,7 @@
 package ru.javaops.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.Map;
  * 20.08.2015.
  */
 @ConfigurationProperties("app.integration")
+@Validated
 public class IntegrationProperties {
 
     @NotNull

@@ -12,11 +12,14 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
+import org.springframework.web.servlet.mvc.UrlFilenameViewController;
 import ru.javaops.service.SubscriptionService;
 import ru.javaops.util.WebUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Properties;
 import java.util.function.Consumer;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -26,24 +29,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Configuration
 @Slf4j
 public class MvcConfiguration extends WebMvcConfigurerAdapter {
-
-/*
-    @Bean
-    public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("./i18n/messages");
-        messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setCacheSeconds(properties.getCacheSeconds());
-        return messageSource;
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-        localeChangeInterceptor.setParamName("language");
-        registry.addInterceptor(localeChangeInterceptor);
-    }
-*/
 
     @Autowired
     private SubscriptionService subscriptionService;
@@ -87,13 +72,35 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
+        registry.addViewController("/interview/test.html").setViewName("test");
+        registry.addViewController("/payment.html").setViewName("payment");
+        registry.addViewController("/story.html").setViewName("story");
+    }
+
+    //    http://www.codejava.net/frameworks/spring/spring-mvc-url-based-view-resolution-with-urlfilenameviewcontroller-example
+    @Bean(name = "urlViewController")
+    public UrlFilenameViewController getUrlViewController() {
+        return new UrlFilenameViewController();
+    }
+
+    @Bean
+    public SimpleUrlHandlerMapping getUrlHandlerMapping() {
+        SimpleUrlHandlerMapping handlerMapping = new SimpleUrlHandlerMapping();
+        handlerMapping.setMappings(new Properties() {
+            {
+//                https://stackoverflow.com/a/12569566/548473
+                put("/view/**", "urlViewController");
+            }
+        });
+        handlerMapping.setOrder(Integer.MAX_VALUE - 5);
+        return handlerMapping;
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("file:./resources/static/");
         registry.addResourceHandler("/css/**").addResourceLocations("file:./resources/css/");
-        registry.addResourceHandler("/*.html").addResourceLocations("file:./resources/");
-        registry.addResourceHandler("/**/*.html").addResourceLocations("file:./resources/");
+        registry.addResourceHandler("/*.html", "/**/*.html").addResourceLocations("file:./resources/");
+        registry.setOrder(Integer.MAX_VALUE);
     }
 }

@@ -1,19 +1,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments::headTag('')">
-    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/blog.css"/>
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../static/css/mdb.css"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header"></div>
-<div class="jumbotron">
-    <div class="container box">
+<nav th:replace="fragments::header" class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr">
+    <div class="container">
+        <a href="/" class="navbar-brand"><strong>Java Online Projects</strong></a>
+    </div>
+</nav>
+<div class="container pad">
+    <div class="jumbotron">
         <br/>
         <h3 th:text="'Ваша подписка '+ (${activate} ? 'включена.' : 'выключена.')">
             Ваша подписка выключена.
         </h3>
-        <h4><a th:href="${subscriptionUrl}">Изменить подписку</a></h4>
+        <h4><a th:href="${subscriptionUrl}" href="#">Изменить подписку</a></h4>
     </div>
 </div>
 </body>
+<th:block th:include="fragments::js-skype"/>
 </html>

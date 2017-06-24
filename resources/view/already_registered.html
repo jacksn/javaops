@@ -1,16 +1,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments::headTag('')">
-    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/blog.css"/>
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../static/css/mdb.css"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header"></div>
-<div class="jumbotron">
-    <div class="container box">
-        <h2>Ты уже зарегистрирован на новом проекте!</h2>
+<nav th:replace="fragments::header" class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr">
+    <div class="container">
+        <a href="/" class="navbar-brand"><strong>Java Online Projects</strong></a>
+    </div>
+</nav>
+<div class="container pad">
+    <div class="jumbotron">
+        <h2 th:text="|Ты уже зарегистрирован в группе ${group}.|">Ты уже зарегистрирован в группе group.</h2>
         <h3>Поищи в почте: при первой регистрации должно было прийти приглашение в группу Slack.</h3>
     </div>
 </div>
 </body>
+<th:block th:include="fragments::js-skype"/>
 </html>

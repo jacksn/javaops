@@ -1,0 +1,57 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::headTag('Наши истории')">
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../static/css/mdb.css"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<nav th:replace="fragments::header" class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bg">
+    <div class="container">
+        <a href="/" class="navbar-brand"><strong>Java Online Projects</strong></a>
+    </div>
+</nav>
+<div class="container pad">
+    <div class="jumbotron">
+        <h1 class="blog-post-title">Наши истории</h1>
+        <hr/>
+        <h3><a href="/view/story/story10">Из биологов в программисты за год</a></h3>
+        <p>Александр Королев, 17/02/2017</p>
+
+        <h3><a href="/view/story/story9">Путь к Java Developer.</a></h3>
+        <p> Иван, 05/02/2017</p>
+
+        <h3><a href="/view/story/story8">История трудоустройства.</a></h3>
+        <p> Тимур Муратов, 07/01/2017</p>
+
+        <h3><a href="/view/story/story7">ИТ-область – это эскалатор, движущийся вниз. Если вы хотите развиваться, то
+            нужно
+            постоянно двигаться вверх.</a></h3>
+        <p> Королёв Дмитрий, 13/04/2016</p>
+
+        <h3><a href="/view/story/story6">Как я стал Java-разработчиком.</a></h3>
+        <p>Максим, 28/03/2016</p>
+
+        <h3><a href="/view/story/story5">Главное - верить в свои силы.</a></h3>
+        <p>Лев Хачересьянц, 16/03/2016</p>
+
+        <h3><a href="/view/story/story4">Жизнь — как вождение велосипеда. Чтобы сохранить равновесие, ты должен
+            двигаться.</a></h3>
+        <p>Кислин Григорий, 16/03/2016</p>
+
+        <h3><a href="/view/story/story3">История успеха длиной в год</a></h3>
+        <p>AlexandrRS, 09/03/2016</p>
+
+        <h3><a href="/view/story/story2">Разработка ПО – это тяжелый, но благодарный труд</a></h3>
+        <p>Григорий Н., 08/03/2016</p>
+
+        <h3><a href="/view/story/story1">Каждое утро я просыпался с мыслью: "Как мне написать приложение?"</a></h3>
+        <p>Иван Виноградов, 04/03/2016</p>
+        <hr/>
+        Ждем истории по окончанию испытательных сроков: Тимур, Андрей, Дмитрий, Евгений, Алексей, Азер, ...
+    </div>
+    <th:block th:include="fragments::footer"/>
+</div>
+</body>
+<th:block th:include="fragments::js-skype"/>
+</html>

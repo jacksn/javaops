@@ -1,26 +1,59 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="headTag (title)">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta charset="UTF-8"/>
     <title th:text="${title=='' ? 'Java Online Projects': title}"></title>
-    <link rel="stylesheet" href="/static/bootstrap-3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/static/bootstrap-3.3.6/css/blog.css"/>
-    <link rel="stylesheet" href="/static/plugins/bootstrap.footnotes.css"/>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/css/mdb.min.css"/>
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="/css/style.css"/>
     <link rel="shortcut icon" href="/static/img/java_cup.ico"/>
 </head>
 
-<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+<nav class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr" th:fragment="header">
     <div class="container">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true"
+                aria-label="Меню">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <a href="/" class="navbar-brand">Java Online Projects</a>
-        <div class="collapse navbar-collapse">
-            <form class="navbar-form navbar-right">
-                <a href="skype: grigory.kislin" class="btn btn-link">skype: grigory.kislin</a>
-                <a href="mailto:admin@javaops.ru" class="btn-link">&nbsp;</a>
-                <a href="https://vk.com/javawebinar" class="btn-link" target="_blank">&nbsp;</a>
-            </form>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="/view/story" class="nav-link waves-effect waves-light">Истории</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/view/books" class="nav-link waves-effect waves-light">Литература</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/view/payment" class="nav-link waves-effect waves-light">Оплата</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item nav-link">
+                    <a href="skype: grigory.kislin">
+                        <span class="fa fa-skype" aria-hidden="true">grigory.kislin</span>
+                    </a>
+                </li>
+                <li class="nav-item nav-link">
+                    <a href="mailto:admin@javaops.ru">admin@javaops.ru</a>
+                </li>
+                <li class="nav-item nav-link">
+                    <a href="https://vk.com/javawebinar" target="_blank">
+                        <i class="fa fa-vk" aria-hidden="true">&nbsp;</i>
+                    </a>
+                </li>
+                <li class="nav-item nav-link">
+                    <a href="https://www.youtube.com/channel/UCMiuo1BSwQxRMl6781evABw/videos" target="_blank">
+                        <i class="fa fa-youtube" aria-hidden="true">&nbsp;</i>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
-</div>
+</nav>
 
 <th:block th:fragment="footer">
     <hr/>
@@ -30,8 +63,6 @@
          data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir">
     </div>
     <br/>
-    <script src="/static/jquery-1.12.0.min.js"></script>
-    <script src="/static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <footer>
         Java Enterprise JavaEE проект стажировка обучение курсы online онлайн обучение e-lerning семинар вебинар
         программирование
@@ -49,61 +80,73 @@
     <script src="/static/plugins/bootstrap.footnotes.js"></script>
 </th:block>
 
-<th:block th:fragment="skype">
-    <a data-config="commands=chat,add;size=14;status=on;theme=logo;bgcolor=#2a92f3" id="skaip-buttons"
+<th:block th:fragment="js-skype">
+    <script type="text/javascript" src="/static/js/jquery-3.1.1.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/static/js/tether.min.js"></script>
+    <!-- https://mdbootstrap.com/getting-started/ -->
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/static/js/mdb.min.js"></script>
+
+    <a data-config="commands=add;size=14;status=on;theme=logo;bgcolor=#2a92f3" id="skaip-buttons"
        href="http://www.skaip.su/">Skype</a>
     <script src="http://apps.skaip.su/buttons/widget/core.min.js" defer="defer"></script>
+</th:block>
+
+<th:block th:fragment="tooltip">
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </th:block>
 
 <th:block th:fragment="delim(name, title)">
     <h3 class="text-center"><a th:name="${name}" class="anchor" th:text="${title}"></a></h3>
 </th:block>
-
 <div th:fragment="modal(project, title)">
-    <hr/>
-    <table width="100%">
-        <tr>
-            <td>
-                <h3 class="text-center" th:text="${title}"></h3>
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <form class="form-horizontal" action="/register" method="post">
-                                <div class="form-group">
-                                    <label for="nameSurname" class="control-label col-xs-3">Имя</label>
-                                    <div class="col-xs-9">
-                                        <input class="form-control" id="nameSurname" name="nameSurname"
-                                               placeholder="Имя Фамилия"/>
-                                    </div>
+    <div class="row">
+        <div class="col-9">
+            <h3 class="text-center" th:text="${title}"></h3>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form action="/register" method="post">
+                            <div class="form-group">
+                                <label for="nameSurname" class="col-12">Имя</label>
+                                <div class="col-12">
+                                    <input class="form-control" id="nameSurname" name="nameSurname"
+                                           placeholder="Имя Фамилия"/>
                                 </div>
-                                <div class="form-group">
-                                    <label for="email" class="control-label col-xs-3">Электронная почта</label>
-                                    <div class="col-xs-9">
-                                        <input type="email" class="form-control" id="email" name="email"
-                                               placeholder="email"/>
-                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-12">Электронная почта</label>
+                                <div class="col-12">
+                                    <input type="email" class="form-control" id="email" name="email"
+                                           placeholder="email"/>
                                 </div>
-                                <input type="text" name="template" th:value="|${project}_entrance|" hidden="hidden"/>
-                                <input type="text" name="project" th:value="${project}" hidden="hidden"/>
+                            </div>
+                            <input type="text" name="template" th:value="|${project}_entrance|" hidden="hidden"/>
+                            <input type="text" name="project" th:value="${project}" hidden="hidden"/>
 
-                                <div class="form-group">
-                                    <div class="col-xs-offset-3 col-xs-9">
-                                        <button type="submit" class="btn btn-primary">Выслать ссылку</button>
-                                    </div>
+                            <div class="form-group">
+                                <div class="col-9">
+                                    <button type="submit" class="btn btn-primary">Выслать ссылку</button>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </td>
-            <td>
-                <script type="text/javascript" src="//vk.com/js/api/openapi.js?136"></script>
-                <div id="vk_groups"></div>
-                <script type="text/javascript">
-                    VK.Widgets.Group("vk_groups", {mode: 3, width: "220"}, 58538268);
-                </script>
-            </td>
-        </tr>
-    </table>
+            </div>
+        </div>
+        <div class="col-3 my-auto">
+            <script type="text/javascript" src="//vk.com/js/api/openapi.js?136"></script>
+            <div id="vk_groups" class="mx-auto"></div>
+            <script type="text/javascript">
+                VK.Widgets.Group("vk_groups", {mode: 3, width: "220"}, 58538268);
+            </script>
+        </div>
+    </div>
 </div>
 </html>

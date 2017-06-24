@@ -1,6 +1,7 @@
 package ru.javaops.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
  * 20.08.2015.
  */
 @ConfigurationProperties("app")
+@Validated
 public class AppProperties {
 
     /**

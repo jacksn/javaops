@@ -1,11 +1,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments::headTag('Стажировка Java Enterprise')">
-    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/blog.css"/>
+<head th:replace="fragments::headTag('')">
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../static/css/mdb.css"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header"></div>
+<nav th:replace="fragments::header" class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr">
+    <div class="container">
+        <a href="/" class="navbar-brand"><strong>Java Online Projects</strong></a>
+    </div>
+</nav>
 <div class="container pad">
     <h2>Стажировка Java Enterprise (Topjava)</h2>
     <p class="lead"><i>Разработка полнофункционального Spring/JPA Enterprise приложения c авторизацией и
@@ -14,32 +19,28 @@
         datatables, jQuery + plugins, Java 8 Stream and Time API и сохранением в базах данных Postgresql и
         HSQLDB.</i>
     </p>
-    <img src="https://user-images.githubusercontent.com/13649199/27433714-8294e6fe-575e-11e7-9c41-7f6e16c5ebe5.jpg"
-         alt="Структура проекта"/>
-    <hr/>
-</div>
-<div class="jumbotron">
-    <div class="container">
-        <h2>Старт 06.07. <a href="#schedule">Расписание</a></h2>
-        <h3><a href="https://github.com/JavaOPs/topjava/blob/master/description.md">Описание и план проекта
-            (открыто для просмотра 8 видео)</a></h3>
-        <h3><a href="https://vk.com/topic-74381644_30447246" target="_blank">Отзывы по
-            проекту</a></h3>
-        <h3><img src="../static/img/icon-meal.png" align="middle"/>&nbsp;<a href="http://topjava.herokuapp.com/">Демо
-            разрабатываемого приложения</a></h3>
-        <h3><a href="https://github.com/JavaOPs/topjava/wiki">Требования к участникам, ответы на вопросы</a></h3>
+    <div class="text-center">
+        <img src="https://user-images.githubusercontent.com/13649199/27433714-8294e6fe-575e-11e7-9c41-7f6e16c5ebe5.jpg"
+             alt="Структура проекта"/>
     </div>
-</div>
-<div class="container">
+    <br/>
+    <div class="jumbotron">
+        <h2><b>Старт 06.07.</b> <a href="#schedule">Расписание</a></h2>
+        <h4><a href="https://github.com/JavaOPs/topjava/blob/master/description.md">Описание и план проекта
+            (открыто для просмотра 8 видео)</a></h4>
+        <h4><a href="https://vk.com/topic-74381644_30447246" target="_blank">Отзывы по
+            проекту</a></h4>
+        <h4><img src="../static/img/icon-meal.png" align="middle"/>&nbsp;<a href="http://topjava.herokuapp.com/">Демо
+            разрабатываемого приложения</a></h4>
+        <h4><a href="https://github.com/JavaOPs/topjava/wiki">Требования к участникам, ответы на вопросы</a></h4>
+    </div>
     <th:block th:include="fragments::modal('topjava', 'Получить ссылку на бесплатное вводное занятие')"/>
-    <div class="center-block">
-        <iframe src="https://drive.google.com/file/d/0B9Ye2auQ_NsFY1ZDNXRCd1NCTG8/preview" width="1280"
-                height="720"></iframe>
-    </div>
+    <iframe src="https://drive.google.com/file/d/0B9Ye2auQ_NsFY1ZDNXRCd1NCTG8/preview" width="1024"
+            height="576"></iframe>
     <br/>
     <h3><a href="https://drive.google.com/file/d/0B9Ye2auQ_NsFY1ZDNXRCd1NCTG8/view" target="_blank"
            class="video">Вебинар ОСВАИВАЕМ JAVA ENTERPRISE</a></h3>
-    <h3><a href="https://goo.gl/XNVOj4" target="_blank">Слайды вебинара</a></h3>
+    <h4><a href="https://goo.gl/XNVOj4" target="_blank">Слайды вебинара</a></h4>
     <hr/>
     <i class="lead">Стажировка ведется по подготовленным на основе вебинара, разбитым по темам и отредактированым
         записям.
@@ -53,7 +54,7 @@
         собственный выпускной проект.
     </i>
     <hr/>
-    <div style="font-size: large">
+    <div  class="lead">
         <ul>
             <li><p>
                 Участники последовательно разрабатывают <strong>полнофункциональное Spring/JPA Enterprise приложение
@@ -139,12 +140,9 @@
         </ul>
     </div>
     <hr/>
-</div>
-<div class="jumbotron">
-    <div class="container">
+    <div class="jumbotron">
         <th:block th:include="fragments::delim('price', 'Стоимость:')"/>
-        <span style="font-size: large">
-        <ul>
+        <ul  class="lead">
             <li><p>Стоимость участия без проверки домашних заданий: <b>8300 руб./ 150$</b> <br/>
                 <i>сюда входят все материалы, участие в группе <a href="https://slack.com/">Slack</a> (на каждое занятие и тему- свой канал), полугодовая лицензия IntelliJ IDEA, ответы на вопросы и помощь с проектом.</i></p>
             </li>
@@ -152,24 +150,20 @@
                 <i>добавляется проверка домашних заданий + ревью выпускного проекта (либо вашего, например тестового задания при устройстве на работу).</i></p></li>
             <li><p>Для всех: бесплатное (или с доплатой за проверку ДЗ) участие в следующий выпусках проекта.</p></li>
             <li><p>Скидка на другие курсы: 700 руб. (без ДЗ) и 1500 руб (с ДЗ).</p></li>
-            <li><a href="/payment.html">Способы оплаты</a></li>
+            <li><a href="/view/payment">Способы оплаты</a></li>
   	        <li><p>Добавляйтесь в <b><a href="skype:grigory.kislin">skype: grigory.kislin</a></b></p></li>
         </ul>
-        </span>
     </div>
-</div>
-<div class="container">
     <th:block th:include="fragments::delim('schedule', 'Расписание:')"/>
-
-    <div style="font-size: large">
-        <ul><h3>06.07: Старт проекта</h3>
+    <div  class="lead">
+        <ul><h4>06.07: Старт проекта</h4>
             <li>Сбор группы в Slack</li>
             <li>Заполнение формы регистрации участника (в том числе gmail для доступа к материалам на Google Drive)</li>
             <li>Раздача учебных лицензий <a href="https://www.jetbrains.com/idea/download/index.html">IntelliJ IDEA</a>
             </li>
             <li>Проверка вступительного задания (для участников с проверкой решения присылать до 21.03).</li>
         </ul>
-        <ul><h3>13.07: 1-е занятие</h3>
+        <ul><h4>13.07: 1-е занятие</h4>
             <li>Разбор домашнего задания вступительного занятия (вместе с Optional)</li>
             <li>Обзор используемых в проекте технологий. Интеграция ПО</li>
             <li>Maven</li>
@@ -178,7 +172,7 @@
             <li>Уровни и зависимости логгирования. JMX</li>
             <li>Домашнее задание 1-го занятия (HW1 + Optional)</li>
         </ul>
-        <ul><h3>20.07: 2-е занятие</h3>
+        <ul><h4>20.07: 2-е занятие</h4>
             <li>Разбор домашнего задания HW1 + Optional</li>
             <li>Библиотека vs Фреймворк. Стандартные библиотеки Apache Commons, Guava</li>
             <li>Слои приложения. Создание каркаса приложения</li>
@@ -186,7 +180,7 @@
             <li>Пояснения к HW2. Обработка Autowired</li>
             <li>Домашнее задание (HW2 + Optional)</li>
         </ul>
-        <ul><h3>27.07: 3-е занятие</h3>
+        <ul><h4>27.07: 3-е занятие</h4>
             <li>Разбор домашнего задания HW2 + Optional</li>
             <li>Жизненный цикл Spring контекста</li>
             <li>Тестирование через JUnit</li>
@@ -198,7 +192,7 @@
             <li>Логирование тестов</li>
             <li>Домашнее задание (HW3 + Optional)</li>
         </ul>
-        <ul><h3>03.08: 4-е занятие</h3>
+        <ul><h4>03.08: 4-е занятие</h4>
             <li>Разбор домашнего задания HW3 + Optional</li>
             <li>Методы улучшения качества кода</li>
             <li>Spring: инициализация и популирование DB</li>
@@ -207,7 +201,7 @@
             <li>Поддержка HSQLDB</li>
             <li>Домашнее задание (HW4 + Optional)</li>
         </ul>
-        <ul><h3>10.08: 5-е занятие</h3>
+        <ul><h4>10.08: 5-е занятие</h4>
             <li>Разбор вопросов</li>
             <li>Разбор домашнего задания HW4 + Optional</li>
             <li>Транзакции</li>
@@ -217,7 +211,7 @@
             <li>Spring кэш</li>
             <li>Домашнее задание (HW5 + Optional)</li>
         </ul>
-        <ul><h3>17.08: 6-е занятие</h3>
+        <ul><h4>17.08: 6-е занятие</h4>
             <li>Разбор домашнего задания HW5 + Optional</li>
             <li>Кэш Hibernate</li>
             <li>Spring Web</li>
@@ -228,7 +222,7 @@
             <li>Spring Internationalization</li>
             <li>Домашнее задание (HW6 + Optional)</li>
         </ul>
-        <ul><h3>24.08: 7-е занятие</h3>
+        <ul><h4>24.08: 7-е занятие</h4>
             <li>Разбор домашнего задания HW6 + Optional</li>
             <li>Автогенерация DDL по модели</li>
             <li>Тестирование Spring MVC</li>
@@ -238,7 +232,7 @@
             <li>Тестирование через SoapUi. UTF-8</li>
             <li>Домашнее задание (HW7 + Optional)</li>
         </ul>
-        <ul><h3>31.08: 8-е занятие</h3>
+        <ul><h4>31.08: 8-е занятие</h4>
             <li>Разбор домашнего задания HW7 + Optional</li>
             <li>WebJars. jQuery и JavaScript frameworks</li>
             <li>Bootstrap</li>
@@ -247,7 +241,7 @@
             <li>Добавление Spring Security</li>
             <li>Домашнее задание (HW8 + Optional)</li>
         </ul>
-        <ul><h3>07.09: 9-е занятие</h3>
+        <ul><h4>07.09: 9-е занятие</h4>
             <li>Разбор домашнего задания HW8 + Optional</li>
             <li>Spring Binding</li>
             <li>Spring Validation</li>
@@ -259,7 +253,7 @@
             <li>Cookie. Session</li>
             <li>Домашнее задание (HW9 + Optional)</li>
         </ul>
-        <ul><h3>14.09: 10-е занятие</h3>
+        <ul><h4>14.09: 10-е занятие</h4>
             <li>Разбор домашнего задания HW10 + Optional</li>
             <li>Spring Security Taglib. Method Security Expressions</li>
             <li>Интерсепторы. Редактирование профиля. JSP tag files</li>
@@ -269,7 +263,7 @@
             <li>Защита от межсайтовой подделки запросов (CSRF)</li>
             <li>Домашнее задание (HW10)</li>
         </ul>
-        <ul><h3>21.09: Заключительное занятие</h3>
+        <ul><h4>21.09: Заключительное занятие</h4>
             <li>Разбор домашнего задания HW10 + Optional</li>
             <li>Локализация datatables, ошибок валидации</li>
             <li>Защита от XSS (Cross Site Scripting)</li>
@@ -298,5 +292,5 @@
     <th:block th:include="fragments::footer"/>
 </div>
 </body>
-<th:block th:include="fragments::skype"/>
+<th:block th:include="fragments::js-skype"/>
 </html>

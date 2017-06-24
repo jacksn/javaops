@@ -9,9 +9,9 @@ $(document).ready(function () {
             "language": {
                 "url": "static/datatables/Russian.json"
             },
-            dom: "<'row'<'col-sm-3'f><'col-sm-6 align_center'B>>" +
+            dom: "<'row'<'col-3'f><'col-6 align_center'B>>" +
             "tr" +
-            "<'row'<'col-sm-5 align_left'i>>",
+            "<'row'<'col-5 align_left'i>>",
             'columnDefs': [
                 {
                     'targets': 0,

@@ -1,43 +1,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<!--/*@thymesVar id="project" type="ru.javaops.model.Project"*/-->
-<!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
-<head th:include="fragments::headTag('Java Online Projects')">
-    <meta charset="UTF-8"/>
-    <title>Java Online Projects</title>
-    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
+<head th:replace="fragments::headTag('')">
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../static/css/mdb.css"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header">
+<nav th:replace="fragments::header" class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr">
     <div class="container">
-        <a href="/" class="navbar-brand">Java Online Projects</a>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-            </ul>
-        </div>
+        <a href="/" class="navbar-brand"><strong>Java Online Projects</strong></a>
     </div>
-</div>
-<div class="jumbotron">
-    <div class="container box">
+</nav>
+<div class="container box">
+    <div class="jumbotron">
         <h2>Спасибо за регистрацию!</h2>
         <!--/*@thymesVar id="response" type="ru.javaops.service.IntegrationService.SlackResponse"*/-->
-        <h3 th:text="${response.ok} ? 'На почту должно прийти приглашение в группу Slack (в течении 5 мин)' : 'Ответ от Slack: '+ ${response.error}">
+        <h4 th:text="${response.ok} ? 'На почту должно прийти приглашение в группу Slack (в течении 5 мин)' : 'Ответ от Slack: '+ ${response.error}">
             На почту должно прийти приглашение в группу Slack.
-        </h3>
+        </h4>
         <!--/*@thymesVar id="accessResponse" type="java.lang.String"*/-->
         <th:block th:if="${accessResponse}!='' and ${accessResponse}!=null">
-            <h3 th:text="${accessResponse}=='ok' ? 'Проверьте доступ к материалам по ссылке в письме.' : 'Ошибка доступа: '+ ${accessResponse}+' Обычно это неверный gmail (пропущена буква или домен ru вместо com). Поробуй еще раз зайти по ссылке из письма и поправить gmail. Если проблема не решилась, напиши мне в скайп: grigory.kislin'">
+            <h4 th:text="${accessResponse}=='ok' ? 'Проверьте доступ к материалам по ссылке в письме.' : 'Ошибка доступа: '+ ${accessResponse}+' Обычно это неверный gmail (пропущена буква или домен ru вместо com). Поробуй еще раз зайти по ссылке из письма и поправить gmail. Если проблема не решилась, напиши мне в скайп: grigory.kislin'">
                 Проверьте доступ к материалам по ссылке в письме.
-            </h3>
+            </h4>
         </th:block>
         <th:block th:if="${activationKey}!=null">
-            <h3><a th:href="@{http://javaops.ru/profile(email=${param.email}, key=${activationKey})}"
-                   href="#">Редактировать мои данные</a></h3>
-            <h3><a th:href="@{http://javaops.ru/users(email=${email}, key=${activationKey})}">Список участников,
-                отсортированный по городам</a></h3>
+            <h4><a th:href="@{http://javaops.ru/profile(email=${param.email}, key=${activationKey})}"
+                   href="#">Редактировать мои данные</a></h4>
+            <h4><a th:href="@{http://javaops.ru/users(email=${email}, key=${activationKey})}">Список участников,
+                отсортированный по городам</a></h4>
         </th:block>
     </div>
 </div>
 </body>
+<th:block th:include="fragments::js-skype"/>
 </html>

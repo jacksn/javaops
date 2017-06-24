@@ -1,24 +1,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments::headTag('Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)')">
-    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/blog.css"/>
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../static/css/mdb.css"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header"></div>
+<nav th:replace="fragments::header" class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr">
+    <div class="container">
+        <a href="/" class="navbar-brand"><strong>Java Online Projects</strong></a>
+    </div>
+</nav>
 <div class="container pad">
     <h2>Многомодульный maven. Многопоточность. XML (JAXB/StAX). <br/>
         Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA).</h2>
     <p class="lead">
         <b>Разработка полнофункционального многомодульного Maven проекта</b>, <br/>состоящего из 3-х веб приложений:
     </p>
-</div>
-<div class="jumbotron">
-    <div class="container">
+    <div class="jumbotron">
         <img src="https://cloud.githubusercontent.com/assets/13649199/23876457/ab01ff0a-084e-11e7-964f-49c90579fac9.png"
              alt="Структура проекта"/>
         <hr/>
-        <ul style="font-size: 21px">
+        <ul class="lead">
             <li><b>приложение импорта</b> из XML (JAXB, StAX, XPath, XSLT)</li>
             <li><b>многопоточного почтового веб-сервиса</b><br/>
                 (JavaMail, java.util.concurrent, JAX-WS, MTOM, хендлеры авторизации, логирования и статистики)
@@ -43,39 +46,44 @@
             </li>
         </ul>
     </div>
-</div>
-<div class="container">
-    <div style="font-size: large">
-        <h3><b>Участие в проекте в индивидуальном порядке (старт в любое время) по готовым материалам и патчам с
-            поддержкой в группе Slack.</b></h3>
-        <h4>Для всех участников осенью планируется стажировка (занятия раз в неделю) с обновлением проекта.</h4>
-        <p>
-            Каждая итерация проекта закрепляется домашним заданием по реализации схожей функциональности (+дополнительное Optional).
-            Каждое занятие начинается с разбора домашних заданий.
-        </p>
-        <i><strong>Требование к участникам:</strong> опыт программирования на Java (оптимально стажиовка Topjava). Базовые знания Maven.</i>
-        <th:block th:include="fragments::modal('masterjava', 'Получить ссылку на бесплатное первое занятие: Многопоточность')"/>
-        <hr/>
+    <h3>Участие в проекте в индивидуальном порядке (старт в любое время) по готовым материалам и патчам с
+        поддержкой в группе Slack.</h3>
+    <h4>Для всех участников осенью планируется стажировка (занятия раз в неделю) с обновлением проекта.</h4>
+    <p>
+        Каждая итерация проекта закрепляется домашним заданием по реализации схожей функциональности
+        (+дополнительное Optional).
+        Каждое занятие начинается с разбора домашних заданий.<br/>
+        <i><strong>Требование к участникам:</strong> опыт программирования на Java (оптимально стажиовка Topjava).
+            Базовые знания Maven.</i>
+    </p>
+    <hr/>
+    <th:block
+            th:include="fragments::modal('masterjava', 'Получить ссылку на бесплатное первое занятие: Многопоточность')"/>
+    <div class="jumbotron">
         <th:block th:include="fragments::delim('price', 'Стоимость:')"/>
-        <ul>
-            <li><p>Стоимость участия без проверки домашних заданий: 8600 руб./ 155$ (участникам <a href="/reg/topjava">стажировки TopJava</a>: <b>7900 руб./ 143$</b>)<br/>
-                <i>сюда входят все материалы, участие в группе slack (общение разбито по каналам), ответы на вопросы и
+        <ul  class="lead">
+            <li><p>Стоимость участия без проверки домашних заданий: 8600 руб./ 155$ (участникам <a
+                    href="/reg/topjava">стажировки
+                TopJava</a>: <b>7900 руб./ 143$</b>)<br/>
+                <i>сюда входят все материалы, участие в группе slack (общение разбито по каналам), ответы на вопросы
+                    и
                     помощь с проектом.</i>
             </p></li>
             <li><p>Стоимость полного пакета: 16300 руб./296$ (после TopJava: <b>14900 руб./270$ </b>)<br/>
                 <i>добавляется проверка домашних заданий</i></p></li>
             <li><p>Для всех: бесплатное участие в следующий выпусках проекта.</p></li>
-            <li><p>Специальная цена на одновременную оплату 2-х проектов (<b><a href="/reg/topjava">TopJava</a> + MasterJava</b>): -15% от стоимости.</p>
+            <li><p>Специальная цена на одновременную оплату 2-х проектов (<b><a href="/reg/topjava">TopJava</a> +
+                MasterJava</b>): -15% от стоимости.</p>
             </li>
-            <li><a href="/payment.html">Способы оплаты</a></li>
+            <li><a href="/view/payment">Способы оплаты</a></li>
             <li><p>Добавляйтесь в <b><a href="skype:grigory.kislin">skype: grigory.kislin</a></b></p></li>
         </ul>
-        <hr/>
-        <h3><a href="https://github.com/JavaOPs/masterjava#Программа-проекта-1">Программа проекта</a></h3>
-        <h4><a href="https://github.com/JavaOPs/masterjava/blob/master/ReleaseNotes.md">История изменений проекта</a></h4>
     </div>
+    <h3><a href="https://github.com/JavaOPs/masterjava#Программа-проекта-1">Программа проекта</a></h3>
+    <h4><a href="https://github.com/JavaOPs/masterjava/blob/master/ReleaseNotes.md">История изменений проекта</a>
+    </h4>
     <th:block th:include="fragments::footer"/>
 </div>
 </body>
-<th:block th:include="fragments::skype"/>
+<th:block th:include="fragments::js-skype"/>
 </html>

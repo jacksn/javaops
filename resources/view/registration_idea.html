@@ -1,29 +1,23 @@
- <html xmlns:th="http://www.thymeleaf.org">
-<!--/*@thymesVar id="project" type="ru.javaops.model.Project"*/-->
-<!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
-<head th:include="fragments::headTag('Java Online Projects')">
-    <meta charset="UTF-8"/>
-    <title>Java Online Projects</title>
-    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::headTag('')">
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../static/css/mdb.css"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="shortcut icon" href="../static/img/java_cup.ico"/>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header">
+<nav th:replace="fragments::header" class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr">
     <div class="container">
-        <a href="/" class="navbar-brand">Java Online Projects</a>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-            </ul>
-        </div>
+        <a href="/" class="navbar-brand"><strong>Java Online Projects</strong></a>
     </div>
-</div>
-<div class="jumbotron">
-    <div class="container box">
-        <h2>Спасибо за регистрацию!</h2>
+</nav>
+<div class="container box">
+    <div class="jumbotron">
+    <h2>Спасибо за регистрацию!</h2>
         <!--/*@thymesVar id="response" type="ru.javaops.service.IntegrationService.SlackResponse"*/-->
         <h4>Проверь почту: должен прийти купон для бесплатной активации IDEA с подробной инструкцией</h4>
     </div>
 </div>
 </body>
-</html>
+<th:block th:include="fragments::js-skype"/>
+ </html>

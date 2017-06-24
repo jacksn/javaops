@@ -90,18 +90,17 @@ public class PageController {
                 ImmutableMap.of("result", result, "csv", csv));
     }
 
-    @GetMapping(value = "/ref/{project}/{channel}")
-    public ModelAndView reference(@PathVariable(value = "channel") String channel,
-                                  @PathVariable(value = "project") String project,
-                                  HttpServletResponse response) {
+    @GetMapping(value = "/ref/{channel}")
+    public ModelAndView rootReference(@PathVariable(value = "channel") String channel, HttpServletResponse response) {
+        setCookie(response, channel, "root");
+        return new ModelAndView("redirectToUrl", "redirectUrl", "/");
+    }
 
-        User user = refService.decryptUser(channel);
-        if (user == null) {
-            setCookie(response, "channel", channel, project);
-        } else {
-            log.info("+++ Reference from user {}", user.getEmail());
-            setCookie(response, "ref", user.getId().toString(), project);
-        }
+    @GetMapping(value = "/ref/{project}/{channel}")
+    public ModelAndView projectReference(@PathVariable(value = "channel") String channel,
+                                         @PathVariable(value = "project") String project,
+                                         HttpServletResponse response) {
+        setCookie(response, channel, project);
         return new ModelAndView("redirectToUrl", "redirectUrl", "/reg/" + project);
     }
 
@@ -113,9 +112,19 @@ public class PageController {
         return new ModelAndView(project);
     }
 
-    private void setCookie(HttpServletResponse response, String name, String value, String project) {
+    private void setCookie(HttpServletResponse response, String channel, String entry) {
+        User user = refService.decryptUser(channel);
+        if (user == null) {
+            setCookie(response, "channel", channel, entry);
+        } else {
+            log.info("+++ Reference from user {}", user.getEmail());
+            setCookie(response, "ref", user.getId().toString(), entry);
+        }
+    }
+
+    private void setCookie(HttpServletResponse response, String name, String value, String entry) {
         if (value != null) {
-            log.info("+++ set Cookie '{}' : '{}' for project {}", name, value, project);
+            log.info("+++ set Cookie '{}' : '{}' for entry {}", name, value, entry);
             Cookie cookie = new Cookie(name, value);
             cookie.setPath("/");
             cookie.setMaxAge(60 * 60 * 24 * 30); // 30 days

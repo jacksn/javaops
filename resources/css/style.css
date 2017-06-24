@@ -12,10 +12,6 @@
     width: 1170px !important;
 }
 
-.indent-body {
-    padding-top: 70px;
-}
-
 .bs-callout {
     padding: 5px 20px;
 }
@@ -37,6 +33,10 @@ footer {
     padding: 15px;
     font-size: 75%;
     color: #CCC;
+}
+
+.nav-bgr {
+    background-color: #293a48;
 }
 
 a[href^="skype:"] {
@@ -105,5 +105,5 @@ a[href*="hh.ru"], a[href*="hh.ua"] {
 }
 
 .anchor:target {
-    padding-top: 50px;
+    padding-top: 70px;
 }

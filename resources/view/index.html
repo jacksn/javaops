@@ -1,164 +1,186 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments::headTag('')">
-    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../static/bootstrap-3.3.6/css/blog.css"/>
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../static/css/mdb.css"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr" th:fragment="header">
     <div class="container">
-        <a data-toggle="collapse" data-target="#why" href="#why" class="navbar-brand">Почему Java Online
-            Projects?</a>
-        <div class="collapse navbar-collapse">
-            <form class="navbar-form navbar-right">
-                <a href="skype: grigory.kislin" class="btn btn-link">skype: grigory.kislin</a>
-                <a href="mailto:admin@javaops.ru" class="btn-link">&nbsp;</a>
-                <a href="https://vk.com/javawebinar" class="btn-link" target="_blank">&nbsp;</a>
-            </form>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true"
+                aria-label="Меню">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a href="/" class="navbar-brand">Java Online Projects</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="/view/story" class="nav-link waves-effect waves-light">Истории</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/view/books" class="nav-link waves-effect waves-light">Литература</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/view/payment" class="nav-link waves-effect waves-light">Оплата</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item nav-link">
+                    <a href="skype: grigory.kislin">
+                        <span class="fa fa-skype" aria-hidden="true">grigory.kislin</span>
+                    </a>
+                </li>
+                <li class="nav-item nav-link">
+                    <a href="mailto:admin@javaops.ru">admin@javaops.ru</a>
+                </li>
+                <li class="nav-item nav-link">
+                    <a href="https://vk.com/javawebinar" target="_blank">
+                        <i class="fa fa-vk" aria-hidden="true">&nbsp;</i>
+                    </a>
+                </li>
+                <li class="nav-item nav-link">
+                    <a href="https://www.youtube.com/channel/UCMiuo1BSwQxRMl6781evABw/videos" target="_blank">
+                        <i class="fa fa-youtube" aria-hidden="true">&nbsp;</i>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
-</div>
+</nav>
 <div class="container pad">
-    <div id="why" class="panel-collapse collapse">
-        <ul class="list-group" style="margin-bottom: 0;">
-            <li class="list-group-item">
-                <h3 class="list-group-item-info">Максимальный охват</h3>
-                <p class="list-group-item-text">Самые важные и необходимые Java разработчику темы, API,
-                    фреймворки, инструменты в одном
-                    курсе.</p>
-            </li>
-            <li class="list-group-item">
-                <h3 class="list-group-item-info">Насыщенное и структурированное изложение как дополнение к
-                    проекту</h3>
-                <p class="list-group-item-text">Изложение материала "без воды" нацелено на практическое
-                    использование и дополняется материалом для самостоятельной проработки.
-                    Темы идут не по отдельности (в воздухе) на отстраненных примерах, а последовательно,
-                    в
-                    связке, как дополнения к
-                    созданию единого работающего приложения.<br/>
-                    <b>Усвоение и понимание материала увеличивается в разы.</b></p>
-            </li>
-            <li class="list-group-item">
-                <h3 class="list-group-item-info">Последовательная возрастание сложности с нуля</h3>
-                <p class="list-group-item-text">Сложность проекта возрастает постепенно, с кода "Hello Topjava" в
-                    main() вступительного задания до финальной версии. Слон съедается по кусочкам..</p>
-            </li>
-            <li class="list-group-item">
-                <h3 class="list-group-item-info">Совместная разработка</h3>
-                <p class="list-group-item-text">Участники на протяжении всего курса работают с кодом
-                    проекта.
-                    Выполнение домашних заданий
-                    закрепляет полученные знания.<br/> <b>В результате проект становится "Вашим"</b>.</p>
-            </li>
-            <li class="list-group-item">
-                <h3 class="list-group-item-info">Общение, поддержка группы и преподавателя</h3>
-                <p class="list-group-item-text">По любым вопросам: git, трудоустройство, зарплаты
-                    программиста,
-                    java консультации, архитектура, новости IT и пр.</p>
-            </li>
-            <li class="list-group-item">
-                <h3 class="list-group-item-info">Доступность и структурированность материалов</h3>
-                <p class="list-group-item-text">Все видео доступно для просмотра онлайн и скачивания (в
-                    случае
-                    вебинаров- сразу после занятия). Записи разбиты по темам и
-                    тщательно отредактированы. Большое количество подобранных ресурсов для углубления в
-                    детали.</p>
-            </li>
-            <li class="list-group-item">
-                <h3 class="list-group-item-info">Оптимальное подобранное время</h3>
-                <p class="list-group-item-text">Занятия проходят раз в неделю, время необходимое для
-                    проработки
-                    пройденных тем и выполнения домашнего задания</p>
-            </li>
-            <li class="list-group-item">
-                <h3 class="list-group-item-info">Ревью Вашего кода.</h3>
-                <p class="list-group-item-text">Вы увидите именно свои ошибки в стиле, структурах
-                    данных,
-                    алгоритмах, кодировании. <br/><b>Опыт равноценен нескольким годам работы
-                        разработчиком
-                        java.</b></p>
-            </li>
-            <li class="list-group-item">
-                <h3 class="list-group-item-info">Помощь в составлении резюме и с трудоустройством.</h3>
-                <p class="list-group-item-text">Читайте <a href="story.html">наши истории (делимся опытом и
-                    успехом)</a>. В группе slack выпускников происходит активное общение на все темы IT, обсуждение
-                    вступительных заданий, вакансии, цены на рынке труда, события, помощь, интересные видео и пр.
-                    ~ 60 партнеров по трудоустройству (компании и индивидуальные рекрутеры) .
-                </p>
-            </li>
-            <li class="list-group-item">
-                <h3 class="list-group-item-info">После проекта topjava в твоем резюме появится раздел в опыте
-                    работы:</h3>
-                <h3>Участие в разработке Spring/JPA Enterprise приложения c авторизацией и правами доступа на основе
-                    ролей на стеке: Maven/ Spring MVC/ Security/ REST(Jackson)/ Java 8 Stream API</h3>
-                <ul>
-                    <li>реализация сохранения в базы Postgres и HSQLDB на основе Spring JBDC, JPA(Hibernate) и
-                        Spring-Data-JPA
-                    </li>
-                    <li>реализация и тестирование REST и AJAX контроллеров</li>
-                    <li>реализация клиента на Bootstrap (css/js), datatables, jQuery + plugins.</li>
-                    <li>твоя доработка проекта</li>
-                </ul>
-            </li>
-        </ul>
+    <div class="row align-items-center">
+        <div class="col-4">
+            <a href="\reg\topjava">
+                <h4>Стажировка Java Enterprise (Topjava)</h4>
+                <img class="img-fluid"
+                     src="https://user-images.githubusercontent.com/13649199/27433714-8294e6fe-575e-11e7-9c41-7f6e16c5ebe5.jpg"/>
+            </a>
+        </div>
+        <div class="col-4 align-middle">
+            <h4>Максимальный охват</h4>
+            <p>
+                Самые важные и необходимые Java разработчику темы, API, фреймворки, инструменты.
+            </p>
+            <h4>Структурированное изложение</h4>
+            <p>
+                Изложение материала нацелено на практическое использование и дополняется материалом
+                для самостоятельной проработки.
+                Темы идут последовательно, дополняя друг друга, для создания единого приложения.
+            </p>
+        </div>
+        <div class="col-4">
+            <a href="\reg\masterjava">
+                <h4>Многомодульный maven. Многопоточность. XML. Веб сервисы. Удаленное взаимодействие (Masterjava)</h4>
+                <img class="img-fluid"
+                     src="https://cloud.githubusercontent.com/assets/13649199/23876457/ab01ff0a-084e-11e7-964f-49c90579fac9.png"/>
+            </a>
+        </div>
     </div>
-    <div class="blog-post">
-        <h2><a href="/story.html">Наши истории (делимся опытом и успехом)</a></h2>
-        <hr/>
-        <h2><a href="https://github.com/JavaOPs/topjava">Стажировка Java Enterprise</a></h2>
-        <h3><a href="https://github.com/JavaOPs/topjava#Вводное-занятие">Бесплатное вводное занятие</a></h3>
-        <h3><b>Старт следующей стажировки: 06.07 (<a
-                href="https://github.com/JavaOPs/topjava/blob/master/ReleaseNotes.md">история изменений</a>).</b></h3>
-        <p>Разработка <strong>полнофункционального Spring/JPA Enterprise приложения c авторизацией и правами доступа на
-            основе ролей с использованием наиболее популярных инструментов и технологий Java: Maven, Spring MVC,
-            Security, JPA(Hibernate), REST(Jackson), Bootstrap (css,js), datatables, jQuery + plugins, Java 8 Stream and
-            Time API и хранением в базах данных Postgresql и HSQLDB.</strong><br/>
-        <h4><a href="http://topjava.herokuapp.com/">Приложения проекта, задеплоенное в Heroku (будет у каждого
-            участника)</a></h4>
-        <h4><a href="https://vk.com/topic-74381644_30447246">Отзывы по стажировке</a></h4>
-        </p>
-        <hr/>
-        <h2><a href="https://github.com/JavaOPs/masterjava">Многомодульный maven. Многопоточность. XML. Веб сервисы.
-            Удаленное взаимодействие.</a></h2>
-        <h3><b>Участие в проекте в индивидуальном порядке (в любое время) по готовым материалам и патчам с
-            поддержкой в группе Slack.</b></h3>
-        <h4>Для всех участников осенью планируется стажировка с обновлением проекта.</h4>
-        <h3><a href="https://github.com/JavaOPs/masterjava#Первое-занятие-многопоточность">Бесплатное первое занятие:
-            многопоточность</a></h3>
-        <h4><a href="https://github.com/JavaOPs/masterjava/blob/master/README.md#Программа-проекта-1">Программа
-            проекта</a></h4>
-        <hr/>
-        <h2><a href="https://github.com/JavaOPs/basejava">Разработка Web приложения "База данных резюме"</a></h2>
-        <h3><a href="https://github.com/JavaOPs/basejava/blob/master/lesson/intro.md">Вступительное занятие</a></h3>
-        <h3><b>Обучение в индивидуальном порядке (в любое время) по готовым материалам и патчам с куратором и
-            поддержкой в группе Slack.</b></h3>
-        <p>Приложение будет разрабатываться начиная со первого занятия, основываясь на базовых темах курса: объектная
-            модель, коллекции, система ввода-вывода, работа с файлами, сериализация, работа с XML, JSON, SQL,
-            персистентность в базу данных (PostgreSQL), сервлеты, JSP/JSTL, веб-контейнер Tomcat, HTML, модульные тесты
-            JUnit, java.util.Logging, система контроля версий Git. Деплой в контейнер сервлетов Tomcat и в облачный сервис Heroku</p>
-        <hr/>
-        <h2><a href="/interview/test.html">Тестовое интервью на Java разработчика</a></h2>
-        <h3></h3>
-        <p>Принципы ООП, Java Core, Коллекции, Java 8, Html/Tomcat/Сервлеты, Spring/IoC, DI, IoC-контейнер,
-            ORM/Hibernate/JPA,
-            Многопоточность/JMM, Алгоритмы/Сложность, Паттерны проектирования, JDBC/Транзакции/ACID, Maven</p>
+    <hr/>
+    <div class="row align-items-center">
+        <div class="col-4">
+            <h4>Помощь с трудоустройством. <a href="\view\story">Наши истории</a></h4>
+            <p>
+                В группе <i class="fa fa-slack"></i>Slack выпускников происходит активное общение на все темы IT,
+                обсуждение
+                вступительных заданий,
+                вакансии, цены на рынке труда, события, помощь, интересные видео и пр.
+                Обновления нашей базы выпускников смотрят ~90 партнеров по трудоустройству (компании и индивидуальные
+                рекрутеры).
+            </p>
+        </div>
+        <div class="col-4">
+            <a href="\reg\basejava">
+                <h4>Разработка Web приложения "База данных резюме" (Basejava)</h4>
+                <img class="img-fluid"
+                     src="../static/img/javaopsBase.jpg"/>
+            </a>
+        </div>
+        <div class="col-4">
+            <h4>Совместная разработка</h4>
+            <p>
+                Участники на протяжении всего курса работают с кодом проекта. Выполнение домашних заданий
+                закрепляет полученные знания. В результате проект становится "Вашим".
+            </p>
+        </div>
     </div>
-    <table>
-        <tr>
-            <td><img src="../static/img/javaEE.png" class="img-responsive center-block"/></td>
-            <td style="padding: 0 50px">
-                <script type="text/javascript" src="//vk.com/js/api/openapi.js?136"></script>
+    <hr/>
+    <div class="row align-items-center">
+        <div class="col-4">
+            <a href="\view\test">
+                <h4>Интервью в skype (голосом) на позицию Java разработчик.</h4>
+                <img class="img-fluid"
+                     src="../static/img/test_interview.png"/>
+            </a>
+        </div>
+        <div class="col-4">
+            <h4>Последовательная возрастание сложности</h4>
+            <p>
+                Сложность проекта возрастает постепенно, с кода <code>"Hello!"</code> в <code>main()</code> до финальной
+                версии в <a href="http://topjava.herokuapp.com/">Heroku</a>.
+                Слон съедается по кусочкам.
+            </p>
+            <h4>Общение, поддержка группы и преподавателя</h4>
+            <p>
+                По любым вопросам: git, трудоустройство, зарплаты программиста, java консультации, архитектура,
+                новости IT и пр.
+            </p>
+        </div>
+        <div class="col-4">
+            <h4>Доступность и материалов</h4>
+            <p>
+                Все видео доступно для просмотра онлайн и скачивания (в случае вебинаров - сразу после занятия).
+                Записи разбиты по темам и тщательно отредактированы. Большое количество подобранных ресурсов
+                для углубления в детали.
+            </p>
+        </div>
+    </div>
+    <hr/>
+    <div class="row align-items-center">
+        <div class="col-4">
+            <h4>Ревью Вашего кода</h4>
+            <p>
+                Вы увидите именно свои ошибки в стиле, структурах данных, алгоритмах, кодировании.<br/>
+                <b>Опыт равноценен нескольким годам работы Java разработчиком.</b>
+            </p>
+        </div>
+        <div class="col-4">
+            <h4>Оптимальное подобранное время</h4>
+            <p>
+                Занятия проходят раз в неделю, время необходимое для проработки пройденных тем и выполнения домашнего
+                задания.
+            </p>
+        </div>
+        <div class="col-4">
+            <script type="text/javascript" src="//vk.com/js/api/openapi.js?136"></script>
 
-                <!-- VK Widget -->
-                <div id="vk_groups"></div>
-                <script type="text/javascript">
-                    VK.Widgets.Group("vk_groups", {mode: 3, width: "220"}, 58538268);
-                </script>
-            </td>
-        </tr>
-    </table>
+            <!-- VK Widget -->
+            <div id="vk_groups" class="mx-auto"></div>
+            <script type="text/javascript">
+                VK.Widgets.Group("vk_groups", {mode: 3, width: "220"}, 58538268);
+            </script>
+        </div>
+    </div>
+    <hr/>
+    <div class="jumbotron">
+        <h3>После проекта TopJava в Вашем резюме появится раздел <b>в опыте работы</b></h3>
+        <p>Участие в разработке Spring/JPA Enterprise приложения c авторизацией и правами доступа на основе ролей на
+            стеке: <i>Maven, Spring MVC, Spring Security, REST (Jackson), Java 8 Stream API</i>:
+        </p>
+        <ul>
+            <li>реализация сохранения в базы Postgres и HSQLDB на основе Spring JBDC, JPA(Hibernate) и
+                Spring-Data-JPA
+            </li>
+            <li>реализация и тестирование REST и AJAX контроллеров</li>
+            <li>реализация клиента на Bootstrap (css/js), datatables, jQuery + plugins.</li>
+            <li>твоя доработка проекта</li>
+        </ul>
+        <h4><a href="https://vk.com/topic-74381644_30447246">Отзывы по стажировке</a></h4>
+    </div>
     <th:block th:include="fragments::footer"/>
 </div>
 </body>
-<th:block th:include="fragments::skype"/>
+<th:block th:include="fragments::js-skype"/>
 </html>

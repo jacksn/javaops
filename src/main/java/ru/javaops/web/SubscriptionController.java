@@ -26,6 +26,7 @@ import javax.validation.ValidationException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.Optional;
 import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkState;
@@ -90,7 +91,7 @@ public class SubscriptionController {
 
         final ModelAndView mv;
         if (callback != null) {
-            mv = getRedirectView(mailResult, callback, "/error.html");
+            mv = getRedirectView(mailResult, callback, "/view/error");
         } else {
             mv = new ModelAndView("confirm", params);
         }
@@ -133,7 +134,7 @@ public class SubscriptionController {
             if (date != null) {
                 LocalDate ld = LocalDate.of(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
                 if (ld.isAfter(LocalDate.now().minus(15, ChronoUnit.DAYS))) {
-                    return getRedirectView("/duplicate.html");
+                    return getRedirectView("/view/duplicate");
                 }
             }
             userGroup.setRegisteredDate(new Date());
@@ -150,7 +151,7 @@ public class SubscriptionController {
             }
         }
         String mailResult = mailService.sendToUser(template, userGroup.getUser());
-        return getRedirectView(mailResult, "/confirm.html", "/error.html");
+        return getRedirectView(mailResult, "/view/confirm", "/view/error");
     }
 
     private ModelAndView getRedirectView(String mailResult, String successUrl, String failUrl) {
@@ -169,8 +170,9 @@ public class SubscriptionController {
         User user = userService.findExistedByEmail(email);
         Set<Group> groups = groupService.getGroupsByUserId(user.getId());
 
-        if (ProjectUtil.getGroupByProjectAndType(groups, projectName, GroupType.CURRENT).isPresent()) {
-            return new ModelAndView("already_registered");
+        Optional<Group> optGroup = ProjectUtil.getGroupByProjectAndType(groups, projectName, GroupType.CURRENT);
+        if (optGroup.isPresent()) {
+            return new ModelAndView("already_registered", "group", optGroup.get().getName());
         }
         if (ProjectUtil.getGroupByProjectAndType(groups, projectName, GroupType.FINISHED).isPresent()) {
             ProjectUtil.ProjectProps projectProps = groupService.getProjectProps(projectName);

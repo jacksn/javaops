@@ -1,0 +1,125 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::headTag('')">
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../static/css/mdb.css"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<nav th:replace="fragments::header" class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr">
+    <div class="container">
+        <a href="/" class="navbar-brand"><strong>Java Online Projects</strong></a>
+    </div>
+</nav>
+<div class="container pad">
+    <div class="jumbotron">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1>Рекомендуемые книги</h1>
+                <h2>по Java и разработке ПО</h2>
+            </div>
+            <div class="col-lg-4">
+                <img src="../static/img/books.jpg"/>
+            </div>
+        </div>
+        <hr/>
+        <h3>
+            <a href="https://www.youtube.com/watch?v=HrB-JjMLe4Y&quot;" target="_blank">Видеообзор списка</a>
+        </h3>
+        <br/>
+        <ul>
+            <li>
+                <h4><a href="http://myflex.org/books/java4kids/java4kids.htm" target="_blank">
+                    <small>Яков Файн</small>
+                    <p>Программирование на Java для детей, родителей, дедушек и
+                        бабушек.</p>
+                </a></h4>
+            </li>
+            <li><h4><a href="http://habrahabr.ru/post/66568/" target="_blank">
+                Книги по Java на Хабрахабре (читаем комментарии)
+            </a></h4></li>
+            <li><h4><a href="https://habrahabr.ru/post/153373/" target="_blank">
+                Книги, которые должен прочитать Java программист: от новичка до
+                профессионала
+            </a></h4></li>
+
+            <li>
+                <h4><a href="http://www.ozon.ru/context/detail/id/24828676/" target="_blank">
+                    <small>Джошуа Блох (классика, объязательна к прочтению).</small>
+                    <p>Java. Эффективное
+                        программирование (второе издание).</p>
+                </a></h4>
+            </li>
+            <li>
+                <h4><a href="http://www.ozon.ru/context/detail/id/3174887/" target="_blank">
+                    <small>Брайан Готц (многопоточность)</small>
+                    <p>Java Concurrency in Practice.</p>
+                </a></h4>
+            </li>
+            <li>
+                <h4><a href="http://www.labirint.ru/books/87603/" target="_blank">
+                    <small>Гамма, Хелм, Джонсон, Вилсидес (банда 4х, классика)</small>
+                    <p>Приемы объектно-ориентированного проектирования. Паттерны
+                        проектирования.</p>
+                </a></h4>
+            </li>
+            <li>
+                <h4><a href="http://www.bookvoed.ru/book?id=639284" target="_blank">
+                    <small>Редмонд Э.</small>
+                    <p>Семь баз данных за семь недель. Введение в современные базы данных и
+                        идеологию
+                        NoSQL.</p>
+                </a></h4>
+            </li>
+            <li>
+                <h4><a href="http://www.ozon.ru/context/detail/id/3105480/" target="_blank">
+                    <small>Крэг Ларман</small>
+                    <p>Применение UML 2.0 и шаблонов проектирования. Введение в
+                        объектно-ориентированный анализ, проектирование и
+                        итеративную разработку.</p>
+                </a></h4>
+            </li>
+            <li>
+                <h4>
+                    <a href="http://www.books.ru/books/mificheskii-cheloveko-mesyats-ili-kak-sozdayutsya-programmnye-sistemy-3626/?show=1"
+                       target="_blank">
+                        <small>Фредерик Брукс (классика по созданию ПО, 1970г.)</small>
+                        <p>Мифический человеко-месяц, или Как создаются программные
+                            системы.</p>
+                    </a></h4>
+            </li>
+            <li>
+                <h4><a href="http://rutracker.org/forum/viewtopic.php?t=3343958" target="_blank">
+                    <small>Грэди Буч,..</small>
+                    <p>Объектно-ориентированный анализ и проектирование с примерами
+                        приложений.</p>
+                </a></h4>
+            </li>
+            <li><h4><a href="http://javawebinar.ru/basejava/#resource" target="_blank">
+                Ресурсы по изучению Java c вебинара "Практика Java. Разработка
+                Web приложения".
+            </a></h4></li>
+            <li><h4><a href="http://scanlibs.com/java/" target="_blank">
+                Java библиотека (бесплатное скачивание).
+            </a></h4></li>
+            <li><h4><a href="https://vk.com/page-1279_50854024" target="_blank">
+                Информация для начинающих.
+            </a></h4></li>
+            <li><h4><a
+                    href="https://translate.google.com/translate?hl=ru&amp;sl=uk&amp;tl=ru&amp;u=http%3A%2F%2Fdou.ua%2Flenta%2Farticles%2Fjava-beginner-guide-1%2F&amp;anno=2&amp;sandbox=1"
+                    target="_blank">
+                Пособие для будущего Java разработчика. Подборка книг.
+            </a></h4></li>
+            <li><h4><a href="http://bookvoed.ru/book?id=2593572" target="_blank">
+                Карьера программиста или Cracking the Coding Interview
+            </a></h4></li>
+            <li><h4><a href="http://www.ozon.ru/context/detail/id/4884925/" target="_blank">
+                Шаблоны корпоративных приложений
+            </a></h4></li>
+        </ul>
+    </div>
+    <th:block th:include="fragments::footer"/>
+</div>
+</body>
+<th:block th:include="fragments::js-skype"/>
+</html>

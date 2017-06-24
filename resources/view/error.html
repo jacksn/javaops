@@ -1,0 +1,31 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::headTag('')">
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../static/css/mdb.css"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<nav th:replace="fragments::header" class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr">
+    <div class="container">
+        <a href="/" class="navbar-brand"><strong>Java Online Projects</strong></a>
+    </div>
+</nav>
+<div class="container box">
+    <div class="jumbotron">
+        <h2>Ошибка отправки почты!</h2>
+        <h3>Пожалуйста свяжитесть со мной в скайпе, VK или по почте:</h3>
+        <h4>
+            Контакты: <a href="mailto:admin@javaops.ru">admin@javaops.ru</a> / <a href="http://vk.com/grigory.kislin">Григорий
+            Кислин</a></h4>
+        <h4>
+            группа VK: <a href="https://vk.com/javawebinar">Стажировка Java Enterprise Online Projects</a><br/>
+        </h4>
+        <h4>
+            Добавляйтесь в skype: <b><a href="skype:grigory.kislin">grigory.kislin</a></b>
+        </h4>
+    </div>
+</div>
+</body>
+<th:block th:include="fragments::js-skype"/>
+</html>
