@@ -21,7 +21,7 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
     private User user;
 
     public AuthorizedUser(User user) {
-        super(user.getEmail(), user.getPassword(), user.isActive(), true, true, true, user.getRoles());
+        super(user.getEmail(), "password", true, true, true, true, user.getRoles());
         this.user = user;
     }
 

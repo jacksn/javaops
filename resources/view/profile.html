@@ -1,4 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="authUser" type="ru.javaops.model.User"*/-->
+<!--/*@thymesVar id="projectName" type="java.lang.String"*/-->
 <head th:replace="fragments::headTag(${projectName}==null ? 'Редактирование профиля':'Регистрация на проект '+ ${projectName})">
     <link rel="stylesheet" href="../static/css/bootstrap.css"/>
     <link rel="stylesheet" href="../static/css/mdb.css"/>
@@ -13,7 +15,6 @@
     </div>
 </nav>
 <div class="container pad">
-    <!--/*@thymesVar id="authUser" type="ru.javaops.model.User"*/-->
     <div th:unless="${authUser.partner}">
         <h5>
             06.07 старт <a href="http://javaops.ru/reg/topjava?ch=profile">Java Enterprise (Topjava)</a>. <a
@@ -207,12 +208,14 @@
                     </button>
                 </div>
             </div>
+            <input type="hidden" name="id" th:value="${authUser.id}"/>
             <input th:if="${projectName}!=null" type="hidden" name="project" th:value="${projectName}"/>
         </form>
     </div>
 </div>
 </body>
 <th:block th:include="fragments::js-skype"/>
+<script type="text/javascript" src="../static/datetimepicker/jquery.datetimepicker.full.min.js"></script>
 <script type="application/javascript">
     $(function () {
         handleRelocation();
