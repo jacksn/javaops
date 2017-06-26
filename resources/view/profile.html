@@ -33,10 +33,11 @@
     <div th:if="${authUser.partner}">
         <!--https://v4-alpha.getbootstrap.com/components/forms/#form-layouts-->
         <form class="form-inline">
-            <h4>
-                <a th:href="@{/sql(sql_key=_job_wanted_, csv=true, partnerKey=${authUser.email}, fromDate='2017-04-01')}"
-                   href="" id="jobWanted">База кандидатов на позицию Java разработчик </a> от даты:&nbsp;&nbsp;</h4>
-            <input class="form-control" name="fromDate" id="fromDate" value=""/>
+            <h4>База кандидатов на позицию Java разработчик от даты:&nbsp;&nbsp;
+                <input class="form-control" name="fromDate" id="fromDate" value="2017-04-01" size="6"/>
+                <a class="btn btn-info"
+                   th:href="@{/sql(sql_key=_job_wanted_, csv=true, partnerKey=${authUser.email}, fromDate='2017-04-01')}" href="" id="jobWanted">Смотреть</a>
+            </h4>
         </form>
     </div>
     <br/>
