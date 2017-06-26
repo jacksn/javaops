@@ -26,7 +26,7 @@
                 </h4>
             </th:block>
             <h4><a th:href="@{/auth/profile}" href="#">Редактировать мои данные</a></h4>
-            <h4 th:if="${authUser.isMember}"><a th:href="@{/auth/users}">Список участников, отсортированный по городам</a></h4>
+            <h4 th:if="${authUser.member}"><a th:href="@{/auth/users}">Список участников, отсортированный по городам</a></h4>
         </th:block>
     </div>
 </div>
