@@ -1,6 +1,7 @@
 package ru.javaops.web.oauth;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import java.net.URI;
 
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
+@Slf4j
 public abstract class AbstractOAuth2Controller {
 
     @Autowired
@@ -38,6 +40,7 @@ public abstract class AbstractOAuth2Controller {
             String accessToken = getAccessToken(code);
 
             UserToExt userToExt = getUserToExt(accessToken);
+            log.info(provider.getName() + " authorization from user {}", userToExt.getEmail());
             User user = userService.findExistedByEmailOrGmail(userToExt.getEmail());
             if (UserUtil.updateFromAuth(user, userToExt)) {
                 userService.save(user);
@@ -67,5 +70,4 @@ public abstract class AbstractOAuth2Controller {
         ResponseEntity<JsonNode> entity = template.getForEntity(builder.build().encode().toUri(), JsonNode.class);
         return entity.getBody();
     }
-
 }

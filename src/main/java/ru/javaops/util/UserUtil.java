@@ -62,7 +62,6 @@ public class UserUtil {
         assignNotEmpty(userTo.getNameSurname(), user::setFullName);
         assignNotEmpty(userTo.getInfoSource(), user::setInfoSource);
         assign(userTo.getLocation(), user::setLocation);
-        assign(userTo.getEmail(), user::setEmail);
         assign(userTo.getSkype(), user::setSkype);
         user.setActive(true);
         tryFillGmail(user);

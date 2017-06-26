@@ -64,7 +64,8 @@ public class UserServiceImpl implements UserService, org.springframework.securit
 
     private User checkExist(User user, String email) {
         if (user == null) {
-            throw new UsernameNotFoundException("Пользователь '" + email + "' не зарегистрирован");
+            throw new UsernameNotFoundException("Пользователь c email '" + email + "' не найден в базе Java Online Projects.<br/>" +
+                    "Получите бесплатное занятие на любом из <a href='/'>проектов</a>.");
         }
         return user;
     }
