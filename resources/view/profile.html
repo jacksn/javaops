@@ -13,7 +13,8 @@
     </div>
 </nav>
 <div class="container pad">
-    <div th:unless="${user.isPartner()}">
+    <!--/*@thymesVar id="authUser" type="ru.javaops.model.User"*/-->
+    <div th:unless="${authUser.partner}">
         <h5>
             06.07 старт <a href="http://javaops.ru/reg/topjava?ch=profile">Java Enterprise (Topjava)</a>. <a
                 href="http://javaops.ru/reg/topjava?ch=profile#schedule">Расписание</a>
@@ -28,10 +29,11 @@
             Старт в любое время по готовым материалам и патчам с поддержкой в группе Slack.
         </h5>
     </div>
-    <div th:if="${user.isPartner()}">
+    <div th:if="${authUser.partner}">
         <!--https://v4-alpha.getbootstrap.com/components/forms/#form-layouts-->
         <form class="form-inline">
-            <h4><a th:href="@{/sql(sql_key=_job_wanted_, csv=true, partnerKey=${user.email}, fromDate='2017-04-01')}"
+            <h4>
+                <a th:href="@{/sql(sql_key=_job_wanted_, csv=true, partnerKey=${authUser.email}, fromDate='2017-04-01')}"
                    href="" id="jobWanted">База кандидатов на позицию Java разработчик </a> от даты:&nbsp;&nbsp;</h4>
             <input class="form-control" name="fromDate" id="fromDate" value=""/>
         </form>
@@ -42,40 +44,40 @@
         <h2 th:text="${projectName}==null ? 'Редактирование профиля':'Регистрация на проект '+ ${projectName}">
             Редактирование профиля</h2>
         <br/>
-        <form method="post" action="save">
+        <form method="post" action="/auth/save">
             <div class="form-group">
                 <label class="col-3">Имя Фамилия</label>
                 <div class="col-4">
                     <input class="form-control" name="nameSurname" placeholder="Имя Фамилия"
-                           th:value="${user.fullName}"/>
+                           th:value="${authUser.fullName}"/>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-3">Email</label>
                 <div class="col-4">
-                    <input class="form-control" name="email" th:value="${user.email}" readonly="readonly"/>
+                    <input class="form-control" name="email" th:value="${authUser.email}" readonly="readonly"/>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-12">Gmail (для Google авторизации)</label>
                 <div class="col-4">
-                    <input class="form-control" name="gmail" th:value="${user.gmail}"/>
+                    <input class="form-control" name="gmail" th:value="${authUser.gmail}"/>
                 </div>
             </div>
 
             <div class="form-group ">
                 <label class="col-3">Skype</label>
                 <div class="col-4">
-                    <input class="form-control" name="skype" th:value="${user.skype}"/>
+                    <input class="form-control" name="skype" th:value="${authUser.skype}"/>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-12">Город (проверьте кириллицей в списке)</label>
                 <div class="col-4">
-                    <input class="form-control" name="location" list="location" th:value="${user.location}"/>
+                    <input class="form-control" name="location" list="location" th:value="${authUser.location}"/>
                 </div>
                 <datalist id="location">
                     <option value="">Выберите (или введите) город</option>
@@ -117,42 +119,42 @@
             <div class="form-group ">
                 <label class="col-12">Место работы</label>
                 <div class="col-4">
-                    <input class="form-control" name="company" th:value="${user.company}"/>
+                    <input class="form-control" name="company" th:value="${authUser.company}"/>
                 </div>
-                <th:block th:if="${user.isMember()}">
+                <th:block th:if="${authUser.member}">
                     <div class="checkbox col-12">
-                        <label><input th:checked="${user.underRecruitment}" type="checkbox"
-                                                                 name="underRecruitment"/>
+                        <label><input th:checked="${authUser.underRecruitment}" type="checkbox"
+                                      name="underRecruitment"/>
                             На работе готовы трудоустроить наших лучших выпускников
                         </label>
                     </div>
                     <div class="checkbox col-12">
-                        <label><input th:checked="${user.jobThroughTopjava}" type="checkbox"
-                                                                 name="jobThroughTopjava"/>
+                        <label><input th:checked="${authUser.jobThroughTopjava}" type="checkbox"
+                                      name="jobThroughTopjava"/>
                             Получил работу благодаря стажировке Java Online Projects
                         </label>
                     </div>
                 </th:block>
             </div>
 
-            <th:block th:unless="${user.isPartner()}">
+            <th:block th:unless="${authUser.partner}">
                 <div class="form-group">
                     <label class="col-12">Ссылка на резюме</label>
                     <div class="col-6">
-                        <input class="form-control" name="resumeUrl" type="url" th:value="${user.resumeUrl}"/>
+                        <input class="form-control" name="resumeUrl" type="url" th:value="${authUser.resumeUrl}"/>
                     </div>
 
                     <div class="checkbox col-10">
-                        <label><input th:checked="${user.considerJobOffers}" type="checkbox"
-                                                                 id="considerJobOffers" name="considerJobOffers"
-                                                                 onclick="handleRelocation()"/>
+                        <label><input th:checked="${authUser.considerJobOffers}" type="checkbox"
+                                      id="considerJobOffers" name="considerJobOffers"
+                                      onclick="handleRelocation()"/>
                             Рассматриваю предложения о работе
                         </label>
                     </div>
 
                     <div class="checkbox col-10" id="relocationCheck">
                         <label>
-                            <input th:checked="${user.relocationReady}" type="checkbox"
+                            <input th:checked="${authUser.relocationReady}" type="checkbox"
                                    id="relocationReady" name="relocationReady" onclick="handleRelocation()"/>
                             Рассматриваю релокацию
                         </label>
@@ -164,34 +166,35 @@
                         <select multiple="multiple" class="form-control" name="relocation" size="9"
                                 th:with="places = ${ {'Россия', 'Москва', 'Санкт-Петербург','Украина','Киев','Беларусь','Минск','Казахстнан','Европа','Польша','Другое'} }">
                             <option th:each="place : ${places}" th:value="${place}" th:text="${place}"
-                                    th:selected="${user.relocation!=null and user.relocation.contains(place)}"/>
+                                    th:selected="${authUser.relocation!=null and authUser.relocation.contains(place)}"/>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-12">Информация для HR (по ней будут решать, стоит ли смотреть в резюме). Не пиши сюда Junior!</label>
+                    <label class="col-12">Информация для HR (по ней будут решать, стоит ли смотреть в резюме). Не пиши
+                        сюда Junior!</label>
                     <div class="col-10">
-                        <textarea class="form-control " name="aboutMe" rows="5" th:utext="${user.aboutMe}"></textarea>
+                        <textarea class="form-control " name="aboutMe" rows="5"
+                                  th:utext="${authUser.aboutMe}"></textarea>
                     </div>
-                    <div th:if="${user.isMember()}" class="checkbox col-offset-3 col-10">
-                        <label><input th:checked="${user.statsAgree}" type="checkbox"
-                                                                 name="statsAgree"/>
+                    <div th:if="${authUser.member}" class="checkbox col-10">
+                        <label><input th:checked="${authUser.statsAgree}" type="checkbox" name="statsAgree"/>
                             Согласен на размещением своих данных в закрытой статистике группы
                         </label>
                     </div>
                 </div>
             </th:block>
-            <div th:if="${user.isPartner()}" class="form-group">
+            <div th:if="${authUser.partner}" class="form-group">
                 <div class="checkbox col-12">
-                    <label class="larg"><input th:checked="${user.partnerResumeNotify}"
-                                                                  type="checkbox"
-                                                                  name="partnerResumeNotify"/>
+                    <label class="larg"><input th:checked="${authUser.partnerResumeNotify}"
+                                               type="checkbox"
+                                               name="partnerResumeNotify"/>
                         <b>Оповещать о новом резюме в базе</b>
                     </label>
                 </div>
                 <div class="checkbox col-12">
-                    <label><input th:checked="${user.partnerCorporateStudy}" type="checkbox"
-                                                             name="partnerCorporateStudy"/>
+                    <label><input th:checked="${authUser.partnerCorporateStudy}" type="checkbox"
+                                  name="partnerCorporateStudy"/>
                         <b>Интересует корпоративное обучение/стажировка</b>
                     </label>
                 </div>
@@ -199,14 +202,12 @@
 
             <div class="form-group">
                 <div class="col-10">
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="submit" class="btn btn-primary"
+                            th:text="${projectName}==null ? 'Сохранить':'Зарегистрироваться'">Сохранить
+                    </button>
                 </div>
             </div>
-
-            <input type="hidden" name="id" th:value="${user.id}"/>
             <input th:if="${projectName}!=null" type="hidden" name="project" th:value="${projectName}"/>
-            <!--/*@thymesVar id="key" type="java.lang.String"*/-->
-            <input type="hidden" name="key" th:value="${key}"/>
         </form>
     </div>
 </div>

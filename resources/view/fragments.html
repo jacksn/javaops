@@ -51,6 +51,36 @@
                     </a>
                 </li>
             </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light" href="#"
+                       id="navbarDropdownLogin" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="true">
+                        <span th:if="${authUser}==null"><i class="fa fa-sign-in" aria-hidden="true"></i> Вход</span>
+                        <span th:if="${authUser}!=null"><i class="fa fa-user" aria-hidden="true"></i> Профиль</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-warning dropdown-menu-right"
+                         aria-labelledby="navbarDropdownLogin" data-dropdown-in="fadeIn"
+                         data-dropdown-out="fadeOut">
+                        <th:block th:if="${authUser}==null">
+                            <a class="dropdown-item waves-effect waves-light" href="/login/google">
+                                <i class="fa fa-google"></i> через Google
+                            </a>
+                            <a class="dropdown-item waves-effect waves-light" href="/login/github">
+                                <i class="fa fa-github"></i> через GitHub
+                            </a>
+                        </th:block>
+                        <th:block th:if="${authUser}!=null">
+                            <a class="dropdown-item waves-effect waves-light" href="/auth/profile">
+                                <i class="fa fa-user"></i> Редактирование
+                            </a>
+                            <a class="dropdown-item waves-effect waves-light" href="/logout">
+                                <i class="fa fa-sign-out"></i> Выход
+                            </a>
+                        </th:block>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

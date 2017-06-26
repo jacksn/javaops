@@ -1,6 +1,7 @@
 package ru.javaops.to;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Email;
@@ -13,6 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class UserTo {
     @NotEmpty(message = "Поле email не может быть пустым")
     @Email
@@ -23,6 +25,11 @@ public class UserTo {
     private String infoSource;
     private String phone;
     private String skype;
+
+    public UserTo(String email, String nameSurname) {
+        this.email = email;
+        this.nameSurname = nameSurname;
+    }
 
     public void setEmail(String email) {
         this.email = email.toLowerCase();

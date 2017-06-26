@@ -3,11 +3,10 @@ package ru.javaops.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.javaops.LoggedUser;
+import ru.javaops.AuthorizedUser;
 import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
 import ru.javaops.to.UserMail;
@@ -15,8 +14,6 @@ import ru.javaops.to.UserToExt;
 import ru.javaops.util.UserUtil;
 
 import java.util.Set;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Authenticate a user from the database.
@@ -30,19 +27,11 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     private UserRepository userRepository;
 
     @Override
-    public LoggedUser loadUserByUsername(final String email) {
-        String lowercaseLogin = email.toLowerCase();
-        log.debug("Authenticating {}", email);
-        User user = userRepository.findByEmail(lowercaseLogin);
-        if (user == null) {
-            throw new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database");
-        }
-        if (!user.isActive()) {
-            throw new DisabledException("User " + lowercaseLogin + " was not activated");
-        }
-        return new LoggedUser(user);
+    public AuthorizedUser loadUserByUsername(final String email) {
+        String lowerEmail = email.toLowerCase();
+        log.info("Authenticating {}", lowerEmail);
+        return new AuthorizedUser(findExistedByEmail(lowerEmail));
     }
-
 
     @Override
     @Transactional
@@ -64,8 +53,20 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     }
 
     @Override
+    public User findExistedByEmailOrGmail(String email) {
+        return checkExist(userRepository.findByEmailOrGmail(email.toLowerCase()), email);
+    }
+
+    @Override
     public User findExistedByEmail(String email) {
-        return checkNotNull(findByEmail(email), "Пользователь %s не найден", email);
+        return checkExist(findByEmail(email), email);
+    }
+
+    private User checkExist(User user, String email) {
+        if (user == null) {
+            throw new UsernameNotFoundException("Пользователь '" + email + "' не зарегистрирован");
+        }
+        return user;
     }
 
     @Override

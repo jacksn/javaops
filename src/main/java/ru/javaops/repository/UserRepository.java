@@ -22,6 +22,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     User findByEmail(@Param("email") String email);
 
     @Query("SELECT u FROM User u " +
+            "  LEFT JOIN FETCH u.roles WHERE u.email=:email OR u.gmail=:email")
+    User findByEmailOrGmail(@Param("email") String email);
+
+    @Query("SELECT u FROM User u " +
             "  LEFT JOIN FETCH u.userGroups WHERE u.email=:email")
     User findByEmailWithGroup(@Param("email") String email);
 

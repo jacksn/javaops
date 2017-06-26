@@ -143,6 +143,13 @@ additional-spring-configuration-metadata.json
 https://github.com/spring-cloud-samples/authserver
 http://oauthbible.com/
 
+1. Create app
+- [Registering OAuth Apps]https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/
+  - [OAuth applications](https://github.com/settings/developers)
+
+
+
+
 ## Execution and Scheduling
 <a href="http://stackoverflow.com/questions/4912228/when-should-i-use-a-completionservice-over-an-executorservice">CompletionService over an ExecutorService</a>
 

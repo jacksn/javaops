@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ru.javaops.model.User;
+import ru.javaops.AuthorizedUser;
 import ru.javaops.repository.UserRepository;
 import ru.javaops.service.GoogleAdminSDKDirectoryService;
 import ru.javaops.service.GroupService;
@@ -50,16 +50,19 @@ public class ProfileController {
     @Autowired
     private GoogleAdminSDKDirectoryService googleAdminSDKDirectoryService;
 
+    @GetMapping("/auth/profile")
+    public String profile() {
+        return "profile";
+    }
+
     @RequestMapping(value = "/participate", method = RequestMethod.GET)
     public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key, @RequestParam("project") String projectName) {
-        User u = groupService.getExistedUserInCurrentProject(email, projectName);
-        return new ModelAndView("profile", ImmutableMap.of("user", u, "projectName", projectName, "key", key));
+        return new ModelAndView("profile", "projectName", projectName);
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ModelAndView profile(@RequestParam("email") String email, @RequestParam("key") String key) {
-        User u = userService.findExistedByEmail(email);
-        return new ModelAndView("profile", ImmutableMap.of("user", u, "key", key));
+    public String profile(@RequestParam("email") String email, @RequestParam("key") String key) {
+        return "profile";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
@@ -67,8 +70,8 @@ public class ProfileController {
         return new ResponseEntity<>(userService.deleteByEmail(email) ? "OK" : "Not Found", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView save(@RequestParam("key") String key, @RequestParam(value = "project", required = false) String project, @Valid UserToExt userToExt, BindingResult result) {
+    @RequestMapping(value = "/auth/save", method = RequestMethod.POST)
+    public ModelAndView save(@RequestParam(value = "project", required = false) String project, @Valid UserToExt userToExt, BindingResult result) {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
@@ -76,21 +79,21 @@ public class ProfileController {
         if (!Strings.isNullOrEmpty(project)) {
             String email = userToExt.getEmail();
             groupService.getExistedUserInCurrentProject(email, project);
-            return grantAllAccess(email, userToExt.getGmail(), project, key);
+            return grantAllAccess(email, userToExt.getGmail(), project);
         } else {
-            return new ModelAndView("saveProfile", ImmutableMap.of("userToExt", userToExt, "key", key));
+            return new ModelAndView("saveProfile", ImmutableMap.of("userToExt", userToExt));
         }
     }
 
-    @GetMapping(value = "/users")
-    public ModelAndView usersInfo(@RequestParam("key") String key, @RequestParam("email") String email) {
+    @GetMapping(value = "/auth/users")
+    public ModelAndView usersInfo() {
         List<UserStat> users = userRepository.findAllForStats();
-        return (users.stream().anyMatch(u -> u.getEmail().equals(email))) ?
+        return (users.stream().anyMatch(u -> u.getEmail().equals(AuthorizedUser.user().getEmail()))) ?
                 new ModelAndView("users", "users", users) :
                 new ModelAndView("statsForbidden");
     }
 
-    private ModelAndView grantAllAccess(String email, String gmail, String project, String key) {
+    private ModelAndView grantAllAccess(String email, String gmail, String project) {
         log.info("grantAllAccess to {}/{}", email, gmail);
         IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, project);
         String accessResponse = "";
@@ -99,7 +102,6 @@ public class ProfileController {
         }
         return new ModelAndView("registration",
                 ImmutableMap.of("response", response, "email", email,
-                        "activationKey", key,
                         "accessResponse", accessResponse));
     }
 }

@@ -91,12 +91,12 @@ public class SubscriptionController {
 
         final ModelAndView mv;
         if (callback != null) {
-            mv = getRedirectView(mailResult, callback, "/view/error");
+            mv = getRedirectView(mailResult, callback, "error");
         } else {
-            mv = new ModelAndView("confirm", params);
+            mv = new ModelAndView("simpleConfirm", params);
         }
         if (confirmMail != null) {
-            mailService.sendWithTemplateAsync(new UserMailImpl(null, confirmMail), "confirm", params);
+            mailService.sendWithTemplateAsync(new UserMailImpl(null, confirmMail), "simpleConfirm", params);
         }
         return mv;
     }
@@ -151,7 +151,7 @@ public class SubscriptionController {
             }
         }
         String mailResult = mailService.sendToUser(template, userGroup.getUser());
-        return getRedirectView(mailResult, "/view/confirm", "/view/error");
+        return getRedirectView(mailResult, "confirm", "error");
     }
 
     private ModelAndView getRedirectView(String mailResult, String successUrl, String failUrl) {

@@ -10,8 +10,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.regex.Pattern;
 
-import static ru.javaops.util.Util.assign;
-import static ru.javaops.util.Util.assignNotEmpty;
+import static ru.javaops.util.Util.*;
 
 /**
  * GKislin
@@ -21,7 +20,9 @@ public class UserUtil {
     static final Pattern GMAIL_EXP = Pattern.compile("\\@gmail\\.");
 
     public static User createFromTo(UserTo userTo) {
-        return tryFillGmail(new User(userTo.getEmail(), userTo.getNameSurname(), userTo.getLocation(), userTo.getInfoSource(), userTo.getSkype()));
+        User user = new User(userTo.getEmail(), userTo.getNameSurname(), userTo.getLocation(), userTo.getInfoSource(), userTo.getSkype());
+        tryFillGmail(user);
+        return user;
     }
 
     public static void updateFromToExt(User user, UserToExt userToExt) {
@@ -67,10 +68,18 @@ public class UserUtil {
         tryFillGmail(user);
     }
 
-    private static User tryFillGmail(User user) {
-        if (GMAIL_EXP.matcher(user.getEmail()).find()) {
+    public static boolean updateFromAuth(User user, UserToExt userToExt) {
+        boolean assign = assignNotOverride(userToExt.getNameSurname(), user.getFullName(), user::setFullName);
+        assign |= assignNotEmpty(user.getGithub(), user::setGithub);
+        assign |= tryFillGmail(user);
+        return assign;
+    }
+
+    private static boolean tryFillGmail(User user) {
+        if (user.getGmail() == null && GMAIL_EXP.matcher(user.getEmail()).find()) {
             user.setGmail(user.getEmail());
+            return true;
         }
-        return user;
+        return false;
     }
 }

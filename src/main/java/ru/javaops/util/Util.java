@@ -19,10 +19,20 @@ import java.util.regex.Pattern;
 public class Util {
     private static Pattern MAIL_TITLE = Pattern.compile("<title>(.+)</title>", Pattern.MULTILINE);
 
-    public static void assignNotEmpty(String value, Consumer<String> setter) {
+    public static boolean assignNotEmpty(String value, Consumer<String> setter) {
         if (StringUtils.hasText(value)) {
             setter.accept(value);
+            return true;
         }
+        return false;
+    }
+
+    public static boolean assignNotOverride(String value, String oldValue, Consumer<String> setter) {
+        if (!StringUtils.hasText(oldValue)) {
+            setter.accept(value);
+            return true;
+        }
+        return false;
     }
 
     public static void assign(String value, Consumer<String> setter) {

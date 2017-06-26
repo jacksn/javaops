@@ -8,6 +8,7 @@ import ru.javaops.to.UserMail;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.EnumSet;
@@ -21,7 +22,7 @@ import static org.apache.commons.lang3.StringUtils.substringBefore;
  */
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity implements UserMail {
+public class User extends BaseEntity implements UserMail, Serializable {
     private static final long PARTNER_RESUME_NOTIFY = 0x1;
     private static final long PARTNER_CORPORATE_STUDY = 0x2;
     private static final long PARTNER_DIRECT_EMAIL = 0x4;
@@ -87,7 +88,6 @@ public class User extends BaseEntity implements UserMail {
     @Column
     private String skype;
 
-    @Size(max = 100)
     @Column
     private String github;
 
@@ -426,7 +426,7 @@ public class User extends BaseEntity implements UserMail {
 
     @Override
     public boolean equals(Object o) {
-        return this == o || email.equals(((UserMail) o).getEmail());
+        return this == o || !(o == null || getClass() != o.getClass()) && email.equals(((User) o).email);
     }
 
     @Override

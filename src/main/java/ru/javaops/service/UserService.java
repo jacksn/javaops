@@ -18,6 +18,8 @@ public interface UserService {
 
     User findByEmail(String email);
 
+    User findExistedByEmailOrGmail(String email);
+
     Set<UserMail> findByGroupName(String email);
 
     User findByEmailAndGroupId(String email, int groupId);

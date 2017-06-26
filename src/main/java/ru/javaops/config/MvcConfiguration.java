@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -14,7 +15,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.mvc.UrlFilenameViewController;
+import ru.javaops.AuthorizedUser;
 import ru.javaops.service.SubscriptionService;
+import ru.javaops.service.UserService;
 import ru.javaops.util.WebUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,9 +36,12 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
     @Autowired
     private SubscriptionService subscriptionService;
 
-    @Bean
-    public HandlerInterceptor activationKeyInterceptor() {
-        return new HandlerInterceptorAdapter() {
+    @Autowired
+    private UserService userService;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new HandlerInterceptorAdapter() {
             @Override
             public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
                 String project = request.getParameter("project");
@@ -51,10 +57,12 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
                 check(request, "key", key -> {
                     String email = request.getParameter("email");
                     subscriptionService.checkActivationKey(checkNotNull(email, "Не задан email"), key);
+                    AuthorizedUser.setAuthorized(userService.findExistedByEmail(email), request);
                 });
                 return true;
             }
-        };
+        }).excludePathPatterns("/api/**");
+        registry.addInterceptor(authInterceptor()).excludePathPatterns("/api/**");
     }
 
     private void check(HttpServletRequest request, String param, Consumer<String> checker) {
@@ -64,9 +72,16 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
         }
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(activationKeyInterceptor());
+    @Bean
+    public HandlerInterceptor authInterceptor() {
+        return new HandlerInterceptorAdapter() {
+            @Override
+            public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+                if (modelAndView != null && !modelAndView.isEmpty()) {
+                    modelAndView.getModelMap().addAttribute("authUser", AuthorizedUser.user());
+                }
+            }
+        };
     }
 
     @Override
@@ -77,22 +92,18 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
         registry.addViewController("/story.html").setViewName("story");
     }
 
-    //    http://www.codejava.net/frameworks/spring/spring-mvc-url-based-view-resolution-with-urlfilenameviewcontroller-example
-    @Bean(name = "urlViewController")
-    public UrlFilenameViewController getUrlViewController() {
-        return new UrlFilenameViewController();
-    }
-
+    //  http://www.codejava.net/frameworks/spring/spring-mvc-url-based-view-resolution-with-urlfilenameviewcontroller-example
     @Bean
     public SimpleUrlHandlerMapping getUrlHandlerMapping() {
         SimpleUrlHandlerMapping handlerMapping = new SimpleUrlHandlerMapping();
         handlerMapping.setMappings(new Properties() {
             {
 //                https://stackoverflow.com/a/12569566/548473
-                put("/view/**", "urlViewController");
+                put("/view/**", new UrlFilenameViewController());
             }
         });
         handlerMapping.setOrder(Integer.MAX_VALUE - 5);
+        handlerMapping.setInterceptors(authInterceptor());
         return handlerMapping;
     }
 

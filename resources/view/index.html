@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../css/style.css"/>
 </head>
 <body>
-<nav class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr" th:fragment="header">
+<nav th:replace="fragments::header" class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr">
     <div class="container">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true"
@@ -44,6 +44,25 @@
                     <a href="https://www.youtube.com/channel/UCMiuo1BSwQxRMl6781evABw/videos" target="_blank">
                         <i class="fa fa-youtube" aria-hidden="true">&nbsp;</i>
                     </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light" href="#"
+                       id="navbarDropdownLogin" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="true">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i> Вход
+                    </a>
+                    <div class="dropdown-menu dropdown-warning dropdown-menu-right"
+                         aria-labelledby="navbarDropdownLogin" data-dropdown-in="fadeIn"
+                         data-dropdown-out="fadeOut">
+                        <a class="dropdown-item waves-effect waves-light" href="/login/google">
+                            <i class="fa fa-google"></i> через Google
+                        </a>
+                        <a class="dropdown-item waves-effect waves-light" href="/login/github">
+                            <i class="fa fa-github"></i> через GitHub
+                        </a>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -165,7 +184,8 @@
     </div>
     <hr/>
     <div class="jumbotron">
-        <h3>После <a href="/reg/topjava">стажировки Java Enterprise</a> <b>в опыте работы</b> твоего резюме будет раздел:</h3>
+        <h3>После <a href="/reg/topjava">стажировки Java Enterprise</a> <b>в опыте работы</b> твоего резюме будет
+            раздел:</h3>
         <p>Участие в разработке Spring/JPA Enterprise приложения c авторизацией и правами доступа на основе ролей на
             стеке: <i>Maven, Spring MVC, Spring Security, REST (Jackson), Java 8 Stream API</i>:
         </p>
@@ -182,5 +202,13 @@
     <th:block th:include="fragments::footer"/>
 </div>
 </body>
-<th:block th:include="fragments::js-skype"/>
+<th:block th:include="fragments::js-skype">
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="../static/js/tether.min.js"></script>
+    <!-- https://mdbootstrap.com/getting-started/ -->
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="../static/js/mdb.min.js"></script>
+</th:block>
 </html>
