@@ -63,13 +63,18 @@
                          aria-labelledby="navbarDropdownLogin" data-dropdown-in="fadeIn"
                          data-dropdown-out="fadeOut">
                         <th:block th:if="${authUser}==null">
+<!--
+                            <a class="dropdown-item waves-effect waves-light" href="/login/google">
+                                <i class="fa fa-google"></i> через Google
+                            </a>
+-->
                             <a class="dropdown-item waves-effect waves-light" href="/login/github">
                                 <i class="fa fa-github"></i> через GitHub
                             </a>
                         </th:block>
                         <th:block th:if="${authUser}!=null">
                             <a class="dropdown-item waves-effect waves-light" href="/auth/profile">
-                                <i class="fa fa-user"></i> Редактирование
+                                <i class="fa fa-user"></i> Профиль
                             </a>
                             <a class="dropdown-item waves-effect waves-light" href="/logout">
                                 <i class="fa fa-sign-out"></i> Выход

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.javaops.AuthorizedUser;
+import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
 import ru.javaops.service.GoogleAdminSDKDirectoryService;
 import ru.javaops.service.GroupService;
@@ -55,9 +56,14 @@ public class ProfileController {
         return "profile";
     }
 
+    @GetMapping("/auth/profileER")
+    public ModelAndView profileER(@RequestParam(value = "project", required = false) String projectName) {
+        return new ModelAndView("profileER", "project", projectName);
+    }
+
     @RequestMapping(value = "/participate", method = RequestMethod.GET)
     public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key, @RequestParam("project") String projectName) {
-        return new ModelAndView("profile", "projectName", projectName);
+        return new ModelAndView("profile", "project", projectName);
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
@@ -75,13 +81,14 @@ public class ProfileController {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
-        userService.update(userToExt);
+        User user = userService.update(userToExt);
+        AuthorizedUser.updateUser(user);
         if (!Strings.isNullOrEmpty(project)) {
             String email = userToExt.getEmail();
             groupService.getExistedUserInCurrentProject(email, project);
             return grantAllAccess(email, userToExt.getGmail(), project);
         } else {
-            return new ModelAndView("saveProfile", ImmutableMap.of("userToExt", userToExt));
+            return new ModelAndView("saveProfile");
         }
     }
 
@@ -102,6 +109,6 @@ public class ProfileController {
         }
         return new ModelAndView("registration",
                 ImmutableMap.of("response", response, "email", email,
-                        "accessResponse", accessResponse));
+                        "accessResponse", accessResponse, "project", project));
     }
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.SafeHtml;
 
 /**
  * GKislin
@@ -18,12 +19,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class UserTo {
     @NotEmpty(message = "Поле email не может быть пустым")
     @Email
+    @SafeHtml
     private String email;
 
+    @SafeHtml
     private String nameSurname;
+    @SafeHtml
     private String location;
+    @SafeHtml
     private String infoSource;
+    @SafeHtml
     private String phone;
+    @SafeHtml
     private String skype;
 
     public UserTo(String email, String nameSurname) {

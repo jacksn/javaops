@@ -13,20 +13,16 @@
 </nav>
 <div class="container box">
     <div class="jumbotron">
-        <h2>Спасибо за регистрацию!</h2>
+        <h2 th:text="|Спасибо за регистрацию на проекте ${project}!|">Спасибо за регистрацию на проекте project!</h2>
         <!--/*@thymesVar id="response" type="ru.javaops.service.IntegrationService.SlackResponse"*/-->
         <h4 th:text="${response.ok} ? 'На почту должно прийти приглашение в группу Slack (в течении 5 мин)' : 'Ответ от Slack: '+ ${response.error}">
             На почту должно прийти приглашение в группу Slack.
         </h4>
         <!--/*@thymesVar id="accessResponse" type="java.lang.String"*/-->
-        <th:block th:if="${authUser}!=null">
-            <th:block th:if="${accessResponse}!='' and ${accessResponse}!=null">
-                <h4 th:text="${accessResponse}=='ok' ? 'Проверьте доступ к материалам по ссылке в письме.' : 'Ошибка доступа: '+ ${accessResponse}+'. Обычно это неверный gmail (пропущена буква или домен ru вместо com). Поробуй еще раз зайти по ссылке из письма и поправить gmail. Если проблема не решилась, напиши мне в скайп: grigory.kislin'">
-                    Проверьте доступ к материалам по ссылке в письме.
-                </h4>
-            </th:block>
-            <h4><a th:href="@{/auth/profile}" href="#">Редактировать мои данные</a></h4>
-            <h4 th:if="${authUser.member}"><a th:href="@{/auth/users}">Список участников, отсортированный по городам</a></h4>
+        <th:block th:if="${accessResponse}!='' and ${accessResponse}!=null">
+            <h4 th:text="${accessResponse}=='ok' ? 'Проверьте доступ к материалам по ссылке в письме.' : 'Ошибка доступа: '+ ${accessResponse}+'. Обычно это неверный gmail (пропущена буква или домен .ru вместо .com). Поробуй еще раз зайти ПО ССЫЛКЕ ИЗ ПИСЬМА и поправить Gmail. Если проблема не решилась, напиши мне в скайп: grigory.kislin'">
+                Проверьте доступ к материалам по ссылке в письме.
+            </h4>
         </th:block>
     </div>
 </div>

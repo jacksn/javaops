@@ -60,4 +60,8 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
     public String toString() {
         return user == null ? "noAuth" : user.toString();
     }
+
+    public static void updateUser(User user) {
+        get().user = user;
+    }
 }

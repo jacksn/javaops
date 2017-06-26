@@ -63,11 +63,17 @@ public class SecurityConfig {
                     .antMatchers("/static/**");
         }
 
+        //   http://www.programcreek.com/java-api-examples/index.php?api=org.springframework.security.web.AuthenticationEntryPoint
+
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests()
                     .antMatchers("/auth/**").authenticated()
                     .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
+                    .and().exceptionHandling().authenticationEntryPoint(
+                    (request, response, authException) -> {
+                        response.sendRedirect("/view/accessDenied");
+                    })
                     .and().csrf().disable();
         }
     }
