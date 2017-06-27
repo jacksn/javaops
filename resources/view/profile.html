@@ -37,8 +37,7 @@
                                                                                     href="#">Resume</a>
                 </h4>
                 <h4 th:if="${authUser.github}!=null">
-                    <i class="fa fa-github" aria-hidden="true">&nbsp;</i><a th:href="${authUser.github}"
-                                                                            href="#">Github account</a>
+                    <a th:href="${authUser.github}" href="#">Github account</a>
                 </h4>
                 <h4><i class="fa fa-percent" aria-hidden="true"></i> Бонусы: <span
                         th:text="${authUser.bonus}">15</span>
