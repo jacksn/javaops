@@ -31,24 +31,24 @@ public class GoogleAdminSDKDirectoryService {
 
     private Directory service;
 
-    @PostConstruct
-    void init() throws GeneralSecurityException, IOException {
-        GoogleCredential credential;
-        try (InputStream is = new FileInputStream("./config/client_secret.json")) {
-            credential = GoogleCredential.fromStream(is);
-        }
-        GoogleCredential credentialWithUser = new GoogleCredential.Builder()
-                .setTransport(getDefaultTransport())
-                .setJsonFactory(getDefaultJsonFactory())
-                .setServiceAccountUser("admin@javaops.ru")
-                .setServiceAccountId(credential.getServiceAccountId())
-                .setServiceAccountScopes(SCOPES)
-                .setServiceAccountPrivateKey(credential.getServiceAccountPrivateKey())
-                .setServiceAccountPrivateKeyId(credential.getServiceAccountPrivateKeyId())
-                .setTokenServerEncodedUrl(credential.getTokenServerEncodedUrl()).build();
-
-        service = new Directory.Builder(getDefaultTransport(), getDefaultJsonFactory(), credentialWithUser).setApplicationName(APPLICATION_NAME).build();
-    }
+//    @PostConstruct
+//    void init() throws GeneralSecurityException, IOException {
+//        GoogleCredential credential;
+//        try (InputStream is = new FileInputStream("./config/client_secret.json")) {
+//            credential = GoogleCredential.fromStream(is);
+//        }
+//        GoogleCredential credentialWithUser = new GoogleCredential.Builder()
+//                .setTransport(getDefaultTransport())
+//                .setJsonFactory(getDefaultJsonFactory())
+//                .setServiceAccountUser("admin@javaops.ru")
+//                .setServiceAccountId(credential.getServiceAccountId())
+//                .setServiceAccountScopes(SCOPES)
+//                .setServiceAccountPrivateKey(credential.getServiceAccountPrivateKey())
+//                .setServiceAccountPrivateKeyId(credential.getServiceAccountPrivateKeyId())
+//                .setTokenServerEncodedUrl(credential.getTokenServerEncodedUrl()).build();
+//
+//        service = new Directory.Builder(getDefaultTransport(), getDefaultJsonFactory(), credentialWithUser).setApplicationName(APPLICATION_NAME).build();
+//    }
 
     public Members members(String googleGroupName) throws IOException {
         return service.members().list(googleGroupName).execute();
