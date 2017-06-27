@@ -4,3 +4,5 @@ target
 *.iml
 logs
 db
+*.log
+*.patch

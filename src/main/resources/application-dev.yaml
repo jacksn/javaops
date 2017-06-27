@@ -29,6 +29,7 @@ app:
     vk-token: vk-token
     slack-tokens.topjava: dummy-slack-token-topjava
     slack-tokens.javaops: dummy-slack-token-javaops
+  secret-key: secret
 
 spring:
   mail.host: smtp.yandex.ru

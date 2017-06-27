@@ -1,6 +1,7 @@
-INSERT INTO USERS (FULL_NAME, EMAIL, PASSWORD) VALUES
-  ('Григорий Кислин', 'gkislin@yandex.ru', '$2a$10$tgEdY6aPPUVdaHUTehckdOyCTc6DCAicSjZEF5X73aPMIZQc.dyV6'),
-  ('Java_Online_Projects', 'admin@javaops.ru', '$2a$10$tgEdY6aPPUVdaHUTehckdOyCTc6DCAicSjZEF5X73aPMIZQc.dyV6');
+INSERT INTO USERS (FULL_NAME, EMAIL, GMAIL, PASSWORD) VALUES
+  ('Григорий Кислин', 'gkislin@yandex.ru', NULL, '$2a$10$tgEdY6aPPUVdaHUTehckdOyCTc6DCAicSjZEF5X73aPMIZQc.dyV6'),
+  ('User email','slash_ea@mail.ru', 'eugeneakhramovich@gmail.com', '$2a$10$tgEdY6aPPUVdaHUTehckdOyCTc6DCAicSjZEF5X73aPMIZQc.dyV6'),
+  ('Java_Online_Projects', 'admin@javaops.ru', NULL, '$2a$10$tgEdY6aPPUVdaHUTehckdOyCTc6DCAicSjZEF5X73aPMIZQc.dyV6');
 
 INSERT INTO PROJECT (NAME) VALUES ('topjava');
 
