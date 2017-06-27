@@ -1,5 +1,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="headTag (title)">
+<head th:replace="fragments::headTag('')">
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../static/css/mdb.css"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<th:block th:fragment="headTag (title)">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta charset="UTF-8"/>
@@ -9,7 +15,7 @@
     <link rel="stylesheet" href="/static/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="/css/style.css"/>
     <link rel="shortcut icon" href="/static/img/java_cup.ico"/>
-</head>
+</th:block>
 
 <nav class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr" th:fragment="header">
     <div class="container">
