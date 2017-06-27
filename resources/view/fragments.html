@@ -140,10 +140,11 @@
 <th:block th:fragment="delim(name, title)">
     <h3 class="text-center"><a th:name="${name}" class="anchor" th:text="${title}"></a></h3>
 </th:block>
+
 <div th:fragment="modal(project, title)">
     <div class="row">
         <div class="col-9">
-            <h3 class="text-center" th:text="${title}"></h3>
+            <h3 class="text-center"><a th:name="entrance" class="anchor" th:text="${title}"></a></h3>
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
