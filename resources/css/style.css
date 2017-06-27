@@ -39,12 +39,6 @@ footer {
     background-color: #293a48;
 }
 
-
-a[href^="skype:"] {
-    padding-left: 20px !important;
-    background: url(../static/img/skype.png) no-repeat center left;
-}
-
 a[href^="mailto:"] {
     padding-left: 20px !important;
     background: url(../static/img/email.png) no-repeat center left;

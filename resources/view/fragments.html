@@ -39,8 +39,8 @@
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons">
                 <li class="nav-item nav-link">
-                    <a href="skype:grigory.kislin?add">
-                        <i class="fa fa-skype fa-lg" aria-hidden="true"></i>
+                    <a data-config="commands=add;size=22;status=on;theme=logo;bgcolor=#2a92f3"
+                       href="skype:grigory.kislin">
                     </a>
                 </li>
                 <li class="nav-item nav-link">
@@ -126,7 +126,9 @@
     <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
     <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="/static/js/mdb.min.js"></script>
-
+    <a data-config="commands=add;size=14;status=on;theme=logo;bgcolor=#2a92f3" id="skaip-buttons"
+       href="http://www.skaip.su/">Skype</a>
+    <script src="http://apps.skaip.su/buttons/widget/core.min.js" defer="defer"></script>
 </th:block>
 
 <th:block th:fragment="tooltip">
