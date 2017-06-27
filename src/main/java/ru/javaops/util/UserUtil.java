@@ -69,7 +69,7 @@ public class UserUtil {
 
     public static boolean updateFromAuth(User user, UserToExt userToExt) {
         boolean assign = assignNotOverride(userToExt.getNameSurname(), user.getFullName(), user::setFullName);
-        assign |= assignNotEmpty(user.getGithub(), user::setGithub);
+        assign |= assignNotEmpty(userToExt.getGithub(), user::setGithub);
         assign |= tryFillGmail(user);
         return assign;
     }

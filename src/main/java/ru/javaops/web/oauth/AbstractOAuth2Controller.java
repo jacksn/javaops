@@ -41,7 +41,10 @@ public abstract class AbstractOAuth2Controller {
 
             UserToExt userToExt = getUserToExt(accessToken);
             log.info(provider.getName() + " authorization from user {}", userToExt.getEmail());
-            User user = userService.findExistedByEmailOrGmail(userToExt.getEmail());
+            User user = userService.findByEmailOrGmail(userToExt.getEmail());
+            if (user == null) {
+                return "redirect:/view/accessDenied?email=" + userToExt.getEmail();
+            }
             if (UserUtil.updateFromAuth(user, userToExt)) {
                 userService.save(user);
             }
