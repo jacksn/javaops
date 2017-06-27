@@ -81,4 +81,10 @@ public class UserUtil {
         }
         return false;
     }
+
+    public static String normalize(String aboutMe) {
+        return aboutMe == null ? "" : aboutMe.replace("\r\n", "<br/>")
+                .replace("\n", "<br/>")
+                .replace("\r", "<br/>");
+    }
 }

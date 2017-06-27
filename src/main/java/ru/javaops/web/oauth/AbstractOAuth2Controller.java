@@ -56,6 +56,12 @@ public abstract class AbstractOAuth2Controller {
 
     protected abstract UserToExt getUserToExt(String accessToken);
 
+    public String authorize() {
+        return "redirect:" + provider.getAuthorizeUrl()
+                + "?client_id=" + provider.getClientId()
+                + "&redirect_uri=" + provider.getRedirectUri()
+                + "&state=csrf_token_auth";
+    }
     protected String getAccessToken(String code) {
         URI uri = fromHttpUrl(provider.getAccessTokenUrl())
                 .queryParam("client_id", provider.getClientId())

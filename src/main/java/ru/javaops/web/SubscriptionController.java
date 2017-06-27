@@ -151,7 +151,7 @@ public class SubscriptionController {
             }
         }
         String mailResult = mailService.sendToUser(template, userGroup.getUser());
-        return getRedirectView(mailResult, "confirm", "error");
+        return getRedirectView(mailResult, "/view/confirm", "/view/error");
     }
 
     private ModelAndView getRedirectView(String mailResult, String successUrl, String failUrl) {

@@ -27,7 +27,8 @@ import ru.javaops.web.oauth.OAuth2Provider;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @PropertySources({
-        @PropertySource("file:config/oauth/github.properties")
+        @PropertySource("file:config/oauth/github.properties"),
+        @PropertySource("file:config/oauth/google.properties")
 })
 public class SecurityConfig {
 
@@ -81,6 +82,12 @@ public class SecurityConfig {
     @Bean
     @ConfigurationProperties(prefix = "github")
     public OAuth2Provider githubOAuth2Provider() {
+        return new OAuth2Provider();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "google")
+    public OAuth2Provider googleOAuth2Provider() {
         return new OAuth2Provider();
     }
 
