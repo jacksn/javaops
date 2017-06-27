@@ -28,30 +28,28 @@
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons">
                 <li class="nav-item nav-link">
-                    <a href="skype: grigory.kislin">
-                        <span class="fa fa-skype" aria-hidden="true">grigory.kislin</span>
-                    </a>
+                    <a href="skype:grigory.kislin">grigory.kislin</a>
                 </li>
                 <li class="nav-item nav-link">
-                    <a href="mailto:admin@javaops.ru">admin@javaops.ru</a>
+                    <a href="mailto:admin@javaops.ru" data-toggle="tooltip" data-original-title="почта: admin@javaops.ru" data-placement="bottom">
+                        <i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a>
                 </li>
-                <li class="nav-item nav-link">
+                <li class="nav-item nav-link" data-toggle="tooltip" data-original-title="группа VK 'Java Enterprise Online Обучение'" data-placement="bottom">
                     <a href="https://vk.com/javawebinar" target="_blank">
-                        <i class="fa fa-vk" aria-hidden="true">&nbsp;</i>
+                        <i class="fa fa-vk fa-lg" aria-hidden="true">&nbsp;</i>
                     </a>
                 </li>
-                <li class="nav-item nav-link">
-                    <a href="https://www.youtube.com/channel/UCMiuo1BSwQxRMl6781evABw/videos" target="_blank">
-                        <i class="fa fa-youtube" aria-hidden="true">&nbsp;</i>
+                <li class="nav-item nav-link" data-toggle="tooltip" data-original-title="Youtube канал 'Java Online Projects'" data-placement="bottom">
+                    <a href="https://www.youtube.com/channel/UCMiuo1BSwQxRMl6781evABw" target="_blank">
+                        <i class="fa fa-youtube fa-lg" aria-hidden="true">&nbsp;</i>
                     </a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle waves-effect waves-light" href="#"
-                       id="navbarDropdownLogin" data-toggle="dropdown" aria-haspopup="true"
-                       aria-expanded="true">
-                        <i class="fa fa-sign-in" aria-hidden="true"></i> Вход
+                       id="navbarDropdownLogin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i> Вход
                     </a>
                     <div class="dropdown-menu dropdown-warning dropdown-menu-right"
                          aria-labelledby="navbarDropdownLogin" data-dropdown-in="fadeIn"
@@ -198,7 +196,7 @@
             <li>твоя доработка проекта</li>
         </ul>
         <h4><a href="https://vk.com/topic-74381644_30447246">Отзывы по стажировке</a></h4>
-        Добавляйтесь в <a href="skype:grigory.kislin">skype: grigory.kislin</a>
+        Добавляйтесь в <a href="skype:grigory.kislin">grigory.kislin</a>
 
     </div>
     <th:block th:include="fragments::footer"/>
@@ -216,5 +214,12 @@
     <a data-config="commands=add;size=14;status=on;theme=logo;bgcolor=#2a92f3" id="skaip-buttons"
        href="http://www.skaip.su/">Skype</a>
     <script src="http://apps.skaip.su/buttons/widget/core.min.js" defer="defer"></script>
+</th:block>
+<th:block th:include="fragments::tooltip">
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </th:block>
 </html>
