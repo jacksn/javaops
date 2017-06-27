@@ -39,29 +39,9 @@ footer {
     background-color: #293a48;
 }
 
-a[href^="skype:"] {
-    font-size: large !important;
-    color: darkgray !important;
-}
-
-a[href^="mailto:"] {
-    padding-left: 20px !important;
-    background: url(../static/img/email.png) no-repeat center left;
-}
-
-a[href^="https://vk.com"], .vk {
-    padding-left: 20px !important;
-    background: url(../static/img/vk.gif) no-repeat center left;
-}
-
 a[href^="https://tproger.ru"] {
     padding-left: 20px !important;
     background: url(../static/img/tprg.ico) no-repeat center left;
-}
-
-a[href^="https://www.youtube.com"], .video {
-    padding-left: 20px !important;
-    background: url(../static/img/youtube.ico) no-repeat center left;
 }
 
 a[href^="https://habrahabr.ru"] {
@@ -106,4 +86,8 @@ a[href*="hh.ru"], a[href*="hh.ua"] {
 
 .anchor:target {
     padding-top: 70px;
+}
+
+.navbar-nav .nav-link {
+    padding-right: 1em;
 }
