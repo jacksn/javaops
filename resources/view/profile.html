@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="authUser" type="ru.javaops.model.User"*/-->
-<!--/*@thymesVar id="projectName" type="java.lang.String"*/-->
-<head th:replace="fragments::headTag(${projectName}==null ? 'Профиль':'Регистрация на проект '+ ${projectName})">
+<!--/*@thymesVar id="project" type="java.lang.String"*/-->
+<head th:replace="fragments::headTag(${project}==null ? 'Профиль':'Регистрация на проект '+ ${project})">
     <link rel="stylesheet" href="../static/css/bootstrap.css"/>
     <link rel="stylesheet" href="../static/css/mdb.css"/>
     <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
@@ -44,10 +44,10 @@
                 </h4>
                 <br/>
                 <b>
-                    <a th:if="${projectName==null}" href="/auth/profileER" class="btn btn-info">Редактировать</a>
-                    <a th:if="${projectName!=null}"
-                       th:href="@{/auth/profileER(project=${projectName})}"
-                       th:text="|Регистрация на проект ${projectName}|" class="btn btn-info">Регистрация на проект
+                    <a th:if="${project==null}" href="/auth/profileER" class="btn btn-info">Редактировать</a>
+                    <a th:if="${project!=null}"
+                       th:href="@{/auth/profileER(project=${project})}"
+                       th:text="|Регистрация на проект ${project}|" class="btn btn-info">Регистрация на проект
                         project</a>
                 </b>
             </div>
