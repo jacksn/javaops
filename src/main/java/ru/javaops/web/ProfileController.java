@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.javaops.AuthorizedUser;
+import ru.javaops.model.Group;
+import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
 import ru.javaops.service.GoogleAdminSDKDirectoryService;
 import ru.javaops.service.GroupService;
@@ -21,11 +23,14 @@ import ru.javaops.service.IntegrationService;
 import ru.javaops.service.UserService;
 import ru.javaops.to.UserStat;
 import ru.javaops.to.UserToExt;
+import ru.javaops.util.UserUtil;
 import ru.javaops.util.Util;
 
 import javax.validation.Valid;
 import javax.validation.ValidationException;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * gkislin
@@ -51,18 +56,23 @@ public class ProfileController {
     private GoogleAdminSDKDirectoryService googleAdminSDKDirectoryService;
 
     @GetMapping("/auth/profile")
-    public String profile() {
-        return "profile";
+    public ModelAndView profile() {
+        return getProfileView(null);
+    }
+
+    @GetMapping("/auth/profileER")
+    public ModelAndView profileER(@RequestParam(value = "project", required = false) String projectName) {
+        return new ModelAndView("profileER", "project", projectName);
     }
 
     @RequestMapping(value = "/participate", method = RequestMethod.GET)
     public ModelAndView participate(@RequestParam("email") String email, @RequestParam("key") String key, @RequestParam("project") String projectName) {
-        return new ModelAndView("profile", "projectName", projectName);
+        return getProfileView(ImmutableMap.of("project", projectName));
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public String profile(@RequestParam("email") String email, @RequestParam("key") String key) {
-        return "profile";
+    public ModelAndView profile(@RequestParam("email") String email, @RequestParam("key") String key) {
+        return getProfileView(null);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
@@ -75,13 +85,14 @@ public class ProfileController {
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
-        userService.update(userToExt);
+        User user = userService.update(userToExt);
+        AuthorizedUser.updateUser(user);
         if (!Strings.isNullOrEmpty(project)) {
             String email = userToExt.getEmail();
             groupService.getExistedUserInCurrentProject(email, project);
             return grantAllAccess(email, userToExt.getGmail(), project);
         } else {
-            return new ModelAndView("saveProfile", ImmutableMap.of("userToExt", userToExt));
+            return new ModelAndView("saveProfile");
         }
     }
 
@@ -102,6 +113,25 @@ public class ProfileController {
         }
         return new ModelAndView("registration",
                 ImmutableMap.of("response", response, "email", email,
-                        "accessResponse", accessResponse));
+                        "accessResponse", accessResponse, "project", project));
+    }
+
+    private ModelAndView getProfileView(Map<String, ?> params) {
+        User user = AuthorizedUser.user();
+        String aboutMe = UserUtil.normalize(user.getAboutMe());
+        String groups = groupService.getGroupsByUserId(user.getId()).stream()
+                .map(Group::getName)
+                .sorted()
+                .collect(Collectors.joining(", "));
+
+        ImmutableMap.Builder<String, Object> builder =
+                new ImmutableMap.Builder<String, Object>()
+                        .put("aboutMe", aboutMe)
+                        .put("groups", groups);
+
+        if (params != null) {
+            builder = builder.putAll(params);
+        }
+        return new ModelAndView("profile", builder.build());
     }
 }

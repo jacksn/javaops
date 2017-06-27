@@ -1,5 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments::headTag(${projectName}==null ? 'Редактирование профиля':'Регистрация на проект '+ ${projectName})">
+<!--/*@thymesVar id="authUser" type="ru.javaops.model.User"*/-->
+<!--/*@thymesVar id="projectName" type="java.lang.String"*/-->
+<head th:replace="fragments::headTag(${projectName}==null ? 'Профиль':'Регистрация на проект '+ ${projectName})">
     <link rel="stylesheet" href="../static/css/bootstrap.css"/>
     <link rel="stylesheet" href="../static/css/mdb.css"/>
     <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
@@ -13,7 +15,55 @@
     </div>
 </nav>
 <div class="container pad">
-    <!--/*@thymesVar id="authUser" type="ru.javaops.model.User"*/-->
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-5">
+                <h2><i class="fa fa-user" aria-hidden="true">&nbsp;</i><span
+                        th:text="${authUser.fullName}">Full Name</span>
+                </h2>
+                <h4><i class="fa fa-envelope" aria-hidden="true">&nbsp;</i><span th:text="${authUser.email}">admin@javaops.ru</span>
+                </h4>
+                <h4><i class="fa fa-google" aria-hidden="true">&nbsp;</i><span
+                        th:text="${authUser.gmail}">admin@gmail.com</span></h4>
+                <h4><i class="fa fa-skype" aria-hidden="true">&nbsp;</i><span
+                        th:text="${authUser.skype}">grigory.kislin</span></h4>
+                <h4><i class="fa fa-map-marker" aria-hidden="true">&nbsp;</i><span th:text="${authUser.location}">Санкт-Петербург</span>
+                </h4>
+                <h4><i class="fa fa-wrench" aria-hidden="true">&nbsp;</i><span
+                        th:text="${authUser.company}">JavaOPs</span>
+                </h4>
+                <h4 th:if="${authUser.resumeUrl}!=null">
+                    <i class="fa fa-address-card-o" aria-hidden="true">&nbsp;</i><a th:href="${authUser.resumeUrl}"
+                                                                                    href="#">Resume</a>
+                </h4>
+                <h4 th:if="${authUser.github}!=null">
+                    <a th:href="${authUser.github}" href="#">Github account</a>
+                </h4>
+                <h4><i class="fa fa-percent" aria-hidden="true"></i> Бонусы: <span
+                        th:text="${authUser.bonus}">15</span>
+                </h4>
+                <br/>
+                <b>
+                    <a th:if="${projectName==null}" href="/auth/profileER" class="btn btn-info">Редактировать</a>
+                    <a th:if="${projectName!=null}"
+                       th:href="@{/auth/profileER(project=${projectName})}"
+                       th:text="|Регистрация на проект ${projectName}|" class="btn btn-info">Регистрация на проект
+                        project</a>
+                </b>
+            </div>
+            <div class="col-7 card">
+                <div class="card-block" th:utext="${aboutMe}">
+                aboutMe
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <h4>Мои группы: <i th:text="${groups}"></i></h4>
+        <th:block th:if="${authUser.member}">
+            <h4><a th:href="@{/auth/users}" href="#">Список участников, отсортированный по городам</a></h4>
+            (доступен при <code>согласии на размещением своих данных в закрытой статистике группы</code>)
+        </th:block>
+    </div>
     <div th:unless="${authUser.partner}">
         <h5>
             06.07 старт <a href="http://javaops.ru/reg/topjava?ch=profile">Java Enterprise (Topjava)</a>. <a
@@ -32,205 +82,19 @@
     <div th:if="${authUser.partner}">
         <!--https://v4-alpha.getbootstrap.com/components/forms/#form-layouts-->
         <form class="form-inline">
-            <h4>
-                <a th:href="@{/sql(sql_key=_job_wanted_, csv=true, partnerKey=${authUser.email}, fromDate='2017-04-01')}"
-                   href="" id="jobWanted">База кандидатов на позицию Java разработчик </a> от даты:&nbsp;&nbsp;</h4>
-            <input class="form-control" name="fromDate" id="fromDate" value=""/>
-        </form>
-    </div>
-    <br/>
-    <div class="jumbotron" style="padding-top:0">
-        <br/>
-        <h2 th:text="${projectName}==null ? 'Редактирование профиля':'Регистрация на проект '+ ${projectName}">
-            Редактирование профиля</h2>
-        <br/>
-        <form method="post" action="/auth/save">
-            <div class="form-group">
-                <label class="col-3">Имя Фамилия</label>
-                <div class="col-4">
-                    <input class="form-control" name="nameSurname" placeholder="Имя Фамилия"
-                           th:value="${authUser.fullName}"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-3">Email</label>
-                <div class="col-4">
-                    <input class="form-control" name="email" th:value="${authUser.email}" readonly="readonly"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-12">Gmail (для Google авторизации)</label>
-                <div class="col-4">
-                    <input class="form-control" name="gmail" th:value="${authUser.gmail}"/>
-                </div>
-            </div>
-
-            <div class="form-group ">
-                <label class="col-3">Skype</label>
-                <div class="col-4">
-                    <input class="form-control" name="skype" th:value="${authUser.skype}"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-12">Город (проверьте кириллицей в списке)</label>
-                <div class="col-4">
-                    <input class="form-control" name="location" list="location" th:value="${authUser.location}"/>
-                </div>
-                <datalist id="location">
-                    <option value="">Выберите (или введите) город</option>
-                    <option value="Москва">Москва</option>
-                    <option value="Санкт-Петербург">Санкт-Петербург</option>
-                    <option value="Киев">Киев</option>
-                    <option value="Минск">Минск</option>
-                    <option value="Харьков">Харьков</option>
-                    <option value="Новосибирск">Новосибирск</option>
-                    <option value="Днепропетровск">Днепропетровск</option>
-                    <option value="Одесса">Одесса</option>
-                    <option value="Уфа">Уфа</option>
-                    <option value="Владивосток">Владивосток</option>
-                    <option value="Краснодар">Краснодар</option>
-                    <option value="Львов">Львов</option>
-                    <option value="Запорожье">Запорожье</option>
-                    <option value="Самара">Самара</option>
-                    <option value="Нижний Новгород">Нижний Новгород</option>
-                    <option value="Николаев">Николаев</option>
-                    <option value="Гродно">Гродно</option>
-                    <option value="Казань">Казань</option>
-                    <option value="Караганда">Караганда</option>
-                    <option value="Гомель">Гомель</option>
-                    <option value="Пермь">Пермь</option>
-                    <option value="Рига">Рига</option>
-                    <option value="Алматы">Алматы</option>
-                    <option value="Днепр">Днепр</option>
-                    <option value="Саратов">Саратов</option>
-                    <option value="Астана">Астана</option>
-                    <option value="Los Angeles">Los Angeles</option>
-                    <option value="Екатеринбург">Екатеринбург</option>
-                    <option value="Ростов-на-дону">Ростов-на-дону</option>
-                    <option value="Херсон">Херсон</option>
-                    <option value="Воронеж">Воронеж</option>
-                    <option value="Ижевск">Ижевск</option>
-                </datalist>
-            </div>
-
-            <div class="form-group ">
-                <label class="col-12">Место работы</label>
-                <div class="col-4">
-                    <input class="form-control" name="company" th:value="${authUser.company}"/>
-                </div>
-                <th:block th:if="${authUser.member}">
-                    <div class="checkbox col-12">
-                        <label><input th:checked="${authUser.underRecruitment}" type="checkbox"
-                                      name="underRecruitment"/>
-                            На работе готовы трудоустроить наших лучших выпускников
-                        </label>
-                    </div>
-                    <div class="checkbox col-12">
-                        <label><input th:checked="${authUser.jobThroughTopjava}" type="checkbox"
-                                      name="jobThroughTopjava"/>
-                            Получил работу благодаря стажировке Java Online Projects
-                        </label>
-                    </div>
-                </th:block>
-            </div>
-
-            <th:block th:unless="${authUser.partner}">
-                <div class="form-group">
-                    <label class="col-12">Ссылка на резюме</label>
-                    <div class="col-6">
-                        <input class="form-control" name="resumeUrl" type="url" th:value="${authUser.resumeUrl}"/>
-                    </div>
-
-                    <div class="checkbox col-10">
-                        <label><input th:checked="${authUser.considerJobOffers}" type="checkbox"
-                                      id="considerJobOffers" name="considerJobOffers"
-                                      onclick="handleRelocation()"/>
-                            Рассматриваю предложения о работе
-                        </label>
-                    </div>
-
-                    <div class="checkbox col-10" id="relocationCheck">
-                        <label>
-                            <input th:checked="${authUser.relocationReady}" type="checkbox"
-                                   id="relocationReady" name="relocationReady" onclick="handleRelocation()"/>
-                            Рассматриваю релокацию
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group" id="relocation">
-                    <label class="col-12">Выбрать несколько через Ctrl:</label>
-                    <div class="col-4">
-                        <select multiple="multiple" class="form-control" name="relocation" size="9"
-                                th:with="places = ${ {'Россия', 'Москва', 'Санкт-Петербург','Украина','Киев','Беларусь','Минск','Казахстнан','Европа','Польша','Другое'} }">
-                            <option th:each="place : ${places}" th:value="${place}" th:text="${place}"
-                                    th:selected="${authUser.relocation!=null and authUser.relocation.contains(place)}"/>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-12">Информация для HR (по ней будут решать, стоит ли смотреть в резюме). Не пиши
-                        сюда Junior!</label>
-                    <div class="col-10">
-                        <textarea class="form-control " name="aboutMe" rows="5"
-                                  th:utext="${authUser.aboutMe}"></textarea>
-                    </div>
-                    <div th:if="${authUser.member}" class="checkbox col-10">
-                        <label><input th:checked="${authUser.statsAgree}" type="checkbox" name="statsAgree"/>
-                            Согласен на размещением своих данных в закрытой статистике группы
-                        </label>
-                    </div>
-                </div>
-            </th:block>
-            <div th:if="${authUser.partner}" class="form-group">
-                <div class="checkbox col-12">
-                    <label class="larg"><input th:checked="${authUser.partnerResumeNotify}"
-                                               type="checkbox"
-                                               name="partnerResumeNotify"/>
-                        <b>Оповещать о новом резюме в базе</b>
-                    </label>
-                </div>
-                <div class="checkbox col-12">
-                    <label><input th:checked="${authUser.partnerCorporateStudy}" type="checkbox"
-                                  name="partnerCorporateStudy"/>
-                        <b>Интересует корпоративное обучение/стажировка</b>
-                    </label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-10">
-                    <button type="submit" class="btn btn-primary"
-                            th:text="${projectName}==null ? 'Сохранить':'Зарегистрироваться'">Сохранить
-                    </button>
-                </div>
-            </div>
-            <input th:if="${projectName}!=null" type="hidden" name="project" th:value="${projectName}"/>
+            <h4>База кандидатов на позицию Java разработчик от даты:&nbsp;&nbsp;
+                <input class="form-control" name="fromDate" id="fromDate" value="2017-04-01" size="6"/>
+                <a class="btn btn-info"
+                   th:href="@{/sql(sql_key=_job_wanted_, csv=true, partnerKey=${authUser.email}, fromDate='2017-04-01')}"
+                   href="" id="jobWanted">Смотреть</a>
+            </h4>
         </form>
     </div>
 </div>
 </body>
 <th:block th:include="fragments::js-skype"/>
+<script type="text/javascript" src="../static/datetimepicker/jquery.datetimepicker.full.min.js"></script>
 <script type="application/javascript">
-    $(function () {
-        handleRelocation();
-
-    });
-    function handleRelocation() {
-        if ($("#considerJobOffers").is(':checked')) {
-            $("#relocationCheck").show();
-            if ($("#relocationReady").is(':checked')) {
-                $("#relocation").show();
-            } else {
-                $("#relocation").hide();
-            }
-        } else {
-            $("#relocationCheck").hide();
-            $("#relocation").hide();
-        }
-    }
     $(function () {
         $('#fromDate').datetimepicker({
             timepicker: false,

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import ru.javaops.AuthorizedUser;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,6 +36,16 @@ public class GlobalExceptionHandler {
         return processException(e.getMessage() == null ? "Неверные параметры запроса" : e.getMessage());
     }
 
+/*
+    @ExceptionHandler(ValidationException.class)
+    public ModelAndView bindValidationError(HttpServletRequest req, BindingResult result) {
+        log.error("Illegal binding in request " + req.getRequestURL());
+        StringBuilder sb = new StringBuilder();
+        result.getFieldErrors().forEach(fe -> sb.append(Strings.isNullOrEmpty(fe.getField()) ? "Поле формы" : fe.getField()).append(" ").append(fe.getDefaultMessage()).append("<br>"));
+        return processException(sb.toString());
+    }
+*/
+
     @ExceptionHandler(Throwable.class)
     public ModelAndView defaultHandler(HttpServletRequest req, Throwable e) throws Exception {
         log.error("Exception at request " + req.getRequestURL(), e);
@@ -42,6 +53,8 @@ public class GlobalExceptionHandler {
     }
 
     private ModelAndView processException(String msg) {
-        return new ModelAndView("exception", "message", msg);
+        ModelAndView modelAndView = new ModelAndView("exception", "message", msg);
+        modelAndView.getModelMap().addAttribute("authUser", AuthorizedUser.user());
+        return modelAndView;
     }
 }

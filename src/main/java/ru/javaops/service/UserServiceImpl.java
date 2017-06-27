@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     }
 
     @Override
-    public User findExistedByEmailOrGmail(String email) {
-        return checkExist(userRepository.findByEmailOrGmail(email.toLowerCase()), email);
+    public User findByEmailOrGmail(String email) {
+        return userRepository.findByEmailOrGmail(email.toLowerCase());
     }
 
     @Override
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService, org.springframework.securit
 
     private User checkExist(User user, String email) {
         if (user == null) {
-            throw new UsernameNotFoundException("Пользователь '" + email + "' не зарегистрирован");
+            throw new UsernameNotFoundException("Пользователь c email '" + email + "' не найден в базе Java Online Projects.");
         }
         return user;
     }
@@ -89,8 +89,7 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     public User update(UserToExt userTo) {
         User user = userRepository.findOne(userTo.getId());
         UserUtil.updateFromToExt(user, userTo);
-        userRepository.save(user);
-        return user;
+        return userRepository.save(user);
     }
 
     @Override
