@@ -14,7 +14,9 @@
 <div class="container box">
     <div class="jumbotron">
         <br/>
-        <h2>Неавторизованный доступ <span th:if="${param.email}!=null" th:utext="|по почте <b>${param.email}</b>|">по почте <b>email</b></span></h2>
+        <h2>Неавторизованный доступ <span th:if="${param.email}!=null"
+                                          th:utext="${'по почте <b>'+${param.email}+'</b>'}">по почте <b>email</b></span>
+        </h2>
         <p class="lead">Доступ к данным профиля возможен либо <code><b>по ссылке в регистрационном
             письме</b></code>,<br/> либо по авторизации <br/>
             <a href="/login/github"><i class="fa fa-github"></i> через GitHub</a> (<b>email профиля должен совпадать с
