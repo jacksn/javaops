@@ -147,19 +147,20 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
+                        <!--/*@thymesVar id="authUser" type="ru.javaops.model.User"*/-->
                         <form action="/register" method="post">
                             <div class="form-group">
                                 <label for="nameSurname" class="col-12">Имя</label>
                                 <div class="col-12">
                                     <input class="form-control" id="nameSurname" name="nameSurname"
-                                           placeholder="Имя Фамилия"/>
+                                           placeholder="Имя Фамилия" th:value="${authUser}==null ? '':${authUser.fullName}"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="email" class="col-12">Электронная почта</label>
                                 <div class="col-12">
                                     <input type="email" class="form-control" id="email" name="email"
-                                           placeholder="email"/>
+                                           placeholder="email"  th:value="${authUser}==null ? '':${authUser.email}"/>
                                 </div>
                             </div>
                             <input type="text" name="template" th:value="|${project}_entrance|" hidden="hidden"/>
