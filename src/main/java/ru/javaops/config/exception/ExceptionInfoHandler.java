@@ -10,7 +10,6 @@ import ru.javaops.util.exception.ErrorInfo;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * User: vvserdiuk
  * Date: 20.02.2016
  */
 @ControllerAdvice(annotations = RestController.class)

@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::headTag('Access Denied')">
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../static/css/mdb.css"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<nav th:replace="fragments::header" class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr">
+    <div class="container">
+        <a href="/" class="navbar-brand"><strong>Java Online Projects</strong></a>
+    </div>
+</nav>
+Pro
+<div class="container pad">
+    <div class="jumbotron">
+        <div class="text-center">
+            <h2>Неавторизованный доступ <span th:if="${param.email}!=null" th:text="|по почте '${param.email[0]}'|">по почте <b>email</b></span>
+            </h2>
+            <br/>
+        </div>
+        <h4>Доступ к данным профиля возможен:</h4>
+        <ul>
+            <li><h5><b>по ссылке в регистрационном письме</b></h5></li>
+            <li><h5><a href="/login/github"><i class="fa fa-github"></i> через GitHub</a> (email профиля <b>должен
+                совпадать
+                с тем, что в GitHub аккаунте</b>)</h5></li>
+            <li><h5><a href="/login/google"><i class="fa fa-google"></i> через Google</a> (gmail <b>должен быть УЖЕ
+                ЗАПОЛНЕН
+                в профиле</b>)</h5>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<th:block th:include="fragments::js-skype"/>
+</html>

@@ -21,7 +21,7 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
     private User user;
 
     public AuthorizedUser(User user) {
-        super(user.getEmail(), user.getPassword(), user.isActive(), true, true, true, user.getRoles());
+        super(user.getEmail(), user.getPassword() != null ? user.getPassword() : "dummy", true, true, true, true, user.getRoles());
         this.user = user;
     }
 
@@ -59,5 +59,9 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
     @Override
     public String toString() {
         return user == null ? "noAuth" : user.toString();
+    }
+
+    public static void updateUser(User user) {
+        get().user = user;
     }
 }

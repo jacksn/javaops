@@ -62,7 +62,6 @@ public class UserUtil {
         assignNotEmpty(userTo.getNameSurname(), user::setFullName);
         assignNotEmpty(userTo.getInfoSource(), user::setInfoSource);
         assign(userTo.getLocation(), user::setLocation);
-        assign(userTo.getEmail(), user::setEmail);
         assign(userTo.getSkype(), user::setSkype);
         user.setActive(true);
         tryFillGmail(user);
@@ -70,7 +69,7 @@ public class UserUtil {
 
     public static boolean updateFromAuth(User user, UserToExt userToExt) {
         boolean assign = assignNotOverride(userToExt.getNameSurname(), user.getFullName(), user::setFullName);
-        assign |= assignNotEmpty(user.getGithub(), user::setGithub);
+        assign |= assignNotEmpty(userToExt.getGithub(), user::setGithub);
         assign |= tryFillGmail(user);
         return assign;
     }
@@ -81,5 +80,11 @@ public class UserUtil {
             return true;
         }
         return false;
+    }
+
+    public static String normalize(String aboutMe) {
+        return aboutMe == null ? "" : aboutMe.replace("\r\n", "<br/>")
+                .replace("\n", "<br/>")
+                .replace("\r", "<br/>");
     }
 }

@@ -1,6 +1,7 @@
 package ru.javaops.web.oauth;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import java.net.URI;
 
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
+@Slf4j
 public abstract class AbstractOAuth2Controller {
 
     @Autowired
@@ -38,7 +40,11 @@ public abstract class AbstractOAuth2Controller {
             String accessToken = getAccessToken(code);
 
             UserToExt userToExt = getUserToExt(accessToken);
-            User user = userService.findExistedByEmailOrGmail(userToExt.getEmail());
+            log.info(provider.getName() + " authorization from user {}", userToExt.getEmail());
+            User user = userService.findByEmailOrGmail(userToExt.getEmail());
+            if (user == null) {
+                return "redirect:/view/accessDenied?email=" + userToExt.getEmail();
+            }
             if (UserUtil.updateFromAuth(user, userToExt)) {
                 userService.save(user);
             }
@@ -50,6 +56,12 @@ public abstract class AbstractOAuth2Controller {
 
     protected abstract UserToExt getUserToExt(String accessToken);
 
+    public String authorize() {
+        return "redirect:" + provider.getAuthorizeUrl()
+                + "?client_id=" + provider.getClientId()
+                + "&redirect_uri=" + provider.getRedirectUri()
+                + "&state=csrf_token_auth";
+    }
     protected String getAccessToken(String code) {
         URI uri = fromHttpUrl(provider.getAccessTokenUrl())
                 .queryParam("client_id", provider.getClientId())
@@ -67,5 +79,4 @@ public abstract class AbstractOAuth2Controller {
         ResponseEntity<JsonNode> entity = template.getForEntity(builder.build().encode().toUri(), JsonNode.class);
         return entity.getBody();
     }
-
 }

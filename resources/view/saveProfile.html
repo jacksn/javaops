@@ -13,21 +13,25 @@
 </nav>
 <div class="container box">
     <div class="jumbotron">
-    <h4>Спасибо, обновления записаны!</h4>
+        <h4>Спасибо, обновления записаны!</h4>
         <!--/*@thymesVar id="userToExt" type="ru.javaops.to.UserToExt"*/-->
         <th:block th:if="${userToExt.jobThroughTopjava}">
+            <br/>
             <h3><a href='/view/story' target="_blank">А здесь уже есть твоя история?</a></h3>
             <h4>Если еще нет: жду после испытательного срока. Поделись опытом и успехами, это важно!</h4>
         </th:block>
         <h4 th:if="${userToExt.considerJobOffers}">
-            Для получения предложений о вакансиях обязательно заполни поле <code>Ссылка на резюме</code> и в <code>Информация для HR</code> так, что твое резюме захотят открыть!
+            <br/>
+            Для получения предложений о вакансиях обязательно заполни поле <code>Ссылка на резюме</code> и <code>Информацию
+            для HR</code> так, что твое резюме захотят открыть!
         </h4>
-        <h3 th:if="${userToExt.statsAgree}">
-            <!--/*@thymesVar id="key" type="java.lang.String"*/-->
-            <a th:href="@{/auth/users}">Список участников,
-                отсортированный по городам</a>
-        </h3>
-        <dd><button class="btn" onclick="window.history.back()">Вернуться к редактированию профиля</button></dd>
+        <th:block th:if="${authUser.member}">
+            <br/>
+            <h4><a th:href="@{/auth/users}" href="#">Список участников, отсортированный по городам</a></h4>
+            (доступен при <code>согласии на размещением своих данных в закрытой статистике группы</code>)
+        </th:block>
+        <br/><br/>
+        <a href="/auth/profile" class="btn btn-info">Профиль</a>
     </div>
 </div>
 </body>

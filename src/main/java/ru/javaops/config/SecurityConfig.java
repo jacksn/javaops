@@ -27,7 +27,8 @@ import ru.javaops.web.oauth.OAuth2Provider;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @PropertySources({
-        @PropertySource("file:config/oauth/github.properties")
+        @PropertySource("file:config/oauth/github.properties"),
+        @PropertySource("file:config/oauth/google.properties")
 })
 public class SecurityConfig {
 
@@ -63,11 +64,17 @@ public class SecurityConfig {
                     .antMatchers("/static/**");
         }
 
+        //   http://www.programcreek.com/java-api-examples/index.php?api=org.springframework.security.web.AuthenticationEntryPoint
+
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests()
                     .antMatchers("/auth/**").authenticated()
                     .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
+                    .and().exceptionHandling().authenticationEntryPoint(
+                    (request, response, authException) -> {
+                        response.sendRedirect("/view/accessDenied");
+                    })
                     .and().csrf().disable();
         }
     }
@@ -75,6 +82,12 @@ public class SecurityConfig {
     @Bean
     @ConfigurationProperties(prefix = "github")
     public OAuth2Provider githubOAuth2Provider() {
+        return new OAuth2Provider();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "google")
+    public OAuth2Provider googleOAuth2Provider() {
         return new OAuth2Provider();
     }
 
