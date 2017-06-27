@@ -39,47 +39,67 @@ footer {
     background-color: #293a48;
 }
 
-a[href^="https://tproger.ru"] {
+div.pad a[href^="skype:"] {
+    padding-left: 20px !important;
+    background: url(../static/img/skype.png) no-repeat center left;
+}
+
+div.pad a[href^="mailto:"] {
+    padding-left: 20px !important;
+    background: url(../static/img/email.png) no-repeat center left;
+}
+
+div.pad a[href^="https://vk.com"], .vk {
+    padding-left: 20px !important;
+    background: url(../static/img/vk.gif) no-repeat center left;
+}
+
+div.pad a[href^="https://tproger.ru"] {
     padding-left: 20px !important;
     background: url(../static/img/tprg.ico) no-repeat center left;
 }
 
-a[href^="https://habrahabr.ru"] {
+div.pad a[href^="https://www.youtube.com"], .video {
+    padding-left: 20px !important;
+    background: url(../static/img/youtube.ico) no-repeat center left;
+}
+
+div.pad a[href^="https://habrahabr.ru"]{
     padding-left: 20px !important;
     background: url(../static/img/habrahabr.png) no-repeat center left;
 }
 
-a[href^="https://stackoverflow.com"] {
+div.pad a[href^="https://stackoverflow.com"] {
     padding-left: 20px !important;
     background: url(../static/img/so.ico) no-repeat center left;
 }
 
-a[href^="https://www.linkedin.com"] {
+div.pad a[href^="https://www.linkedin.com"] {
     padding-left: 20px !important;
     background: url(../static/img/lin.png) no-repeat center left;
 }
 
-a[href*="github.com"] {
+div.pad a[href*="github.com"] {
     padding-left: 20px !important;
     background: url(../static/img/gh.png) no-repeat center left;
 }
 
-a[href*="drive.google.com"] {
+div.pad a[href*="drive.google.com"] {
     padding-left: 20px !important;
     background: url(../static/img/gdrv.ico) no-repeat center left;
 }
 
-a[href*="docs.google.com"] {
+div.pad a[href*="docs.google.com"] {
     padding-left: 20px !important;
     background: url(../static/img/gdoc.ico) no-repeat center left;
 }
 
-a[href*="yadi.sk"] {
+div.pad a[href*="yadi.sk"] {
     padding-left: 20px !important;
     background: url(../static/img/yadi.png) no-repeat center left;
 }
 
-a[href*="hh.ru"], a[href*="hh.ua"] {
+div.pad a[href*="hh.ru"], a[href*="hh.ua"] {
     padding-left: 20px !important;
     background: url(../static/img/hh.png) no-repeat center left;
 }
