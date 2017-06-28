@@ -198,9 +198,9 @@ public class SubscriptionController {
             mailService.sendToUser(projectName + "_repeat", user);
             IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, projectName);
             return new ModelAndView("registration",
-                    ImmutableMap.of("response", response, "email", email));
+                    ImmutableMap.of("response", response, "email", email, "project", projectName));
         }
-        throw new IllegalStateException("Пользователь " + email + " не участник проекта " + projectName);
+        throw new IllegalStateException("Пользователь <b>" + email + "</b> не участник проекта " + projectName);
     }
 
     @RequestMapping(value = "/idea", method = RequestMethod.GET)

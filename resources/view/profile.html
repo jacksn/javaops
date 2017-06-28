@@ -56,12 +56,13 @@
         </div>
     </div>
     <h4><i class="fa fa-percent" aria-hidden="true"></i> <a data-toggle="tooltip"
-                                                            data-original-title="Скидка на любой из текущих проектов">Бонусы</a>:
-        <span th:text="${authUser.bonus}">15</span>
-    </h4>
-    <h4><a data-toggle="tooltip"
-           data-original-title="При оплате проекта приглашенным участником вам добавляется 25 бонусов за Topjava/Masterjava и 10 за Basejava">Реферальная
-        ссылка для приглашения участников</a>:<br/> <b><span th:text="${refUrl}">refUrl</span></b></h4>
+                                                            data-original-title="Скидка % на любой из текущих проектов">Бонусы</a>:
+        <span th:text="${authUser.bonus}">15</span></h4>
+    <button class="btn btn-primary" data-toggle="tooltip"
+            data-original-title="При оплате проекта приглашенным участником вам добавляется 25 бонусов за Topjava/Masterjava и 10 за Basejava"
+            th:onclick="'copyToClipboard(\'' + ${refUrl} + '\')'">Скопировать в буфер реферальную ссылку для
+        приглашения участников
+    </button>
     <hr/>
     <h4>Мои группы: <i th:text="${groups}"></i></h4>
     <th:block th:if="${authUser.member}">
@@ -131,5 +132,13 @@
         });
         $.datetimepicker.setLocale('ru');
     });
+    function copyToClipboard(value) {
+        debugger;
+        var $temp = $("<input/>");
+        $("body").append($temp);
+        $temp.val(value).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
 </script>
 </html>
