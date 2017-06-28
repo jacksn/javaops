@@ -39,10 +39,10 @@ footer {
     background-color: #293a48;
 }
 
-a[href^="mailto:"]:not(.waves-effect) {
-    padding-left: 20px !important;
-    background: url(../static/img/email.png) no-repeat center left;
-}
+a[href^="mailto:"] {
+      padding-left: 20px !important;
+      background: url(../static/img/email.png) no-repeat center left;
+  }
 
 a[href^="https://vk.com"]:not(.waves-effect), .vk {
     padding-left: 20px !important;
@@ -97,6 +97,11 @@ a[href*="yadi.sk"] {
 a[href*="hh.ru"], a[href*="hh.ua"] {
     padding-left: 20px !important;
     background: url(../static/img/hh.png) no-repeat center left;
+}
+
+.nav-link a{
+    padding-left: 0 !important;
+    background: none !important;
 }
 
 .anchor:target {
