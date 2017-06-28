@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::headTag('Выбор профиля')">
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../static/css/mdb.css"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<nav th:replace="fragments::header" class="navbar fixed-top navbar-toggleable-md navbar-dark nav-bgr">
+    <div class="container">
+        <a href="/" class="navbar-brand"><strong>Java Online Projects</strong></a>
+    </div>
+</nav>
+<div class="container pad">
+    <div class="jumbotron">
+        <div class="text-center">
+            <h2>Профиль с почтой <b th:text="${param.email[0]}">email</b> не найден</h2>
+            <hr/>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="pull-right">
+                    <form action="/registerFromSite" method="post">
+                        <input class="btn btn-info" type="submit" value="Создать новый"/>
+                    </form>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="pull-left">
+                    <a class="btn btn-info" href="/view/accessDenied">Войти в существующий</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!--<th:block th:include="fragments::js-skype"/>-->
+<script type="text/javascript" src="/static/js/jquery-3.1.1.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="/static/js/tether.min.js"></script>
+<!-- https://mdbootstrap.com/getting-started/ -->
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="/static/js/mdb.min.js"></script>
+
+<a data-config="commands=add;size=14;status=on" id="skaip-buttons" href="http://www.skaip.su/">Skype</a>
+<script src="http://apps.skaip.su/buttons/widget/core.min.js" defer="defer"></script>
+</html>

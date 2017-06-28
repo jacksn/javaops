@@ -17,10 +17,7 @@ import ru.javaops.AuthorizedUser;
 import ru.javaops.model.Group;
 import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
-import ru.javaops.service.GoogleAdminSDKDirectoryService;
-import ru.javaops.service.GroupService;
-import ru.javaops.service.IntegrationService;
-import ru.javaops.service.UserService;
+import ru.javaops.service.*;
 import ru.javaops.to.UserStat;
 import ru.javaops.to.UserToExt;
 import ru.javaops.util.UserUtil;
@@ -51,6 +48,9 @@ public class ProfileController {
 
     @Autowired
     private IntegrationService integrationService;
+
+    @Autowired
+    private RefService refService;
 
     @Autowired
     private GoogleAdminSDKDirectoryService googleAdminSDKDirectoryService;
@@ -124,9 +124,11 @@ public class ProfileController {
                 .sorted()
                 .collect(Collectors.joining(", "));
 
+        String refUrl = refService.getRefUrl(null, user.getEmail());
         ImmutableMap.Builder<String, Object> builder =
                 new ImmutableMap.Builder<String, Object>()
                         .put("aboutMe", aboutMe)
+                        .put("refUrl", refUrl)
                         .put("groups", groups);
 
         if (params != null) {

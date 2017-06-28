@@ -64,6 +64,8 @@ public class RefService {
     }
 
     public String getRefUrl(String project, String email) {
-        return String.format("http://javaops.ru/ref/%s/%s", project, encrypt(email));
+        return project == null ?
+                String.format("http://javaops.ru/ref/%s", encrypt(email)) :
+                String.format("http://javaops.ru/ref/%s/%s", project, encrypt(email));
     }
 }

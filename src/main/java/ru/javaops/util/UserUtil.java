@@ -25,6 +25,12 @@ public class UserUtil {
         return user;
     }
 
+    public static User createFromToExt(UserToExt userToExt) {
+        User user = createFromTo(userToExt);
+        user.setGithub(userToExt.getGithub());
+        return user;
+    }
+
     public static void updateFromToExt(User user, UserToExt userToExt) {
         updateFromTo(user, userToExt);
         if (user.isMember()) {
