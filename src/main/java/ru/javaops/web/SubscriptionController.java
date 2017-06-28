@@ -102,7 +102,7 @@ public class SubscriptionController {
         return mv;
     }
 
-    @RequestMapping(value = "/registerFromSite", method = RequestMethod.POST)
+    @RequestMapping(value = "/register-site", method = RequestMethod.POST)
     public ModelAndView registerSite(@CookieValue(value = "channel", required = false) String cookieChannel,
                                      @CookieValue(value = "ref", required = false) String refUserId,
                                      HttpServletRequest request) {
