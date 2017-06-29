@@ -18,7 +18,7 @@ spring:
 
 #http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-caching.html#boot-features-caching-provider-caffeine
 spring.cache:
-    cache-names: group, groups, member_groups
+    cache-names: group, groups, member_groups, project
     guava.spec: maximumSize=100, expireAfterAccess=15s
 
 logging:

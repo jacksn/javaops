@@ -7,7 +7,9 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.javaops.model.Group;
+import ru.javaops.model.Project;
 import ru.javaops.repository.GroupRepository;
+import ru.javaops.repository.ProjectRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,9 @@ public class CachedGroups {
     @Autowired
     private GroupRepository groupRepository;
 
+    @Autowired
+    private ProjectRepository projectRepository;
+
     @Cacheable("groups")
     public List<Group> getAll() {
         log.debug("getAll");
@@ -39,6 +44,11 @@ public class CachedGroups {
     public Map<Integer, Group> getMembers() {
         List<Group> groups = getAll();
         return groups.stream().filter(Group::isMembers).collect(Collectors.toMap(Group::getId, g -> g));
+    }
+
+    @Cacheable("project")
+    public Project getProject(String name) {
+        return projectRepository.getByName(name);
     }
 
     @Cacheable("group")

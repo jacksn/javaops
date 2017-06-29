@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.javaops.AuthorizedUser;
-import ru.javaops.model.Group;
+import ru.javaops.model.IdeaCoupon;
 import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
 import ru.javaops.service.*;
@@ -28,6 +28,8 @@ import javax.validation.ValidationException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * gkislin
@@ -51,6 +53,9 @@ public class ProfileController {
 
     @Autowired
     private RefService refService;
+
+    @Autowired
+    private IdeaCouponService ideaCouponService;
 
     @Autowired
     private GoogleAdminSDKDirectoryService googleAdminSDKDirectoryService;
@@ -117,19 +122,40 @@ public class ProfileController {
     }
 
     private ModelAndView getProfileView(Map<String, ?> params) {
-        User user = AuthorizedUser.user();
+        User user = checkNotNull(AuthorizedUser.user());
         String aboutMe = UserUtil.normalize(user.getAboutMe());
-        String groups = groupService.getGroupsByUserId(user.getId()).stream()
-                .map(Group::getName)
-                .sorted()
-                .collect(Collectors.joining(", "));
+
+        Map<String, String> projects = groupService.getGroupsByUserId(user.getId()).stream()
+                .filter(g -> g.getProject() != null)
+                .collect(Collectors.toMap(g -> g.getProject().getName(), g -> g.getType().name(), (t1, t2) -> t1 + t2));
+/*
+        Map<String, Set<GroupType>> projects = groupService.getGroupsByUserId(user.getId()).stream()
+                .filter(g -> g.getProject() != null)
+                .collect(Collectors.groupingBy(g -> g.getProject().getName(),
+                        Collector.of(
+                                () -> EnumSet.noneOf(GroupType.class),
+                                (set, g) -> set.add(g.getType()),
+                                (set, set2) -> {
+                                    set.addAll(set2);
+                                    return set;
+                                })));
+*/
 
         String refUrl = refService.getRefUrl(null, user.getEmail());
+
+        String ideaCoupon = "";
+        if (user.isMember()) {
+            IdeaCoupon coupon = ideaCouponService.getByUser(user);
+            if (coupon != null) {
+                ideaCoupon = coupon.getCoupon();
+            }
+        }
         ImmutableMap.Builder<String, Object> builder =
                 new ImmutableMap.Builder<String, Object>()
                         .put("aboutMe", aboutMe)
                         .put("refUrl", refUrl)
-                        .put("groups", groups);
+                        .put("ideaCoupon", ideaCoupon)
+                        .put("projects", projects);
 
         if (params != null) {
             builder = builder.putAll(params);

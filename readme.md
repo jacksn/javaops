@@ -16,12 +16,19 @@ https://api.travis-ci.org/gkislin/javaops.svg?branch=master
   - https://www.sencha.com/products/gxt
 
 ### Задачи:
-- Селать авторизацию по oAuth2 с github: https://spring.io/guides/tutorials/spring-boot-oauth2/
-  - Пример не на boot:
-      - <a href="http://rblik-topjava.herokuapp.com">Авторизация в приложение через GitHub аккаунт по OAuth2</a></b><br/>
-      - <a href="https://github.com/rblik/topjava/tree/oauth">ветка oauth в гитхабе</a>
-
 - Рассылка сообщений в slack: https://api.slack.com/interactive-messages
+SSL: https://www.emaro-ssl.ru/shop/Comodo/positive-ssl/ - 690р в год.
+Есть бесплатные с пробным периодом 1-3 месяца. Но вижу бесплатные и на 2 года, что странно https://www.startcomca.com/
+Ограничения самого дешевого сертификата: 1 домен example.com и 1 поддомен www.example.com, но у каждого разные правила
+Сертификат заказывается для доменного имени, поэтому при заказе сразу понадобиться либо почта admin@example.com, либо на свой хостинг положить файл, чтобы доказать, что доменное имя принадлежат тебе. См. другие способы валидации https://thehost.ua/wiki/SSL
+Далее Comodo или другой сертификационный центр присылает сертификат на домен и пачку ssl-рутовых - всё это добро я скармливал nginx, а под ним tomcat.
+Потом там начинаются проблемы с редиректами для логина на google.com/fb.com/vk.com
+С этим всем можно 2 недели провозиться. Первый раз я пробовал всё настраивать на тестовом домене и хостинге.
+emaro-ssl.ru
+
+https://thehost.ua/wiki/SSL
+https://www.emaro-ssl.ru/shop/Comodo/positive-ssl/
+
 
 ### Работа:
    Создать пустой ./config/sql.properties
