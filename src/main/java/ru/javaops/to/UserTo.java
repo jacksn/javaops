@@ -3,7 +3,6 @@ package ru.javaops.to;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -14,7 +13,6 @@ import org.hibernate.validator.constraints.SafeHtml;
  */
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class UserTo {
     @NotEmpty(message = "Поле email не может быть пустым")
@@ -44,5 +42,10 @@ public class UserTo {
 
     public void setLocation(String location) {
         this.location = location == null ? null : location.trim().toLowerCase();
+    }
+
+    @Override
+    public String toString() {
+        return "(email:" + email + ", name" + nameSurname + ')';
     }
 }

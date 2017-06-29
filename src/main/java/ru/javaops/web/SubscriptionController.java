@@ -12,15 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import ru.javaops.AuthorizedUser;
 import ru.javaops.model.*;
 import ru.javaops.service.*;
 import ru.javaops.to.UserMailImpl;
 import ru.javaops.to.UserTo;
-import ru.javaops.util.ProjectUtil;
-import ru.javaops.util.RefUtil;
-import ru.javaops.util.Util;
+import ru.javaops.to.UserToExt;
+import ru.javaops.util.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
 import java.time.LocalDate;
@@ -99,6 +100,22 @@ public class SubscriptionController {
             mailService.sendWithTemplateAsync(new UserMailImpl(null, confirmMail), "simpleConfirm", params);
         }
         return mv;
+    }
+
+    @RequestMapping(value = "/register-site", method = RequestMethod.POST)
+    public ModelAndView registerSite(@CookieValue(value = "channel", required = false) String cookieChannel,
+                                     @CookieValue(value = "ref", required = false) String refUserId,
+                                     HttpServletRequest request) {
+        UserToExt userToExt = AuthorizedUser.getPreAuthorized(request);
+        if (userToExt == null) {
+            WebUtil.logWarn(request);
+            return null;
+        }
+        log.info("+++ !!! Register from Site, {}", userToExt);
+        User user = UserUtil.createFromToExt(userToExt);
+        userService.save(user);
+        AuthorizedUser.setAuthorized(user, request);
+        return new ModelAndView("redirect:/auth/profile");
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -181,9 +198,9 @@ public class SubscriptionController {
             mailService.sendToUser(projectName + "_repeat", user);
             IntegrationService.SlackResponse response = integrationService.sendSlackInvitation(email, projectName);
             return new ModelAndView("registration",
-                    ImmutableMap.of("response", response, "email", email));
+                    ImmutableMap.of("response", response, "email", email, "project", projectName));
         }
-        throw new IllegalStateException("Пользователь " + email + " не участник проекта " + projectName);
+        throw new IllegalStateException("Пользователь <b>" + email + "</b> не участник проекта " + projectName);
     }
 
     @RequestMapping(value = "/idea", method = RequestMethod.GET)

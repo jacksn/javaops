@@ -43,7 +43,8 @@ public abstract class AbstractOAuth2Controller {
             log.info(provider.getName() + " authorization from user {}", userToExt.getEmail());
             User user = userService.findByEmailOrGmail(userToExt.getEmail());
             if (user == null) {
-                return "redirect:/view/accessDenied?email=" + userToExt.getEmail();
+                AuthorizedUser.setPreAuthorized(userToExt, request);
+                return "redirect:/view/profileChoice?email=" + userToExt.getEmail();
             }
             if (UserUtil.updateFromAuth(user, userToExt)) {
                 userService.save(user);
@@ -62,6 +63,7 @@ public abstract class AbstractOAuth2Controller {
                 + "&redirect_uri=" + provider.getRedirectUri()
                 + "&state=csrf_token_auth";
     }
+
     protected String getAccessToken(String code) {
         URI uri = fromHttpUrl(provider.getAccessTokenUrl())
                 .queryParam("client_id", provider.getClientId())

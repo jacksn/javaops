@@ -40,11 +40,11 @@ footer {
 }
 
 a[href^="mailto:"] {
-    padding-left: 20px !important;
-    background: url(../static/img/email.png) no-repeat center left;
-}
+      padding-left: 20px !important;
+      background: url(../static/img/email.png) no-repeat center left;
+  }
 
-a[href^="https://vk.com"], .vk {
+a[href^="https://vk.com"]:not(.waves-effect), .vk {
     padding-left: 20px !important;
     background: url(../static/img/vk.gif) no-repeat center left;
 }
@@ -54,12 +54,12 @@ a[href^="https://tproger.ru"] {
     background: url(../static/img/tprg.ico) no-repeat center left;
 }
 
-a[href^="https://www.youtube.com"], .video {
+a[href^="https://www.youtube.com"]:not(.waves-effect), .video {
     padding-left: 20px !important;
     background: url(../static/img/youtube.ico) no-repeat center left;
 }
 
-a[href^="https://habrahabr.ru"]{
+a[href^="https://habrahabr.ru"] {
     padding-left: 20px !important;
     background: url(../static/img/habrahabr.png) no-repeat center left;
 }

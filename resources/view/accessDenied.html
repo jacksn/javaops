@@ -1,5 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments::headTag('Access Denied')">
+<head th:replace="fragments::headTag('Доступ к профилю')">
     <link rel="stylesheet" href="../static/css/bootstrap.css"/>
     <link rel="stylesheet" href="../static/css/mdb.css"/>
     <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
@@ -15,11 +15,9 @@ Pro
 <div class="container pad">
     <div class="jumbotron">
         <div class="text-center">
-            <h2>Неавторизованный доступ <span th:if="${param.email}!=null" th:text="|по почте '${param.email[0]}'|">по почте <b>email</b></span>
-            </h2>
-            <br/>
+            <h2>Доступ к профилю возможен:</h2>
         </div>
-        <h4>Доступ к данным профиля возможен:</h4>
+        <br/>
         <ul>
             <li><h5><b>по ссылке в регистрационном письме</b></h5></li>
             <li><h5><a href="/login/github"><i class="fa fa-github"></i> через GitHub</a> (email профиля <b>должен

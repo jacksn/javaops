@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="authUser" type="ru.javaops.model.User"*/-->
-<!--/*@thymesVar id="projectName" type="java.lang.String"*/-->
-<head th:replace="fragments::headTag(${projectName}==null ? 'Профиль':'Регистрация на проект '+ ${projectName})">
+<!--/*@thymesVar id="project" type="java.lang.String"*/-->
+<head th:replace="fragments::headTag(${project}==null ? 'Профиль':'Регистрация на проект '+ ${project})">
     <link rel="stylesheet" href="../static/css/bootstrap.css"/>
     <link rel="stylesheet" href="../static/css/mdb.css"/>
     <link rel="stylesheet" href="../static/css/font-awesome.min.css"/>
@@ -39,31 +39,37 @@
                 <h4 th:if="${authUser.github}!=null">
                     <a th:href="${authUser.github}" href="#">Github account</a>
                 </h4>
-                <h4><i class="fa fa-percent" aria-hidden="true"></i> Бонусы: <span
-                        th:text="${authUser.bonus}">15</span>
-                </h4>
                 <br/>
                 <b>
-                    <a th:if="${projectName==null}" href="/auth/profileER" class="btn btn-info">Редактировать</a>
-                    <a th:if="${projectName!=null}"
-                       th:href="@{/auth/profileER(project=${projectName})}"
-                       th:text="|Регистрация на проект ${projectName}|" class="btn btn-info">Регистрация на проект
+                    <a th:if="${project==null}" href="/auth/profileER" class="btn btn-info">Редактировать</a>
+                    <a th:if="${project!=null}"
+                       th:href="@{/auth/profileER(project=${project})}"
+                       th:text="|Регистрация на проект ${project}|" class="btn btn-info">Регистрация на проект
                         project</a>
                 </b>
             </div>
             <div class="col-7 card">
                 <div class="card-block" th:utext="${aboutMe}">
-                aboutMe
+                    aboutMe
                 </div>
             </div>
         </div>
-        <hr/>
-        <h4>Мои группы: <i th:text="${groups}"></i></h4>
-        <th:block th:if="${authUser.member}">
-            <h4><a th:href="@{/auth/users}" href="#">Список участников, отсортированный по городам</a></h4>
-            (доступен при <code>согласии на размещением своих данных в закрытой статистике группы</code>)
-        </th:block>
     </div>
+    <h4><i class="fa fa-percent" aria-hidden="true"></i> <a data-toggle="tooltip"
+                                                            data-original-title="Скидка % на любой из текущих проектов">Бонусы</a>:
+        <span th:text="${authUser.bonus}">15</span></h4>
+    <button class="btn btn-primary" data-toggle="tooltip"
+            data-original-title="При оплате проекта приглашенным участником вам добавляется 25 бонусов за Topjava/Masterjava и 10 за Basejava"
+            th:onclick="'copyToClipboard(\'' + ${refUrl} + '\')'">Скопировать в буфер реферальную ссылку для
+        приглашения участников
+    </button>
+    <hr/>
+    <h4>Мои группы: <i th:text="${groups}"></i></h4>
+    <th:block th:if="${authUser.member}">
+        <h4><a th:href="@{/auth/users}" href="#">Список участников, отсортированный по городам</a></h4>
+        (доступен при <code>согласии на размещением своих данных в закрытой статистике группы</code>)
+    </th:block>
+    <hr/>
     <div th:unless="${authUser.partner}">
         <h5>
             06.07 старт <a href="http://javaops.ru/reg/topjava?ch=profile">Java Enterprise (Topjava)</a>. <a
@@ -92,7 +98,25 @@
     </div>
 </div>
 </body>
-<th:block th:include="fragments::js-skype"/>
+<th:block th:include="fragments::js-skype">
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="../static/js/tether.min.js"></script>
+    <!-- https://mdbootstrap.com/getting-started/ -->
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="../static/js/mdb.min.js"></script>
+
+    <a data-config="commands=add;size=14;status=on" id="skaip-buttons" href="http://www.skaip.su/">Skype</a>
+    <script src="http://apps.skaip.su/buttons/widget/core.min.js" defer="defer"></script>
+</th:block>
+<th:block th:include="fragments::tooltip">
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</th:block>
 <script type="text/javascript" src="../static/datetimepicker/jquery.datetimepicker.full.min.js"></script>
 <script type="application/javascript">
     $(function () {
@@ -108,5 +132,13 @@
         });
         $.datetimepicker.setLocale('ru');
     });
+    function copyToClipboard(value) {
+        debugger;
+        var $temp = $("<input/>");
+        $("body").append($temp);
+        $temp.val(value).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
 </script>
 </html>
