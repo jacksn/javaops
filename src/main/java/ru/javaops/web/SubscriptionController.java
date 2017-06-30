@@ -19,6 +19,7 @@ import ru.javaops.to.UserMailImpl;
 import ru.javaops.to.UserTo;
 import ru.javaops.to.UserToExt;
 import ru.javaops.util.*;
+import ru.javaops.util.exception.NotMemberException;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,8 +30,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
-
-import static com.google.common.base.Preconditions.checkState;
 
 /**
  * GKislin
@@ -56,6 +55,9 @@ public class SubscriptionController {
 
     @Autowired
     private IdeaCouponService ideaCouponService;
+
+    @Autowired
+    private CachedGroups cachedGroups;
 
     @RequestMapping(value = "/activate", method = RequestMethod.GET)
     public ModelAndView activate(@RequestParam("email") String email, @RequestParam("activate") boolean activate, @RequestParam("key") String key) {
@@ -179,7 +181,7 @@ public class SubscriptionController {
         return new ModelAndView("redirectToUrl", "redirectUrl", url);
     }
 
-    @RequestMapping(value = "/repeat", method = RequestMethod.GET)
+    @RequestMapping(value = "/repeat", method = RequestMethod.POST)
     public ModelAndView repeat(@RequestParam("email") String email,
                                @RequestParam("project") String projectName) throws MessagingException {
 
@@ -200,15 +202,16 @@ public class SubscriptionController {
             return new ModelAndView("registration",
                     ImmutableMap.of("response", response, "email", email, "project", projectName));
         }
-        throw new IllegalStateException("Пользователь <b>" + email + "</b> не участник проекта " + projectName);
+        throw new NotMemberException(email, projectName);
     }
 
     @RequestMapping(value = "/idea", method = RequestMethod.GET)
     public ModelAndView ideaRegister(@RequestParam("email") String email, @RequestParam("project") String projectName) throws MessagingException {
         User user = userService.findExistedByEmail(email);
-        checkState(groupService.isProjectMember(user.getId(), projectName), "Пользователь %s не найден в проекте %s", email, projectName);
-
-        IdeaCoupon coupon = ideaCouponService.assignToUser(user, groupService.getProjectProps(projectName).project);
+        if (!user.isMember()) {
+            throw new NotMemberException(user.getEmail());
+        }
+        IdeaCoupon coupon = ideaCouponService.assignToUser(user, cachedGroups.getProject(projectName));
         String response = mailService.sendWithTemplate("idea_register", user, ImmutableMap.of("coupon", coupon.getCoupon()));
         if (MailService.OK.equals(response)) {
             return new ModelAndView("registration_idea");

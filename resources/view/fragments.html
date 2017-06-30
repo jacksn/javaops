@@ -78,7 +78,7 @@
                         </th:block>
                         <th:block th:if="${authUser}!=null">
                             <a class="dropdown-item waves-effect waves-light" href="/auth/profile">
-                                <i class="fa fa-user"></i> Мой аккаунт
+                                <i class="fa fa-user"></i> Мой профиль
                             </a>
                             <a class="dropdown-item waves-effect waves-light" href="/logout">
                                 <i class="fa fa-sign-out"></i> Выход
@@ -139,6 +139,20 @@
 
 <th:block th:fragment="delim(name, title)">
     <h3 class="text-center"><a th:name="${name}" class="anchor" th:text="${title}"></a></h3>
+</th:block>
+
+<th:block th:fragment="contacts">
+    <h4>
+        Почта: <a href="mailto:admin@javaops.ru">admin@javaops.ru</a>
+    </h4>
+    <h4>
+        Группа vk: <a href="https://vk.com/javawebinar">Java Enterprise Online Обучение</a><br/>
+    </h4>
+    <h4>
+        Добавляйтесь в skype: <a href="skype:grigory.kislin">grigory.kislin</a> и <a
+            href="https://vk.com/grigory.kislin">Григорий
+        Кислин</a>
+    </h4>
 </th:block>
 
 <div th:fragment="modal(project, title)">

@@ -37,7 +37,7 @@
                                                                                     href="#">Resume</a>
                 </h4>
                 <h4 th:if="${authUser.github}!=null">
-                    <a th:href="${authUser.github}" href="#">Github account</a>
+                    <a th:href="${authUser.github}" href="#">GitHub account</a>
                 </h4>
                 <br/>
                 <b>
@@ -57,35 +57,65 @@
     </div>
     <h4><i class="fa fa-percent" aria-hidden="true"></i> <a data-toggle="tooltip"
                                                             data-original-title="Скидка % на любой из текущих проектов">Бонусы</a>:
-        <span th:text="${authUser.bonus}">15</span></h4>
-    <button class="btn btn-primary" data-toggle="tooltip"
+        <span th:text="${authUser.bonus}">15</span>
+    </h4>
+    <button class="btn btn-info" data-toggle="tooltip"
             data-original-title="При оплате проекта приглашенным участником вам добавляется 25 бонусов за Topjava/Masterjava и 10 за Basejava"
-            th:onclick="'copyToClipboard(\'' + ${refUrl} + '\')'">Скопировать в буфер реферальную ссылку для
-        приглашения участников
+            th:onclick="'copyToClipboard(\'' + ${refUrl} + '\')'">Скопировать в буфер реферальную ссылку
     </button>
-    <hr/>
-    <h4>Мои группы: <i th:text="${groups}"></i></h4>
-    <th:block th:if="${authUser.member}">
-        <h4><a th:href="@{/auth/users}" href="#">Список участников, отсортированный по городам</a></h4>
-        (доступен при <code>согласии на размещением своих данных в закрытой статистике группы</code>)
-    </th:block>
-    <hr/>
+    <div th:if="${authUser.member}">
+        <hr/>
+        <h5 th:if="${ideaCoupon}!=''"
+            th:utext="|Персональный единоразовый купон на IntelliJ IDEA: &lt;b&gt;${ideaCoupon}&lt;/b&gt;|">Твой
+            единоразовый купон на IntelliJ IDEA: ideaCoupon</h5>
+        <a th:if="${ideaCoupon}==''" class="btn btn-info"
+           th:href="@{/idea(email=${authUser.email}, project='javaops')}" data-toggle="tooltip" href="#"
+           data-original-title="Купом лучше активировать после месячного trial периода, он бессрочный">Получить
+            единоразовый 6-месячный купон на Ultimate IntelliJ IDEA
+        </a>
+    </div>
     <div th:unless="${authUser.partner}">
-        <h5>
-            06.07 старт <a href="http://javaops.ru/reg/topjava?ch=profile">Java Enterprise (Topjava)</a>. <a
-                href="http://javaops.ru/reg/topjava?ch=profile#schedule">Расписание</a>
-        </h5>
-        <h5>
-            <a href="http://javaops.ru/reg/masterjava?ch=profile">Разработка полнофункционального многомодульного Maven
-                проекта (Masterjava)</a>. <a
-                href="https://github.com/JavaOPs/masterjava#Программа-проекта-1">Программа</a><br/>
-            <a href="http://javaops.ru/reg/basejava?ch=profile">Разработка Web приложения "<i>База данных
-                резюме</i>"</a>. <a
-                href="http://javaops.ru/reg/basejava?ch=profile#program">Программа</a><br/>
-            Старт в любое время по готовым материалам и патчам с поддержкой в группе Slack.
-        </h5>
+        <hr/>
+        <div th:with="projectsName = ${ {'basejava', 'topjava', 'masterjava'} }">
+            <div th:each="project : ${projectsName}">
+                <div th:with="types = ${projects['__${project}__']}">
+                    <form th:action="@{/register}" method="post" th:if="${types}==null" style="margin-bottom: 5px">
+                        <input name="nameSurname" th:value="${authUser.fullName}" hidden="hidden"/>
+                        <input name="email" th:value="${authUser.email}" hidden="hidden"/>
+                        <input name="template" th:value="|${project}_entrance|" hidden="hidden"/>
+                        <input name="project" th:value="${project}" hidden="hidden"/>
+                        <input name="channel" value="profile" hidden="hidden"/>
+                        <button class="btn btn-default" type="submit"
+                                th:text="|Получить первое бесплатное занятие проекта ${project}|"></button>
+                    </form>
+
+                    <a class="btn btn-default" th:if="${types!=null and #strings.contains(types,'REGISTERED')}"
+                       th:text="|Принять участие в проекте ${project}|" th:href="@{'/reg/'+${project}+'#price'}">
+                        Принять участие в проекте project
+                    </a>
+                    <th:block
+                            th:if="${project=='topjava' and types!=null and #strings.contains(types,'FINISHED')}">
+                        <form th:if="${!#strings.contains(types,'CURRENT')}" th:action="@{/repeat}" method="post"
+                              style="margin-bottom: 5px">
+                            <input name="email" th:value="${authUser.email}" hidden="hidden"/>
+                            <input name="project" value="topjava" hidden="hidden"/>
+                            <button class="btn btn-default" type="submit">Принять повторное участие в стажировке
+                                Topjava
+                            </button>
+                        </form>
+<!--
+                        <a class="btn btn-default"
+                           th:href="@{/participate(email=${authUser.email}, key=${activationKey}, project='javaops')}">
+                            Присоедениться к группе Slack выпускников (если еще не с нами)
+                        </a>
+-->
+                    </th:block>
+                </div>
+            </div>
+        </div>
     </div>
     <div th:if="${authUser.partner}">
+        <hr/>
         <!--https://v4-alpha.getbootstrap.com/components/forms/#form-layouts-->
         <form class="form-inline">
             <h4>База кандидатов на позицию Java разработчик от даты:&nbsp;&nbsp;
@@ -96,6 +126,12 @@
             </h4>
         </form>
     </div>
+    <th:block th:if="${authUser.member}">
+        <hr/>
+        <h4><a th:href="@{/auth/users}" href="#">Список участников, отсортированный по городам</a></h4>
+        (доступен при <code>согласии на размещением своих данных в закрытой статистике группы</code>)
+    </th:block>
+    <hr/>
 </div>
 </body>
 <th:block th:include="fragments::js-skype">

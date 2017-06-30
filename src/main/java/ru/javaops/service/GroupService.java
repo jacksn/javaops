@@ -16,6 +16,7 @@ import ru.javaops.util.ProjectUtil;
 import ru.javaops.util.ProjectUtil.ProjectProps;
 import ru.javaops.util.TimeUtil;
 import ru.javaops.util.UserUtil;
+import ru.javaops.util.exception.NotMemberException;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -163,7 +164,7 @@ public class GroupService {
         if (projectName.equals("javaops")) {
             u = userService.findExistedByEmail(email);
             if (!u.isMember()) {
-                throw new IllegalStateException("Регистрация только для участников Java Online Projects");
+                throw new NotMemberException(email);
             }
         } else {
             ProjectProps projectProps = getProjectProps(projectName);

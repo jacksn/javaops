@@ -22,8 +22,12 @@ public class IdeaCouponService {
     @Autowired
     private IdeaCouponRepository ideaCouponRepository;
 
+    public IdeaCoupon getByUser(User user) {
+        return ideaCouponRepository.findByUserId(user.getId());
+    }
+
     public IdeaCoupon assignToUser(User user, Project project) {
-        IdeaCoupon ideaCoupon = ideaCouponRepository.findByUserId(user.getId());
+        IdeaCoupon ideaCoupon = getByUser(user);
         if (ideaCoupon != null) {
             throw new IllegalStateException("Согласно политике JetBrains персональный купон IDEA выдается только один раз.");
         }
